@@ -1,5 +1,5 @@
 <a href="링크넣기" target="_blank">
-<img src="https://github.com/user-attachments/assets/daa622b9-7c69-4786-8db3-4996b7f140be" alt="배너" width="100%"/>
+<img src="../react-runcation-jeju/src/assets/mainImg.png" alt="배너" width="100%"/>
 </a>
 
 <br/>
@@ -18,7 +18,7 @@ $ npm start
 
 # 1. Project Overview (프로젝트 개요)
 
-- 프로젝트 이름: 런케이션 in Jeju
+- 프로젝트 이름: JEJU SMIITHY
 - 프로젝트 설명: <br/>
 구름 제주 런케이션 경험을 바탕으로, <br/>
 팀원 정산과 제주 맛집/명소 추천 기능을 담은 웹앱입니다.
