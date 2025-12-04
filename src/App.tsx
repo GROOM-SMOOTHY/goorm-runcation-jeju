@@ -2,6 +2,7 @@ import { useState } from "react";
 import MainButton from "./components/common/MainButton";
 import MainInput from './components/common/MainInput';
 import TopNavigation from "./components/common/TopNavigation";
+import orange from './assets/orange.png';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
       <TopNavigation
         title="서브타이틀"
         onBack={() => console.log("뒤로가기")}
-        rightElement={<img src={"/src/assets/orange.png"} width={35} />}
+        rightElement={<img src={orange} width={35} />}
       />
     </div>
   )
