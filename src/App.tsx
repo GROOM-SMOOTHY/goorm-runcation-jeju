@@ -1,13 +1,16 @@
-import './App.css'
-import MainButton from "./components/common/mainbutton";
+import { useState } from "react";
+import MainButton from "./components/common/MainButton";
+import MainInput from './components/common/MainInput';
+import TopNavigation from "./components/common/TopNavigation";
+
 
 function App() {
-
+  const [price, setPrice] = useState("");
   return (
     <div style={{ padding: 20 }}>
       <MainButton>기본 버튼</MainButton>
 
-      <MainButton variant="outlined">아웃라인 버튼</MainButton>
+      <MainButton variant="fullcolor">풀컬러 버튼</MainButton>
 
       <MainButton variant="text">텍스트 버튼</MainButton>
 
@@ -20,6 +23,19 @@ function App() {
       <MainButton fullWidth>가로 100% 버튼</MainButton>
 
       <MainButton disabled>비활성화</MainButton>
+    
+      <MainInput
+        placeholder="EX) 이권우"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        onClear={() => setPrice("")}
+      />
+    
+      <TopNavigation
+        title="서브타이틀"
+        onBack={() => console.log("뒤로가기")}
+        rightElement={<img src={"/src/assets/orange.png"} width={35} />}
+      />
     </div>
   )
 }
