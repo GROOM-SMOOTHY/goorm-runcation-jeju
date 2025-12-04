@@ -1,5 +1,5 @@
 <a href="링크넣기" target="_blank">
-<img src="../react-runcation-jeju/src/assets/mainImg.png" alt="배너" width="100%"/>
+<img src="./src/assets/mainImg.png" alt="배너" width="100%"/>
 </a>
 
 <br/>
