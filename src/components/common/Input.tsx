@@ -69,6 +69,7 @@ const MainInput: React.FC<MainInputProps> = ({
         x
       </span>
 
+
       {/* underline */}
       <div style={underlineStyle} />
     </div>

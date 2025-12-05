@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MainButton from "./components/common/MainButton";
-import MainInput from './components/common/MainInput';
-import TopNavigation from "./components/common/TopNavigation";
+import Button from "./components/common/Button";
+import Input from './components/common/Input';
+import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
 
 
@@ -9,23 +9,23 @@ function App() {
   const [price, setPrice] = useState("");
   return (
     <div style={{ padding: 20 }}>
-      <MainButton>기본 버튼</MainButton>
+      <Button>기본 버튼</Button>
 
-      <MainButton variant="fullcolor">풀컬러 버튼</MainButton>
+      <Button variant="fullcolor">풀컬러 버튼</Button>
 
-      <MainButton variant="text">텍스트 버튼</MainButton>
+      <Button variant="text">텍스트 버튼</Button>
 
-      <MainButton size="large">큰 버튼</MainButton>
+      <Button size="large">큰 버튼</Button>
 
-      <MainButton size="small">작은 버튼</MainButton>
+      <Button size="small">작은 버튼</Button>
 
-      <MainButton loading>로딩 버튼</MainButton>
+      <Button loading>로딩 버튼</Button>
 
-      <MainButton fullWidth>가로 100% 버튼</MainButton>
+      <Button fullWidth>가로 100% 버튼</Button>
 
-      <MainButton disabled>비활성화</MainButton>
+      <Button disabled>비활성화</Button>
     
-      <MainInput
+      <Input
         placeholder="EX) 이권우"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
