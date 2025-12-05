@@ -5,7 +5,7 @@ import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
 
 
-function App() {
+function App() { 
   const [price, setPrice] = useState("");
   return (
     <div style={{ padding: 20 }}>
