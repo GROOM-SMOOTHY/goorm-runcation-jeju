@@ -1,0 +1,52 @@
+.main {
+    width: 100%;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.main.done {
+  background-color: #e1ecff;
+}
+.main.yet {
+  background-color: #ffe5e2;
+}
+
+.date > span {
+  font-size: 16px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.title > div {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.title > div > img {
+  width: 20px;
+  height: 20px;
+}
+
+.title > span {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}

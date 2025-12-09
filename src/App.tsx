@@ -3,6 +3,7 @@ import Button from "./components/common/Button";
 import Input from './components/common/Input';
 import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
+import ListItem from "./components/common/List";
 
 
 function App() { 
@@ -36,6 +37,17 @@ function App() {
         title="서브타이틀"
         onBack={() => console.log("뒤로가기")}
         rightElement={<img src={orange} width={35} />}
+      />
+
+      <ListItem
+        date="2025.12.09"
+        title="제주 해장국 동해물과 백두ㅇㅍㄴㅇㅀㅁㄴㅇ산이dfdfadfadfdfadfdfafadfasdfasdf"
+        status="done"
+      />
+      <ListItem
+        date="2025.12.09"
+        title="제주 해장국"
+        status="yet"
       />
     </div>
   )
