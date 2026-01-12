@@ -2,12 +2,18 @@ import React, { useRef } from "react";
 import MainInput from "./MainInput";
 import searchinput from "../../assets/searchinput.png";
 
+// 타입 선언 
 interface SearchInputProps {
-  value: string;
-  onChange: (value: string) => void;
-  onSearch: (value: string) => void;
+  value: string; 
+  onChange: (value: string) => void; // 입력 변경 콜백
+  onSearch: (value: string) => void; // 검색 변경 콜백
 }
 
+// ===============================
+// SearchInput 컴포넌트
+// - forwardRef를 이용해 외부에서 input 접근 가능
+// - 검색 버튼 클릭 또는 Enter로 검색 실행
+// ===============================
 const SearchInput: React.FC<SearchInputProps> = ({
   value,
   onChange,
@@ -15,9 +21,11 @@ const SearchInput: React.FC<SearchInputProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  /* ===============================
-   * 검색 실행
-   * =============================== */
+/* ===============================
+ * 검색 실행 함수
+ * - 입력값이 없으면 실행 안 함
+ * - 실행 후 포커스 유지
+ * =============================== */
   const handleSearch = () => {
     if (!value.trim()) return;
     onSearch(value.trim());
@@ -36,7 +44,12 @@ const SearchInput: React.FC<SearchInputProps> = ({
         placeholder="검색어를 입력하세요"
         onChange={(e) => onChange(e.target.value)}
         onClear={() => onChange("")}
-        clearRight={52} // 🔥 검색 버튼 공간 확보
+        onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
+        clearRight={52} // 검색 버튼 공간 확보
         rightPadding={89}
       />
 
