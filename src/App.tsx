@@ -5,6 +5,13 @@ import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
 import SearchInput from './components/common/SearchInput';
 
+/**
+ * Root application component that renders demo UI controls: multiple Button variants, a MainInput bound to `keyword`, a SearchInput bound to `searchKeyword`, and a TopNavigation bar.
+ *
+ * The component manages local state for `keyword` and `searchKeyword` and wires input change/clear/search handlers to those states.
+ *
+ * @returns A JSX element containing the app's demo UI (buttons, inputs, and top navigation).
+ */
 function App() { 
   // 인풋 값 상태 관리
   const [keyword, setKeyword] = useState("");
