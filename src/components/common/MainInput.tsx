@@ -114,7 +114,7 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
         )}
 
         {/* ===============================
-         * Underline = 포커스에 따라 생상 변경
+         * Underline = 포커스에 따라 색상 변경
          * =============================== */}
         {showUnderline && (
           <div
