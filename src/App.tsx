@@ -4,6 +4,7 @@ import MainInput from './components/common/MainInput';
 import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
 import SearchInput from './components/common/SearchInput';
+import LabeledInput from "./components/common/LabelInput";
 
 /**
  * Root application component that renders demo UI controls: multiple Button variants, a MainInput bound to `keyword`, a SearchInput bound to `searchKeyword`, and a TopNavigation bar.
@@ -16,7 +17,8 @@ function App() {
   // 인풋 값 상태 관리
   const [keyword, setKeyword] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  
+  const [name, setName] = useState("");
+
   return (
     <div style={{ padding: 20 }}>
       <Button>기본 버튼</Button>
@@ -50,6 +52,12 @@ function App() {
         }}
       />
 
+      <LabeledInput
+        label="이름"
+        value={name}
+        onChange={setName}
+        style={{ backgroundColor: "#f5f5f5" }} // 추가 스타일 가능
+      />
 
       <TopNavigation
         title="서브타이틀"
