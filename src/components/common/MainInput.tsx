@@ -7,13 +7,14 @@ interface MainInputProps
   onClear?: () => void; // 입력값을 초기화하는 x 버튼 클릭 핸들러
   clearRight?: number;  // X버튼 위치 제어
   rightPadding?:number; // SearchInput과 Input사이즈 길이 제어
+  showUnderline?: boolean; // 언더라인 조건부 허용
 }
 
 
 // MainInpurt Component
 const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
   (
-    { value, onClear,rightPadding = 50, clearRight = 16, style, ...rest },
+    { value, onClear, showUnderline = true, rightPadding = 50, clearRight = 16, style, ...rest },
     ref
   ) => {
 
@@ -33,6 +34,7 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
          * Input
          * =============================== */}
         <input
+          className="main-input"
           ref={ref}
           value={value}
           {...other}
@@ -46,10 +48,12 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
             setIsFocus(false);
             parentOnBlur?.(e);
           }}
+          
           style={{
             width: "100%",
-            padding: `0 ${rightPadding}px 2px 8px`,
-            fontSize: "1.5rem",
+            height:"30px",
+            padding: `0 ${rightPadding}px 0 8px`,
+            fontSize: "1.2rem",
             border: "none",
             outline: "none",
             ...style,
@@ -62,18 +66,21 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
         {value && onClear && (
           <button
             type="button"
+
             onClick={onClear}
             aria-label="입력값 지우기"
+
             onMouseDown={(e) => e.preventDefault()} // 클릭 시 input blur 방지
+
             style={{
               position: "absolute",
               right: clearRight,
-              top: "50%",
+              top: "45%",
               transform: "translateY(-50%)",
 
-              width: "22px",
-              height: "22px",
-              borderRadius: "999px",
+              width: "15px",
+              height: "15px",
+              borderRadius: "99px",
               backgroundColor: "#FFB50A",
               color: "#fff",
 
@@ -84,7 +91,7 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
               alignItems: "center",
               justifyContent: "center",
 
-              fontSize: "14px",
+              fontSize: "12px",
               fontWeight: 700,
               lineHeight: "1",
               padding: 0,
@@ -107,16 +114,18 @@ const MainInput = forwardRef<HTMLInputElement, MainInputProps>(
         )}
 
         {/* ===============================
-         * Underline = 포커스에 따라 생상 변경
+         * Underline = 포커스에 따라 색상 변경
          * =============================== */}
-        <div
-          style={{
-            height: "3px",
-            backgroundColor: isFocus ? "#FF9D28" : "#F6C87A",
-            borderRadius: "50px",
-            transition: "0.2s",
-          }}
-        />
+        {showUnderline && (
+          <div
+            style={{
+              height: "2px",
+              backgroundColor: isFocus ? "#FF9D28" : "#F6C87A",
+              borderRadius: "50px",
+              transition: "0.2s",
+            }}
+          />
+        )}
       </div>
     );
   }
