@@ -5,6 +5,8 @@ import App from './App.tsx'
 import "./styles/reset.css";
 import "./styles/font.css";
 import "./styles/globals.css";
+// Service Worker 등록
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration.tsx";
 
 
 createRoot(document.getElementById('root')!).render(
@@ -12,3 +14,4 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+serviceWorkerRegistration.register();
