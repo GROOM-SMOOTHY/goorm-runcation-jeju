@@ -14,4 +14,10 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
-serviceWorkerRegistration.register();
+
+// 서비스 활동 등록은 prod + load 권장
+if (import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    serviceWorkerRegistration.register();
+  });
+}
