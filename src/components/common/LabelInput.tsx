@@ -1,4 +1,5 @@
-import React, { forwardRef, CSSProperties } from "react";
+import { forwardRef } from "react";
+import type { CSSProperties } from "react";
 import MainInput from "./MainInput";
 
 interface LabeledInputProps {
