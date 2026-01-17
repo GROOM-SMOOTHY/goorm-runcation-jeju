@@ -1,13 +1,18 @@
 import { useState } from "react";
 import Button from "./components/common/Button";
-import Input from './components/common/Input';
+import MainInput from './components/common/MainInput';
 import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
 
+import SearchInput from './components/common/SearchInput';
+import LabeledInput from "./components/common/LabelInput";
 import AdjustList from "./components/common/AdjustList";
 
 function App() { 
-  const [price, setPrice] = useState("");
+  // 인풋 값 상태 관리
+  const [keyword, setKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [name, setName] = useState("");
 
   return (
     <div style={{ padding: 20 }}>
@@ -27,13 +32,28 @@ function App() {
 
       <Button disabled>비활성화</Button>
     
-      <Input
-        placeholder="EX) 이권우"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        onClear={() => setPrice("")}
+      <MainInput
+        value={keyword}
+        placeholder="내용을 적어주세요"
+        onChange={(e) => setKeyword(e.target.value)}
+        onClear={() => setKeyword("")}
       />
-    
+
+      <SearchInput
+        value={searchKeyword}
+        onChange={setSearchKeyword}
+        onSearch={(value) => {
+          console.log("검색 실행:", value);
+        }}
+      />
+
+      <LabeledInput
+        label="이름"
+        value={name}
+        onChange={setName}
+        style={{ backgroundColor: "#f5f5f5" }} // 추가 스타일 가능
+      />
+
       <TopNavigation
         title="서브타이틀"
         onBack={() => console.log("뒤로가기")}
@@ -41,7 +61,7 @@ function App() {
       />
 
 
-      <AdjustList date={"2026.15.09"} content={"동해물산이 마르고 닳도록 해물산이 마르고 닳도록 동해물산이 마르고 닳도록 해물산이 마르고 닳도록"} 
+      <AdjustList date={"2026.15.09"} content={"동해물산이 마르고 닳도록 해물산이 마르고 닳도록 동해물산이 마르고   닳도록 해물산이 마르고 닳도록"} 
       decide={"완료"}/>
        <AdjustList date={"2026.15.09"} content={"하느님이 보우하사 우리나라 만세"} 
       decide={"미완료"}/>

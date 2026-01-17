@@ -1,7 +1,7 @@
 /* font */
 @font-face {
     font-family: 'Jua';
-    src: url('../../public/fonts/jua-korean-400-normal.woff2') format('woff2');
+    src: url('/fonts/jua-korean-400-normal.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
   }
@@ -9,3 +9,11 @@
   body {
     font-family: 'Jua', sans-serif;
   }
+
+/* input계열 강제 상속 */
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+}
