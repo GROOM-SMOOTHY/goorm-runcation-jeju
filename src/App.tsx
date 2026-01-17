@@ -6,6 +6,13 @@ import orange from './assets/orange.png';
 import ListItem from "./components/common/List";
 
 
+/**
+ * Root application component demonstrating sample UI elements and input state.
+ *
+ * Renders a collection of Button variants, an Input bound to local state, a TopNavigation bar, and example ListItem entries.
+ *
+ * @returns The root JSX element for the app's demo UI
+ */
 function App() { 
   const [price, setPrice] = useState("");
   return (
