@@ -7,21 +7,9 @@ function AdjustList(props) {
     { id: "완료", background: "#E1ECFF", color: "#6FA4FF"  }
   ]
   const num = check.find(number => number.id===props.decide)
-
-  return (
-    <div>
-      <List date={props.date} content={props.content} decide={props.decide}
-      backgroundColor={num?.background} color={num?.color}/>
-    </div>
-  );
-}
-
-export default AdjustList;
-
-function List(props) {
   return (
     <div className="adjust-list" style={{
-      backgroundColor: props.backgroundColor
+      backgroundColor: num?.background
     }}>
       <div className="right">
         <span>{props.date}</span>
@@ -38,9 +26,12 @@ function List(props) {
       </div>
       <div className="left">
         <span className="block" style={{
-          backgroundColor: props.color
+          backgroundColor: num?.color
         }}>{props.decide}</span>
       </div>
     </div>
-  )
+  );
 }
+
+export default AdjustList;
+
