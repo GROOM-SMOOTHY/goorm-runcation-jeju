@@ -3,11 +3,12 @@ import Button from "./components/common/Button";
 import Input from './components/common/Input';
 import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
-import ListItem from "./components/common/List";
 
+import AdjustList from "./components/common/AdjustList";
 
 function App() { 
   const [price, setPrice] = useState("");
+
   return (
     <div style={{ padding: 20 }}>
       <Button>기본 버튼</Button>
@@ -39,18 +40,14 @@ function App() {
         rightElement={<img src={orange} width={35} />}
       />
 
-      <ListItem
-        date="2025.12.09"
-        title="제주 해장국 동해물과 백두ㅇㅍㄴㅇㅀㅁㄴㅇ산이dfdfadfadfdfadfdfafadfasdfasdf"
-        status="done"
-      />
-      <ListItem
-        date="2025.12.09"
-        title="제주 해장국"
-        status="yet"
-      />
+
+      <AdjustList date={"2026.15.09"} content={"동해물산이 마르고 닳도록 해물산이 마르고 닳도록 동해물산이 마르고 닳도록 해물산이 마르고 닳도록"} 
+      decide={"완료"}/>
+       <AdjustList date={"2026.15.09"} content={"하느님이 보우하사 우리나라 만세"} 
+      decide={"미완료"}/>
     </div>
   )
 }
 
 export default App
+
