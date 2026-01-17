@@ -3,16 +3,11 @@ import Button from "./components/common/Button";
 import MainInput from './components/common/MainInput';
 import TopNavigation from "./components/layout/TopNavigation";
 import orange from './assets/orange.png';
+
 import SearchInput from './components/common/SearchInput';
 import LabeledInput from "./components/common/LabelInput";
+import AdjustList from "./components/common/AdjustList";
 
-/**
- * Root application component that renders demo UI controls: multiple Button variants, a MainInput bound to `keyword`, a SearchInput bound to `searchKeyword`, and a TopNavigation bar.
- *
- * The component manages local state for `keyword` and `searchKeyword` and wires input change/clear/search handlers to those states.
- *
- * @returns A JSX element containing the app's demo UI (buttons, inputs, and top navigation).
- */
 function App() { 
   // 인풋 값 상태 관리
   const [keyword, setKeyword] = useState("");
@@ -64,8 +59,15 @@ function App() {
         onBack={() => console.log("뒤로가기")}
         rightElement={<img src={orange} width={35} />}
       />
+
+
+      <AdjustList date={"2026.15.09"} content={"동해물산이 마르고 닳도록 해물산이 마르고 닳도록 동해물산이 마르고   닳도록 해물산이 마르고 닳도록"} 
+      decide={"완료"}/>
+       <AdjustList date={"2026.15.09"} content={"하느님이 보우하사 우리나라 만세"} 
+      decide={"미완료"}/>
     </div>
   )
 }
 
 export default App
+

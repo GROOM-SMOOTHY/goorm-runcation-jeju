@@ -1,0 +1,39 @@
+.adjust-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  padding: 8px 14px;
+  width: fit-content; /*콘텐츠 크게에 맞게 조절*/
+  border-radius: 13px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 220px;
+}
+.center span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.block {
+  width: 56px;
+  height: 20px;
+  border-radius: 5px;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
