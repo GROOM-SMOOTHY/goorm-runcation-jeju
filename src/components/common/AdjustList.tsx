@@ -6,16 +6,17 @@ interface AdjustListProps {
   content: string;
   decide: "완료" | "미완료"
 }
+const check = {
+  "미완료" : {background: "#FFEAD2", color: "#FF6F6F"},
+  "완료" : {background: "#E1ECFF", color: "#6FA4FF"}
+}
 
 function AdjustList({date, content, decide}: AdjustListProps) {
-  const check = [
-    { id: "미완료", background: "#FFEAD2", color: "#FF6F6F" },
-    { id: "완료", background: "#E1ECFF", color: "#6FA4FF"  }
-  ]
-  const num = check.find(number => number.id===decide)
+  
+  const statusDecide = check[decide]
   return (
     <div className="adjust-list" style={{
-      backgroundColor: num?.background
+      backgroundColor: statusDecide?.background
     }}>
       <div className="right">
         <span>{date}</span>
@@ -32,7 +33,7 @@ function AdjustList({date, content, decide}: AdjustListProps) {
       </div>
       <div className="left">
         <span className="block" style={{
-          backgroundColor: num?.color
+          backgroundColor: statusDecide?.color
         }}>{decide}</span>
       </div>
     </div>
@@ -40,4 +41,3 @@ function AdjustList({date, content, decide}: AdjustListProps) {
 }
 
 export default AdjustList;
-
