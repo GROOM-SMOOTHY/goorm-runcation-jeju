@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "./lib/supabase";
 import Button from "./components/common/Button";
 import MainInput from './components/common/MainInput';
 import TopNavigation from "./components/layout/TopNavigation";
@@ -8,7 +9,18 @@ import SearchInput from './components/common/SearchInput';
 import LabeledInput from "./components/common/LabelInput";
 import AdjustList from "./components/common/AdjustList";
 
-function App() { 
+function App() {
+  // Supabase 연결 확인 (앱 로드 시 한 번만)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ error }) => {
+      if (error) {
+        console.warn("[Supabase] 연결 실패:", error.message);
+      } else {
+        console.log("[Supabase] 연결됨");
+      }
+    });
+  }, []);
+
   // 인풋 값 상태 관리
   const [keyword, setKeyword] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
