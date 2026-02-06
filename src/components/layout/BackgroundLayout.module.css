@@ -1,0 +1,43 @@
+/* 전체 화면 배경 */
+.background {
+  min-height: 100vh;
+  min-height: 100vh;
+  background-color: #191919;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* 중앙 모바일 프레임 */
+.frame {
+  width: 100%;
+  height: 100dvh;
+  max-width: 480px; /* 모바일 앱 프레임 느낌 */
+  background-color: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* TopNav 아래 콘텐츠 */
+.content {
+  padding: 16px;
+}
+
+/* 📱 모바일 화면에서는 프레임이 전체 화면 */
+@media (max-width: 480px) {
+  .background {
+    padding: 0;
+  }
+
+  .frame {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .content {
+    padding: 12px;
+  }
+}
