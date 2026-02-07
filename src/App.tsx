@@ -8,6 +8,8 @@ import orange from './assets/orange.png';
 import SearchInput from './components/common/SearchInput';
 import LabeledInput from "./components/common/LabelInput";
 import AdjustList from "./components/common/AdjustList";
+import RegionCard from "./components/common/RegionCard";
+import RestaurantCard from "./components/common/RestaurantCard"
 
 function App() {
   // Supabase 연결 확인 (앱 로드 시 한 번만)
@@ -77,6 +79,12 @@ function App() {
       decide={"완료"}/>
        <AdjustList date={"2026.15.09"} content={"하느님이 보우하사 우리나라 만세"} 
       decide={"미완료"}/>
+      
+      <RegionCard id={"남원읍T"}/>
+      <RegionCard id={"남원읍F"}/>
+
+      <RestaurantCard id={"제주시"} />
+      
     </div>
   )
 }
