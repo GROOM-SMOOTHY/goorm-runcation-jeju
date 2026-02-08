@@ -1,0 +1,141 @@
+/* 전체 배경 */
+.background {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #111;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow-x: hidden;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+/* about 영역 */
+.about {
+  width: 450px;
+  max-width: 480px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 텍스트+버튼 가운데 정렬 */
+  gap: 16px;
+
+  position: relative; /* 소셜 아이콘 절대 위치 */
+  padding-bottom: 60px; /* 소셜 아이콘 공간 확보 */
+}
+
+.highlight {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.title {
+  color: #ffd375;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #adadad;
+}
+
+.subtitle span:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 다운로드 버튼 */
+.downloadButtons {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.appButton,
+.githubButton {
+  width: 200px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background-color: #fff;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 6px;
+
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.appButton:hover,
+.githubButton:hover {
+  transform: scale(1.05);
+}
+
+/* 소셜 아이콘 */
+.socialIcons {
+  display: flex;
+  gap: 12px;
+  font-size: 1.2rem;
+  color: #ccc;
+  position: absolute;
+  bottom: 150px;
+  margin-top: 200px;
+  transition: transform 0.2s, color 0.2s;
+  cursor: pointer;
+}
+
+.socialIcon:hover {
+  transform: scale(1.2);
+  color: #1da1f2; /* 원하는 색상 적용 가능 */
+}
+
+/* 푸터 텍스트 */
+.footerText {
+  font-size: 0.7rem;
+  line-height: 1.2rem;
+  color: #888;
+
+  position: absolute;
+  bottom: 30px;
+}
+
+/* 모바일 프레임 */
+.frame {
+  flex: 0 0 450px;
+  max-width: 480px;
+  min-height: 100vh;
+  background-color: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 750px) {
+  .background {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .about {
+    display: none; /* 모바일에서는 숨김 */
+  }
+
+  .frame {
+    width: 100%;
+    min-height: 100vh;
+    max-width: 100%;
+    box-shadow: none;
+  }
+}

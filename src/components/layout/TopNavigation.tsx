@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "@/components/layout/TopNavigation.module.css";
 
 interface TopNavigationProps {
   title?: string;
   onBack?: () => void;
-  rightElement?: React.ReactNode; // 오른쪽 아이콘/버튼
+  rightElement?: React.ReactNode;
   style?: React.CSSProperties;
 }
 
@@ -13,41 +15,70 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
   rightElement,
   style,
 }) => {
-  const containerStyle: React.CSSProperties = {
-    width: "100%",
-    height: "50px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    background: "transparent", // 투명 배경
-    padding: "0 12px",
-  };
+  const [navVisible, setNavVisible] = useState(false); // 네비게이션 표시 상태
+  const navRef = useRef<HTMLDivElement>(null);
 
-  const backButtonStyle: React.CSSProperties = {
-    fontSize: "25px",
-    color: "#656565",
-    cursor: "pointer",
-    userSelect: "none",
-  };
+  const toggleNav = () => setNavVisible((prev) => !prev);
 
-  const titleStyle: React.CSSProperties = {
-    fontSize: "22px",
-    color: "#656565",
-    fontWeight: 400,
-  };
+  // ✅ 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setNavVisible(false);
+      }
+    };
+
+    if (navVisible) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [navVisible]);
 
   return (
-    <div style={{ ...containerStyle, ...style }}>
-      {/* Left Back Button */}
-      <div onClick={onBack} style={backButtonStyle}>
-        {onBack ? "<" : ""}
+    <div className={styles.topNavigation} style={style} ref={navRef}>
+      {/* 뒤로가기 */}
+      <button
+        type="button"
+        onClick={onBack ?? (() => window.history.back())}
+        className={styles.back}
+        aria-label="뒤로가기"
+      >
+        &#8249;
+      </button>
+
+      {/* 제목 */}
+      <div className={styles.title}>{title}</div>
+
+      {/* 오른쪽 아이콘 */}
+      <div className={styles.right} onClick={toggleNav}>
+        {rightElement}
       </div>
 
-      {/* Title */}
-      <div style={titleStyle}>{title}</div>
-
-      {/* Right Icon */}
-      <div>{rightElement}</div>
+      {/* 네비게이션 메뉴 */}
+      {navVisible && (
+        <div className={styles.navMenu}>
+          <ul>
+            <li>
+              <Link to="/notice" onClick={() => setNavVisible(false)}>
+                공지사항
+              </Link>
+            </li>
+            <li>
+              <Link to="/mypage" onClick={() => setNavVisible(false)}>
+                마이페이지
+              </Link>
+            </li>
+            <li>
+              <Link to="/profile/edit" onClick={() => setNavVisible(false)}>
+                개인정보 수정
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
