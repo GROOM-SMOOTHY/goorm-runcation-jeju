@@ -112,7 +112,7 @@
 
 /* 모바일 프레임 */
 .frame {
-  flex: 450px;
+  flex: 0 0 450px;
   max-width: 480px;
   min-height: 100vh;
   background-color: #fff;
@@ -121,7 +121,7 @@
 }
 
 /* 모바일 반응형 */
-@media (max-width: 550px) {
+@media (max-width: 750px) {
   .background {
     flex-direction: column;
     align-items: center;

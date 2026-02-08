@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
 import styles from "@/components/layout/BackgroundLayout.module.css";
 import { FaDownload, FaGithub } from "react-icons/fa";
+import { SiNotion } from "react-icons/si";
 
 // 소셜 아이콘 배열
-const socialIcons = [FaGithub, "노션"];
+const socialIcons = [FaGithub, SiNotion];
 
 const BackgroundLayout = () => {
   return (
