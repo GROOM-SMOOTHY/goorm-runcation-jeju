@@ -84,6 +84,7 @@
 
 /* 소셜 아이콘 */
 .socialIcons {
+  padding: 15px;
   display: flex;
   gap: 12px;
   font-size: 1.2rem;
@@ -102,10 +103,12 @@
 
 /* 푸터 텍스트 */
 .footerText {
+  padding: 10px;
+  max-width: 350px;
   font-size: 0.7rem;
   line-height: 1.2rem;
   color: #888;
-
+  word-break: keep-all;
   position: absolute;
   bottom: 30px;
 }

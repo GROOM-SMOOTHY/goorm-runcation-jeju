@@ -29,7 +29,7 @@
 
 .right {
   position: absolute;
-  top: 15px;
+  top: 18px;
   right: 20px;
   cursor: pointer; /* 클릭 가능 표시 */
 }
