@@ -15,7 +15,7 @@ const HomePage: FC = () => {
   return (
     <main className={styles.container}>
       <TopNav
-        onBack={() => navigate(-1)}
+        onBack={() => (window.history.length > 1 ? navigate(-1) : navigate("/"))}
         backTextColor="#ffffff"
         rightElement={<img src={orange} width={50} height={50} alt="메뉴" />}
       />

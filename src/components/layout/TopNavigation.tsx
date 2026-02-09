@@ -63,18 +63,25 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       <div className={styles.title}>{title}</div>
 
       {/* 오른쪽 아이콘 영역 (클릭 시 메뉴 열기/닫기) */}
-      <div
-        className={styles.right}
-        onClick={toggleNav}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleNav(); }}
-        role="button"
-        tabIndex={0}
-        aria-expanded={navVisible}
-        aria-label="메뉴 열기"
-      >
-        {rightElement}
-      </div>
-
+      {rightElement && (
+        <div
+          className={styles.right}
+          onClick={toggleNav}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleNav();
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-expanded={navVisible}
+          aria-label={navVisible ? "메뉴 닫기" : "메뉴 열기"}
+        >
+          {rightElement}
+        </div>
+      )}
+      
       {/* 드롭다운 네비게이션 메뉴 */}
       {navVisible && (
         <div className={styles.navMenu}>
