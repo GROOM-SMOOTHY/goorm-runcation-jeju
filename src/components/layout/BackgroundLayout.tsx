@@ -35,7 +35,6 @@ const BackgroundLayout = () => {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.socialLink}
               aria-label="소셜 링크"
             >
               <Icon className={styles.socialIcon} />

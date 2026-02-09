@@ -4,18 +4,18 @@ import styles from "@/components/layout/TopNavigation.module.css";
 
 // TopNavigation 컴포넌트에서 사용할 props 타입 정의
 interface TopNavigationProps {
-  title?: string;                 // 중앙에 표시될 제목
-  onBack?: () => void;            // 뒤로가기 버튼 클릭 시 실행할 함수
-  rightElement?: React.ReactNode; // 오른쪽에 표시할 아이콘/요소
-  style?: React.CSSProperties;    // 최상위 컨테이너에 적용할 인라인 스타일
-  backTextColor?: string;         // 뒤로가기 버튼 색상
+  title?: string;
+  onBack?: () => void;
+  rightElement?: React.ReactNode;
+  style?: React.CSSProperties;
+  backTextColor?: string;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({
-  title = "",                     // 기본 제목은 빈 문자열
-  onBack,                         // 전달되지 않으면 history.back() 사용
+  title = "", 
+  onBack, // 전달되지 않으면 history.back() 사용
   rightElement,
-  backTextColor = "#000",         // 기본 뒤로가기 버튼 색상은 검정
+  backTextColor = "#000",
   style,
 }) => {
   // 네비게이션 메뉴(드롭다운) 표시 여부 상태
@@ -63,7 +63,15 @@ const TopNavigation: React.FC<TopNavigationProps> = ({
       <div className={styles.title}>{title}</div>
 
       {/* 오른쪽 아이콘 영역 (클릭 시 메뉴 열기/닫기) */}
-      <div className={styles.right} onClick={toggleNav}>
+      <div
+        className={styles.right}
+        onClick={toggleNav}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleNav(); }}
+        role="button"
+        tabIndex={0}
+        aria-expanded={navVisible}
+        aria-label="메뉴 열기"
+      >
         {rightElement}
       </div>
 

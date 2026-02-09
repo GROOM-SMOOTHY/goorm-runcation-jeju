@@ -4,12 +4,19 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  display: flex;              /* 🔥 추가 */
+  flex-direction: column;     /* 🔥 추가 */
 }
 
 .hero {
   padding: 30px;
   margin-top: 40px;
   color: white;
+
+  display: flex;              /* 🔥 추가 */
+  flex-direction: column;     /* 🔥 추가 */
+  flex: 1;                    /* 🔥 남은 공간 차지 */
 }
 
 .subtitle {
@@ -24,7 +31,7 @@
 .cards {
   display: flex;
   gap: 16px;
-  margin-top: 450px;
+  margin-top: auto;          /* 🔥 카드 영역을 아래로 밀기 */
 }
 
 .card {
@@ -49,15 +56,15 @@
   margin-top: 8px;
   text-align: center;
   font-size: 25px;
-  line-height: 30px ;
+  line-height: 30px;
 }
 
 .icon {
   font-size: 50px;
 }
 
-.icon img{
-    height:80px;
+.icon img {
+  height: 80px;
 }
 
 .cardHighlight {
@@ -80,14 +87,8 @@
 .cardTitle {
   font-size: 18px;
 }
-
-.car {
-  font-size: 32px;
-  margin-top: 8px;
-}
-
-.cardHighlight:hover ,
-.card:hover{
+.cardHighlight:hover,
+.card:hover {
   border-color: #ff7a00;
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(255, 122, 0, 0.3);

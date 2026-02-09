@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import TopNav from "@/components/layout/TopNavigation";
 import orange from "@/assets/icons/commen_Icons/orange.png";
 import styles from "@/pages/HomePage.module.css";
-
+import type { FC } from "react";
 import mapIcon from "@/assets/icons/commen_Icons/image 17.png";
 import taxiIcon from "@/assets/icons/commen_Icons/Group 230.png";
 
 // 뒤로가기
-const HomePage: React.FC = () => {
+const HomePage: FC = () => {
   const navigate = useNavigate();
   
   const cohortName: string = "프론트엔드 7기"; // 나중에 로그인 데이터로 교체
@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
       <TopNav
         onBack={() => navigate(-1)}
         backTextColor="#ffffff"
-        rightElement={<img src={orange} width={40} height={40} alt="메뉴" />}
+        rightElement={<img src={orange} width={50} height={50} alt="메뉴" />}
       />
 
       <div className={styles.hero}>
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
         <div className={styles.cards}>
           <button
             className={styles.card}
-            onClick={() => navigate("/stemp")}
+            onClick={() => navigate("/stamp")}
           >
             <div className={styles.icon}>
               <img src={mapIcon} alt="지역명소" />
@@ -36,6 +36,8 @@ const HomePage: React.FC = () => {
               지역명소<br />도장깨기
             </p>
           </button>
+
+          
 
           <button
             className={styles.cardHighlight}
