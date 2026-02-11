@@ -1,0 +1,153 @@
+.container {
+  min-height: 100vh;
+  background: #f9f9f9;
+}
+
+.heroCard {
+  position: relative;
+  height: 300px;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* 그림자 부드럽게 */
+  background: url("@/assets/Rectangle.png") center / cover no-repeat;
+}
+
+.backBtn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  margin-bottom: auto;
+  padding: 20px;
+  max-width: 80%;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin: 80px 0 0 3px;
+}
+
+.title {
+  font-size: 50px;
+  margin: 7px 0;
+  line-height: 1.1;
+}
+
+.detailBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 20px;
+}
+
+.card {
+  height: 120px;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  background: white;
+}
+
+.card img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+}
+
+.orange {
+  border: 4px solid #ff9f1c;
+  color: #ff9f1c;
+}
+
+.blue {
+  border: 4px solid #4dabf7;
+  color: #4dabf7;
+}
+
+.green {
+  border: 4px solid #51cf66;
+  color: #51cf66;
+}
+
+.weatherBox {
+  text-align: center;
+}
+
+.weatherBox strong {
+  font-size: 28px;
+  display: block;
+}
+
+.bottomSection {
+  padding: 20px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionHeader h2 {
+  font-size: 18px;
+}
+
+.sectionHeader button {
+  background: none;
+  border: none;
+  color: #ff7a00;
+  font-size: 14px;
+}
+
+.listGrid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.listCard {
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.listTitle {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* ✅ 말줄임 처리 (2줄) */
+.listDesc {
+  font-size: 17px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

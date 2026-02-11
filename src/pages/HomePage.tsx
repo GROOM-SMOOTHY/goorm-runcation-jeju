@@ -14,6 +14,7 @@ const HomePage: FC = () => {
 
   return (
     <main className={styles.container}>
+
       <TopNav
         onBack={() => (window.history.length > 1 ? navigate(-1) : navigate("/"))}
         backTextColor="#ffffff"
