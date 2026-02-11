@@ -1,0 +1,113 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design/Colors" />
+
+# 컬러 토큰
+
+이 페이지는 프로젝트에서 사용하는 주요 색상 토큰을 한 번에 확인할 수 있는
+컬러 팔레트입니다.  
+실제 값은 `src/styles/variables.css` 의 CSS 변수로 관리됩니다.
+
+## Background
+
+<ColorGrid>
+  <ColorItem name="bg-white" value="#FFFFFF" />
+  <ColorItem name="bg-black" value="#000000" />
+  <ColorItem name="bg-dark" value="#111827" />
+  <ColorItem name="bg-glassmorphism" value="#FFFFFF10" />
+  <ColorItem name="bg-primary" value="#FAFAFA" />
+  <ColorItem name="bg-select" value="#F9F9F9" />
+  <ColorItem name="bg-textarea" value="#F8FAFC" />
+  <ColorItem name="bg-searchbar" value="#F1F5F9" />
+  <ColorItem name="bg-brand-primary-transparent" value="#FF88001A" />
+</ColorGrid>
+
+## Brand
+
+<ColorGrid>
+  <ColorItem name="brand-primary" value="#FF8800" />
+</ColorGrid>
+
+## Text
+
+<ColorGrid>
+  <ColorItem name="text-primary" value="#1F2937" />
+  <ColorItem name="text-secondary" value="#4B5563" />
+  <ColorItem name="text-tertiary" value="#9CA3AF" />
+  <ColorItem name="text-label-strong" value="#333333" />
+  <ColorItem name="text-label" value="#777777" />
+  <ColorItem name="text-placeholder" value="#777777" />
+  <ColorItem name="text-white" value="#ffffff" />
+</ColorGrid>
+
+## Border
+
+<ColorGrid>
+  <ColorItem name="border-light" value="#F3F4F6" />
+  <ColorItem name="border-main" value="#E5E7EB" />
+</ColorGrid>
+
+## Badge
+
+<ColorGrid>
+  <ColorItem name="badge-bg-orange" value="#FFF7ED" />
+  <ColorItem name="badge-label-orange" value="#FF8800" />
+  <ColorItem name="badge-bg-blue" value="#EFF6FF" />
+  <ColorItem name="badge-label-blue" value="#3B82F6" />
+  <ColorItem name="badge-bg-purple" value="#FAF5FF" />
+  <ColorItem name="badge-label-purple" value="#A855F7" />
+  <ColorItem name="badge-bg-emerald" value="#34D39910" />
+  <ColorItem name="badge-label-emerald" value="#34D399" />
+  <ColorItem name="badge-bg-sky" value="#E2ECFF" />
+  <ColorItem name="badge-label-sky" value="#3B82F6" />
+</ColorGrid>
+
+<style>
+  {`
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+
+  .color-item {
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    font-size: 12px;
+    background-color: #ffffff;
+  }
+
+  .color-swatch {
+    width: 100%;
+    height: 56px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .color-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .color-value {
+    color: #6b7280;
+  }
+  `}
+</style>
+
+export const ColorGrid = ({ children }) => (
+  <div className="color-grid">{children}</div>
+);
+
+export const ColorItem = ({ name, value }) => (
+  <div className="color-item">
+    <div className="color-swatch" style={{ backgroundColor: value }} />
+    <div className="color-name">{name}</div>
+    <div className="color-value">{value}</div>
+  </div>
+);
+

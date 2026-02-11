@@ -1,0 +1,242 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+export const RightArrow = () => (
+  <svg
+    viewBox="0 0 14 14"
+    width="8px"
+    height="14px"
+    style={{
+      marginLeft: "4px",
+      display: "inline-block",
+      shapeRendering: "inherit",
+      verticalAlign: "middle",
+      fill: "currentColor",
+    }}
+  >
+    <path d="m11.1 7.35-5.5 5.5a.5.5 0 0 1-.7-.7L10.04 7 4.9 1.85a.5.5 0 1 1 .7-.7l5.5 5.5c.2.2.2.5 0 .7Z" />
+  </svg>
+);
+
+<Meta title="Configure your project" />
+
+<div className="sb-container">
+  <div className="sb-section-title">
+    # Storybook 설정 (React + Vite)
+
+    이 문서는 현재 프로젝트에서 Storybook을 어떻게 설정하고 사용하는지 정리한
+    페이지입니다. `react` + `vite` 기반이며, `@storybook/react-vite` 프레임워크
+    프리셋을 사용합니다.
+  </div>
+
+  <div className="sb-section">
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">1. 기본 스크립트</h4>
+      <p className="sb-section-item-paragraph">
+        `package.json` 에서 Storybook은 아래 스크립트로 실행/빌드할 수 있습니다.
+      </p>
+      <ul>
+        <li>
+          <code>npm run storybook</code> – 개발 서버 실행 (기본 포트: 6006)
+        </li>
+        <li>
+          <code>npm run build-storybook</code> – 정적 Storybook 빌드 생성
+        </li>
+      </ul>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">2. 스토리 검색 경로</h4>
+      <p className="sb-section-item-paragraph">
+        `.storybook/main.ts` 에서 스토리 파일은 다음 패턴으로 로딩됩니다.
+      </p>
+      <ul>
+        <li>
+          <code>src/**/*.mdx</code>
+        </li>
+        <li>
+          <code>src/**/*.stories.@(js|jsx|mjs|ts|tsx)</code>
+        </li>
+      </ul>
+      <p className="sb-section-item-paragraph">
+        새로운 컴포넌트를 추가할 때는 위 패턴에 맞춰 파일을 생성하면 자동으로
+        Storybook에 표시됩니다.
+      </p>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">3. 사용 중인 애드온</h4>
+      <p className="sb-section-item-paragraph">
+        현재 프로젝트는 다음 Storybook 애드온을 사용합니다.
+      </p>
+      <ul>
+        <li>
+          <code>@chromatic-com/storybook</code> – Chromatic 연동
+        </li>
+        <li>
+          <code>@storybook/addon-vitest</code> – Vitest와 통합된 테스트 애드온
+        </li>
+        <li>
+          <code>@storybook/addon-a11y</code> – 접근성(a11y) 검사
+        </li>
+        <li>
+          <code>@storybook/addon-docs</code> – 자동 문서화 (Docs 탭)
+        </li>
+      </ul>
+      <p className="sb-section-item-paragraph">
+        애드온을 추가/제거하려면 `.storybook/main.ts` 의 `addons` 배열을 수정하면
+        됩니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div className="sb-container">
+  <div className="sb-section-title">
+    # 스토리 작성 규칙
+
+    프로젝트 내 컴포넌트 스토리를 만들 때 다음 규칙을 권장합니다.
+  </div>
+
+  <div className="sb-section">
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">1. 파일 위치와 네이밍</h4>
+      <ul>
+        <li>
+          컴포넌트와 같은 폴더에 <code>Button.tsx</code> →
+          <code>Button.stories.tsx</code> 와 같이 생성
+        </li>
+        <li>
+          공통 문서 페이지는 <code>src/stories/SomePage.mdx</code> 형태로 관리
+        </li>
+      </ul>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">2. 기본 스토리 구조</h4>
+      <p className="sb-section-item-paragraph">
+        React 컴포넌트 스토리는 아래 형태를 기본으로 사용합니다.
+      </p>
+      <pre>
+        <code>{`import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './Button';
+
+const meta: Meta<typeof Button> = {
+  title: 'Components/Button',
+  component: Button,
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+  args: {
+    children: '버튼',
+    disabled: false,
+  },
+};`}</code>
+      </pre>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">3. Docs / MDX 문서</h4>
+      <p className="sb-section-item-paragraph">
+        컴포넌트 사용 가이드를 문서화하고 싶다면 MDX를 사용해 별도의 문서 페이지를
+        만들 수 있습니다.
+      </p>
+      <ul>
+        <li>
+          공통 설계/가이드 문서: <code>src/stories/*.mdx</code>
+        </li>
+        <li>
+          컴포넌트 전용 문서: 스토리 파일과 함께 <code>.mdx</code> 로 작성
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div className="sb-container">
+  <div className="sb-section-title">
+    # 테스트 · 접근성 · 배포
+
+    Storybook은 UI 테스트와 접근성 검사, 배포에도 활용할 수 있습니다.
+  </div>
+
+  <div className="sb-section">
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">1. Vitest 연동</h4>
+      <p className="sb-section-item-paragraph">
+        <code>@storybook/addon-vitest</code> 를 사용하면 스토리 기반으로 테스트
+        결과를 Storybook UI에서 바로 확인할 수 있습니다. 구성은 Vitest 설정 및
+        Storybook 애드온 설정을 맞춰주는 방식으로 진행합니다.
+      </p>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">2. 접근성 검사</h4>
+      <p className="sb-section-item-paragraph">
+        <code>@storybook/addon-a11y</code> 로 각 스토리의 접근성 이슈를 확인할 수
+        있습니다. 컴포넌트를 만들 때 Docs 탭과 함께 A11y 탭도 함께 확인해 주세요.
+      </p>
+    </div>
+
+    <div className="sb-section-item">
+      <h4 className="sb-section-item-heading">3. Chromatic 배포</h4>
+      <p className="sb-section-item-paragraph">
+        <code>@chromatic-com/storybook</code> 애드온과 Chromatic CI 연동을 통해
+        Storybook을 자동으로 빌드·배포하고, 시각적 회귀 테스트를 수행할 수
+        있습니다.
+      </p>
+      <p className="sb-section-item-paragraph">
+        CI 환경에서 <code>npm run build-storybook</code> 또는 Chromatic CLI를
+        실행하도록 설정하면 됩니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  {`
+  .sb-container {
+    margin-bottom: 48px;
+  }
+
+  .sb-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .sb-section-title {
+    margin-bottom: 32px;
+  }
+
+  .sb-section a:not(h1 a, h2 a, h3 a) {
+    font-size: 14px;
+  }
+
+  .sb-section-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sb-section-item-heading {
+    padding-top: 20px !important;
+    padding-bottom: 5px !important;
+    margin: 0 !important;
+  }
+
+  .sb-section-item-paragraph {
+    margin: 0;
+    padding-bottom: 10px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .sb-section {
+      flex-direction: column;
+    }
+  }
+  `}
+</style>
