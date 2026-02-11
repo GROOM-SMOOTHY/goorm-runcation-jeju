@@ -18,16 +18,18 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={styles.topNavigation} style={style}>
-      <button
-        type="button"
-        onClick={onBack ?? (() => window.history.back())}
-        className={styles.back}
-        aria-label="뒤로가기"
-        style={{ color: backTextColor }}
-      >
-        <ChevronLeftIcon width={28} height={28} />
-      </button>
-
+      { onBack && (
+        <button
+          type="button"
+          onClick={onBack ?? (() => window.history.back())}
+          className={styles.back}
+          aria-label="뒤로가기"
+          style={{ color: backTextColor }}
+        >
+          <ChevronLeftIcon width={28} height={28} />
+        </button>
+      )}
+      
       <div className={styles.title}>{title}</div>
     </header>
   );
