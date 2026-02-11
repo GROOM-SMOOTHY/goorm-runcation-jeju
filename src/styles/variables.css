@@ -1,0 +1,42 @@
+/* src/styles/variables.css */
+:root {
+    /* Background */
+    --bg-white: #FFFFFF;
+    --bg-black: #000000;
+    --bg-dark: #111827;
+    --bg-glassmorphism: #FFFFFF10;
+    --bg-primary: #FAFAFA;
+    --bg-select: #F9F9F9;
+    --bg-textarea: #F8FAFC;
+    --bg-searchbar: #F1F5F9;
+    --bg-brand-primary-transparent: #FF88001A;
+    /* 투명도 필요시 HEX 뒤에 추가 */
+
+    /* Brand */
+    --brand-primary: #FF8800;
+
+    /* Text */
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-tertiary: #9CA3AF;
+    --text-label-strong: #333333;
+    --text-label: #777777;
+    --text-placeholder: #777777;
+    --text-white: #ffffff;
+
+    /* Border */
+    --border-light: #F3F4F6;
+    --border-main: #E5E7EB;
+
+    /* Badge */
+    --badge-bg-orange: #FFF7ED;
+    --badge-label-orange: #FF8800;
+    --badge-bg-blue: #EFF6FF;
+    --badge-label-blue: #3B82F6;
+    --badge-bg-purple: #FAF5FF;
+    --badge-label-purple: #A855F7;
+    --badge-bg-emerald: #34D39910;
+    --badge-label-emerald: #34D399;
+    --badge-bg-sky: #E2ECFF;
+    --badge-label-sky: #3B82F6;
+}
