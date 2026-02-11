@@ -1,14 +1,110 @@
-/* font */
+/* 
+** Jua Fonts
+*/
 @font-face {
-    font-family: 'Jua';
-    src: url('/fonts/jua-korean-400-normal.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  body {
-    font-family: 'Jua', sans-serif;
-  }
+  font-family: 'Jua';
+  src: url('/fonts/jua-korean-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* 
+** Pretenadrd Fonts
+*/
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 200;
+  font-display: swap;
+  src: url('/fonts/pretendard/Pretendard-ExtraLight.woff') format('woff');
+}
+
+
+/* 
+** Plus Jakarta Sans Fonts  
+*/
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans/PlusJakartaSans-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans/PlusJakartaSans-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans/PlusJakartaSans-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans/PlusJakartaSans-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans/PlusJakartaSans-Regular.woff') format('woff');
+}
+
+
+body {
+  font-family: 'Pretendard', sans-serif;
+}
 
 /* input계열 강제 상속 */
 input,
