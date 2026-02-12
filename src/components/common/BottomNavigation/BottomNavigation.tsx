@@ -3,7 +3,7 @@ import { BiMapPin } from "react-icons/bi";
 import { MdOutlinePayments } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
-import "./bottomNavigation.css";
+import "@/components/BottomNavigation/buttonNavigation.css";
 
 export default function ButtonNavigation() {
   return (
