@@ -1,4 +1,4 @@
-import "@/components/Textarea/textarea.moudle.css";
+import styles from "@/components/Textarea/textarea.module.css";
 
 interface TextareaProps {
   value: string;
@@ -12,7 +12,7 @@ export default function Textarea({
   placeholder,
 }: TextareaProps) {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
