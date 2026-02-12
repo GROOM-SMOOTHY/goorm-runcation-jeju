@@ -1,4 +1,4 @@
-import "@/components/BottomNavigation/buttonNavigation.css";
+import styles from "@/components/BottomNavigation/bottomNavigation.module.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiMapPin } from "react-icons/bi";
 import { MdOutlinePayments } from "react-icons/md";
@@ -7,23 +7,23 @@ import { BsPerson } from "react-icons/bs";
 
 export default function ButtonNavigation() {
   return (
-    <nav className="button-navigation">
-      <div className="nav-item home">
+    <nav className={styles.buttonNavigation}>
+      <div className={`${styles.navItem} ${styles.home}`}>
         <AiOutlineHome size={20} />
         <span>홈</span>
       </div>
-      <div className="nav-item">
+      <div className={styles.navItem}>
         <BiMapPin size={20} />
         <span>도장깨기</span>
       </div>
-      <div className="nav-item payment">
+      <div className={`${styles.navItem} ${styles.payment}`}>
         <MdOutlinePayments size={32} />
       </div>
-      <div className="nav-item">
+      <div className={styles.navItem}>
         <BiWallet size={20} />
         <span>정산현황</span>
       </div>
-      <div className="nav-item">
+      <div className={styles.navItem}>
         <BsPerson size={20} />
         <span>마이</span>
       </div>
