@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-
-import Modal from "@/components/common/Modal/Modal.tsx";
+import Modal from "@/components/common/Modal";
 import Button from "@/components/common/Button/Button";
 
 const meta = {
