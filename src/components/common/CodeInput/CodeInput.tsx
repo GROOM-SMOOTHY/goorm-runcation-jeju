@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import style from "@/components/common/CodeInput.module.css";
+import style from "@/components/common/CodeInput/CodeInput.module.css";
 
 interface CodeInputProps {
   value?: string;
