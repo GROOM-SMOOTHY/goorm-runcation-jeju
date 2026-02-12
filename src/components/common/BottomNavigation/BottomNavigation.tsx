@@ -12,18 +12,18 @@ export default function ButtonNavigation() {
         <AiOutlineHome size={20} />
         <span>홈</span>
       </div>
-      <div className="nav-item pin">
+      <div className="nav-item">
         <BiMapPin size={20} />
         <span>도장깨기</span>
       </div>
       <div className="nav-item payment">
         <MdOutlinePayments size={32} />
       </div>
-      <div className="nav-item wallet">
+      <div className="nav-item">
         <BiWallet size={20} />
         <span>정산현황</span>
       </div>
-      <div className="nav-item person">
+      <div className="nav-item">
         <BsPerson size={20} />
         <span>마이</span>
       </div>
