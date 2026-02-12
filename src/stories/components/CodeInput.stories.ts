@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import CodeInput from '@/components/common/CodeInput';
 
 const meta = {
-  title: 'Layout/CodeInput',
+  title: 'Components/CodeInput',
   component: CodeInput,
   tags: ['autodocs'],
   parameters: {
