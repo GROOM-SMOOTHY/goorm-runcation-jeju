@@ -6,7 +6,7 @@ const meta = {
   component: CodeInput,
   tags: ['autodocs'],
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered',
   },
 } satisfies Meta<typeof CodeInput>;
 
