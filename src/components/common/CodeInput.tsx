@@ -1,8 +1,30 @@
-import { unstable_OneTimePasswordField as OneTimePasswordField } from "radix-ui";
+import { useState } from "react";
+import * as OneTimePasswordField from "@radix-ui/react-one-time-password-field";
 import style from "@/components/common/CodeInput.module.css";
 
-export default function CodeInput() {
-  const OTP_LENGTH = 6;
+interface CodeInputProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  onComplete?: (value: string) => void;
+  length?: number;
+}
+
+export default function CodeInput({
+  value: initialValue = "",
+  onChange,
+  onComplete,
+  length = 6,
+}: CodeInputProps) {
+  const [value, setValue] = useState(initialValue);
+
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+    onChange?.(newValue);
+    if (newValue.length === length) {
+      onComplete?.(newValue);
+    }
+  };
+
 
   return (
     <div className={style.OTPcontener}>
@@ -13,10 +35,13 @@ export default function CodeInput() {
       <form onSubmit={(e) => e.preventDefault()}>
         <OneTimePasswordField.Root
           name="otp"
+          value={value}
+          onValueChange={handleValueChange}
           className={style.OTPGroup}
           autoComplete="one-time-code"
         >
-          {[...Array(OTP_LENGTH)].map((_, i) => (
+          {[...Array(length)].map((_, i) => (
+
             <OneTimePasswordField.Input
               key={i}
               className={style.OTPInput}

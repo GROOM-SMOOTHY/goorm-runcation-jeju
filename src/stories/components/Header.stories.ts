@@ -1,18 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import CodeInput from '@/components/common/CodeInput/CodeInput';
+import Header from '@/components/layout/Header';
 
 const meta = {
-  title: 'Components/CodeInput',
-  component: CodeInput,
+  title: 'Components/Header',
+  component: Header,
   tags: ['autodocs'],
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
-} satisfies Meta<typeof CodeInput>;
+} satisfies Meta<typeof Header>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    title: '기본 헤더',
+  },
 };
