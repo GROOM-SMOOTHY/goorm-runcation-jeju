@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import "@components/common/BottomSheet/BottomSheet.css";
+import "@/components/common/BottomSheet/BottomSheet.css";
 
 export interface BottomSheetProps {
   isOpen: boolean;
