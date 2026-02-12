@@ -28,14 +28,8 @@ const Input: React.FC<InputProps> = ({
   required = false,
   authTimeout = 120,
 }) => {
-  const [internalValue, setInternalValue] = useState(value);
   const [isRequested, setIsRequested] = useState(false);
   const [timeLeft, setTimeLeft] = useState(authTimeout);
-
-  // 외부 value 변경 시 내부 상태 동기화
-  useEffect(() => {
-    setInternalValue(value);
-  }, [value]);
 
   // 타이머 로직
   useEffect(() => {
@@ -54,17 +48,14 @@ const Input: React.FC<InputProps> = ({
     return () => clearInterval(timer);
   }, [isRequested, timeLeft, authTimeout]);
 
-  const handleChange = (val: string) => {
-    setInternalValue(val);
-    onChange?.(val);
-  };
-
+  // 인증 요청 핸들러
   const handleAuthRequest = useCallback(() => {
     setIsRequested(true);
     setTimeLeft(authTimeout);
     onAuthRequest?.();
   }, [authTimeout, onAuthRequest]);
 
+  // 시간 포맷팅 (MM:SS)
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -73,57 +64,70 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <Form.Root className={styles.Root}>
-      <Form.Field name={name} className={styles.Field}>
+      <Form.Field className={styles.Field} name={name}>
         <div className={styles.LabelWrapper}>
           <Form.Label className={styles.Label}>{label}</Form.Label>
         </div>
 
-        <Form.Control asChild>
-          <input
-            className={styles.Input}
-            type={type}
-            value={internalValue}
-            onChange={(e) => handleChange(e.target.value)}
-            placeholder={placeholder}
-            required={required}
-          />
-        </Form.Control>
-
-        {/* 유효성 메시지 */}
-        <Form.Message className={styles.Message} match="valueMissing">
-          {label}을 입력해주세요
-        </Form.Message>
-        {type === "email" && (
-          <Form.Message className={styles.Message} match="typeMismatch">
-            올바른 이메일 형식으로 입력해주세요
-          </Form.Message>
-        )}
-
-        {/* 인증 요청 variant */}
-        {variant === "auth" && (
+        {variant === "auth" ? (
           <div className={styles.AuthContainer}>
+            <Form.Control asChild>
+              <input
+                className={styles.Input}
+                type={type}
+                value={value}
+                onChange={(e) => onChange?.(e.target.value)}
+                required={required}
+                placeholder={placeholder}
+              />
+            </Form.Control>
+
+
+            <Form.Message className={styles.Message} match="valueMissing">
+              {label}을 입력해주세요
+            </Form.Message>
+            {type === "email" && (
+              <Form.Message className={styles.Message} match="typeMismatch">
+                {label}을 올바르게 작성해주세요
+              </Form.Message>
+            )}
+
+            {/* 인증 요청 텍스트 버튼 */}
             {!isRequested ? (
-              <button
-                type="button"
+              <div
                 className={styles.AuthRequestText}
                 onClick={handleAuthRequest}
               >
                 인증요청
-              </button>
+              </div>
             ) : (
               <div className={styles.AuthTimerContainer}>
-                <button
-                  type="button"
+                <span
                   className={styles.AuthRetryText}
                   onClick={handleAuthRequest}
                 >
                   인증요청 다시보내기
-                </button>
-                <span className={styles.TimerText}>{formatTime(timeLeft)}</span>
+                </span>
+                <span className={styles.TimerText}>
+                  {formatTime(timeLeft)}
+                </span>
               </div>
             )}
           </div>
+        ) : (
+          <Form.Control asChild>
+            <input
+              className={styles.Input}
+              type={type}
+              value={value}
+              onChange={(e) => onChange?.(e.target.value)}
+              required={required}
+              placeholder={placeholder}
+            />
+          </Form.Control>
         )}
+
+
       </Form.Field>
     </Form.Root>
   );

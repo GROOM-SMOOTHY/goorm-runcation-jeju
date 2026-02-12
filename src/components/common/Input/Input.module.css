@@ -64,7 +64,6 @@
 }
 
 .AuthRequestText {
-	all: unset;
 	margin-top: 8px;
 	color: var(--brand-primary);
 	font-size: 14px;
@@ -82,7 +81,6 @@
 }
 
 .AuthRetryText {
-	all: unset;
 	cursor: pointer;
 	text-decoration: underline;
 	color: var(--brand-primary);
