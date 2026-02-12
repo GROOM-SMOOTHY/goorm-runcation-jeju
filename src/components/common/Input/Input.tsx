@@ -6,8 +6,6 @@ import styles from "@/components/common/Input/Input.module.css";
 interface InputProps {
 	label: string;
 	name: string;
-	value?: string;
-	onChange?: (value: string) => void;
 	type?: string;
 	placeholder?: string;
 	variant?: "default" | "auth";
@@ -19,8 +17,6 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
 	label,
 	name,
-	value = "",
-	onChange,
 	type = "text",
 	placeholder = "",
 	variant = "default",
@@ -75,52 +71,51 @@ const Input: React.FC<InputProps> = ({
 							<input
 								className={styles.Input}
 								type={type}
-								value={value}
-								onChange={(e) => onChange?.(e.target.value)}
 								required={required}
 								placeholder={placeholder}
 							/>
 						</Form.Control>
-					
-            
-            <Form.Message className={styles.Message} match="valueMissing">
-              {label}을 입력해주세요
-            </Form.Message>
-            {type === "email" && (
-              <Form.Message className={styles.Message} match="typeMismatch">
-                {label}을 올바르게 작성해주세요
-              </Form.Message>
-            )}
+
+						<Form.Message className={styles.Message} match="valueMissing">
+							{label}을 입력해주세요
+						</Form.Message>
+						{
+							type === "email" && (
+								<Form.Message className={styles.Message} match="typeMismatch">
+									{label}을 올바르게 작성해주세요
+								</Form.Message>
+							)
+						}
 
 						{/* 인증 요청 텍스트 버튼 */}
-						{!isRequested ? (
-							<div
-								className={styles.AuthRequestText}
-								onClick={handleAuthRequest}
-							>
-								인증요청
-							</div>
-						) : (
-							<div className={styles.AuthTimerContainer}>
-								<span
-									className={styles.AuthRetryText}
+						{
+							!isRequested ? (
+								<div
+									className={styles.AuthRequestText}
 									onClick={handleAuthRequest}
 								>
-									인증요청 다시보내기
-								</span>
-								<span className={styles.TimerText}>
-									{formatTime(timeLeft)}
-								</span>
-							</div>
-						)}
-					</div>
+									인증요청
+								</div>
+							) : (
+								<div className={styles.AuthTimerContainer}>
+									<span
+										className={styles.AuthRetryText}
+										onClick={handleAuthRequest}
+									>
+										인증요청 다시보내기
+									</span>
+									<span className={styles.TimerText}>
+										{formatTime(timeLeft)}
+									</span>
+								</div>
+							)
+						}
+					</div >
 				) : (
 					<Form.Control asChild>
 						<input
 							className={styles.Input}
 							type={type}
-							value={value}
-							onChange={(e) => onChange?.(e.target.value)}
 							required={required}
 							placeholder={placeholder}
 						/>
@@ -128,8 +123,8 @@ const Input: React.FC<InputProps> = ({
 				)}
 
 
-			</Form.Field>
-		</Form.Root>
+			</Form.Field >
+		</Form.Root >
 	);
 };
 
