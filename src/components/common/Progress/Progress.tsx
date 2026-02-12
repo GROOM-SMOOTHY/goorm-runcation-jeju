@@ -1,26 +1,21 @@
-import * as React from "react";
-import * as ProgressPrimitive from "@radix-ui/react-progress";
 import styles from "@/components/common/Progress/Progress.module.css";
+import { Progress as ProgressPrimitive } from "radix-ui";
 
-const ProgressDemo = () => {
-	const [progress, setProgress] = React.useState(13);
-
-	React.useEffect(() => {
-		const timer = setTimeout(() => setProgress(66), 500);
-		return () => clearTimeout(timer);
-	}, []);
-
-	return (
+interface Props {
+  progress: number;
+  onValueChange: (value: number) => void;
+}
+const Progress = ({ progress, onValueChange }: Props) => {
+  return (
     <div className={styles.container}>
-      <h1>안녕하세요</h1>
-      <ProgressPrimitive.Root className={styles.Root} value={progress} max={100}>
+      <ProgressPrimitive.Root className={styles.Root} value={progress}>
         <ProgressPrimitive.Indicator
           className={styles.Indicator}
-          style={{ transform: `scaleX(${progress / 100})`, transformOrigin: 'left' }}
+          style={{ width: `${progress}%` }}
         />
       </ProgressPrimitive.Root>
     </div>
-	);
+  );
 };
 
-export default ProgressDemo;
+export default Progress;
