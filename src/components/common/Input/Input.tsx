@@ -6,6 +6,8 @@ import styles from "@/components/common/Input/Input.module.css";
 interface InputProps {
 	label: string;
 	name: string;
+	value?: string;
+	onChange?: (value: string) => void;
 	type?: string;
 	placeholder?: string;
 	variant?: "default" | "auth";
@@ -17,6 +19,8 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
 	label,
 	name,
+	value = "",
+	onChange,
 	type = "text",
 	placeholder = "",
 	variant = "default",
@@ -71,6 +75,8 @@ const Input: React.FC<InputProps> = ({
 							<input
 								className={styles.Input}
 								type={type}
+								value={value}
+								onChange={(e) => onChange?.(e.target.value)}
 								required={required}
 								placeholder={placeholder}
 							/>
@@ -112,6 +118,8 @@ const Input: React.FC<InputProps> = ({
 						<input
 							className={styles.Input}
 							type={type}
+							value={value}
+							onChange={(e) => onChange?.(e.target.value)}
 							required={required}
 							placeholder={placeholder}
 						/>
