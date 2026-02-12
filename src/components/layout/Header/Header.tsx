@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
-import styles from "@/components/layout/Header.module.css";
+import styles from "@/components/layout/Header/Header.module.css";
 
 interface HeaderProps {
   title?: string;

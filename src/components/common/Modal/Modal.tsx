@@ -1,6 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import "./Modal.css";
+import "@components/common/Modal/Modal.css";
 
 export interface ModalProps {
     isOpen: boolean;
