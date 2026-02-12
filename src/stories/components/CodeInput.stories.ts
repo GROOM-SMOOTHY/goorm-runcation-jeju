@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import CodeInput from '@/components/common/CodeInput';
+import CodeInput from '@/components/common/CodeInput/CodeInput';
 
 const meta = {
   title: 'Components/CodeInput',
@@ -14,7 +14,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    title: '기본 헤더',
-  },
+  args: {},
 };
