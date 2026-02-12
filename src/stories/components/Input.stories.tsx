@@ -29,7 +29,7 @@ export const AuthCodeInput: Story = {
     label: '이메일',
     name: 'email',
     type: 'email',
-    placeholder: '이메일를 입력해주세요',
+    placeholder: '이메일을 입력해주세요',
     variant: 'auth',
     onAuthRequest: () => console.log('인증'),
     required: true,

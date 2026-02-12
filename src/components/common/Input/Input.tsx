@@ -81,20 +81,22 @@ const Input: React.FC<InputProps> = ({
 
 					{/* 인증 요청 텍스트 버튼 */}
 					{!isRequested ? (
-						<div
+						<button
+							type="button"
 							className={styles.AuthRequestText}
 							onClick={handleAuthRequest}
 						>
 							인증요청
-						</div>
+						</button>
 					) : (
 						<div className={styles.AuthTimerContainer}>
-							<span
+							<button
+								type="button"
 								className={styles.AuthRetryText}
 								onClick={handleAuthRequest}
 							>
 								인증요청 다시보내기
-							</span>
+							</button>
 							<span className={styles.TimerText}>
 								{formatTime(timeLeft)}
 							</span>
