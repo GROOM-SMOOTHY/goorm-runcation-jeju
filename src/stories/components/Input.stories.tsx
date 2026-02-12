@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Input from '@/components/common/Input/Input';
 
@@ -14,24 +15,38 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    label: '이메일',
-    name: 'email',
-    type: 'email',
-    placeholder: '이메일을 입력해주세요',
-    variant: 'default',
-    required: true,
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Input
+        label="이메일"
+        name="email"
+        type="email"
+        placeholder="이메일을 입력해주세요"
+        variant="default"
+        value={value}
+        onChange={setValue}
+        required
+      />
+    );
   },
 };
 
 export const AuthCodeInput: Story = {
-  args: {
-    label: '이메일',
-    name: 'email',
-    type: 'email',
-    placeholder: '이메일을 입력해주세요',
-    variant: 'auth',
-    onAuthRequest: () => console.log('인증'),
-    required: true,
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Input
+        label="이메일"
+        name="email"
+        type="email"
+        placeholder="이메일을 입력해주세요"
+        variant="auth"
+        value={value}
+        onChange={setValue}
+        onAuthRequest={() => console.log('인증 요청됨')}
+        required
+      />
+    );
   },
 };
