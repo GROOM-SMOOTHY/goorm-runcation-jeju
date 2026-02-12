@@ -81,6 +81,7 @@ const Input: React.FC<InputProps> = ({
 								placeholder={placeholder}
 							/>
 						</Form.Control>
+					
             
             <Form.Message className={styles.Message} match="valueMissing">
               {label}을 입력해주세요
