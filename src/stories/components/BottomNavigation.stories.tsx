@@ -1,13 +1,13 @@
+import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import ButtonNavigation from "@/components/BottomNavigation/BottomNavigation";
 
-const meta: Meta<typeof ButtonNavigation> = {
-  title: "Components/ButtonNavigation",
-  component: ButtonNavigation,
+const meta: Meta<typeof BottomNavigation> = {
+  title: "Components/BottomNavigation",
+  component: BottomNavigation,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ButtonNavigation>;
+type Story = StoryObj<typeof BottomNavigation>;
 
 export const Default: Story = {};

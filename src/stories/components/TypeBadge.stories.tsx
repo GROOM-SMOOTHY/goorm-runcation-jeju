@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import TypeBadge from "@/components/TypeBadge/TypeBadge";
+import TypeBadge from "@/components/common/TypeBadge/TypeBadge";
 
 const meta: Meta<typeof TypeBadge> = {
   title: "Components/TypeBadge",
@@ -9,9 +9,9 @@ const meta: Meta<typeof TypeBadge> = {
     layout: "centered",
   },
   argTypes: {
-    process: {
-      control: { type: "check" },
-      options: ["FRONTEND", "DESIGN", "BACKEND"],
+    course: {
+      control: "select",
+      options: ["FRONTEND", "BACKEND", "DESIGN", "DEFAULT"],
     },
     generation: {
       control: "text",
@@ -21,11 +21,30 @@ const meta: Meta<typeof TypeBadge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof TypeBadge>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    process: ["FRONTEND"],
+    course: "FRONTEND",
+    generation: "12",
+  },
+};
+
+export const Backend: Story = {
+  args: {
+    course: "BACKEND",
+  },
+};
+
+export const Design: Story = {
+  args: {
+    course: "DESIGN",
+  },
+};
+
+export const Generation: Story = {
+  args: {
+    course: "DEFAULT",
     generation: "12",
   },
 };

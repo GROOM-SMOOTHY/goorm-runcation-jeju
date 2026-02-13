@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import Textarea from "@/components/Textarea/Textarea";
+import Textarea from "@/components/common/Textarea/Textarea";
 
 const meta: Meta<typeof Textarea> = {
   title: "Components/Textarea",
@@ -15,7 +15,7 @@ export const Default: Story = {
   },
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
     placeholder: "오늘의 업무와 휴식은 어땠나요?",
   },
 };
