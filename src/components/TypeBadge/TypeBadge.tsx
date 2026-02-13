@@ -1,28 +1,31 @@
-import styles from "@/components/TypeBadge/typeBadge.module.css";
+import styles from "./typeBadge.module.css";
 
 export const CourseType = {
   FRONTEND: "frontend",
   BACKEND: "backend",
   DESIGN: "design",
   DEFAULT: "default",
-};
+} as const;
 
+export type CourseTypeKey = keyof typeof CourseType;
 
-interface TypeBadgeProps {
-  course: keyof typeof CourseType;
+export interface TypeBadgeProps {
+  course: CourseTypeKey;
   generation?: string;
 }
 
-export default function TypeBadge({ course, generation }: TypeBadgeProps) {
+export default function TypeBadge({ course, generation = "" }: TypeBadgeProps) {
+  const isGeneration = course === "DEFAULT";
+
   return (
     <div className={styles.container}>
-      {course !== "DEFAULT" && CourseType[course] && (
+      {!isGeneration && (
         <div className={`${styles.badge} ${styles[CourseType[course]]}`}>
           {CourseType[course].toUpperCase()}
         </div>
       )}
 
-      {course === "DEFAULT" && (
+      {isGeneration && (
         <div className={`${styles.badge} ${styles.generation}`}>
           {generation}기
         </div>
