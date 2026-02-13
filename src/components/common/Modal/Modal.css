@@ -8,7 +8,6 @@
   padding: 16px;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
-  animation: modal-overlay-in 0.2s ease-out;
 }
 
 @keyframes modal-overlay-in {
@@ -29,8 +28,8 @@
   flex-direction: column;
   background: var(--bg-white);
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  animation: modal-dialog-in 0.2s ease-out;
+  box-shadow: 0 20px 25px -5px #00000040, 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  animation: modal-dialog-in 0.1s ease-out;
 }
 
 @keyframes modal-dialog-in {

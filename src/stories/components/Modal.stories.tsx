@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import Modal from "@/components/common/Modal/Modal.css";
+
+import Modal from "@/components/common/Modal/Modal.tsx";
 import Button from "@/components/common/Button/Button";
 
 const meta = {
@@ -21,7 +22,7 @@ function ModalWithTrigger() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>모달 열기</Button>
+      <Button type="button" onClick={() => setOpen(true)}>모달 열기</Button>
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <Modal.Header>
           <span>그룹생성</span>
@@ -31,7 +32,7 @@ function ModalWithTrigger() {
           닫기 버튼이나 배경 클릭, ESC로 닫을 수 있습니다.
         </Modal.Content>
         <Modal.Footer>
-          <Button variant="filled" onClick={() => setOpen(false)}>닫기</Button>
+          <Button type="button" variant="primary" onClick={() => setOpen(false)}>닫기</Button>
         </Modal.Footer>
       </Modal>
     </>
