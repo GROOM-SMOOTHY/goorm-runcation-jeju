@@ -48,7 +48,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const handleSelectResult = (val: string) => {
     setInput(val);
     onChange?.(val);
-    setShowResults(false); // 결과 닫기
+    setShowResults(false);
   };
 
   return (
