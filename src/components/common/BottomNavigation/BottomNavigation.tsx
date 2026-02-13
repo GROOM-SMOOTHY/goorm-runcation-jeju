@@ -8,25 +8,25 @@ import { BsPerson } from "react-icons/bs";
 export default function ButtonNavigation() {
   return (
     <nav className={styles.buttonNavigation}>
-      <div className={`${styles.navItem} ${styles.home}`}>
+      <button type="button" className={`${styles.navItem} ${styles.home}`}>
         <AiOutlineHome size={20} />
         <span>홈</span>
-      </div>
-      <div className={styles.navItem}>
+      </button>
+      <button type="button" className={styles.navItem}>
         <BiMapPin size={20} />
         <span>도장깨기</span>
-      </div>
-      <div className={`${styles.navItem} ${styles.payment}`}>
+      </button>
+      <button type="button" className={`${styles.navItem} ${styles.payment}`}>
         <MdOutlinePayments size={32} />
-      </div>
-      <div className={styles.navItem}>
+      </button>
+      <button type="button" className={styles.navItem}>
         <BiWallet size={20} />
         <span>정산현황</span>
-      </div>
-      <div className={styles.navItem}>
+      </button>
+      <button type="button" className={styles.navItem}>
         <BsPerson size={20} />
         <span>마이</span>
-      </div>
+      </button>
     </nav>
   );
 }
