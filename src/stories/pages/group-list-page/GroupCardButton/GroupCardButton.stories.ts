@@ -1,4 +1,4 @@
-import GroupCardButton from "@/components/pages/group-list-page/GroupCardButton";
+import GroupCardButton from "@/components/pages/group-list-page/GroupCardButton/GroupCardButton";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = {
