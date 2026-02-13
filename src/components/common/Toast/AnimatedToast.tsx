@@ -71,7 +71,7 @@ const ToastItemComponent: React.FC<ToastItemProps> = ({ toast, removeToast }) =>
             </span>
           </Toast.Description>
         </div>
-        <Toast.Action className={styles.Action} asChild altText="Undo">
+        <Toast.Action className={styles.Action} asChild altText="닫기">
           <button
             className={`${styles.Button} small`}
             onClick={() => removeToast(toast.id)}

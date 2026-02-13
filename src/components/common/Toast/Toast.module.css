@@ -21,7 +21,7 @@
   color: var(--bg-white); 
 }
 .error {
-  background-color: var(--toast-rad); 
+  background-color: var(--toast-red); 
   color: var(--bg-white); 
 }
 .warning { 
