@@ -1,0 +1,94 @@
+.Root {
+	width: 260px;
+}
+
+.Field {
+	display: grid;
+	margin-bottom: 10px;
+}
+
+.LabelWrapper {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+
+.Label {
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 35px;
+	color: var(--text-primary);
+}
+
+.Message {
+	font-size: 13px;
+	color: var(--text-primary);
+	opacity: 0.8;
+	margin-top: 4px;
+}
+
+.Input {
+	all: unset;
+	box-sizing: border-box;
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 10px;
+	height: 35px;
+	line-height: 1;
+	border-radius: 4px;
+	font-size: 15px;
+	color: var(--text-primary);
+	background-color: var(--bg-white);
+	box-shadow: 0 0 0 2px var(--border-main);
+}
+
+.Input:hover {
+	box-shadow: 0 0 0 2px black;
+}
+
+.Input:focus {
+	box-shadow: 0 0 0 2px black;
+}
+
+.Input::selection {
+	background-color: var(--text-primary);
+	color: white;
+}
+
+.AuthContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.AuthRequestText {
+	all: unset;
+	margin-top: 8px;
+	color: var(--brand-primary);
+	font-size: 14px;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.AuthTimerContainer {
+	margin-top: 8px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 14px;
+	color: var(--text-secondary);
+}
+
+.AuthRetryText {
+	all: unset;
+	cursor: pointer;
+	text-decoration: underline;
+	color: var(--brand-primary);
+}
+
+.TimerText {
+	color: var(--brand-primary);
+	font-weight: bold;
+}

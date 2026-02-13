@@ -1,0 +1,208 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Design/Fonts" />
+
+# 폰트 가이드
+
+이 페이지는 프로젝트에서 사용하는 폰트 설정을 정리한 문서입니다.  
+실제 선언은 `src/styles/font.css` 에서 `@font-face`로 관리되고 있습니다.
+
+<br/>
+## 전체 기본 폰트
+
+- **기본 폰트**: `Pretendard`, sans-serif
+- **로고 폰트(SMOOTHY)**: `font-family: Plus Jakarta Sans`
+
+
+<br/>
+## 사용 중인 폰트 패밀리
+
+### Jua
+
+<FontBlock
+  family="Jua"
+  weight="400"
+  description="타이틀/강조용 한글 폰트"
+/>
+
+### Pretendard
+
+<FontBlock
+  family="Pretendard"
+  weight="800"
+  description="ExtraBold"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="700"
+  description="Bold"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="600"
+  description="SemiBold"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="500"
+  description="Medium"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="400"
+  description="Regular"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="300"
+  description="Light"
+/>
+<FontBlock
+  family="Pretendard"
+  weight="200"
+  description="ExtraLight"
+/>
+
+### Plus Jakarta Sans
+
+<FontBlock
+  family="Plus Jakarta Sans"
+  weight="800"
+  description="ExtraBold"
+/>
+<FontBlock
+  family="Plus Jakarta Sans"
+  weight="700"
+  description="Bold"
+/>
+<FontBlock
+  family="Plus Jakarta Sans"
+  weight="600"
+  description="SemiBold"
+/>
+<FontBlock
+  family="Plus Jakarta Sans"
+  weight="500"
+  description="Medium"
+/>
+<FontBlock
+  family="Plus Jakarta Sans"
+  weight="400"
+  description="Regular"
+/>
+
+## 샘플 텍스트
+
+<SampleText
+  family="Pretendard"
+  weight="400"
+  label="Pretendard Regular"
+/>
+<SampleText
+  family="Pretendard"
+  weight="700"
+  label="Pretendard Bold"
+/>
+<SampleText
+  family="Jua"
+  weight="400"
+  label="Jua"
+/>
+<SampleText
+  family="Plus Jakarta Sans"
+  weight="600"
+  label="Plus Jakarta Sans SemiBold"
+/>
+
+<style>
+{`
+  .font-block {
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    background-color: #ffffff;
+  }
+
+  .font-block-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+
+  .font-block-family {
+    font-weight: 600;
+  }
+
+  .font-block-weight {
+    color: #6b7280;
+  }
+
+  .font-block-description {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .sample-text {
+    border-radius: 8px;
+    border: 1px dashed #d1d5db;
+    padding: 12px 16px;
+    margin-top: 12px;
+    background-color: #f9fafb;
+    font-size: 14px;
+  }
+
+  .sample-text-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  .font-pretendard {
+    font-family: 'Pretendard', sans-serif !important;
+  }
+
+  .font-jua {
+    font-family: 'Jua', sans-serif !important;
+  }
+
+  .font-plus-jakarta-sans {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+  }
+  `}
+</style>
+
+export const familyClassMap = {
+  Pretendard: "font-pretendard",
+  Jua: "font-jua",
+  "Plus Jakarta Sans": "font-plus-jakarta-sans",
+};
+
+export const FontBlock = ({ family, weight, description }) => {
+  const familyClass = familyClassMap[family] ?? "";
+  return (
+    <div className='font-block'>
+      <div className="font-block-header">
+        <span className={`font-block-family ${familyClass}`} style={{ fontWeight: weight }}>{family}</span>
+        <span className="font-block-weight">weight: {weight}</span>
+      </div>
+      <div className="font-block-description">{description}</div>
+    </div>
+  );
+};
+
+export const SampleText = ({ family, weight, label }) => {
+  const familyClass = familyClassMap[family] ?? "";
+  return (
+    <div
+      className={`sample-text ${familyClass}`}
+      style={{ fontWeight: Number(weight) }}
+    >
+      <div className="sample-text-label">{label}</div>
+      <div>제주 런케이션를 떠나는 가장 쉬운 방법을 소개합니다.</div>
+      <div>Goorm Runcation Jeju – Work, Run, and Relax.</div>
+    </div>
+  );
+};
+
