@@ -1,21 +1,27 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import Group from "@/components/common/GroupCard/GroupcCard";
+import GroupCard from "@/components/common/GroupCard/GroupCard";
 
 const meta = {
-  title: "Components/Group",
-  component: Group,
+  title: "Components/GroupCard",
+  component: GroupCard,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Group>;
+  argTypes: {
+    course: {
+      control: "select",
+      options: ["FRONTEND", "BACKEND", "DESIGN", "DEFAULT"],
+    },
+  },
+} satisfies Meta<typeof GroupCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    process: ["FRONTEND"],
+    course: "FRONTEND",
     generation: "12",
     participantsCount: 8,
     title: "프론트엔드 스터디",
