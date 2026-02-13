@@ -1,0 +1,81 @@
+.group {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 16px;
+  background-color: #fff;
+  width: 300px;
+  cursor: pointer;
+}
+.group:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tag {
+  background-color: #ffe7c0;
+  color: #ff9800;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.tagbox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.batch {
+  background-color: #f2f2f2;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.participants {
+  margin-left: auto;
+  font-size: 12px;
+  color: #999;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.description {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.avatarGroup {
+  position: relative;
+  height: 32px;
+}
+
+.avatar,
+.more {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.more {
+  background-color: #f1f3f5;
+  color: #333;
+}
