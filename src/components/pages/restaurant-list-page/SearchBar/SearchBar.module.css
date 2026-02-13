@@ -45,7 +45,7 @@
   font-weight: 400;
 
   margin-top: 10px;
-  box-shadow: 0 0 2px 4px var(--border-main);
+  box-shadow: 0 0 10px 1px var(--border-main);
 }
 
 .Results li {
