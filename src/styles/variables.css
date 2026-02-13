@@ -40,4 +40,9 @@
     --badge-label-emerald: #34D399;
     --badge-bg-sky: #E2ECFF;
     --badge-label-sky: #3B82F6;
+
+    /* Toast */
+    --toast-rad: #EF4444;
+    --toast-yellow: #FBBF24;
+    --toast-green: #10B981;
 }

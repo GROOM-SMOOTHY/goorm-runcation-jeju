@@ -7,7 +7,7 @@
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px var(--text-secondary);
 }
 
 .show {
@@ -16,10 +16,22 @@
 }
 
 /* 타입별 색상 */
-.success { background-color: #22c55e; color: white; }
-.error   { background-color: #ef4444; color: white; }
-.warning { background-color: #facc15; color: black; }
-.info    { background-color: #3b82f6; color: white; }
+.success { 
+  background-color: var(--badge-label-blue); 
+  color: var(--bg-white); 
+}
+.error {
+  background-color: var(--toast-rad); 
+  color: var(--bg-white); 
+}
+.warning { 
+  background-color: var(--toast-yellow); 
+  color: var(--bg-black); 
+}
+.info { 
+  background-color: var(--toast-green); 
+  color: var(--bg-white); 
+}
 
 .Content {
   display: flex;

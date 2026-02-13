@@ -14,7 +14,7 @@ const ToastIcon: Record<ToastItem["type"], JSX.Element> = {
   info: <FaInfoCircle className={styles.Icon} />,
 };
 
-// 자동 닫힘 시간 (3초)
+// 자동 닫힘 시간 (5초)
 const AUTO_CLOSE_MS = 5000;
 
 
