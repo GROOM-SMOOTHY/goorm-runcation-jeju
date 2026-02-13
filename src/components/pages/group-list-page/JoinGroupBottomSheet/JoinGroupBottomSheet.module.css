@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .title {
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.header .closeButton {
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+}
+
+.header .closeButton:hover {
+    background-color: var(--bg-select);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
