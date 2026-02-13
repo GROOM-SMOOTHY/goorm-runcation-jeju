@@ -1,4 +1,4 @@
-import styles from "@/components/BottomNavigation/bottomNavigation.module.css";
+import styles from "./bottomNavigation.module.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiMapPin } from "react-icons/bi";
 import { MdOutlinePayments } from "react-icons/md";
