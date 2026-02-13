@@ -11,15 +11,16 @@
   justify-content: center;
 
   height: 24px;
-  padding: 6px 10px;
+  padding: 4px 8px;
 
   border-radius: 6px;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 16px;
   letter-spacing: 0.5px;
 }
+
 .frontend {
   background-color: var(--badge-bg-orange);
   color: var(--badge-label-orange);
@@ -36,6 +37,7 @@
 }
 
 .generation {
-  background-color: var(--bg-black-stroke); /*  색 없음 */
+  background-color: var(--bg-black-stroke);
+  /*  색 없음 */
   color: var(--text-label);
 }
