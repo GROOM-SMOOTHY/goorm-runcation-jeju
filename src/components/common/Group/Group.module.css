@@ -1,13 +1,13 @@
 .group {
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px var(--text-label);
   padding: 16px;
-  background-color: #fff;
+  background-color: var(--bg-white);
   width: 300px;
   cursor: pointer;
 }
 .group:hover {
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 16px var(--text-label);
 }
 .header {
   display: flex;
@@ -16,23 +16,8 @@
   margin-bottom: 8px;
 }
 
-.tag {
-  background-color: #ffe7c0;
-  color: #ff9800;
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.tagbox {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
 .batch {
-  background-color: #f2f2f2;
+  background-color: var(--text-tertiary);
   padding: 2px 6px;
   border-radius: 8px;
   font-size: 12px;
@@ -41,7 +26,7 @@
 .participants {
   margin-left: auto;
   font-size: 12px;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .title {
@@ -52,7 +37,7 @@
 
 .description {
   font-size: 12px;
-  color: #666;
+  color: var(--text-label-strong);
   margin-bottom: 8px;
 }
 
@@ -67,7 +52,6 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,6 +60,6 @@
 }
 
 .more {
-  background-color: #f1f3f5;
-  color: #333;
+  background-color: var(--bg-searchbar);
+  color: var(--text-primary);
 }
