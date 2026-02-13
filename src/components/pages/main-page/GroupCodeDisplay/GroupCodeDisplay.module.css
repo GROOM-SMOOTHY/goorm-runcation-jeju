@@ -1,0 +1,19 @@
+.container {
+    padding: 4px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+    border-radius: 9999px;
+    border: 1px solid var(--border-main);
+    box-sizing: border-box;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.code {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
