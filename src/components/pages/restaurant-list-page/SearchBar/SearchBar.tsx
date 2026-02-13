@@ -18,9 +18,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onSearch,
 }) => {
   const [input, setInput] = React.useState(value);
-  const [results, setResults] = React.useState<string[]>([]);
-  const [showResults, setShowResults] = React.useState(false);
-
   // 입력값 변경 시 상태 업데이트 & 필터링
   const handleChange = (val: string) => {
     setInput(val);
@@ -29,8 +26,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const filtered = data
       .filter((item) => item.toLowerCase().includes(val.toLowerCase()))
       .slice(0, 4); // 최대 4개만 표시
-    setResults(filtered);
-    setShowResults(true);
     onSearch?.(filtered);
   };
 
@@ -39,16 +34,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const filtered = data
       .filter((item) => item.toLowerCase().includes(input.toLowerCase()))
       .slice(0, 4);
-    setResults(filtered);
-    setShowResults(true);
     onSearch?.(filtered);
-  };
-
-  // 검색 결과 클릭 시 input에 입력
-  const handleSelectResult = (val: string) => {
-    setInput(val);
-    onChange?.(val);
-    setShowResults(false); // 결과 닫기
   };
 
   return (
@@ -60,21 +46,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         value={input}
         onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
-        onFocus={() => input && setShowResults(true)}
       />
-
-      {showResults && results.length > 0 && (
-        <ul className={styles.Results}>
-          {results.map((item, idx) => (
-            <li
-              key={idx}
-              onClick={() => handleSelectResult(item)}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 };
