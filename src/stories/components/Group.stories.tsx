@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import Group from "@/components/common/Group/Group";
+import Group from "@/components/common/GroupCard/GroupcCard";
 
 const meta = {
   title: "Components/Group",

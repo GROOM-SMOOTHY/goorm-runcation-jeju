@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/components/common/Group/Group.module.css";
+import styles from "@/components/common/GroupCard/GroupcCard.module.css";
 // import TypeBadge from "@/components/TypeBadge/TypeBadge";
 
 interface GroupProps {
