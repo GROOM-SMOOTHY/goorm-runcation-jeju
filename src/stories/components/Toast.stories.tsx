@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // 에러 토스트 스토리
-export const Error: Story = {
+export const ErrorToast: Story = {
   args: {
     title: "에러 발생!",
     description: "문제가 발생했습니다. 다시 시도해주세요.",

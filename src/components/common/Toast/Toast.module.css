@@ -63,7 +63,7 @@
 }
 
 /* 모바일 반응형 */
-@media (max-width: 480px) {
+@media (max-width <= 480px) {
   .Viewport {
     left: 16px;
     right: 16px;
