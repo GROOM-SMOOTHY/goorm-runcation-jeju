@@ -88,5 +88,4 @@ const ToastItemComponent: React.FC<ToastItemProps> = ({ toast, removeToast }) =>
     </Toast.Root>
   );
 };
-
 export default AnimatedToast;

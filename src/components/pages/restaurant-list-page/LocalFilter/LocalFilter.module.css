@@ -1,0 +1,49 @@
+/* 기존 CSS 유지 */
+.FilterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.FilterButton {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 2px solid var(--bg-white);
+  background-color: var(--bg-white);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  height: 44px;
+  width: auto;
+  box-shadow: 0 0 10px 1px var(--border-main);
+  box-sizing: border-box;
+}
+
+.FilterButton:hover {
+  background-color: var(--badge-bg-orange);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+  font-weight: bold;
+}
+
+/* 전체 버튼만 다른 색 강조 */
+.AllButton {
+  background-color: var(--brand-primary);
+  border: 2px solid var(--brand-primary);
+  color: var(--bg-white);
+  box-shadow: 0 0 10px 1px var(--border-main);
+}
+
+.AllButton:hover {
+  background-color: var(--badge-bg-orange);
+  color: var(--brand-primary);
+  font-weight: bold;
+}
+
+.Active {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--bg-white);
+  font-weight: bold;
+}
