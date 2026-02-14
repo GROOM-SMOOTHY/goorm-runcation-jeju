@@ -3,49 +3,71 @@ import styles from "@/components/pages/restaurant-list-page/SearchBar/SearchBar.
 import { FaSearch } from "react-icons/fa";
 
 interface SearchBarProps {
-  value?: string;
-  onChange?: (value: string) => void;
   placeholder?: string;
-  data?: string[]; // 검색할 데이터
-  onSearch?: (results: string[]) => void; // 검색 결과 반환
+  data?: string[];
+  onSearch?: (results: string[]) => void;
+  maxResults?: number;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  value = "",
-  onChange,
   placeholder = "제주 맛집을 검색해보아요",
   data = [],
   onSearch,
+  maxResults = 4,
 }) => {
-  const [input, setInput] = React.useState(value);
-  // 입력값 변경 시 상태 업데이트 & 필터링
-  const handleChange = (val: string) => {
-    setInput(val);
-    onChange?.(val);
+  const [input, setInput] = React.useState("");
 
-    const filtered = data
-      .filter((item) => item.toLowerCase().includes(val.toLowerCase()))
-      .slice(0, 4); // 최대 4개만 표시
-    onSearch?.(filtered);
+
+  // 검색 필터링 로직
+  const getFilteredResults = (keyword: string) => {
+    return data
+      .filter((item) =>
+        item.toLowerCase().includes(keyword.toLowerCase())
+      )
+      .slice(0, maxResults);
   };
 
-  // 돋보기 클릭 시 검색 실행
-  const handleSearchClick = () => {
-    const filtered = data
-      .filter((item) => item.toLowerCase().includes(input.toLowerCase()))
-      .slice(0, 4);
-    onSearch?.(filtered);
+
+  // 실제 검색 실행 함수
+  // (아이콘 클릭 / Enter 키 둘 다 여기로 통일)
+  const executeSearch = () => {
+    if (onSearch) {
+      const results = getFilteredResults(input);
+      onSearch(results);
+    }
+  };
+
+
+  // 입력 변경
+  const handleChange = (val: string) => {
+    setInput(val);
+  };
+
+
+  // Enter 키 감지
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      executeSearch();
+    }
   };
 
   return (
     <div className={styles.SearchBar}>
-      <FaSearch className={styles.Icon} onClick={handleSearchClick} />
+      <FaSearch
+        className={styles.Icon}
+        onClick={executeSearch}
+        role="button"
+        aria-label="search-button"
+      />
+
       <input
         type="text"
         className={styles.Input}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
+        aria-label="search-input"
       />
     </div>
   );
