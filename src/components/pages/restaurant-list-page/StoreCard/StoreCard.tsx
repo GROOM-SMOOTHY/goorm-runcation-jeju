@@ -10,6 +10,7 @@ export interface StoreCardProps {
   description: string;
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
+  onClick?: () => void;
 }
 
 const StoreCard: React.FC<StoreCardProps> = ({
@@ -20,16 +21,20 @@ const StoreCard: React.FC<StoreCardProps> = ({
   description,
   isFavorite = false,
   onToggleFavorite,
+  onClick,
+
 }) => {
+  
   return (
-    <div className={styles.Card}>
+    <div className={styles.Card} onClick={onClick}>
       <div className={styles.ImageWrapper}>
         <img src={imageUrl} alt={name} className={styles.Image} />
         <button
-          className={`${styles.FavoriteButton} ${
-            isFavorite ? styles.Active : ""
-          }`}
-          onClick={onToggleFavorite}
+          className={`${styles.FavoriteButton} ${isFavorite ? styles.Active : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite?.();
+          }}
         >
           <FaHeart />
         </button>

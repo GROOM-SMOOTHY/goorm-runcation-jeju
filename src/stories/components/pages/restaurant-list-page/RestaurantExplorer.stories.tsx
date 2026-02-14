@@ -40,15 +40,16 @@ interface WrapperProps {
 const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [restaurants, setRestaurants] = useState(mockRestaurants);
 
   // 필터링
   const filteredRestaurants = useMemo(() => {
-    return mockRestaurants.filter(
+    return restaurants.filter(
       (r) =>
         r.name.toLowerCase().includes(searchValue.toLowerCase()) &&
         (selectedRegion ? r.location === selectedRegion : true)
     );
-  }, [searchValue, selectedRegion]);
+  }, [searchValue, selectedRegion, restaurants]);
 
   // 검색 결과 Action 호출
   useEffect(() => {
@@ -87,13 +88,18 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
         }}
       >
         {filteredRestaurants.length > 0 ? (
-          filteredRestaurants.map((restaurant, idx) => (
+          filteredRestaurants.map((restaurant) => (
             <StoreCard
-              key={idx}
+              key={restaurant.name}
               {...restaurant}
               onToggleFavorite={() => {
-                const newRestaurants = [...mockRestaurants];
-                newRestaurants[idx].isFavorite = !newRestaurants[idx].isFavorite;
+            setRestaurants((prev) =>
+              prev.map((r) =>
+                r.name === restaurant.name
+                  ? { ...r, isFavorite: !r.isFavorite }
+                  : r
+              )
+            );
               }}
             />
           ))

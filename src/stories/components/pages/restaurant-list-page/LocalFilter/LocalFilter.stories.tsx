@@ -8,10 +8,6 @@ interface WrapperProps {
   onSelectRegion?: (region: string) => void;
 }
 
-const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
-
   const allRestaurants = [
     "제주시 흑돼지 맛집",
     "서귀포 해물탕",
@@ -21,7 +17,10 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
     "서귀포 올레길 맛집",
   ];
 
-  /* 🔥 검색 + 지역 필터 통합 */
+const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState("");
+
   const filtered = useMemo(() => {
     return allRestaurants.filter((item) => {
       const matchKeyword = item
@@ -33,7 +32,7 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
 
       return matchKeyword && matchRegion;
     });
-  }, [searchKeyword, selectedRegion, allRestaurants]);
+  }, [searchKeyword, selectedRegion]);
 
   useEffect(() => {
     onSearch?.(filtered);

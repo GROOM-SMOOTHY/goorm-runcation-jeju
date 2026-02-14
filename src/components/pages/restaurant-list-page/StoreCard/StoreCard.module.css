@@ -11,7 +11,6 @@
 
 .Card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 10px 1px var(--border-main);
 }
 
 .ImageWrapper {
@@ -72,7 +71,7 @@
 }
 
 .Category {
-  color: var(--text-label-strongy);
+  color: var(--text-label-strong);
   padding: 4px 8px;
   border-radius: 6px;
 }
