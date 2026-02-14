@@ -41,3 +41,9 @@
   font-weight: bold;
 }
 
+.Active {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: var(--bg-white);
+  font-weight: bold;
+}
