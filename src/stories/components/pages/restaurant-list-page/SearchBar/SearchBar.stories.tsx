@@ -18,7 +18,6 @@ const meta: Meta<typeof SearchBar> = {
   argTypes: {
     placeholder: { control: "text" },
     data: { control: "object" },
-    maxResults: { control: "number" },
     onSearch: { action: "searched" },
   },
 };
@@ -30,6 +29,5 @@ export const Default: Story = {
   args: {
     data: mockData,
     placeholder: "제주 맛집을 검색해보아요",
-    maxResults: 4,
   },
 };

@@ -1,5 +1,4 @@
 .SearchBar {
-  position: relative;
   display: flex;
   align-items: center;
   width: 440px;
@@ -14,7 +13,7 @@
 .Icon {
   font-size: 16px;
   cursor: pointer;
-  background: var(--text-labela);
+  color: var(--text-labela); /* background → color로 수정 */
 }
 
 .Input {
@@ -25,34 +24,4 @@
   background: transparent;
   font-weight: 500;
   color: var(--text-labela);
-
-}
-
-.Results {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  right: 0;
-  max-height: 200px;
-  overflow-y: auto;
-  background: var(--bg-searchba)f;
-  border-radius: 8px;
-  padding: 4px 0;
-  list-style: none;
-  z-index: 10;
-  color: var(--text-labela);
-  font-size: 16px;
-  font-weight: 400;
-
-  margin-top: 10px;
-  box-shadow: 0 0 10px 1px var(--border-main);
-}
-
-.Results li {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.Results li:hover {
-  background-color: #f0f0f0;
 }
