@@ -16,6 +16,7 @@ const LocalFilter: React.FC<LocalFilterProps> = ({ regions, selectedRegion, onSe
         const isActive = region === "전체" ? selectedRegion === "" : selectedRegion === region;
         return (
           <button
+            type="button"
             key={idx}
             className={`${styles.FilterButton} ${region === "전체" ? styles.AllButton : ""} ${isActive ? styles.Active : ""}`}
             onClick={() => onSelectRegion(region === "전체" ? "" : region)}
