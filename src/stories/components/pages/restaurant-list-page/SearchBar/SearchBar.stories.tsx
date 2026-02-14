@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
 import SearchBar from "@/components/pages/restaurant-list-page/SearchBar/SearchBar";
 
 const mockData = [
@@ -10,31 +9,25 @@ const mockData = [
   "제주 해산물 맛집",
 ];
 
-const meta = {
-  title: "pages/restaurant-list-page/SearchBar",
+const meta: Meta<typeof SearchBar> = {
+  title: "Pages/Restaurant-list-page/SearchBar",
   component: SearchBar,
-  parameters: { layout: "centered" },
-  tags: ["autodocs"],
-} satisfies Meta<typeof SearchBar>;
+  parameters: {
+    layout: "centered",
+  },
+  argTypes: {
+    placeholder: { control: "text" },
+    data: { control: "object" },
+    onSearch: { action: "searched" },
+  },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-function SearchBarWithState() {
-  const [value, setValue] = useState("");
-
-  return (
-    <>
-      <SearchBar
-        value={value}
-        onChange={setValue}
-        data={mockData}
-        placeholder="제주 맛집을 검색해보아요"
-      />
-    </>
-  );
-}
+type Story = StoryObj<typeof SearchBar>;
 
 export const Default: Story = {
-  render: () => <SearchBarWithState />,
+  args: {
+    data: mockData,
+    placeholder: "제주 맛집을 검색해보아요",
+  },
 };

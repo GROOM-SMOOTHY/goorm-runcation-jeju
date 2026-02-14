@@ -1,5 +1,4 @@
 .SearchBar {
-  position: relative;
   display: flex;
   align-items: center;
   width: 440px;
@@ -14,7 +13,7 @@
 .Icon {
   font-size: 16px;
   cursor: pointer;
-  background: var(--text-labela);
+  color: var(--text-labela);
 }
 
 .Input {
@@ -25,5 +24,4 @@
   background: transparent;
   font-weight: 500;
   color: var(--text-labela);
-
 }
