@@ -3,43 +3,40 @@ import styles from "@/components/pages/restaurant-list-page/SearchBar/SearchBar.
 import { FaSearch } from "react-icons/fa";
 
 interface SearchBarProps {
-  value?: string;
-  onChange?: (value: string) => void;
   placeholder?: string;
   data?: string[];
   onSearch?: (results: string[]) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  value = "",
-  onChange,
   placeholder = "제주 맛집을 검색해보아요",
   data = [],
   onSearch,
 }) => {
-  const [input, setInput] = React.useState(value);
+  const [input, setInput] = React.useState("");
 
-  const handleSearch = (keyword: string) => {
+  // 입력값 변경 시 바로 필터링
+  const handleChange = (val: string) => {
+    setInput(val);
+
     const filtered = data.filter((item) =>
-      item.toLowerCase().includes(keyword.toLowerCase())
+      item.toLowerCase().includes(val.toLowerCase())
     );
 
     onSearch?.(filtered);
   };
 
-  const handleChange = (val: string) => {
-    setInput(val);
-    onChange?.(val);
-    handleSearch(val);
+  // 돋보기 클릭 시 검색 실행
+  const handleSearchClick = () => {
+    const filtered = data.filter((item) =>
+      item.toLowerCase().includes(input.toLowerCase())
+    );
+    onSearch?.(filtered);
   };
 
   return (
     <div className={styles.SearchBar}>
-      {/* 아이콘 클릭 시에도 검색가능 */}
-      <FaSearch
-        className={styles.Icon}
-        onClick={() => handleSearch(input)}
-      />
+      <FaSearch className={styles.Icon} onClick={handleSearchClick} />
       <input
         type="text"
         className={styles.Input}
