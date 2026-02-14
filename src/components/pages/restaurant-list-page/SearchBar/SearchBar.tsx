@@ -6,58 +6,36 @@ interface SearchBarProps {
   placeholder?: string;
   data?: string[];
   onSearch?: (results: string[]) => void;
-  maxResults?: number;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "제주 맛집을 검색해보아요",
   data = [],
   onSearch,
-  maxResults = 4,
 }) => {
   const [input, setInput] = React.useState("");
 
+  // 검색 실행 함수
+  const handleSearch = (keyword: string) => {
+    const filtered = data.filter((item) =>
+      item.toLowerCase().includes(keyword.toLowerCase())
+    );
 
-  // 검색 필터링 로직
-  const getFilteredResults = (keyword: string) => {
-    return data
-      .filter((item) =>
-        item.toLowerCase().includes(keyword.toLowerCase())
-      )
-      .slice(0, maxResults);
+    onSearch?.(filtered);
   };
 
-
-  // 실제 검색 실행 함수
-  // (아이콘 클릭 / Enter 키 둘 다 여기로 통일)
-  const executeSearch = () => {
-    if (onSearch) {
-      const results = getFilteredResults(input);
-      onSearch(results);
-    }
-  };
-
-
-  // 입력 변경
+  // 입력 시 바로 검색
   const handleChange = (val: string) => {
     setInput(val);
-  };
-
-
-  // Enter 키 감지
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      executeSearch();
-    }
+    handleSearch(val);
   };
 
   return (
     <div className={styles.SearchBar}>
+      {/* 아이콘 클릭 시 현재 input으로 검색 */}
       <FaSearch
         className={styles.Icon}
-        onClick={executeSearch}
-        role="button"
-        aria-label="search-button"
+        onClick={() => handleSearch(input)}
       />
 
       <input
@@ -65,9 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         className={styles.Input}
         value={input}
         onChange={(e) => handleChange(e.target.value)}
-        onKeyDown={handleKeyDown}
         placeholder={placeholder}
-        aria-label="search-input"
       />
     </div>
   );
