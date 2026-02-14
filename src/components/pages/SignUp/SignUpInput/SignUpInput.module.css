@@ -1,0 +1,71 @@
+.container {
+  width: 385px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 10px;
+  background-color: #696969;
+}
+
+.field {
+  height: 74px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 16px;
+  background: rgba(255, 255, 255, 0.5); /*이거는 var()로 작성 안해도 되는건가?*/
+  border-radius: 16px;
+  border: 1px solid var(--border-main);
+  box-sizing: border-box;
+}
+
+.label {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 1px;
+  color: var(--text-label);
+}
+
+.input {
+  padding: 1px 0px 0px 0px;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.input::placeholder {
+  color: #94a3b8; /* variables.css 파일에 "--text-placeholder" 값이 피그마와 다름*/
+}
+
+.verify {
+  height: 148px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  background: rgba(255, 255, 255, 0.5); /*이거는 var()로 작성 안해도 되는건가?*/
+  border-radius: 16px;
+  border: 1px solid var(--border-main);
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+.first,
+.second {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.button {
+  margin-left: auto;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--brand-primary);
+}
