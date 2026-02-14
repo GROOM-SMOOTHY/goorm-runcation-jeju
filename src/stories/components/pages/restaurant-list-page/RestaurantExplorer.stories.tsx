@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import SearchBar from "@/components/pages/restaurant-list-page/SearchBar/SearchBar";
 import LocalFilter from "@/components/pages/restaurant-list-page/LocalFilter/LocalFilter";
 import type { StoreCardProps } from "@/components/pages/restaurant-list-page/StoreCard/StoreCard";
@@ -32,65 +32,69 @@ const mockRestaurants: StoreCardProps[] = [
   },
 ];
 
-const meta: Meta<typeof StoreCard> = {
-  title: "Pages/Restaurant-list-page/RestaurantExplorer",
-  component: StoreCard,
-  parameters: { layout: "centered" },
-  tags: ["autodocs"],
-};
+interface WrapperProps {
+  onSearch?: (results: string[]) => void;
+  onSelectRegion?: (region: string) => void;
+}
 
-export default meta;
-type Story = StoryObj<typeof StoreCard>;
-
-function RestaurantExplorer() {
+const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
-  const [restaurants, setRestaurants] = useState(mockRestaurants);
 
   // 필터링
-  const filteredRestaurants = restaurants.filter(
-    (r) =>
-      r.name.includes(searchValue) &&
-      (selectedRegion ? r.location === selectedRegion : true)
-  );
+  const filteredRestaurants = useMemo(() => {
+    return mockRestaurants.filter(
+      (r) =>
+        r.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+        (selectedRegion ? r.location === selectedRegion : true)
+    );
+  }, [searchValue, selectedRegion]);
 
-  // 즐겨찾기 토글
-  const handleToggleFavorite = (index: number) => {
-    const newRestaurants = [...restaurants];
-    newRestaurants[index].isFavorite = !newRestaurants[index].isFavorite;
-    setRestaurants(newRestaurants);
-  };
-
-  const handleSelectRegion = (region: string) => {
-    setSelectedRegion(region);
-    setSearchValue(region); // 선택한 지역으로 자동 검색
-  };
+  // 검색 결과 Action 호출
+  useEffect(() => {
+    onSearch?.(filteredRestaurants.map((r) => r.name));
+  }, [filteredRestaurants, onSearch]);
 
   return (
     <div style={{ width: "400px" }}>
       {/* SearchBar */}
       <SearchBar
-        value={searchValue}
-        onChange={setSearchValue}
         placeholder="제주 맛집을 검색해보아요"
-        data={restaurants.map((r) => r.name)}
+        data={mockRestaurants.map((r) => r.name)}
+        onSearch={(results) => {
+          setSearchValue(results.join(" "));
+          onSearch?.(results); // 🔥 Action 패널 호출
+        }}
       />
 
       {/* LocalFilter */}
       <LocalFilter
         regions={["제주시", "서귀포시", "한림", "애월"]}
-        selectedRegion={selectedRegion} // 상태 전달
-        onSelectRegion={handleSelectRegion}
+        selectedRegion={selectedRegion}
+        onSelectRegion={(region) => {
+          setSelectedRegion(region);
+          onSelectRegion?.(region);
+        }}
       />
 
       {/* StoreCard 리스트 */}
-      <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "20px" }}>
+      <div
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
         {filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((restaurant, idx) => (
             <StoreCard
               key={idx}
               {...restaurant}
-              onToggleFavorite={() => handleToggleFavorite(idx)}
+              onToggleFavorite={() => {
+                const newRestaurants = [...mockRestaurants];
+                newRestaurants[idx].isFavorite = !newRestaurants[idx].isFavorite;
+              }}
             />
           ))
         ) : (
@@ -99,9 +103,19 @@ function RestaurantExplorer() {
       </div>
     </div>
   );
-}
-
-export const Default: Story = {
-  args: {},
-  render: () => <RestaurantExplorer />,
 };
+
+const meta: Meta<typeof Wrapper> = {
+  title: "Pages/Restaurant-list-page/RestaurantExplorer",
+  component: Wrapper,
+  parameters: { layout: "centered" },
+  argTypes: {
+    onSearch: { action: "searched" },
+    onSelectRegion: { action: "regionSelected" },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Wrapper>;
+
+export const Default: Story = {};
