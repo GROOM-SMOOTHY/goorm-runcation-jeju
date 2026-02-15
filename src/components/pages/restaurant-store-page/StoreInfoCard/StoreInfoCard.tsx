@@ -54,6 +54,7 @@ const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }
               type="button"
               className={styles.copyButton}
               onClick={() => handleCopy(text)}
+              aria-label={`${labels[index]} 복사`}
             >
               <MdContentCopy size={18} />
             </button>
