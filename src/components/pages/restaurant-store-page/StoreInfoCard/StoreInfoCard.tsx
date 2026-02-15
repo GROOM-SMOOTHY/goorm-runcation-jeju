@@ -8,6 +8,7 @@ interface StoreInfoCardProps {
   contact: string;
   hours: string;
 }
+
 // 아이콘과 클래스 매핑
 const iconConfig = [
   { icon: <MdLocationOn />, className: styles["icon-location"] },
@@ -15,9 +16,10 @@ const iconConfig = [
   { icon: <MdAccessTime />, className: styles["icon-hours"] },
 ];
 
-
 const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }) => {
   const addToast = useToastStore((state) => state.addToast);
+  const labels = ["주소", "연락처", "영업시간"];
+  const texts = [address, contact, hours];
 
   // 텍스트 복사 핸들러
   const handleCopy = (text: string) => {
@@ -25,22 +27,33 @@ const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }
     addToast("복사되었습니다", "", "success");
   };
 
-  const texts = [address, contact, hours];
-
   return (
     <div className={styles.card}>
       {texts.map((text, index) => (
         <div key={index} className={styles.item}>
-
+          {/* 아이콘 원형 */}
           <span className={`${styles.iconWrapper} ${iconConfig[index].className}`}>
             {iconConfig[index].icon}
           </span>
 
-          <span className={styles.text} title={text}>{text}</span>
+          {/* 라벨 + 텍스트 */}
+          <div className={styles.textWrapper}>
+            <div className={styles.label}>{labels[index]}</div>
+            <span className={styles.text} title={text}>
+              {text}
+            </span>
+          </div>
 
-          <button type="button" className={styles.copyButton} onClick={() => handleCopy(text)}>
-            <MdContentCopy size={18} />
-          </button>
+          {/* 주소와 연락처만 복사 버튼 */}
+          {index !== 2 && (
+            <button
+              type="button"
+              className={styles.copyButton}
+              onClick={() => handleCopy(text)}
+            >
+              <MdContentCopy size={18} />
+            </button>
+          )}
         </div>
       ))}
     </div>

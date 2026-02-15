@@ -17,6 +17,26 @@
   position: relative;
 }
 
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--text-label);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .iconWrapper {
   flex-shrink: 0;
   width: 36px;
