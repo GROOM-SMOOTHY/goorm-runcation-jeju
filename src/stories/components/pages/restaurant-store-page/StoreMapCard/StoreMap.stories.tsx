@@ -24,5 +24,6 @@ export const Default: Story = {
     longitude: 126.9780,
     storeName: "맛있는 식당",
   },
+
   
 };
