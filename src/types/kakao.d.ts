@@ -13,11 +13,7 @@ declare global {
         constructor(lat: number, lng: number);
       }
 
-      interface MarkerOptions {
-        position: LatLng;
-        map?: Map;            // ✅ 추가
-        image?: MarkerImage;
-      }
+
 
       class Map {
         constructor(container: HTMLElement, options: MapOptions);
@@ -26,9 +22,10 @@ declare global {
 
       interface MarkerOptions {
         position: LatLng;
+        map?: Map;
         image?: MarkerImage;
       }
-
+      
       class Marker {
         constructor(options: MarkerOptions);
         setMap(map: Map | null): void;
