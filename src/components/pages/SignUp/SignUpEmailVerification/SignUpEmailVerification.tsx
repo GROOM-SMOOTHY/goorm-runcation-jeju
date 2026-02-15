@@ -57,6 +57,7 @@ export default function SignUpInput() {
             placeholder="6자리 번호 입력"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            disabled={isVerified}
           />
         </div>
         <button
