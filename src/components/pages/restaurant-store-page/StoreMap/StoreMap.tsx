@@ -10,7 +10,6 @@ interface StoreMapProps {
 export default function StoreMap({
   latitude,
   longitude,
-  storeName,
 }: StoreMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<kakao.maps.Map | null>(null);
@@ -72,12 +71,6 @@ useEffect(() => {
   });
 }, [latitude, longitude]);
 
-
-  const handleDirection = () => {
-    const url = `https://map.kakao.com/link/to/${storeName},${latitude},${longitude}`;
-    window.open(url);
-  };
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -86,10 +79,6 @@ useEffect(() => {
       </div>
 
       <div ref={mapRef} className={styles.map} />
-
-      <button className={styles.button} onClick={handleDirection}>
-        길찾기
-      </button>
     </div>
   );
 }
