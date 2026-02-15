@@ -1,0 +1,81 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: var(--bg-white);
+  box-shadow: 0 0 10px 1px var(--border-main);
+  width: auto;
+  max-width: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--text-label);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* 각 아이콘 색상 */
+.icon-location {
+  background-color: var(--badge-bg-orange);
+  color: var(--badge-label-orange);
+}
+
+.icon-phone {
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+}
+
+.icon-hours {
+  background-color: var(--badge-bg-emerald);
+  color: var(--badge-label-emerald);
+}
+
+
+.text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copyButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  color: var(--text-label-strong);
+  flex-shrink: 0;
+}
+
+.copyButton:hover {
+  background-color: var(--text-secondary);
+}
