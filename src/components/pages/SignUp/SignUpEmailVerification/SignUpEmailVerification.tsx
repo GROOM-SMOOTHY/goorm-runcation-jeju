@@ -1,7 +1,7 @@
 import styles from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification.module.css";
 import { useState } from "react";
 
-export default function SignUpInput() {
+export default function SignUpEmailVerification() {
   const [email, setEmail] = useState("");
   const [input, setInput] = useState("");
   const [show, setShow] = useState(false);
