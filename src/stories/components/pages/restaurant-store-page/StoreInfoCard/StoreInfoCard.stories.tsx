@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import StoreInfoCard from "@/components/pages/restaurant-store-page/StoreInfoCard/StoreInfoCard";
-import AnimatedToast from "@/components/common/Toast/AnimatedToast"; // 화면 렌더링용 토스트
+import AnimatedToast from "@/components/common/Toast/AnimatedToast";
 
 const meta = {
   title: "Pages/Restaurant-store-page/StoreInfoCard",
@@ -13,7 +13,7 @@ const meta = {
     (Story) => (
       <>
         <Story />
-        <AnimatedToast /> {/* 반드시 렌더링해야 클릭 시 보임 */}
+        <AnimatedToast />
       </>
     ),
   ],
