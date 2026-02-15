@@ -17,10 +17,13 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
   ],
-  framework: "@storybook/react-vite",
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
 
-  async viteFinal(config) {
-    return mergeConfig(config, {
+  async viteFinal(viteConfig) {
+    return mergeConfig(viteConfig, {
       resolve: {
         alias: {
           "@": path.resolve(__dirname, "../src"),
