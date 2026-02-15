@@ -62,7 +62,7 @@ export default function SignUpInput() {
         <button
           className={styles.button}
           onClick={onClickVerify}
-          disabled={!show}
+          disabled={!show || isVerified}
         >
           확인
         </button>
