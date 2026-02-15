@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--bg-white);
+  box-shadow: 0 0 10px 1px var(--border-main);
+  width: 280px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text-label);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.course {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.addButton {
+  background-color: var(--brand-primary);
+  color: var(--text-white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.addButton:hover {
+  background-color: var(--bg-white);
+  border: 2px solid var(--brand-primary);
+  color: var(--brand-primary);
+}
