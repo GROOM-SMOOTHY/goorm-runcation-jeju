@@ -1,0 +1,102 @@
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  max-width: 100%;
+  width: 400px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  text-align: center; /* 전체 중앙 정렬 */
+}
+
+.colName,
+.colBank,
+.colAccount {
+  flex: 1;
+  min-width: 80px;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+}
+
+.colAccount {
+  flex: 1.5;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  max-height: 250px; /* 멤버 많으면 세로 스크롤 */
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.avatarWrapper {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarPlaceholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name,
+.bank,
+.account {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center;
+  min-width: 80px;
+}
+
+.account {
+  flex: 1.5;
+}
+
+.more {
+  margin-top: 8px;
+  text-align: center;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  user-select: none;
+}
