@@ -5,7 +5,6 @@ interface StampProps {
   region?: string;
   imgUrl?: string;
   date?: string;
-  activeColor?: string;
   status?: "active" | "locked";
 }
 

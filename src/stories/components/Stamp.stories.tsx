@@ -10,7 +10,6 @@ const meta: Meta<typeof Stamp> = {
     region: "",
     imgUrl: "",
     date: "",
-    activeColor: "#FF8800",
     status: "locked",
   },
 
@@ -26,10 +25,6 @@ const meta: Meta<typeof Stamp> = {
     date: {
       control: "text",
       description: "사진 등록 날짜",
-    },
-    activeColor: {
-      control: "color",
-      description: "활성화 시 점선 색상",
     },
     status: {
       control: "radio",
