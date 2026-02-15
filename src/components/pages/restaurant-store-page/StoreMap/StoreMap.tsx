@@ -15,7 +15,7 @@ export default function StoreMap({ latitude, longitude }: StoreMapProps) {
 
   const [distanceText, setDistanceText] = useState("거리 계산 중...");
 
-  // 🔹 SDK 로드 함수 (한 번만 로드)
+  // SDK 로드 함수 (한 번만 로드)
   const kakaoLoadingRef = useRef<Promise<void> | null>(null);
   const loadKakaoMapScript = () => {
     if (window.kakao?.maps) return Promise.resolve();
@@ -38,7 +38,8 @@ export default function StoreMap({ latitude, longitude }: StoreMapProps) {
 
     let isMounted = true; // 컴포넌트 언마운트 체크
 
-    loadKakaoMapScript().then(() => {
+    loadKakaoMapScript()
+      .then(() => {
       if (!isMounted || !window.kakao?.maps) return;
 
       const kakao = window.kakao;
@@ -65,6 +66,11 @@ export default function StoreMap({ latitude, longitude }: StoreMapProps) {
       mapInstance.current.setCenter(storePosition);
 
       // 사용자 위치 확인
+      if (!navigator.geolocation) {
+        if (isMounted) setDistanceText("위치 정보를 사용할 수 없습니다");
+        return;
+      }
+      
       navigator.geolocation.getCurrentPosition(
         (position) => {
           if (!isMounted) return;
@@ -97,7 +103,11 @@ export default function StoreMap({ latitude, longitude }: StoreMapProps) {
           setDistanceText("위치 정보를 사용할 수 없습니다");
         }
       );
-    });
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setDistanceText("지도를 불러올 수 없습니다");
+      });
 
     return () => {
       isMounted = false;
