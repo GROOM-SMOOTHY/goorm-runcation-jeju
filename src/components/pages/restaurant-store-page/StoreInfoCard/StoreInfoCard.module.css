@@ -31,12 +31,6 @@
   margin-bottom: 4px;
 }
 
-.text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .iconWrapper {
   flex-shrink: 0;
   width: 36px;

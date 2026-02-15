@@ -22,10 +22,14 @@ const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }
   const texts = [address, contact, hours];
 
   // 텍스트 복사 핸들러
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    addToast("복사되었습니다", "", "success");
-  };
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      addToast("복사되었습니다", "", "success");
+    } catch {
+      addToast("복사에 실패했습니다", "", "error");
+    }
+   };
 
   return (
     <div className={styles.card}>
