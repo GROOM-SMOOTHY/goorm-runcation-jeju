@@ -36,7 +36,7 @@
   outline: none;
 }
 .input::placeholder {
-  color: #94a3b8; /* variables.css 파일에 "--text-placeholder" 값이 피그마와 다름 */
+  color: var(--text-placeholder);
 }
 
 .button {
