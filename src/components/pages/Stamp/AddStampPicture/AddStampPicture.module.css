@@ -36,10 +36,6 @@
   color: var(--brand-primary);
 }
 
-.textGroup {
-  gap: 4px;
-}
-
 .title {
   font-size: 16px;
   line-height: 24px;
@@ -70,18 +66,14 @@
   position: absolute;
   top: 8px;
   right: 8px;
-
   width: 24px;
   height: 24px;
   gap: 10px;
   padding: 7px 7px;
   border-radius: 50%;
   opacity: 0.4;
-
   line-height: 16px;
   color: var(--bg-textarea);
-
   background: var(--text-label-strong);
-
   cursor: pointer;
 }
