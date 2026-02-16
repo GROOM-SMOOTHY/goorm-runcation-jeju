@@ -1,5 +1,6 @@
 import styles from "@/components/pages/Stamp/AddStampPicture/AddStampPicture.module.css";
 import { PiCameraPlusBold } from "react-icons/pi";
+import { IoMdClose } from "react-icons/io";
 import { useState, useRef, useEffect } from "react";
 
 export default function AddStampPicture() {
@@ -28,6 +29,13 @@ export default function AddStampPicture() {
     inputRef.current?.click();
   };
 
+  const onRemoveImage = () => {
+    if (upload) {
+      URL.revokeObjectURL(upload);
+    }
+    setUpload(null);
+  };
+
   useEffect(() => {
     return () => {
       if (upload) {
@@ -39,15 +47,19 @@ export default function AddStampPicture() {
   return (
     <div className={styles.container}>
       <div className={styles.column}>
-        <div className={styles.circle} onClick={onCircleClick}>
-          {upload ? (
+        {upload ? (
+          <div className={styles.imageContainer}>
             <img src={upload} alt="preview" className={styles.preview} />
-          ) : (
+            <IoMdClose onClick={onRemoveImage} className={styles.cancelIcon} />
+          </div>
+        ) : (
+          <div className={styles.circle} onClick={onCircleClick}>
             <div className={styles.icon}>
               <PiCameraPlusBold />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
         <input
           ref={inputRef}
           type="file"

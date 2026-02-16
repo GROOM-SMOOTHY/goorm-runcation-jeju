@@ -52,8 +52,36 @@
   color: var(--text-tertiary);
 }
 
+.imageContainer {
+  position: relative;
+  width: 280px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
 .preview {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.cancelIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  width: 24px;
+  height: 24px;
+  gap: 10px;
+  padding: 7px 7px;
+  border-radius: 50%;
+  opacity: 0.4;
+
+  line-height: 16px;
+  color: var(--bg-textarea);
+
+  background: var(--text-label-strong);
+
+  cursor: pointer;
 }
