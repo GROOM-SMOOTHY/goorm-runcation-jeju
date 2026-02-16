@@ -17,11 +17,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     members: [
-      { name: "김민수", bank: "신한", accountNumber: "110-123-1234", color: "orange" },
-      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678", color: "blue" },
-      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012", color: "green" },
-      { name: "최지훈", bank: "국민", accountNumber: "123-456-7890", color: "orange" },
-      { name: "한서연", bank: "농협", accountNumber: "555-12-3456", color: "blue" },
+      { name: "김민수", bank: "신한", accountNumber: "110-123-1234" },
+      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678" },
+      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012"},
+      { name: "최지훈", bank: "국민", accountNumber: "123-456-7890" },
+      { name: "한서연", bank: "농협", accountNumber: "555-12-3456" },
     ],
   },
 };
@@ -42,18 +42,18 @@ export const WithAvatars: Story = {
         accountNumber: "333-12-5678",
         avatarUrl: "https://randomuser.me/api/portraits/women/2.jpg",
       },
-      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012", color: "green" },
+      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012" },
     ],
   },
 };
 
-// 초록색 중심 멤버 카드 예시
+// 3명만 표시 테스트 (더보기 버튼 비활성화)
 export const GreenFocus: Story = {
   args: {
     members: [
-      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012", color: "green" },
-      { name: "김민수", bank: "신한", accountNumber: "110-123-1234", color: "orange" },
-      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678", color: "blue" },
+      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012" },
+      { name: "김민수", bank: "신한", accountNumber: "110-123-1234" },
+      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678" },
     ],
   },
 };
@@ -62,13 +62,13 @@ export const GreenFocus: Story = {
 export const ManyMembers: Story = {
   args: {
     members: [
-      { name: "김민수", bank: "신한", accountNumber: "110-123-1234", color: "orange" },
-      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678", color: "blue" },
-      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012", color: "green" },
-      { name: "최지훈", bank: "국민", accountNumber: "123-456-7890", color: "orange" },
-      { name: "한서연", bank: "농협", accountNumber: "555-12-3456", color: "blue" },
-      { name: "장예린", bank: "하나", accountNumber: "666-77-8888", color: "green" },
-      { name: "홍길동", bank: "기업", accountNumber: "777-88-9999", color: "orange" },
+      { name: "김민수", bank: "신한", accountNumber: "110-123-1234" },
+      { name: "이지원", bank: "카카오", accountNumber: "333-12-5678" },
+      { name: "박상준", bank: "우리", accountNumber: "1002-123-9012" },
+      { name: "최지훈", bank: "국민", accountNumber: "123-456-7890" },
+      { name: "한서연", bank: "농협", accountNumber: "555-12-3456" },
+      { name: "장예린", bank: "하나", accountNumber: "666-77-8888" },
+      { name: "홍길동", bank: "기업", accountNumber: "777-88-9999"},
     ],
   },
 };
