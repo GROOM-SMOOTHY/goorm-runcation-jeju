@@ -11,6 +11,7 @@ export default function SignUpEmailVerification() {
 
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValidEmail = validEmail.test(email);
+  const codeNumber = input.length === 6;
 
   const onClickButton = () => {
     if (!isValidEmail) {
@@ -63,7 +64,7 @@ export default function SignUpEmailVerification() {
         <button
           className={styles.button}
           onClick={onClickVerify}
-          disabled={!show || isVerified}
+          disabled={!show || isVerified || !codeNumber}
         >
           확인
         </button>

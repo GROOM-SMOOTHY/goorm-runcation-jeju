@@ -1,18 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import SignUpInput from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification";
+import SignUpEmailVerification from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification";
 
-const meta: Meta<typeof SignUpInput> = {
-  title: "Pages/SignUp/SignUpEmailVerification",
-  component: SignUpInput,
+const meta: Meta<typeof SignUpEmailVerification> = {
+  title: "Pages/SignUp/SignUpEmailVerification/SignUpEmailVerification",
+  component: SignUpEmailVerification,
   tags: ["autodocs"],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof SignUpInput>;
+type Story = StoryObj<typeof SignUpEmailVerification>;
 
 export const Default: Story = {};
-
-export const WithLongEmail: Story = {
-  render: () => <SignUpInput />,
-};
