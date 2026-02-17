@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import PaymentsMembers from "@/components/pages/settlement-add-history-page/PaymentsMembers/PaymentsMembers";
-import { mockMembers } from "@/components/pages/settlement-add-history-page/PaymentsMembers/data";
+import { mockMembers, type Member } from "@/components/pages/settlement-add-history-page/PaymentsMembers/data";
 
-type Member = { profileSrc: string; name: string };
 
 /** 스토리에서 선택된 멤버를 상태로 관리하는 래퍼 */
 function StatefulPaymentsMembers({ initialMembers }: { initialMembers: Member[] }) {
