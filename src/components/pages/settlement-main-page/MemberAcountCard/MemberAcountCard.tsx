@@ -20,7 +20,10 @@ const colorMap = {
 };
 
 const maskAccountNumber = (accountNumber: string) => {
-  return accountNumber.replace(/(\d{3,4})-(\d{2,3})-(\d{4})/, "$1-***-$3");
+  const match = accountNumber.replace(/(\d{3,4})-(\d{2,3})-(\d{4})/, "$1-***-$3");
+  if (match !== accountNumber) return match;
+  if (accountNumber.length <= 4) return "****";
+  return "*".repeat(accountNumber.length - 4) + accountNumber.slice(-4);
 };
 
 const MemberAccountCard: React.FC<MemberAccountCardProps> = ({
@@ -78,13 +81,16 @@ const MemberAccountCard: React.FC<MemberAccountCardProps> = ({
 
       {/* 더보기 버튼 */}
       {members.length > initialVisibleCount && (
-        <div
+        <button
+          type="button"
           className={styles.more}
           onClick={() => setExpanded(!expanded)}
+          aria-expanded={expanded}
+          aria-label={expanded ? "목록 접기" : "목록 더보기"}
         >
           {expanded ? <AiOutlineUp /> : <AiOutlineDown />}
           {expanded ? "접기" : "더보기"}
-        </div>
+        </button>
       )}
     </div>
   );
