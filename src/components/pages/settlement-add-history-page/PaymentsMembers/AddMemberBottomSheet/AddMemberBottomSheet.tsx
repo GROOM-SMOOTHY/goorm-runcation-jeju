@@ -4,12 +4,11 @@ import { IoMdClose } from "react-icons/io";
 import Button from "@/components/common/Button/Button";
 import { mockMembers, type Member } from "../data";
 
-export type AlreadyAddedMember = { profileSrc: string; name: string };
 
 interface AddMemberBottomSheetProps {
     onClose: () => void;
-    alreadyAddedMembers?: AlreadyAddedMember[];
-    onAddMembers: (members: AlreadyAddedMember[]) => void;
+    alreadyAddedMembers?: Member[];
+    onAddMembers: (members: Member[]) => void;
 }
 
 function isSameMember(a: Member, b: Member) {
@@ -18,10 +17,10 @@ function isSameMember(a: Member, b: Member) {
 
 function isAlreadyAdded(
     member: Member,
-    alreadyAdded: AlreadyAddedMember[] = []
+    alreadyAdded: Member[] = []
 ) {
     return alreadyAdded.some(
-        (a) => a.profileSrc === member.profileSrc && a.name === member.name
+        (a) => a.userId === member.userId
     );
 }
 
@@ -34,17 +33,18 @@ export default function AddMemberBottomSheet({
 
     const toggleMember = (member: Member) => {
         if (isAlreadyAdded(member, alreadyAddedMembers)) return;
-        setSelectedToAdd((prev) =>
-            prev.some((m) => isSameMember(m, member))
-                ? prev.filter((m) => m.userId !== member.userId)
-                : [...prev, member]
-        );
+        setSelectedToAdd((prev) => {
+            const isSelected = prev.some((m) => isSameMember(m, member));
+            if (isSelected) {
+                return prev.filter((m) => !isSameMember(m, member));
+            }
+            return [...prev, member];
+        });
     };
 
     const handleAdd = () => {
-        onAddMembers(
-            selectedToAdd.map((m) => ({ profileSrc: m.profileSrc, name: m.name }))
-        );
+        if (selectedToAdd.length === 0) return;
+        onAddMembers(selectedToAdd);
         onClose();
     };
 

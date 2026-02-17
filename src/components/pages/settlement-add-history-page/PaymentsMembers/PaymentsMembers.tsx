@@ -3,11 +3,8 @@ import PaymentMemberChips from "./PaymentsMemberChips";
 import styles from "./PaymentsMembers.module.css";
 import { useBottomSheet } from "@/components/common/BottomSheet";
 import AddMemberBottomSheet from "./AddMemberBottomSheet/AddMemberBottomSheet";
+import type { Member } from "./data";
 
-interface Member {
-    profileSrc: string;
-    name: string;
-}
 
 interface Props {
     selectedMembers?: Member[];
@@ -15,14 +12,14 @@ interface Props {
 }
 
 function isSameMember(a: Member, b: Member) {
-    return a.profileSrc === b.profileSrc && a.name === b.name;
+    return a.userId === b.userId
 }
 
 export default function PaymentsMembers({ selectedMembers = [], onChangeMembers }: Props) {
     const handleAddMembers = (newMembers: Member[]) => {
         if (!onChangeMembers) return;
-        const alreadyIds = new Set(selectedMembers.map((m) => `${m.profileSrc}|${m.name}`));
-        const toAdd = newMembers.filter((m) => !alreadyIds.has(`${m.profileSrc}|${m.name}`));
+        const alreadyIds = new Set(selectedMembers.map((m) => m.userId));
+        const toAdd = newMembers.filter((m) => !alreadyIds.has(m.userId));
         if (toAdd.length === 0) return;
         onChangeMembers([...selectedMembers, ...toAdd]);
     };
