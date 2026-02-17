@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import UploadCard from "@/components/pages/guestbook/AddPicture/AddPicture";
+import AddPicture from "@/components/pages/guestbook/AddPicture/AddPicture";
 
-const meta: Meta<typeof UploadCard> = {
+const meta: Meta<typeof AddPicture> = {
   title: "Pages/AddPicture/AddPicture",
-  component: UploadCard,
+  component: AddPicture,
   tags: ["autodocs"],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof UploadCard>;
+type Story = StoryObj<typeof AddPicture>;
 
 export const Default: Story = {};
