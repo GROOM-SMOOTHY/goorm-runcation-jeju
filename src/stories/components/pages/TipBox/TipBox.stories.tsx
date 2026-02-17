@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import UploadCard from "@/components/pages/Mypage/TipBox/TipBox";
+import TipBox from "@/components/pages/Mypage/TipBox/TipBox";
 
-const meta: Meta<typeof UploadCard> = {
+const meta: Meta<typeof TipBox> = {
   title: "Pages/TipBox/TipBox",
-  component: UploadCard,
+  component: TipBox,
   tags: ["autodocs"],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof UploadCard>;
+type Story = StoryObj<typeof TipBox>;
 
 export const Default: Story = {};
