@@ -1,17 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@/components/common/Button/Button";
 import styles from "@/components/pages/settlement-main-page/GroupPaymentStateCard/GroupPaymentStateCard.module.css";
 
 interface GroupPaymentStateCardProps {
   totalAmount: number;
   courseName: string;
-  onAddPayment: () => void;
 }
 
 const GroupPaymentStateCard: React.FC<GroupPaymentStateCardProps> = ({
   totalAmount,
   courseName,
-  onAddPayment,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.card}>
       <div className={styles.info}>
@@ -21,9 +23,9 @@ const GroupPaymentStateCard: React.FC<GroupPaymentStateCardProps> = ({
           <span className={styles.course}> / {courseName}</span>
         </div>
       </div>
-      <button type="button" className={styles.addButton} onClick={onAddPayment}>
+      <Button type="button" variant="primary" onClick={() => navigate("/settlement/add")}>
         정산내역 추가하기
-      </button>
+      </Button>
     </div>
   );
 };

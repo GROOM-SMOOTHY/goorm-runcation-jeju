@@ -5,7 +5,6 @@
   padding: 16px;
   border-radius: 12px;
   background-color: var(--bg-white);
-  box-shadow: 0 0 10px 1px var(--border-main);
   width: 280px;
 }
 
@@ -40,19 +39,3 @@
   gap: 4px;
 }
 
-.addButton {
-  background-color: var(--brand-primary);
-  color: var(--text-white);
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-
-.addButton:hover {
-  background-color: var(--bg-white);
-  border: 2px solid var(--brand-primary);
-  color: var(--brand-primary);
-}
