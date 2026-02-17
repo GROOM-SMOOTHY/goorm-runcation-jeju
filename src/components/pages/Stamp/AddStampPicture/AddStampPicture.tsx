@@ -34,6 +34,9 @@ export default function AddStampPicture() {
       URL.revokeObjectURL(upload);
     }
     setUpload(null);
+    if (inputRef.current) {
+      inputRef.current.value = ""; // 같은 파일을 선택해도 다시 선택됨
+    }
   };
 
   useEffect(() => {
