@@ -1,9 +1,19 @@
 import styles from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification.module.css";
 import { useState } from "react";
 
-export default function SignUpEmailVerification() {
-  const [email, setEmail] = useState("");
-  const [input, setInput] = useState("");
+interface SignUpEmailVerificationProps {
+  email: string;
+  input: string;
+  onChangeEmail: (value: string) => void;
+  onChangeCode: (value: string) => void;
+}
+
+export default function SignUpEmailVerification({
+  email,
+  input,
+  onChangeEmail,
+  onChangeCode,
+}: SignUpEmailVerificationProps) {
   const [show, setShow] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
 
@@ -37,7 +47,7 @@ export default function SignUpEmailVerification() {
             className={styles.input}
             placeholder="example@example.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => onChangeEmail(e.target.value)}
             disabled={isVerified}
           />
         </div>
@@ -57,7 +67,7 @@ export default function SignUpEmailVerification() {
             className={styles.input}
             placeholder="6자리 번호 입력"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => onChangeCode(e.target.value)}
             disabled={isVerified}
           />
         </div>
