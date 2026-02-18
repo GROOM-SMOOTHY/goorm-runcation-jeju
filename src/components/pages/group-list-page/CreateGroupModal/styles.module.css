@@ -1,0 +1,93 @@
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.successWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.iconWrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: var(--badge-bg-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconBox {
+    width: 76px;
+    height: 76px;
+    border-radius: 100%;
+    background-color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.title {
+    color: var(--text-primary);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.description {
+    color: var(--text-tertiary);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: center;
+}
+
+.codeContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.codeLabel {
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+.codeBox {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--badge-bg-orange);
+    border-radius: 16px;
+    border: 1px solid var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.codeText {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: 700;
+    color: var(--brand-primary);
+}
