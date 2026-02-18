@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
 import SignUpInput from "@/components/pages/SignUp/SignUpInput/SignUpInput";
+
+type Props = React.ComponentProps<typeof SignUpInput>;
 
 const meta: Meta<typeof SignUpInput> = {
   title: "Pages/SignUp/SignUpInput",
@@ -9,8 +12,9 @@ const meta: Meta<typeof SignUpInput> = {
     type: {
       control: "radio",
       options: ["name", "phone"],
-      description: "입력 필드 타입",
     },
+    value: { control: false },
+    onChange: { control: false },
   },
 };
 
@@ -18,15 +22,24 @@ export default meta;
 
 type Story = StoryObj<typeof SignUpInput>;
 
-/* 이름 입력 */
+/**
+ * Controlled Wrapper
+ */
+const ControlledTemplate = (args: Props) => {
+  const [value, setValue] = useState("");
+
+  return <SignUpInput {...args} value={value} onChange={setValue} />;
+};
+
 export const Name: Story = {
+  render: ControlledTemplate,
   args: {
     type: "name",
   },
 };
 
-/* 연락처 입력 */
 export const Phone: Story = {
+  render: ControlledTemplate,
   args: {
     type: "phone",
   },
