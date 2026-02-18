@@ -1,10 +1,17 @@
 import styles from "@/components/pages/Stamp/AddStampPicture/AddStampPicture.module.css";
 import { PiCameraPlusBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export default function AddStampPicture() {
-  const [upload, setUpload] = useState<string | null>(null);
+interface AddStampPictureProps {
+  upload: string | null;
+  onChangeUpload: (url: string | null) => void;
+}
+
+export default function AddStampPicture({
+  upload,
+  onChangeUpload,
+}: AddStampPictureProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +29,7 @@ export default function AddStampPicture() {
     }
 
     const imgUrl = URL.createObjectURL(file);
-    setUpload(imgUrl);
+    onChangeUpload(imgUrl);
   };
 
   const onCircleClick = () => {
@@ -33,9 +40,9 @@ export default function AddStampPicture() {
     if (upload) {
       URL.revokeObjectURL(upload);
     }
-    setUpload(null);
+    onChangeUpload(null);
     if (inputRef.current) {
-      inputRef.current.value = ""; // 같은 파일을 선택해도 다시 선택됨
+      inputRef.current.value = "";
     }
   };
 
