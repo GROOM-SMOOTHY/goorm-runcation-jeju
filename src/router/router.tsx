@@ -31,7 +31,7 @@ export default function AppRouter() {
         {/* 메인 페이지 */}
         <Route path='/main' element={<MainPage />} />
 
-        {/* 맛집 리스트 상세 페이지 */}
+        {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
         
         {/* 404 */}
