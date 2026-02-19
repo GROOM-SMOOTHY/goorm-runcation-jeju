@@ -56,9 +56,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
   currentUserName,
   defaultExpanded = false,
   onStatusChange,
-
 }) => {
-
   const addToast = useToastStore((state) => state.addToast);
   const [expanded, setExpanded] = useState(defaultExpanded);
 
@@ -149,7 +147,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
       >
         <div className={styles.body}>
           <div className={styles.bodyInner}>
-          {/* 토글: 켜면 "입금이 완료되었습니다", 끄면 "입금이 미완료되었습니다" */}
+          {/* 토글 */}
           <div
             className={`${styles.statusRow} ${
               depositMarkedComplete ? styles.statusRowCompleted : styles.statusRowPending
@@ -285,7 +283,6 @@ const SettleCard: React.FC<SettleCardProps> = ({
               })}
             </div>
           </div>
-          
           </div>
         </div>
       </div>
