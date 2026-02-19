@@ -1,0 +1,51 @@
+.container {
+  width: 96px;
+  height: 96px;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 16px;
+  border: 2px dashed var(--text-placeholder);
+  color: var(--text-placeholder);
+  position: relative;
+}
+
+.addPicture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.desc {
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cancelIcon {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  gap: 10px;
+  padding: 7px 7px;
+  border-radius: 50%;
+  opacity: 0.4;
+  line-height: 16px;
+  color: var(--bg-textarea);
+  background: var(--text-label-strong);
+  cursor: pointer;
+}
