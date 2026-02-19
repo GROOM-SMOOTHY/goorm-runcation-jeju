@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as Switch from "@radix-ui/react-switch";
 import { FaBuilding, FaUser, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { MdContentCopy } from "react-icons/md";
@@ -64,6 +64,10 @@ const SettleCard: React.FC<SettleCardProps> = ({
   const [depositMarkedComplete, setDepositMarkedComplete] = useState(
     status === "completed"
   );
+
+  useEffect(() => {
+    setDepositMarkedComplete(status === "completed");
+  }, [status]);
 
   /* 토글에 따라 "나"를 미완료/완료 중 한쪽에만 표시 */
   const displayedPending: SettlementMember[] = (() => {
@@ -238,11 +242,11 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </span>
             </div>
             <div className={styles.memberTags}>
-              {pendingSorted.map((m, idx) => {
+              {pendingSorted.map((m) => {
                 const isMe = currentUserName != null && m.name === currentUserName;
                 return (
                   <div
-                    key={idx}
+                    key={m.name}
                     className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
                   >
                     <div className={styles.memberTagAvatar} aria-hidden>
@@ -266,11 +270,11 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </span>
             </div>
             <div className={styles.memberTags}>
-              {completedSorted.map((m, idx) => {
+              {completedSorted.map((m) => {
                 const isMe = currentUserName != null && m.name === currentUserName;
                 return (
                   <div
-                    key={idx}
+                    key={m.name}
                     className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
                   >
                     <div className={styles.memberTagAvatar} aria-hidden>
