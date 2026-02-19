@@ -33,16 +33,18 @@ export const Default: Story = {
 export const Backend: Story = {
   args: {
     course: "BACKEND",
+    generation: "12",
   },
 };
 
 export const Design: Story = {
   args: {
     course: "DESIGN",
+    generation: "12",
   },
 };
 
-export const Generation: Story = {
+export const GenerationOnly: Story = {
   args: {
     course: "DEFAULT",
     generation: "12",
