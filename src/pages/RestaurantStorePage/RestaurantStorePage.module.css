@@ -34,10 +34,24 @@
   justify-content: center;
   cursor: pointer;
   color: var(--text-primary);
+  transition: all 0.2s ease;
 }
 
 .iconButton:hover {
   opacity: 1;
+  background: var(--bg-primary);
+  border-color: var(--border-main);
+  transform: scale(1.05);
+}
+
+.iconButton.liked {
+  color: var(--toast-red);
+  border-color: var(--toast-red);
+}
+
+.iconButton.liked:hover {
+  background: var(--bg-white);
+  border-color: var(--toast-red);
 }
 
 .container {

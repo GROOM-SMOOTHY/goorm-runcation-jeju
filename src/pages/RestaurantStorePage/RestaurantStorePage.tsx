@@ -1,16 +1,20 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiHeart, FiShare2 } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 
 import Header from "@/components/layout/Header/Header";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import StoreInfoCard from "@/components/pages/restaurant-store-page/StoreInfoCard/StoreInfoCard";
 import StoreMap from "@/components/pages/restaurant-store-page/StoreMap/StoreMap";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 import styles from "@/pages/RestaurantStorePage/RestaurantStorePage.module.css";
 
 export default function RestaurantStorePage() {
   const navigate = useNavigate();
   const { id, slug } = useParams();
+  const addToast = useToastStore((state) => state.addToast);
+  const [isLiked, setIsLiked] = useState(false);
 
   // 임의 목데이터
   const store = useMemo(
@@ -30,17 +34,60 @@ export default function RestaurantStorePage() {
     [id, slug]
   );
 
+  // 공유 기능
+  const handleShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: store.name,
+          text: `${store.name} - ${store.address}`,
+          url: window.location.href,
+        });
+        addToast("공유되었습니다", "", "success");
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        addToast("링크가 복사되었습니다", "", "success");
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name !== "AbortError") {
+        addToast("공유에 실패했습니다", "", "error");
+      }
+    }
+  };
+
+  const handleLike = () => {
+    setIsLiked((prev) => {
+      const newState = !prev;
+      addToast(
+        newState ? "좋아요를 눌렀습니다" : "좋아요를 취소했습니다",
+        "",
+        "success"
+      );
+      return newState;
+    });
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.headerBar}>
         <Header title="맛집 상세" onBack={() => navigate(-1)} />
 
         <div className={styles.headerActions}>
-          <button type="button" className={styles.iconButton} aria-label="공유">
+          <button
+            type="button"
+            className={styles.iconButton}
+            aria-label="공유"
+            onClick={handleShare}
+          >
             <FiShare2 size={20} />
           </button>
-          <button type="button" className={styles.iconButton} aria-label="좋아요">
-            <FiHeart size={20} />
+          <button
+            type="button"
+            className={`${styles.iconButton} ${isLiked ? styles.liked : ""}`}
+            aria-label="좋아요"
+            onClick={handleLike}
+          >
+            {isLiked ? <FaHeart size={20} /> : <FiHeart size={20} />}
           </button>
         </div>
       </div>
