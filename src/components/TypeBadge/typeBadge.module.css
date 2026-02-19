@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 24px;
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.frontend {
+  background-color: var(--badge-bg-orange);
+  color: var(--badge-label-orange);
+}
+
+.design {
+  background-color: var(--badge-bg-purple);
+  color: var(--badge-label-purple);
+}
+
+.backend {
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+}
+
+.generation {
+  background-color: var(--bg-black-stroke); /*  색 없음 */
+  color: var(--text-label);
+}

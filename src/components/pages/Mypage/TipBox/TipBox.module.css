@@ -1,0 +1,23 @@
+.container {
+  width: 440px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 20px;
+  border-radius: 16px;
+  border: 2px dashed var(--badge-label-orange);
+  background-color: var(--badge-bg-orange);
+}
+
+.box {
+  flex: 1;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.icon {
+  font-size: 18px;
+  color: var(--brand-primary);
+  flex-shrink: 0;
+}

@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    min-width: 250px;
+    border-radius: 16px;
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    text-align: left;
+    transition: box-shadow 0.2s ease;
+}
+
+.container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.image {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    border-radius: 12px;
+    object-fit: cover;
+    background-color: var(--bg-select);
+    aspect-ratio: 1/1;
+}
+
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+}
+
+.titleBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.typeBadge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: var(--badge-bg-emerald);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--badge-label-emerald);
+}
+
+.description {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0;
+    white-space: pre-line;
+}
