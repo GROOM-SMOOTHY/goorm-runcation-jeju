@@ -10,6 +10,10 @@
   position: relative;
 }
 
+.headerMain {
+  /* Header가 기본 너비 차지, headerActions가 오른쪽에 겹침 */
+}
+
 .headerActions {
   position: absolute;
   top: 50%;
@@ -34,6 +38,10 @@
 
 .iconButton:hover {
   background: rgba(255, 255, 255, 1);
+}
+
+.liked {
+  color: var(--badge-label-red, #e53935);
 }
 
 .container {
