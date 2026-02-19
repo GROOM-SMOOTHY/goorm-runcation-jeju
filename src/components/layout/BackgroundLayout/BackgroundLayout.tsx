@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import styles from "@/components/layout/BackgroundLayout.module.css";
+import styles from "./BackgroundLayout.module.css";
 import { FaDownload, FaGithub } from "react-icons/fa";
 import { SiNotion } from "react-icons/si";
 

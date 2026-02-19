@@ -5,6 +5,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
+import GroupPage from "@/pages/GruopPage/GroupPage";
 
 export default function AppRouter() {
   return (
@@ -18,14 +19,15 @@ export default function AppRouter() {
 
         {/* 지역 스탬프 */}
         <Route path="/stamp" element={<StampPage />} />
-        
+
         {/* 메인 */}
         <Route path="/travel" element={<TravelPage />} />
 
+        {/* 그룹 페이지 */}
+        <Route path='/group' element={<GroupPage />} />
+
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
-
-
       </Route>
     </Routes>
   );

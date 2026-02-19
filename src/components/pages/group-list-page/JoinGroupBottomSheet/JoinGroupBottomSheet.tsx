@@ -7,7 +7,7 @@ interface SheetContentProps {
   onClose: () => void;
 }
 
-function SheetContent({ onClose }: SheetContentProps) {
+export function SheetContent({ onClose }: SheetContentProps) {
   return (
     <>
       <div className={styles.header}>
@@ -18,7 +18,7 @@ function SheetContent({ onClose }: SheetContentProps) {
           onClick={onClose}
           aria-label="닫기"
         >
-          <IoMdClose size={24} style={{ color: "var(--text-primary)" }} />
+          <IoMdClose size={24} color="var(--text-primary)" />
         </button>
       </div>
       <div className={styles.content}>
@@ -26,19 +26,19 @@ function SheetContent({ onClose }: SheetContentProps) {
           title="FRONTEND"
           participants={8}
           generation={1}
-          onClick={() => {}}
+          onClick={() => { }}
         />
         <JoinCourseItem
           title="BACKEND"
           participants={12}
           generation={2}
-          onClick={() => {}}
+          onClick={() => { }}
         />
         <JoinCourseItem
           title="DESIGN"
           participants={5}
           generation={3}
-          onClick={() => {}}
+          onClick={() => { }}
         />
       </div>
     </>
