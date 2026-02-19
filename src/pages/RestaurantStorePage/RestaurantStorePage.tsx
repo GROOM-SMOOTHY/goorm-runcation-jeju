@@ -135,11 +135,11 @@ export default function RestaurantStorePage() {
         </section>
 
         <section className={styles.section}>
+          
           {/* StoreMap 컴포넌트 */}
           <StoreMap
             latitude={store.latitude}
-            longitude={store.longitude}
-            storeName={store.name}
+            longitude={store.longitude} storeName={""}
           />
         </section>
 
