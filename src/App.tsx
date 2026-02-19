@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import AppRouter from "./router/router";
+import AnimatedToast from "@/components/common/Toast/AnimatedToast";
 
 function App() {
   // Supabase 연결 확인 (앱 로드 시 한 번만)
@@ -14,7 +15,12 @@ function App() {
     });
   }, []);
 
-  return <AppRouter />;
+  return (
+    <>
+      <AppRouter />
+      <AnimatedToast />
+    </>
+  );
 }
 
 
