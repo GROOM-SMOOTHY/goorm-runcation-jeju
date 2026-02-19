@@ -1,0 +1,49 @@
+.container {
+  width: 365px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border-main);
+  background-color: rgba(255, 255, 255, 0.5); /* 색 지정 안되어있음 */
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 1px;
+  color: var(--text-label);
+}
+
+.input {
+  font-size: 16px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.button {
+  align-self: flex-start;
+  margin-top: 24px;
+  margin-left: auto;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--brand-primary);
+}

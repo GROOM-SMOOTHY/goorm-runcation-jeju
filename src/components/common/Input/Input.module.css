@@ -1,10 +1,7 @@
-.Root {
-	width: 260px;
-}
+.Root {}
 
 .Field {
 	display: grid;
-	margin-bottom: 10px;
 }
 
 .LabelWrapper {
