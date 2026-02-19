@@ -4,7 +4,6 @@
     gap: 20px;
     border-radius: 50px;
     border: 1px solid var(--border-main);
-    min-width: 220px;
     width: 100%;
 }
 
