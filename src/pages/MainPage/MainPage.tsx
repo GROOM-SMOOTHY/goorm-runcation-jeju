@@ -48,7 +48,7 @@ export default function MainPage() {
                 <div className={styles.shortcutContainer}>
                     <span className={styles.label}>빠른 실행</span>
                     <div className={styles.shortcutList}>
-                        <MainShortcutCard type="store" title={<>지역별<br />맛집 탐방</>} onClick={() => { navigate('/stamp') }} />
+                        <MainShortcutCard type="store" title={<>지역별<br />맛집 탐방</>} onClick={() => { navigate('/restaurants') }} />
                         <MainShortcutCard type="settlement" title={<>정산하기<br />& N빵</>} onClick={() => { navigate('/settlement') }} />
                     </div>
                 </div>
