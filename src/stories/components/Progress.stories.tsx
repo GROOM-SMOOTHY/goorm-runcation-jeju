@@ -16,9 +16,5 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     progress: 50,
-    onValueChange: (value: number) => {
-      console.log(value);
-    },
   },
-  render: ({ progress, onValueChange }) => <Progress progress={progress} onValueChange={onValueChange} />
 };
