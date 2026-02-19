@@ -16,11 +16,20 @@ export default function RestaurantStorePage() {
   const addToast = useToastStore((state) => state.addToast);
   const [isLiked, setIsLiked] = useState(false);
 
+  // slug 런타임 크래시 방어 로직
+  const safeDecode = (value: string) => {
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  };
+
   // 임의 목데이터
   const store = useMemo(
     () => ({
       tag: "현지인 맛집",
-      name: slug ? decodeURIComponent(slug) : "레스토랑",
+      name: slug ? safeDecode(slug) : "레스토랑",
       nameEn: "Restaurant",
       heroImageUrl:
         "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80",
