@@ -1,0 +1,430 @@
+.card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  padding: 0;
+  background-color: var(--bg-white);
+  border: 3px solid var(--border-main);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.cardExpanded {
+  border-color: var(--brand-primary);
+}
+
+/* 헤더 */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.header:hover {
+  background-color: var(--bg-select);
+}
+
+.iconBlock {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 10px;
+  background-color: var(--badge-bg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carIcon {
+  color: var(--brand-primary);
+  font-size: 20px;
+}
+
+.headerText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
+.badgeCompleted {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--badge-bg-emerald);
+  color: var(--badge-label-emerald);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badgePending {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--badge-bg-orange);
+  color: var(--badge-label-orange);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* 본문 슬라이드 */
+.bodyWrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease-out;
+  overflow: hidden;
+}
+
+.bodyWrapperCollapsed {
+  grid-template-rows: 0fr;
+}
+
+.body {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.bodyInner {
+  padding: 0 16px 16px;
+}
+
+
+/* 입금 상태 행 + 스위치 */
+.statusRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+
+.statusRowCompleted .statusMessage {
+  color: var(--badge-label-emerald);
+}
+
+.statusRowPending .statusMessage {
+  color: var(--badge-label-orange);
+}
+
+.statusMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.statusIcon {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.statusSwitch {
+  width: 40px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.statusSwitch[data-state="unchecked"] {
+  background-color: var(--badge-bg-orange);
+}
+
+.statusSwitch[data-state="checked"] {
+  background-color: var(--badge-bg-emerald);
+}
+
+.statusSwitchThumb {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--bg-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.statusSwitch[data-state="checked"] .statusSwitchThumb {
+  transform: translateX(16px);
+}
+
+
+/* TOTAL AMOUNT */
+.totalSection {
+  margin-bottom: 12px;
+}
+
+.totalLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.totalAmount {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* 정산 진행률 */
+.progressSection {
+  margin-bottom: 12px;
+}
+
+.progressLabel {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.progressWrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.progressText {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+
+/* 1인당 금액 */
+.amountPerPerson {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin: 0 0 12px;
+}
+
+
+/* 받는 사람 */
+.accountHolder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-main);
+  margin-bottom: 12px;
+}
+
+.accountHolder .avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
+  background-color: var(--badge-bg-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarIcon {
+  color: var(--brand-primary);
+  font-size: 16px;
+}
+
+.accountHolderNameWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.accountHolderName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.accountHolderMeBadge {
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: var(--brand-primary);
+  color: var(--text-white);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.accountNumber {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.copyButton {
+  padding: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copyButton:hover {
+  color: var(--text-primary);
+}
+
+
+/* 미완료 / 완료 섹션 */
+.section {
+  margin-bottom: 16px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sectionBarPending,
+.sectionBarCompleted {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.sectionBarPending {
+  background-color: var(--badge-label-orange);
+}
+
+.sectionBarCompleted {
+  background-color: var(--badge-label-emerald);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sectionCountPending {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--badge-label-orange);
+}
+
+.sectionCountCompleted {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--badge-label-emerald);
+}
+
+
+/* 멤버 태그 그리드 */
+.memberTags {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  justify-items: center;
+}
+
+.memberTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background-color: var(--badge-bg-orange);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.memberTagAvatar {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 50%;
+  background-color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memberTagAvatarIcon {
+  color: var(--text-white);
+  font-size: 12px;
+}
+
+
+/* 멤버 이름 말줄임 */
+.memberTagName {
+  width: 3.2em;
+  min-width: 3.2em;
+  max-width: 3.2em;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.memberTagIsMe {
+  border: 1.5px solid var(--brand-primary);
+  font-weight: 600;
+}
+
+.memberTagMeLabel {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: var(--brand-primary);
+  color: var(--text-white);
+  font-size: 11px;
+  font-weight: 600;
+}
