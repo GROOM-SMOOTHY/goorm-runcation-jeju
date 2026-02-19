@@ -8,50 +8,32 @@
 
 .headerBar {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .headerActions {
   position: absolute;
   top: 50%;
-  right: 16px;
+  right: 12px;
   transform: translateY(-50%);
   display: flex;
   gap: 8px;
-  z-index: 1;
 }
 
 .iconButton {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  border: 1px solid var(--border-light);
-  background: var(--bg-white);
-  opacity: 0.9;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.9);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--text-primary);
-  transition: all 0.2s ease;
 }
 
 .iconButton:hover {
-  opacity: 1;
-  background: var(--bg-primary);
-  border-color: var(--border-main);
-  transform: scale(1.05);
-}
-
-.iconButton.liked {
-  color: var(--toast-red);
-  border-color: var(--toast-red);
-}
-
-.iconButton.liked:hover {
-  background: var(--bg-white);
-  border-color: var(--toast-red);
+  background: rgba(255, 255, 255, 1);
 }
 
 .container {
@@ -82,11 +64,10 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    var(--bg-black-stroke) 0%,
-    var(--bg-dark) 85%,
-    var(--bg-black) 100%
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.65) 85%,
+    rgba(0, 0, 0, 0.75) 100%
   );
-  opacity: 0.7;
 }
 
 .heroTitleWrap {
@@ -107,10 +88,9 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.2px;
-  background: var(--bg-glassmorphism);
-  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(10px);
-  color: var(--text-white);
 }
 
 .storeName {
@@ -123,8 +103,7 @@
 .storeNameEn {
   margin: 0;
   font-size: 13px;
-  color: var(--text-white);
-  opacity: 0.82;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .section {

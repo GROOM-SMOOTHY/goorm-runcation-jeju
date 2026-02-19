@@ -55,6 +55,7 @@ export default function RestaurantStorePage() {
     }
   };
 
+  // 좋아요 기능
   const handleLike = () => {
     setIsLiked((prev) => {
       const newState = !prev;
@@ -70,8 +71,9 @@ export default function RestaurantStorePage() {
   return (
     <div className={styles.page}>
       <div className={styles.headerBar}>
-        <Header title="맛집 상세" onBack={() => navigate(-1)} />
-
+        <div className={styles.headerMain}>
+          <Header title="맛집 상세" onBack={() => navigate(-1)} />
+        </div>
         <div className={styles.headerActions}>
           <button
             type="button"
@@ -104,7 +106,7 @@ export default function RestaurantStorePage() {
 
           <div className={styles.heroTitleWrap}>
             <span className={styles.heroTag}>
-              {/* 그 매장 대표 태그 = 카카오맵에서 가져올 예정 */}
+              {/* 카테고리 태그 (카카오API) */}
               {store.tag}
             </span>
             <h1 className={styles.storeName}>
