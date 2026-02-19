@@ -1,0 +1,66 @@
+.page {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+.storeList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.emptyMessage {
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  padding: 32px 0;
+}
+
+.bottomNavWrap {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.scrollToTopButton {
+  position: absolute;
+  bottom: 80px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--brand-primary);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.scrollToTopButton:hover {
+  transform: scale(1.05);
+}
+
+.scrollToTopButton.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
