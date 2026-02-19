@@ -3,6 +3,7 @@ import * as Switch from "@radix-ui/react-switch";
 import { FaBuilding, FaUser, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { MdContentCopy } from "react-icons/md";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
+import Progress from "@/components/common/Progress/Progress";
 import styles from "@/components/pages/settlement-history-page/SettleCard/SettleCard.module.css";
 
 /** 정산 완료 | 정산 미완료 */
@@ -25,19 +26,19 @@ export interface SettlementMember {
 export interface SettleCardProps {
   title: string;
   date: string;
-  /** 전체 인원 */
+  /* 전체 인원 */
   totalMemberCount: number;
-  /** 총 금액 (1인당 금액 = totalAmount / totalMemberCount) */
+  /* 총 금액 (1인당 금액 = totalAmount / totalMemberCount) */
   totalAmount: number;
-  /** 입금 완료한 멤버 */
+  /* 입금 완료한 멤버 */
   completedMembers: SettlementMember[];
-  /** 입금 미완료 멤버 (새로 추가된 인원은 여기에 넣으면 미완료 쪽 인원이 늘어남) */
+  /* 입금 미완료 멤버 (새로 추가된 인원은 여기에 넣으면 미완료 쪽 인원이 늘어남) */
   pendingMembers: SettlementMember[];
-  /** 받는 사람 (계좌 정보) */
+  /* 받는 사람 (계좌 정보) */
   accountHolder: AccountHolder;
-  /** 카드 타입: 정산완료 | 정산 미완료 */
+  /* 카드 타입: 정산완료 | 정산 미완료 */
   status: SettlementStatus;
-  /** 현재 로그인한 사용자 이름 (미완료/완료 목록에서 "나" 표시용) */
+  /* 현재 로그인한 사용자 이름 (미완료/완료 목록에서 "나" 표시용) */
   currentUserName?: string;
   defaultExpanded?: boolean;
   onStatusChange?: (status: SettlementStatus) => void;
@@ -55,15 +56,18 @@ const SettleCard: React.FC<SettleCardProps> = ({
   currentUserName,
   defaultExpanded = false,
   onStatusChange,
+
 }) => {
+
   const addToast = useToastStore((state) => state.addToast);
   const [expanded, setExpanded] = useState(defaultExpanded);
-  /** 토글 ON = 나 입금 완료(완료 쪽), OFF = 나 미완료(미완료 쪽) */
+
+  /* 토글 ON = 나 입금 완료(완료 쪽), OFF = 나 미완료(미완료 쪽) */
   const [depositMarkedComplete, setDepositMarkedComplete] = useState(
     status === "completed"
   );
 
-  /** 토글에 따라 "나"를 미완료/완료 중 한쪽에만 표시 */
+  /* 토글에 따라 "나"를 미완료/완료 중 한쪽에만 표시 */
   const displayedPending: SettlementMember[] = (() => {
     if (!currentUserName) return pendingMembers;
     if (depositMarkedComplete) {
@@ -94,10 +98,11 @@ const SettleCard: React.FC<SettleCardProps> = ({
 
   const completedCount = displayedCompleted.length;
   const progressPercent = totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
-  /** 헤더 뱃지: 진행률이 다 찼을 때만 "정산완료", 아니면 "정산 미완료" */
+  
+  /* 헤더 뱃지: 진행률이 다 찼을 때만 "정산완료", 아니면 "정산 미완료" */
   const isProgressFull = completedCount === totalMemberCount && totalMemberCount > 0;
 
-  /** 1인당 금액 = 총액 ÷ 인원수 */
+  /* 1인당 금액 = 총액 ÷ 인원수 */
   const amountPerPerson =
     totalMemberCount > 0 ? Math.floor(totalAmount / totalMemberCount) : 0;
 
@@ -187,11 +192,8 @@ const SettleCard: React.FC<SettleCardProps> = ({
           <div className={styles.progressSection}>
             <span className={styles.progressLabel}>정산 진행률</span>
             <div className={styles.progressRow}>
-              <div className={styles.progressBar}>
-                <div
-                  className={styles.progressFill}
-                  style={{ width: `${progressPercent}%` }}
-                />
+              <div className={styles.progressWrapper}>
+                <Progress progress={progressPercent} />
               </div>
               <span className={styles.progressText}>
                 {completedCount} / {totalMemberCount}명
@@ -212,7 +214,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
             <div className={styles.accountHolderNameWrap}>
               <span className={styles.accountHolderName}>{accountHolder.name}</span>
               {currentUserName != null && accountHolder.name === currentUserName && (
-                <span className={styles.accountHolderMeBadge}>나 (입금자)</span>
+                <span className={styles.accountHolderMeBadge}>나</span>
               )}
             </div>
             <span className={styles.accountNumber}>
@@ -283,6 +285,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
               })}
             </div>
           </div>
+          
           </div>
         </div>
       </div>

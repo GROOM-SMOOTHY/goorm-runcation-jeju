@@ -4,7 +4,7 @@
   border-radius: 12px;
   padding: 0;
   background-color: var(--bg-white);
-  border: 1px solid var(--border-main);
+  border: 3px solid var(--border-main);
   overflow: hidden;
   transition: border-color 0.2s;
 }
@@ -87,7 +87,8 @@
   font-weight: 600;
 }
 
-/* 본문 슬라이드 (접기/펼치기 자연스럽게, 접었을 때 밑에 안 나오게) */
+
+/* 본문 슬라이드 */
 .bodyWrapper {
   display: grid;
   grid-template-rows: 1fr;
@@ -108,7 +109,8 @@
   padding: 0 16px 16px;
 }
 
-/* 입금 완료/미완료 행 + 스위치 */
+
+/* 입금 상태 행 + 스위치 */
 .statusRow {
   display: flex;
   align-items: center;
@@ -142,7 +144,7 @@
 .statusSwitch {
   width: 40px;
   height: 24px;
-  border-radius: 9999px;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
   position: relative;
@@ -161,7 +163,7 @@
   display: block;
   width: 18px;
   height: 18px;
-  border-radius: 9999px;
+  border-radius: 50%;
   background-color: var(--bg-white);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
@@ -173,6 +175,7 @@
 .statusSwitch[data-state="checked"] .statusSwitchThumb {
   transform: translateX(16px);
 }
+
 
 /* TOTAL AMOUNT */
 .totalSection {
@@ -210,19 +213,9 @@
   gap: 10px;
 }
 
-.progressBar {
+.progressWrapper {
   flex: 1;
-  height: 10px;
-  border-radius: 9999px;
-  background-color: var(--border-main);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: 9999px;
-  background-color: var(--brand-primary);
-  transition: width 0.3s ease;
+  min-width: 0;
 }
 
 .progressText {
@@ -232,12 +225,14 @@
   white-space: nowrap;
 }
 
+
 /* 1인당 금액 */
 .amountPerPerson {
   font-size: 14px;
   color: var(--text-tertiary);
   margin: 0 0 12px;
 }
+
 
 /* 받는 사람 */
 .accountHolder {
@@ -301,6 +296,7 @@
   background: none;
   cursor: pointer;
   color: var(--text-tertiary);
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -309,6 +305,7 @@
 .copyButton:hover {
   color: var(--text-primary);
 }
+
 
 /* 미완료 / 완료 섹션 */
 .section {
@@ -361,7 +358,8 @@
   color: var(--badge-label-emerald);
 }
 
-/* 한 줄에 3명, 프로필(아바타) 왼쪽, 가운데 정렬 */
+
+/* 멤버 태그 그리드 */
 .memberTags {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -403,11 +401,13 @@
   font-size: 12px;
 }
 
-/* 3글자까지 전부 표시, 4글자부터 말줄임 (한글 가독 여유) */
+
+/* 멤버 이름 말줄임 */
 .memberTagName {
   width: 3.2em;
   min-width: 3.2em;
   max-width: 3.2em;
+  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
