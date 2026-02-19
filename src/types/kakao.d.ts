@@ -12,7 +12,9 @@ declare global {
       class LatLng {
         constructor(lat: number, lng: number);
       }
-      
+
+
+
       class Map {
         constructor(container: HTMLElement, options: MapOptions);
         setCenter(latlng: LatLng): void;
