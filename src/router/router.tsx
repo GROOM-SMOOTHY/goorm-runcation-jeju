@@ -7,6 +7,7 @@ import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
+import SettlementMainPage from "@/pages/SettlementMainPage/SettlementMainPage";
 
 export default function AppRouter() {
   return (
@@ -29,6 +30,10 @@ export default function AppRouter() {
 
         {/* 메인 페이지 */}
         <Route path='/main' element={<MainPage />} />
+
+        {/* 정산 메인 페이지 */}
+        <Route path="/settlement" element={<SettlementMainPage />} />
+        <Route path="/settlement-main-page" element={<SettlementMainPage />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
