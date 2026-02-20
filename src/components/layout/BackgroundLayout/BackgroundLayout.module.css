@@ -113,14 +113,17 @@
   bottom: 30px;
 }
 
-/* 모바일 프레임 */
+/* 모바일 프레임 - 고정 높이, 바텀 네비 하단 고정 */
 .frame {
   flex: 0 0 450px;
   max-width: 480px;
+  height: 100vh;
   min-height: 100vh;
   background-color: #fff;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 모바일 반응형 */
