@@ -7,7 +7,6 @@ interface Props {
     userName: string;
     price: number;
     myPrice?: number;
-    /** "정산 진행 중" 등 상태 문구 (있으면 내 정산 금액 대신 표시) */
     status?: string;
 }
 export default function PayHistoryCard({ imgUrl, title, date, userName, price, myPrice, status }: Props) {

@@ -14,7 +14,6 @@ export interface MemberAccount {
 
 export interface MemberAccountCardProps {
   members: MemberAccount[];
-  /** 초기에 보여줄 멤버 수 */
   visibleCount?: number;
 }
 

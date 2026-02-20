@@ -1,11 +1,8 @@
 import styles from "./GroupPaymentStateCard.module.css";
 
 export interface GroupPaymentStateCardProps {
-  /** 그룹 총 지출 금액 */
   totalAmount: number;
-  /** 그룹명 (예: "제주 런케이션") */
   groupName: string;
-  /** 정산내역 추가하기 버튼 클릭 시 */
   onAddClick?: () => void;
 }
 

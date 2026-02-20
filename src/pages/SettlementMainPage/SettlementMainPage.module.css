@@ -23,7 +23,6 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* 섹션 공통 */
 .section {
   display: flex;
   flex-direction: column;
@@ -64,7 +63,6 @@
   padding: 0;
 }
 
-/* 최근 정산 내역 */
 .historyList {
   flex: 1;
   min-height: 0;
