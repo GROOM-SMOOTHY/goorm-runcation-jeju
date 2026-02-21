@@ -71,7 +71,7 @@ export default function SignUp() {
           시작하기{" "}
         </Button>
         <p className={styles.front}>
-          이미 계정이 있으신가요?
+          이미 계정이 있으신가요?{' '}
           <Link to="/login" className={styles.login}>
             로그인
           </Link>
