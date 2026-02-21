@@ -7,15 +7,17 @@ import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
-import SettlementMainPage from "@/pages/SettlementMainPage/SettlementMainPage";
-import SettlementAddHistoryPage from "@/pages/SettlementAddHistoryPage/SettlementAddHistoryPage";
+import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
+import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
+import StartPage from "@/pages/StartPage/StartPage";
+import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route element={<BackgroundLayout />}>
         {/* 첫 페이지 = 로그인 */}
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<StartPage />} />
 
         {/* 로그인 성공 후 메인 페이지 */}
         <Route path="/home" element={<HomePage />} />
@@ -27,17 +29,28 @@ export default function AppRouter() {
         <Route path="/travel" element={<TravelPage />} />
 
         {/* 그룹 페이지 */}
-        <Route path='/group' element={<GroupPage />} />
+        <Route path="/group" element={<GroupPage />} />
 
         {/* 메인 페이지 */}
-        <Route path='/main' element={<MainPage />} />
+        <Route path="/main" element={<MainPage />} />
 
+        
+        {/* 맛집 리스트 페이지 */}
+        <Route path="/restaurants" element={<RestaurantListPage />} />
+
+        {/* 맛집 리스트 상세 페이지 */}
+        <Route path="/restaurants/:id-:slug" element={<RestaurantStorePage />} />
+
+        
         {/* 정산 메인 페이지 */}
         <Route path="/settlement" element={<SettlementMainPage />} />
-
+        
+        {/* 정산 목록 추가하기 페이지 */}
+        <Route path='/settlement/add' element={<SettlementAddPage />} />
+        
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
-      </Route >
-    </Routes >
+      </Route>
+    </Routes>
   );
 }
