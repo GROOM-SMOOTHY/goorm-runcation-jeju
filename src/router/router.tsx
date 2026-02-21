@@ -9,6 +9,7 @@ import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage"
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage"
+import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
 
 export default function AppRouter() {
   return (
@@ -34,10 +35,13 @@ export default function AppRouter() {
 
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
-        
+
         {/* 맛집 리스트 상세 페이지 */}
         <Route path="/restaurants/:id-:slug" element={<RestaurantStorePage />} />
-        
+
+        {/* 정산 목록 추가하기 페이지 */}
+        <Route path='/settlement/add' element={<SettlementAddPage />} />
+
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Route >
