@@ -96,9 +96,6 @@
   overflow: hidden;
 }
 
-.bodyWrapperCollapsed {
-  grid-template-rows: 0fr;
-}
 
 .body {
   min-height: 0;
