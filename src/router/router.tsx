@@ -50,16 +50,10 @@ export default function AppRouter() {
         
         {/* 정산 메인 페이지 */}
         <Route path="/settlement" element={<SettlementMainPage />} />
-<<<<<<< HEAD
-        <Route path="/settlement-add-history-page" element={<SettlementAddHistoryPage />} />
-        <Route path="/settlement-history" element={<SettlementHistoryPage />} />
-
-=======
         
         {/* 정산 목록 추가하기 페이지 */}
         <Route path='/settlement/add' element={<SettlementAddPage />} />
         
->>>>>>> 3f1e5e66462c518d0fe328a63eb79a4eb90f1689
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
