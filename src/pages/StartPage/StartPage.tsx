@@ -6,7 +6,7 @@ export default function StartPage() {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <p className={`${styles.logo} font-plus-jakarta-sans`} data-content="SMOOTHY">SMOOTHY</p>
+        <p className={`${styles.logo}`} data-content="SMOOTHY">SMOOTHY</p>
       </div>
 
       <div className={styles.bottom}>
@@ -14,7 +14,7 @@ export default function StartPage() {
           <p>
             함께해서 더 즐거운 제주, <br />
             우리의 기록은
-            <span className={`${styles.highlight} font-plus-jakarta-sans`}>
+            <span className={`${styles.highlight}`}>
               {" "}
               SMOOTHY
             </span>
