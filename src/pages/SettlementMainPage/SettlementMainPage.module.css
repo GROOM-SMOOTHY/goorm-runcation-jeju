@@ -22,6 +22,7 @@
   scrollbar-gutter: stable;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 24px;
+  background: var(--bg-primary);
 }
 
 .main::-webkit-scrollbar {

@@ -67,7 +67,7 @@ export default function SettlementMainPage() {
         <GroupPaymentStateCard
           totalAmount={TOTAL_EXPENDITURE}
           groupName={GROUP_NAME}
-          onAddClick={() => navigate("/settlement-add-history-page")}
+          onAddClick={() => navigate("/settlement/add")}
         />
 
         <section className={styles.section}>
@@ -81,7 +81,7 @@ export default function SettlementMainPage() {
             <button
               type="button"
               className={styles.moreLink}
-              onClick={() => navigate("/settlement-history")}
+              onClick={() => navigate("/settlement/list")}
             >
               더보기
             </button>
