@@ -4,7 +4,7 @@ import { Form } from "radix-ui";
 import styles from "@/components/common/Input/Input.module.css";
 
 interface InputProps {
-  label: string;
+  label?: string;
   name: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -65,9 +65,11 @@ const Input: React.FC<InputProps> = ({
   return (
     <Form.Root className={styles.Root}>
       <Form.Field className={styles.Field} name={name}>
-        <div className={styles.LabelWrapper}>
-          <Form.Label className={styles.Label}>{label}</Form.Label>
-        </div>
+        {label &&
+          <div className={styles.LabelWrapper}>
+            <Form.Label className={styles.Label}>{label}</Form.Label>
+          </div>
+        }
 
         {variant === "auth" ? (
           <div className={styles.AuthContainer}>

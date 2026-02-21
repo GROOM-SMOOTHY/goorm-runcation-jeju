@@ -4,7 +4,6 @@ import styles from "@/components/pages/restaurant-store-page/StoreMap/StoreMap.m
 interface StoreMapProps {
   latitude: number;
   longitude: number;
-  storeName: string;
 }
 
 export default function StoreMap({ latitude, longitude }: StoreMapProps) {
