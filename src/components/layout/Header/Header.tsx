@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={styles.topNavigation} style={style}>
-      { onBack && (
+      {onBack && (
         <button
           type="button"
           onClick={onBack ?? (() => window.history.back())}
@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
           <ChevronLeftIcon width={28} height={28} />
         </button>
       )}
-      
+
       <div className={styles.title}>{title}</div>
     </header>
   );
