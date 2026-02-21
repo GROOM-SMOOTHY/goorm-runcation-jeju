@@ -10,6 +10,7 @@
 }
 
 .cardExpanded {
+
   border: 1px solid var(--brand-primary);
 }
 
@@ -96,6 +97,9 @@
   overflow: hidden;
 }
 
+.bodyWrapperCollapsed {
+  grid-template-rows: 0fr;
+}
 
 .body {
   min-height: 0;
