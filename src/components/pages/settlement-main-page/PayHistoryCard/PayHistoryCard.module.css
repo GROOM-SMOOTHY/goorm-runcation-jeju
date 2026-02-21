@@ -65,11 +65,11 @@
 .myPrice {
     background-color: var(--badge-bg-orange);
     color: var(--badge-label-orange);
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 9999px;
-    font-size: 8px;
-    line-height: 15px;
-    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
 }
 
 .status {

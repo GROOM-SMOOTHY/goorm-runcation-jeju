@@ -1,4 +1,4 @@
-import MemberAccountCard, { type MemberAccount } from "@/components/pages/settlement-main-page/MemberAccountCard";
+import MemberAccountCard, { type MemberAccount } from "@/components/pages/settlement-main-page/MemberAccountCard/MemberAccountCard";
 import AnimatedToast from "@/components/common/Toast/AnimatedToast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 

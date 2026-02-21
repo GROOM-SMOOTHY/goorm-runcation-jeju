@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header/Header";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
-import GroupPaymentStateCard from "@/components/pages/settlement-main-page/GroupPaymentStateCard";
-import MemberAccountCard, { type MemberAccount } from "@/components/pages/settlement-main-page/MemberAccountCard";
+import GroupPaymentStateCard from "@/components/pages/settlement-main-page/GroupPaymentStateCard/GroupPaymentStateCard";
+import MemberAccountCard, { type MemberAccount } from "@/components/pages/settlement-main-page/MemberAccountCard/MemberAccountCard";
 import PayHistoryCard from "@/components/pages/settlement-main-page/PayHistoryCard";
 import styles from "@/pages/SettlementMainPage/SettlementMainPage.module.css";
 
@@ -62,7 +62,7 @@ export default function SettlementMainPage() {
         <GroupPaymentStateCard
           totalAmount={TOTAL_EXPENDITURE}
           groupName={GROUP_NAME}
-          onAddClick={() => navigate("/settlement-add-history-page")}
+          onAddClick={() => navigate("/settlement/add")}
         />
 
         <section className={styles.section}>
@@ -76,7 +76,7 @@ export default function SettlementMainPage() {
             <button
               type="button"
               className={styles.moreLink}
-              onClick={() => navigate("/settlement-history")}
+              onClick={() => navigate("/settlement/list")}
             >
               더보기
             </button>

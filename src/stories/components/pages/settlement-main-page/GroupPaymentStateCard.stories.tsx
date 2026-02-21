@@ -1,4 +1,4 @@
-import GroupPaymentStateCard from "@/components/pages/settlement-main-page/GroupPaymentStateCard";
+import GroupPaymentStateCard from "@/components/pages/settlement-main-page/GroupPaymentStateCard/GroupPaymentStateCard";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta = {
