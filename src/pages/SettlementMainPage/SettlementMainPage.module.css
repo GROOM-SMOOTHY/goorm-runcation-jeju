@@ -1,0 +1,80 @@
+.page {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+  overflow: hidden;
+  height: 100%;
+  max-height: 100%;
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 24px;
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--text-primary);
+  text-align: left;
+  padding: 12px 0px;
+}
+
+.moreLink {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-primary);
+  cursor: pointer;
+  padding: 0;
+}
+
+.historyList {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.bottomNavWrap {
+  flex-shrink: 0;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+}
