@@ -1,0 +1,134 @@
+/* 페이지 전체를 세로 레이아웃으로 고정해서 바텀 네비를 아래로 내림 */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-white);
+}
+
+.headerBar {
+  position: relative;
+}
+
+.headerMain {
+  /* Header가 기본 너비 차지, headerActions가 오른쪽에 겹침 */
+}
+
+.headerActions {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.iconButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.liked {
+  color: var(--badge-label-red, #e53935);
+}
+
+.container {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 220px;
+  margin-top: 4px;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.65) 85%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+.heroTitleWrap {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-white);
+}
+
+.heroTag {
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.storeName {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+
+.storeNameEn {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metaText {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-placeholder);
+}
+
+.bottomNavWrap {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+

@@ -11,7 +11,6 @@ const meta = {
   argTypes: {
     latitude: { control: "number" },
     longitude: { control: "number" },
-    storeName: { control: "text" },
   },
 } satisfies Meta<typeof StoreMap>;
 
@@ -22,6 +21,5 @@ export const Default: Story = {
   args: {
     latitude: 37.5665,
     longitude: 126.9780,
-    storeName: "맛있는 식당",
   },
 };
