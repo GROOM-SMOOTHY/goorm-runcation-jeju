@@ -1,0 +1,33 @@
+.container {
+    width: 100%;
+    font-size: 48px;
+    line-height: 52px;
+    font-weight: 700;
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.currency {
+    font-size: 48px;
+    line-height: 52px;
+    font-weight: 700;
+    color: var(--brand-primary);
+}
+
+.input {
+    font-size: 48px;
+    line-height: 52px;
+    font-weight: 700;
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+    padding: 0 0 0 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.input::placeholder {
+    color: var(--text-tertiary);
+}
