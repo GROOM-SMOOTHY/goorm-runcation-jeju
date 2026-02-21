@@ -1,15 +1,17 @@
 .card {
   flex-shrink: 0;
-  background: var(--bg-primary);
-  border-radius: 12px;
-  padding: 14px 16px;
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border: 1px solid var(--border-main);
 }
 
 .label {
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 28px;
   color: var(--text-secondary);
   font-weight: 500;
 }
@@ -21,13 +23,15 @@
 }
 
 .amount {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .context {
-  font-size: 13px;
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: 300;
   color: var(--text-secondary);
 }
 

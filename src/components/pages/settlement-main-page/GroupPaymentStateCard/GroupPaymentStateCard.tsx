@@ -1,3 +1,4 @@
+import Button from "@/components/common/Button/Button";
 import styles from "./GroupPaymentStateCard.module.css";
 
 export interface GroupPaymentStateCardProps {
@@ -18,9 +19,7 @@ export default function GroupPaymentStateCard({
         <span className={styles.amount}>₩{totalAmount.toLocaleString()}</span>
         <span className={styles.context}>/ {groupName}</span>
       </div>
-      <button type="button" className={styles.addButton} onClick={onAddClick}>
-        정산내역 추가하기
-      </button>
+      <Button type="button" variant="primary" onClick={onAddClick}>정산내역 추가하기</Button>
     </section>
   );
 }
