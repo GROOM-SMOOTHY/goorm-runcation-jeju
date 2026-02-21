@@ -100,7 +100,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
 
   const completedCount = displayedCompleted.length;
   const progressPercent = totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
-  
+
   /* 헤더 뱃지: 진행률이 다 찼을 때만 "정산완료", 아니면 "정산 미완료" */
   const isProgressFull = completedCount === totalMemberCount && totalMemberCount > 0;
 
@@ -151,142 +151,141 @@ const SettleCard: React.FC<SettleCardProps> = ({
       >
         <div className={styles.body}>
           <div className={styles.bodyInner}>
-          {/* 토글 */}
-          <div
-            className={`${styles.statusRow} ${
-              depositMarkedComplete ? styles.statusRowCompleted : styles.statusRowPending
-            }`}
-          >
-            <div className={styles.statusMessage}>
-              {depositMarkedComplete ? (
-                <FaCheckCircle className={styles.statusIcon} aria-hidden />
-              ) : (
-                <FaExclamationTriangle className={styles.statusIcon} aria-hidden />
-              )}
-              <span>
-                {depositMarkedComplete
-                  ? "입금이 완료되었습니다"
-                  : "입금이 미완료되었습니다"}
-              </span>
-            </div>
-            <Switch.Root
-              className={styles.statusSwitch}
-              checked={depositMarkedComplete}
-              onCheckedChange={(checked) => {
-                setDepositMarkedComplete(checked);
-                onStatusChange?.(checked ? "completed" : "pending");
-              }}
-              aria-label="입금 완료 여부 전환"
+            {/* 토글 */}
+            <div
+              className={`${styles.statusRow} ${depositMarkedComplete ? styles.statusRowCompleted : styles.statusRowPending
+                }`}
             >
-              <Switch.Thumb className={styles.statusSwitchThumb} />
-            </Switch.Root>
-          </div>
-
-          {/* TOTAL AMOUNT */}
-          <div className={styles.totalSection}>
-            <span className={styles.totalLabel}>TOTAL AMOUNT</span>
-            <span className={styles.totalAmount}>
-              {totalAmount.toLocaleString()} 원
-            </span>
-          </div>
-
-          {/* 정산 진행률 */}
-          <div className={styles.progressSection}>
-            <span className={styles.progressLabel}>정산 진행률</span>
-            <div className={styles.progressRow}>
-              <div className={styles.progressWrapper}>
-                <Progress progress={progressPercent} />
+              <div className={styles.statusMessage}>
+                {depositMarkedComplete ? (
+                  <FaCheckCircle className={styles.statusIcon} aria-hidden />
+                ) : (
+                  <FaExclamationTriangle className={styles.statusIcon} aria-hidden />
+                )}
+                <span>
+                  {depositMarkedComplete
+                    ? "입금이 완료되었습니다"
+                    : "입금이 미완료되었습니다"}
+                </span>
               </div>
-              <span className={styles.progressText}>
-                {completedCount} / {totalMemberCount}명
+              <Switch.Root
+                className={styles.statusSwitch}
+                checked={depositMarkedComplete}
+                onCheckedChange={(checked) => {
+                  setDepositMarkedComplete(checked);
+                  onStatusChange?.(checked ? "completed" : "pending");
+                }}
+                aria-label="입금 완료 여부 전환"
+              >
+                <Switch.Thumb className={styles.statusSwitchThumb} />
+              </Switch.Root>
+            </div>
+
+            {/* TOTAL AMOUNT */}
+            <div className={styles.totalSection}>
+              <span className={styles.totalLabel}>TOTAL AMOUNT</span>
+              <span className={styles.totalAmount}>
+                {totalAmount.toLocaleString()} 원
               </span>
             </div>
-          </div>
 
-          {/* 1인당 금액 (총액 ÷ 인원) */}
-          <p className={styles.amountPerPerson}>
-            1인당 {amountPerPerson.toLocaleString()}원
-          </p>
-
-          {/* 받는 사람 (계좌) — 입금자가 나일 때 뱃지 표시 */}
-          <div className={styles.accountHolder}>
-            <div className={styles.avatar}>
-              <FaUser className={styles.avatarIcon} aria-hidden />
+            {/* 정산 진행률 */}
+            <div className={styles.progressSection}>
+              <span className={styles.progressLabel}>정산 진행률</span>
+              <div className={styles.progressRow}>
+                <div className={styles.progressWrapper}>
+                  <Progress progress={progressPercent} />
+                </div>
+                <span className={styles.progressText}>
+                  {completedCount} / {totalMemberCount}명
+                </span>
+              </div>
             </div>
-            <div className={styles.accountHolderNameWrap}>
-              <span className={styles.accountHolderName}>{accountHolder.name}</span>
-              {currentUserName != null && accountHolder.name === currentUserName && (
-                <span className={styles.accountHolderMeBadge}>나</span>
-              )}
-            </div>
-            <span className={styles.accountNumber}>
-              {accountHolder.bank} {accountHolder.accountNumberMasked}
-            </span>
-            <button
-              type="button"
-              className={styles.copyButton}
-              onClick={handleCopyAccount}
-              aria-label="계좌번호 복사"
-            >
-              <MdContentCopy aria-hidden />
-            </button>
-          </div>
 
-          {/* 미완료 섹션 (토글 OFF면 "나" 여기, 새 인원도 여기) */}
-          <div className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <span className={styles.sectionBarPending} />
-              <span className={styles.sectionTitle}>미완료</span>
-              <span className={styles.sectionCountPending}>
-                {pendingSorted.length}명
+            {/* 1인당 금액 (총액 ÷ 인원) */}
+            <p className={styles.amountPerPerson}>
+              1인당 {amountPerPerson.toLocaleString()}원
+            </p>
+
+            {/* 받는 사람 (계좌) — 입금자가 나일 때 뱃지 표시 */}
+            <div className={styles.accountHolder}>
+              <div className={styles.avatar}>
+                <FaUser className={styles.avatarIcon} aria-hidden />
+              </div>
+              <div className={styles.accountHolderNameWrap}>
+                <span className={styles.accountHolderName}>{accountHolder.name}</span>
+                {currentUserName != null && accountHolder.name === currentUserName && (
+                  <span className={styles.accountHolderMeBadge}>나</span>
+                )}
+              </div>
+              <span className={styles.accountNumber}>
+                {accountHolder.bank} {accountHolder.accountNumberMasked}
               </span>
+              <button
+                type="button"
+                className={styles.copyButton}
+                onClick={handleCopyAccount}
+                aria-label="계좌번호 복사"
+              >
+                <MdContentCopy aria-hidden />
+              </button>
             </div>
-            <div className={styles.memberTags}>
-              {pendingSorted.map((m) => {
-                const isMe = currentUserName != null && m.name === currentUserName;
-                return (
-                  <div
-                    key={m.name}
-                    className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
-                  >
-                    <div className={styles.memberTagAvatar} aria-hidden>
-                      <FaUser className={styles.memberTagAvatarIcon} />
+
+            {/* 미완료 섹션 (토글 OFF면 "나" 여기, 새 인원도 여기) */}
+            <div className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <span className={styles.sectionBarPending} />
+                <span className={styles.sectionTitle}>미완료</span>
+                <span className={styles.sectionCountPending}>
+                  {pendingSorted.length}명
+                </span>
+              </div>
+              <div className={styles.memberTags}>
+                {pendingSorted.map((m) => {
+                  const isMe = currentUserName != null && m.name === currentUserName;
+                  return (
+                    <div
+                      key={m.name}
+                      className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
+                    >
+                      <div className={styles.memberTagAvatar} aria-hidden>
+                        <FaUser className={styles.memberTagAvatarIcon} />
+                      </div>
+                      <span className={styles.memberTagName}>{m.name}</span>
+                      {isMe && <span className={styles.memberTagMeLabel}>나</span>}
                     </div>
-                    <span className={styles.memberTagName}>{m.name}</span>
-                    {isMe && <span className={styles.memberTagMeLabel}>나</span>}
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          {/* 완료 섹션 (토글 ON이면 "나" 여기) */}
-          <div className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <span className={styles.sectionBarCompleted} />
-              <span className={styles.sectionTitle}>완료</span>
-              <span className={styles.sectionCountCompleted}>
-                {completedSorted.length}명
-              </span>
-            </div>
-            <div className={styles.memberTags}>
-              {completedSorted.map((m) => {
-                const isMe = currentUserName != null && m.name === currentUserName;
-                return (
-                  <div
-                    key={m.name}
-                    className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
-                  >
-                    <div className={styles.memberTagAvatar} aria-hidden>
-                      <FaUser className={styles.memberTagAvatarIcon} />
+            {/* 완료 섹션 (토글 ON이면 "나" 여기) */}
+            <div className={styles.section}>
+              <div className={styles.sectionHeader}>
+                <span className={styles.sectionBarCompleted} />
+                <span className={styles.sectionTitle}>완료</span>
+                <span className={styles.sectionCountCompleted}>
+                  {completedSorted.length}명
+                </span>
+              </div>
+              <div className={styles.memberTags}>
+                {completedSorted.map((m) => {
+                  const isMe = currentUserName != null && m.name === currentUserName;
+                  return (
+                    <div
+                      key={m.name}
+                      className={`${styles.memberTag} ${isMe ? styles.memberTagIsMe : ""}`}
+                    >
+                      <div className={styles.memberTagAvatar} aria-hidden>
+                        <FaUser className={styles.memberTagAvatarIcon} />
+                      </div>
+                      <span className={styles.memberTagName}>{m.name}</span>
+                      {isMe && <span className={styles.memberTagMeLabel}>나</span>}
                     </div>
-                    <span className={styles.memberTagName}>{m.name}</span>
-                    {isMe && <span className={styles.memberTagMeLabel}>나</span>}
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
