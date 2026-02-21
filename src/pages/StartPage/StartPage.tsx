@@ -6,7 +6,7 @@ export default function StartPage() {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <p className={`${styles.logo} font-plus-jakarta-sans`}>SMOOTHY</p>
+        <p className={`${styles.logo} font-plus-jakarta-sans`} data-content="SMOOTHY">SMOOTHY</p>
       </div>
 
       <div className={styles.bottom}>

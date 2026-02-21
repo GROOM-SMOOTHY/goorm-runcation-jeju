@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  max-width: 480px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -9,7 +8,7 @@
 
 .top {
   width: 100%;
-  min-height: 55vh;
+  min-height: 52vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,13 +21,23 @@
 .logo {
   font-size: 48px;
   line-height: 48px;
-  letter-spacing: -1.2px;
   font-weight: 800;
   color: var(--brand-primary);
-  -webkit-text-stroke: 1px var(--bg-white);
   margin-top: -100px;
   position: relative;
   display: inline-block;
+  z-index: 0;
+}
+
+
+.logo::before {
+  content: attr(data-content);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 8px var(--text-white);
 }
 
 .bottom {
