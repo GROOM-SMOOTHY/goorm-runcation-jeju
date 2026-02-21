@@ -7,16 +7,13 @@ import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
-<<<<<<< HEAD
 import SettlementMainPage from "@/pages/SettlementMainPage/SettlementMainPage";
 import SettlementAddHistoryPage from "@/pages/SettlementAddHistoryPage/SettlementAddHistoryPage";
 import SettlementHistoryPage from "@/pages/SettlementHistoryPage/SettlementHistoryPage";
-=======
 import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 import StartPage from "@/pages/StartPage/StartPage";
 import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
->>>>>>> 3f1e5e66462c518d0fe328a63eb79a4eb90f1689
 
 export default function AppRouter() {
   return (
