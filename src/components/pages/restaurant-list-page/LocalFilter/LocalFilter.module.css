@@ -7,16 +7,14 @@
 }
 
 .FilterButton {
-  padding: 6px 12px;
+  padding: 12px 16px;
   border-radius: 20px;
-  border: 2px solid var(--bg-white);
-  background-color: var(--bg-white);
+  background-color: var(--bg-searchbar);
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
   height: 44px;
   width: auto;
-  box-shadow: 0 0 10px 1px var(--border-main);
   box-sizing: border-box;
 }
 
@@ -32,7 +30,6 @@
   background-color: var(--brand-primary);
   border: 2px solid var(--brand-primary);
   color: var(--bg-white);
-  box-shadow: 0 0 10px 1px var(--border-main);
 }
 
 .AllButton:hover {
