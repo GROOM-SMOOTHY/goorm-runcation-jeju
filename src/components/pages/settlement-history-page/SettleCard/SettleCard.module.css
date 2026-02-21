@@ -10,8 +10,7 @@
 }
 
 .cardExpanded {
-
-  border: 1px solid var(--brand-primary);
+  border-color: var(--brand-primary);
 }
 
 /* 헤더 */
