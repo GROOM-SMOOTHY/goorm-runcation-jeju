@@ -9,6 +9,7 @@ import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SettlementMainPage from "@/pages/SettlementMainPage/SettlementMainPage";
 import SettlementAddHistoryPage from "@/pages/SettlementAddHistoryPage/SettlementAddHistoryPage";
+import SettlementHistoryPage from "@/pages/SettlementHistoryPage/SettlementHistoryPage";
 
 export default function AppRouter() {
   return (
@@ -34,6 +35,8 @@ export default function AppRouter() {
 
         {/* 정산 메인 페이지 */}
         <Route path="/settlement" element={<SettlementMainPage />} />
+        <Route path="/settlement-add-history-page" element={<SettlementAddHistoryPage />} />
+        <Route path="/settlement-history" element={<SettlementHistoryPage />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />

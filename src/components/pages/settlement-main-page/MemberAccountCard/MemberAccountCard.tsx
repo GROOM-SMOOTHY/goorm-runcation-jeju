@@ -29,6 +29,10 @@ export default function MemberAccountCard({
   const canCollapse = expanded && members.length > visibleCount;
 
   const handleCopy = (accountForCopy: string) => {
+    if (!navigator.clipboard?.writeText) {
+      addToast("복사에 실패했습니다", "", "error");
+      return;
+    }
     navigator.clipboard.writeText(accountForCopy).then(
       () => addToast("복사되었습니다", "", "success"),
       () => addToast("복사에 실패했습니다", "", "error")

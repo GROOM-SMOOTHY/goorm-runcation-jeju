@@ -18,6 +18,7 @@ const MEMBER_ACCOUNTS: MemberAccount[] = [
 ];
 
 const RECENT_SETTLEMENTS: Array<{
+  id: string;
   imgUrl: string;
   title: string;
   date: string;
@@ -27,6 +28,7 @@ const RECENT_SETTLEMENTS: Array<{
   status?: string;
 }> = [
   {
+    id: "1",
     imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
     title: "제주 흑돼지 저녁 식사",
     date: "10월 24일",
@@ -35,6 +37,7 @@ const RECENT_SETTLEMENTS: Array<{
     myPrice: 36250,
   },
   {
+    id: "2",
     imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
     title: "제주 흑돼지 저녁 식사",
     date: "10월 24일",
@@ -43,6 +46,7 @@ const RECENT_SETTLEMENTS: Array<{
     myPrice: 36250,
   },
   {
+    id: "3",
     imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
     title: "제주 흑돼지 저녁 식사",
     date: "10월 24일",
@@ -62,7 +66,7 @@ export default function SettlementMainPage() {
         <GroupPaymentStateCard
           totalAmount={TOTAL_EXPENDITURE}
           groupName={GROUP_NAME}
-          onAddClick={() => navigate("/settlement/add")}
+          onAddClick={() => navigate("/settlement-add-history-page")}
         />
 
         <section className={styles.section}>
@@ -76,15 +80,15 @@ export default function SettlementMainPage() {
             <button
               type="button"
               className={styles.moreLink}
-              onClick={() => navigate("/settlement/list")}
+              onClick={() => navigate("/settlement-history")}
             >
               더보기
             </button>
           </div>
           <div className={styles.historyList}>
-            {RECENT_SETTLEMENTS.map((item, i) => (
+            {RECENT_SETTLEMENTS.map((item) => (
               <PayHistoryCard
-                key={i}
+                key={item.id}
                 imgUrl={item.imgUrl}
                 title={item.title}
                 date={item.date}
