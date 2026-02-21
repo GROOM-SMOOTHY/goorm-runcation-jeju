@@ -7,6 +7,7 @@ import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
+import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage"
 
 export default function AppRouter() {
   return (
@@ -30,6 +31,9 @@ export default function AppRouter() {
         {/* 메인 페이지 */}
         <Route path='/main' element={<MainPage />} />
 
+        {/* 맛집 리스트 페이지 */}
+        <Route path="/restaurants" element={<RestaurantListPage />} />
+        
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Route >
