@@ -27,34 +27,34 @@ const RECENT_SETTLEMENTS: Array<{
   myPrice?: number;
   status?: string;
 }> = [
-  {
-    id: "1",
-    imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    myPrice: 36250,
-  },
-  {
-    id: "2",
-    imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    myPrice: 36250,
-  },
-  {
-    id: "3",
-    imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    status: "정산 진행 중",
-  },
-];
+    {
+      id: "1",
+      imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
+      title: "제주 흑돼지 저녁 식사",
+      date: "10월 24일",
+      userName: "김민수",
+      price: 145000,
+      myPrice: 36250,
+    },
+    {
+      id: "2",
+      imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
+      title: "제주 흑돼지 저녁 식사",
+      date: "10월 24일",
+      userName: "김민수",
+      price: 145000,
+      myPrice: 36250,
+    },
+    {
+      id: "3",
+      imgUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
+      title: "제주 흑돼지 저녁 식사",
+      date: "10월 24일",
+      userName: "김민수",
+      price: 145000,
+      status: "정산 진행 중",
+    },
+  ];
 
 export default function SettlementMainPage() {
   const navigate = useNavigate();
@@ -62,6 +62,7 @@ export default function SettlementMainPage() {
   return (
     <div className={styles.page}>
       <Header title="정산" onBack={() => navigate(-1)} />
+
       <main className={styles.main}>
         <GroupPaymentStateCard
           totalAmount={TOTAL_EXPENDITURE}
@@ -101,6 +102,7 @@ export default function SettlementMainPage() {
           </div>
         </section>
       </main>
+
       <div className={styles.bottomNavWrap}>
         <BottomNavigation />
       </div>
