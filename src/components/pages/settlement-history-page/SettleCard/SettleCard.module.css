@@ -4,13 +4,13 @@
   border-radius: 12px;
   padding: 0;
   background-color: var(--bg-white);
-  border: 3px solid var(--border-main);
+  border: 1px solid var(--border-main);
   overflow: hidden;
   transition: border-color 0.2s;
 }
 
 .cardExpanded {
-  border-color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
 }
 
 /* 헤더 */
@@ -415,7 +415,7 @@
 }
 
 .memberTagIsMe {
-  border: 1.5px solid var(--brand-primary);
+  border: 1px solid var(--brand-primary);
   font-weight: 600;
 }
 

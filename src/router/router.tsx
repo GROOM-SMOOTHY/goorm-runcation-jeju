@@ -11,6 +11,7 @@ import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 import StartPage from "@/pages/StartPage/StartPage";
 import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
+import SettlementListPage from "@/pages/SettlementListPage/SettlementListPage";
 
 export default function AppRouter() {
   return (
@@ -43,8 +44,9 @@ export default function AppRouter() {
           element={<RestaurantStorePage />}
         />
 
-        {/* 정산 목록 추가하기 페이지 */}
-        <Route path='/settlement/add' element={<SettlementAddPage />} />
+        {/* 정산 */}
+        <Route path="/settlement/add" element={<SettlementAddPage />} />
+        <Route path="/settlement/list" element={<SettlementListPage />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
