@@ -6,6 +6,7 @@ interface SignUpEmailVerificationProps {
   input: string;
   onChangeEmail: (value: string) => void;
   onChangeCode: (value: string) => void;
+  onVerified: () => void;
 }
 
 export default function SignUpEmailVerification({
@@ -13,6 +14,7 @@ export default function SignUpEmailVerification({
   input,
   onChangeEmail,
   onChangeCode,
+  onVerified,
 }: SignUpEmailVerificationProps) {
   const [show, setShow] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -33,6 +35,7 @@ export default function SignUpEmailVerification({
   const onClickVerify = () => {
     if (input === MOCK_DATA) {
       setIsVerified(true);
+      onVerified();
       return alert("인증 성공");
     }
     alert("인증코드가 올바르지 않습니다.");

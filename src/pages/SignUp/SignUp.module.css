@@ -1,0 +1,145 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  background-image: url(../../assets/SignUpBackground.png);
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.header {
+  width: 100%;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.up {
+  width: 100%;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.down {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo {
+  object-fit: cover;
+}
+
+.logoName {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 4px;
+  color: var(--brand-primary);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.75px;
+  color: var(--text-primary);
+}
+
+.desc {
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--text-Secondary);
+}
+
+.main {
+  margin-top: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.checkBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  color: var(--text-primary);
+
+  cursor: pointer;
+}
+
+.checkBox input {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+  border: 1.5px solid var(--bg-white);
+
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkBox input:checked {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.checkBox input:checked::after {
+  content: "";
+  position: absolute;
+
+  width: 4px;
+  height: 8px;
+
+  border: solid var(--bg-white);
+  border-width: 0 2px 2px 0;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+.footer {
+  position: absolute;
+  bottom: 48px;
+  width: 100%;
+  gap: 24px;
+  padding: 0px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.front {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--text-white);
+}
+
+.front a {
+  color: var(--brand-primary);
+}
