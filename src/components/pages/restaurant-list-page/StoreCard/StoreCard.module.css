@@ -3,7 +3,7 @@
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--bg-white);
-  box-shadow: 0 0 10px 1px var(--border-main);
+  box-shadow: 0 0 8px 1px var(--border-main);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
