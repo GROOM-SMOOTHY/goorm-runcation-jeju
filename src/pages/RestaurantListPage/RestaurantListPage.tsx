@@ -14,7 +14,8 @@ const REGIONS = ["제주시", "서귀포시", "한림", "애월"];
 const MOCK_STORES: (StoreCardProps & { id: string })[] = [
   {
     id: "1",
-    imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
     location: "제주시",
     category: "카페",
     name: "달콤한 하루",
@@ -23,7 +24,8 @@ const MOCK_STORES: (StoreCardProps & { id: string })[] = [
   },
   {
     id: "2",
-    imageUrl: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
     location: "서귀포시",
     category: "레스토랑",
     name: "바다의 맛집",
@@ -32,7 +34,8 @@ const MOCK_STORES: (StoreCardProps & { id: string })[] = [
   },
   {
     id: "3",
-    imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
     location: "한림",
     category: "술집",
     name: "한잔의 행복",
@@ -41,7 +44,8 @@ const MOCK_STORES: (StoreCardProps & { id: string })[] = [
   },
   {
     id: "4",
-    imageUrl: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80",
     location: "애월",
     category: "카페",
     name: "애월 바다뷰 카페",
@@ -52,12 +56,24 @@ const MOCK_STORES: (StoreCardProps & { id: string })[] = [
 
 export default function RestaurantListPage() {
   const navigate = useNavigate();
-  const [searchResultNames, setSearchResultNames] = useState<string[]>(
+
+  const [stores, setStores] = useState(MOCK_STORES);
+  const [searchResultNames, setSearchResultNames] = useState(
     MOCK_STORES.map((s) => s.name)
   );
   const [selectedRegion, setSelectedRegion] = useState("");
-  const [stores, setStores] = useState(MOCK_STORES);
 
+  // ✅ store 이름 배열 고정 (무한루프 방지)
+  const storeNames = useMemo(() => {
+    return stores.map((s) => s.name);
+  }, [stores]);
+
+  // ✅ onSearch 함수 고정 (무한루프 방지)
+  const handleSearch = useCallback((results: string[]) => {
+    setSearchResultNames(results);
+  }, []);
+
+  // ✅ 최종 필터링
   const filteredStores = useMemo(() => {
     return stores.filter(
       (s) =>
@@ -95,6 +111,7 @@ export default function RestaurantListPage() {
   return (
     <div className={styles.page}>
       <Header title="맛집" onBack={() => navigate(-1)} />
+
       <main
         ref={mainRef}
         className={styles.main}
@@ -102,14 +119,16 @@ export default function RestaurantListPage() {
       >
         <SearchBar
           placeholder="제주 맛집을 검색해보세요"
-          data={stores.map((s) => s.name)}
-          onSearch={(results) => setSearchResultNames(results)}
+          data={storeNames}
+          onSearch={handleSearch}
         />
+
         <LocalFilter
           regions={REGIONS}
           selectedRegion={selectedRegion}
           onSelectRegion={setSelectedRegion}
         />
+
         <section className={styles.storeList}>
           {filteredStores.length > 0 ? (
             filteredStores.map((store) => (
@@ -122,20 +141,28 @@ export default function RestaurantListPage() {
                 description={store.description}
                 isFavorite={store.isFavorite}
                 onToggleFavorite={() => handleToggleFavorite(store.id)}
-                onClick={() => handleStoreClick(store.id, store.name)}
+                onClick={() =>
+                  handleStoreClick(store.id, store.name)
+                }
               />
             ))
           ) : (
-            <p className={styles.emptyMessage}>검색 결과가 없습니다.</p>
+            <p className={styles.emptyMessage}>
+              검색 결과가 없습니다.
+            </p>
           )}
         </section>
       </main>
+
       <div className={styles.bottomNavWrap}>
         <BottomNavigation />
       </div>
+
       <button
         type="button"
-        className={`${styles.scrollToTopButton} ${!showScrollToTop ? styles.hidden : ""}`}
+        className={`${styles.scrollToTopButton} ${
+          !showScrollToTop ? styles.hidden : ""
+        }`}
         onClick={handleScrollToTop}
         aria-label="맨 위로"
       >

@@ -6,7 +6,7 @@ import SettleCard, {
   type AccountHolder,
 } from "@/components/pages/settlement-history-page/SettleCard/SettleCard";
 import AnimatedToast from "@/components/common/Toast/AnimatedToast";
-import styles from "@/pages/SettlementListPage/SettlementListPage.module.css";
+import styles from "@/pages/SettlementPage/SettlementListPage/SettlementListPage.module.css";
 
 const accountHolder: AccountHolder = {
   name: "김나영",

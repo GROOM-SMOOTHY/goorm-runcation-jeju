@@ -4,7 +4,7 @@ import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigat
 import GroupPaymentStateCard from "@/components/pages/settlement-main-page/GroupPaymentStateCard/GroupPaymentStateCard";
 import MemberAccountCard, { type MemberAccount } from "@/components/pages/settlement-main-page/MemberAccountCard/MemberAccountCard";
 import PayHistoryCard from "@/components/pages/settlement-main-page/PayHistoryCard";
-import styles from "@/pages/SettlementMainPage/SettlementMainPage.module.css";
+import styles from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage.module.css";
 
 const GROUP_NAME = "제주 런케이션";
 const TOTAL_EXPENDITURE = 10_000_000;

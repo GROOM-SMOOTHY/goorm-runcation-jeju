@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "@/components/pages/restaurant-list-page/SearchBar/SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface SearchBarProps {
   placeholder?: string;
@@ -15,23 +16,28 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [input, setInput] = React.useState("");
 
-  // 입력값 변경 시 바로 필터링
-  const handleChange = (val: string) => {
-    setInput(val);
+  // 디바운스 적용
+  const debouncedInput = useDebounce(input, 300);
+
+  // 🔥 onSearch는 dependency에서 제거
+  React.useEffect(() => {
+    if (!onSearch) return;
 
     const filtered = data.filter((item) =>
-      item.toLowerCase().includes(val.toLowerCase())
+      item.toLowerCase().includes(debouncedInput.toLowerCase())
     );
 
-    onSearch?.(filtered);
-  };
+    onSearch(filtered);
+  }, [debouncedInput, data]); // ✅ onSearch 제거
 
-  // 돋보기 클릭 시 검색 실행
   const handleSearchClick = () => {
+    if (!onSearch) return;
+
     const filtered = data.filter((item) =>
       item.toLowerCase().includes(input.toLowerCase())
     );
-    onSearch?.(filtered);
+
+    onSearch(filtered);
   };
 
   return (
@@ -41,7 +47,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         type="text"
         className={styles.Input}
         value={input}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => setInput(e.target.value)}
         placeholder={placeholder}
       />
     </div>
