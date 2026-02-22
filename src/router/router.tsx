@@ -38,18 +38,18 @@ export default function AppRouter() {
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
 
-
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
 
         {/* 맛집 리스트 상세 페이지 */}
-        <Route
-          path="/restaurants/:id-:slug"
-          element={<RestaurantStorePage />}
-        />
+        <Route path="/restaurants/:id-:slug" element={<RestaurantStorePage />} />
 
+        {/* 마이 페이지 */}
+        <Route path="/mypage" element={<MyPage />} />
+          
         {/* 정산 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
+
         <Route path="/settlement/list" element={<SettlementListPage />} />
 
         {/* 정산 메인 페이지 */}
