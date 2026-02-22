@@ -7,8 +7,9 @@ import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
-import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage"
-import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage"
+import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
+import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
+import MyPage from "@/pages/MyPage/MyPage";
 
 export default function AppRouter() {
   return (
@@ -27,20 +28,26 @@ export default function AppRouter() {
         <Route path="/travel" element={<TravelPage />} />
 
         {/* 그룹 페이지 */}
-        <Route path='/group' element={<GroupPage />} />
+        <Route path="/group" element={<GroupPage />} />
 
         {/* 메인 페이지 */}
-        <Route path='/main' element={<MainPage />} />
+        <Route path="/main" element={<MainPage />} />
 
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
-        
+
         {/* 맛집 리스트 상세 페이지 */}
-        <Route path="/restaurants/:id-:slug" element={<RestaurantStorePage />} />
-        
+        <Route
+          path="/restaurants/:id-:slug"
+          element={<RestaurantStorePage />}
+        />
+
+        {/* 마이 페이지 */}
+        <Route path="/mypage" element={<MyPage />} />
+
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
-      </Route >
-    </Routes >
+      </Route>
+    </Routes>
   );
 }
