@@ -9,8 +9,8 @@ export default function NotFoundPage() {
       <div className={styles.body}>
         <div className={styles.desc}>
           <h3>길을 잃으셨나요?</h3>
-          <p>요청하신 페이지를 찾을 수 없습니다.</p>
-          <p>제주바람에 페이지가 날아갔나 봐요</p>
+          <p>제주 바람이 너무 거셌나봐요</p>
+          <p>요청하신 페이지를 찾을 수 없습니다</p>
         </div>
         <Button
           type="button"
