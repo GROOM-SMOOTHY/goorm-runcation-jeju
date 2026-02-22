@@ -7,11 +7,14 @@ import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
-import SettlementMainPage from "@/pages/SettlementMainPage/SettlementMainPage";
+
+import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
 import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
-import SettlementListPage from "@/pages/SettlementListPage/SettlementListPage";
+import SettlementListPage from "@/pages/SettlementPage/SettlementListPage/SettlementListPage";
+
 import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
+
 import StartPage from "@/pages/StartPage/StartPage";
 
 export default function AppRouter() {
@@ -47,9 +50,11 @@ export default function AppRouter() {
         {/* 마이 페이지 */}
         <Route path="/mypage" element={<MyPage />} />
           
-        {/* 정산 */}
+
+        {/* 정산 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
 
+        {/* 정산 목록 페이지 */}
         <Route path="/settlement/list" element={<SettlementListPage />} />
 
         {/* 정산 메인 페이지 */}
@@ -58,8 +63,10 @@ export default function AppRouter() {
         {/* 정산 목록 추가하기 페이지 */}
         <Route path='/settlement/add' element={<SettlementAddPage />} />
 
+
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
+        
       </Route>
     </Routes>
   );
