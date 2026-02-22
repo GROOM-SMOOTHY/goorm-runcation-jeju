@@ -1,0 +1,139 @@
+.card {
+  flex-shrink: 0;
+  background: var(--bg-white);
+  border: 1px solid var(--border-main);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.rowHeader {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr 1fr 40px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-select);
+  border-bottom: 1px solid var(--border-main);
+  text-align: center;
+}
+
+.rowHeader .colMember {
+  text-align: center;
+}
+
+.rowHeader .colBank,
+.rowHeader .colAccount {
+  text-align: center;
+}
+
+.rowHeader .colCopy {
+  width: 40px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr 1fr 40px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.15s;
+}
+
+.row:hover {
+  background: var(--bg-select);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.colMember {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.colBank,
+.colAccount {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-align: center;
+}
+
+.colCopy {
+  display: flex;
+  justify-content: center;
+}
+
+.copyButton {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.copyButton:hover {
+  color: var(--brand-primary);
+  background: var(--badge-bg-orange);
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-white);
+  flex-shrink: 0;
+}
+
+.avatar.orange {
+  background: var(--badge-label-orange);
+}
+
+.avatar.blue {
+  background: var(--badge-label-blue);
+}
+
+.avatar.purple {
+  background: var(--badge-label-purple);
+}
+
+.memberName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.moreButton {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-select);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brand-primary);
+  cursor: pointer;
+}
+
+.moreButton:hover {
+  background: var(--badge-bg-orange);
+}

@@ -2,24 +2,29 @@ import styles from "./PayHistoryCard.module.css";
 
 interface Props {
     imgUrl: string;
-    title: string
-    date: string
-    userName: string
-    price: number
-    myPrice: number
+    title: string;
+    date: string;
+    userName: string;
+    price: number;
+    myPrice?: number;
+    status?: string;
 }
-export default function PayHistoryCard({ imgUrl, title, date, userName, price, myPrice }: Props) {
+export default function PayHistoryCard({ imgUrl, title, date, userName, price, myPrice, status }: Props) {
     return (
         <div className={styles.container}>
             <div className={styles.leftWrap}>
                 <img src={imgUrl} alt={title} />
                 <div className={styles.titleWrap}>
                     <span className={styles.title}>{title}</span>
-                    <span className={styles.date}>{date} • {userName}</span>
+                    <span className={styles.date}>{date} · {userName} 결제</span>
                 </div>
             </div>
             <div className={styles.rightWrap}>
-                <span className={styles.myPrice}>내 정산 금액: ₩{myPrice.toLocaleString()} </span>
+                {status ? (
+                    <span className={styles.status}>{status}</span>
+                ) : myPrice != null ? (
+                    <span className={styles.myPrice}>내 정산 금액 ₩{myPrice.toLocaleString()}</span>
+                ) : null}
                 <span className={styles.price}>₩{price.toLocaleString()}</span>
             </div>
         </div>

@@ -1,0 +1,16 @@
+.content {
+  z-index: 50;
+  width: var(--radix-popover-trigger-width);
+  max-height: var(--radix-popover-content-available-height);
+  border-radius: 12px;
+  border: 1px solid var(--border-main);
+  background: var(--bg-white);
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.content:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}

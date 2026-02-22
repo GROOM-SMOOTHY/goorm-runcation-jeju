@@ -4,7 +4,7 @@
   border-radius: 12px;
   padding: 0;
   background-color: var(--bg-white);
-  border: 3px solid var(--border-main);
+  border: 1px solid var(--border-main);
   overflow: hidden;
   transition: border-color 0.2s;
 }
@@ -18,7 +18,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 16px;
   border: none;
   background: none;
@@ -58,13 +58,15 @@
 
 .title {
   font-size: 16px;
-  font-weight: 600;
+  line-height: 24px;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .subtitle {
   font-size: 14px;
-  color: var(--text-tertiary);
+  line-height: 20px;
+  color: var(--text-label);
 }
 
 .badgeCompleted {
@@ -415,7 +417,7 @@
 }
 
 .memberTagIsMe {
-  border: 1.5px solid var(--brand-primary);
+  border: 1px solid var(--brand-primary);
   font-weight: 600;
 }
 
