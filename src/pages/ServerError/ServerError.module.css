@@ -1,0 +1,39 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background-image: url("../../assets/ServerError.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.body {
+  position: absolute;
+
+  top: 44vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0px 24px;
+  gap: 82px;
+}
+
+.desc > h3 {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 36px;
+  letter-spacing: -0.75px;
+  color: #ff8800e6; /* 90% */
+  margin-bottom: 18px;
+}
+
+.desc > p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #ff8800b3; /* 70% */
+}
