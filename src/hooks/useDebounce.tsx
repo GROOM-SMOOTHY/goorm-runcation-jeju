@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-// 벨류를 제네릭 타입으로 받음 / 3초 대기
+// 벨류를 제네릭 타입으로 받음 / 0.3초 대기
 export function useDebounce<T>(value: T, delay: number = 300): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 

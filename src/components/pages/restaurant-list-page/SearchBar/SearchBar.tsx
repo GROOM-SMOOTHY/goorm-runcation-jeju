@@ -19,7 +19,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   // 디바운스 적용
   const debouncedInput = useDebounce(input, 300);
 
-  // 🔥 onSearch는 dependency에서 제거
   React.useEffect(() => {
     if (!onSearch) return;
 
@@ -28,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     );
 
     onSearch(filtered);
-  }, [debouncedInput, data]); // ✅ onSearch 제거
+  }, [debouncedInput, data]);
 
   const handleSearchClick = () => {
     if (!onSearch) return;
