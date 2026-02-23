@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: 9999px;
+    background-color: var(--bg-select);
+}
+
+.container img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.name {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--text-primary);
+}
+
+.close {
+    font-size: 16px;
+    color: var(--text-placeholder);
+    cursor: pointer;
+}
