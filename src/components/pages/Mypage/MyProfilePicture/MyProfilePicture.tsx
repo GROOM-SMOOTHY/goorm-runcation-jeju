@@ -1,6 +1,9 @@
-import styles from "@/components/pages/Mypage/MyProfilePicture/MyProfilePicture.module.css";
-import { IoMdCamera } from "react-icons/io";
-import { useState, useRef, useEffect } from "react";
+import styles from '@/components/pages/Mypage/MyProfilePicture/MyProfilePicture.module.css';
+import { IoMdCamera } from 'react-icons/io';
+import { useState, useRef, useEffect } from 'react';
+
+const DEFAULT_PROFILE_IMAGE =
+  'https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png';
 
 export default function MyProfilePicture() {
   const [upload, setUpload] = useState<string | null>(null);
@@ -10,14 +13,14 @@ export default function MyProfilePicture() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const allowedType = ["image/jpeg", "image/png"];
+    const allowedType = ['image/jpeg', 'image/png'];
     if (!allowedType.includes(file.type)) {
-      return alert("JPG 또는 PNG 파일만 업로드 가능합니다.");
+      return alert('JPG 또는 PNG 파일만 업로드 가능합니다.');
     }
 
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return alert("10MB 이하 파일만 업로드 가능합니다.");
+      return alert('10MB 이하 파일만 업로드 가능합니다.');
     }
 
     const previewUrl = URL.createObjectURL(file);
@@ -40,9 +43,11 @@ export default function MyProfilePicture() {
     <div className={styles.container}>
       <div className={styles.profile}>
         <div className={styles.circle}></div>
-        {upload && (
-          <img src={upload} alt="preview" className={styles.preview} />
-        )}
+        <img
+          src={upload || DEFAULT_PROFILE_IMAGE}
+          alt="preview"
+          className={styles.preview}
+        />
 
         <div onClick={onCircleClick} className={styles.camera}>
           <IoMdCamera className={styles.icon} />
@@ -51,7 +56,7 @@ export default function MyProfilePicture() {
             type="file"
             accept="image/*"
             onChange={onImageUpload}
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
           />
         </div>
       </div>
