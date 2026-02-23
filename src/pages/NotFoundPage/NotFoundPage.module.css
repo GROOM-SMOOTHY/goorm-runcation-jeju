@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("../../assets/NotFoundPage.png");
+  background-image: url('../../assets/NotFoundPage.png');
   background-size: cover;
   background-position: center;
 }
@@ -36,5 +36,4 @@
   font-weight: 500;
   line-height: 28px;
   color: #ff8800b3; /* 70% */
-  text-decoration: underline;
 }

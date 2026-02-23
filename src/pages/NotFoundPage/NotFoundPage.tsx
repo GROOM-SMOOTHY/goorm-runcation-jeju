@@ -1,6 +1,6 @@
-import styles from "@/pages/NotFoundPage/NotFoundPage.module.css";
-import Button from "@/components/common/Button/Button";
-import { useNavigate } from "react-router-dom";
+import styles from '@/pages/NotFoundPage/NotFoundPage.module.css';
+import Button from '@/components/common/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function NotFoundPage() {
         <Button
           type="button"
           variant="primary"
-          onClick={() => navigate("/main")}
+          onClick={() => navigate('/main')}
         >
           홈으로 돌아가기
         </Button>
