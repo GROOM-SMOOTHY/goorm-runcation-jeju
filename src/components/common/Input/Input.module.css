@@ -1,91 +1,88 @@
-.Root {}
+.Root {
+}
 
 .Field {
-	display: grid;
+  display: grid;
 }
 
 .LabelWrapper {
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .Label {
-	font-size: 15px;
-	font-weight: 500;
-	line-height: 35px;
-	color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 35px;
+  color: var(--text-primary);
 }
 
 .Message {
-	font-size: 13px;
-	color: var(--text-primary);
-	opacity: 0.8;
-	margin-top: 4px;
+  font-size: 13px;
+  color: var(--text-primary);
+  opacity: 0.8;
+  margin-top: 4px;
 }
 
 .Input {
-	all: unset;
-	box-sizing: border-box;
-	width: 100%;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0 10px;
-	height: 35px;
-	line-height: 1;
-	border-radius: 4px;
-	font-size: 16px;
-	color: var(--text-primary);
-	background-color: var(--bg-white);
-	border: 2px solid var(--border-main);
-}
-
-.Input:hover {
-	border-color: var(--text-tertiary);
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  height: 55px;
+  line-height: 1;
+  border-radius: 16px;
+  font-size: 16px;
+  color: var(--text-primary);
+  background-color: var(--bg-white);
+  border: 2px solid var(--border-main);
 }
 
 .Input:focus {
-	border-color: var(--text-tertiary);
+  border-color: var(--text-tertiary);
 }
 
 .Input::selection {
-	background-color: var(--text-primary);
-	color: white;
+  background-color: var(--text-primary);
+  color: white;
 }
 
 .AuthContainer {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .AuthRequestText {
-	all: unset;
-	margin-top: 8px;
-	color: var(--brand-primary);
-	font-size: 14px;
-	cursor: pointer;
-	text-decoration: underline;
+  all: unset;
+  margin-top: 8px;
+  color: var(--brand-primary);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .AuthTimerContainer {
-	margin-top: 8px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 14px;
-	color: var(--text-secondary);
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 
 .AuthRetryText {
-	all: unset;
-	cursor: pointer;
-	text-decoration: underline;
-	color: var(--brand-primary);
+  all: unset;
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--brand-primary);
 }
 
 .TimerText {
-	color: var(--brand-primary);
-	font-weight: bold;
+  color: var(--brand-primary);
+  font-weight: bold;
 }
