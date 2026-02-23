@@ -1,15 +1,15 @@
-import styles from "@/pages/GuestBook/GuestBook.module.css";
+import styles from '@/pages/GuestBook/GuestBook.module.css';
 
-import Header from "@/components/layout/Header/Header";
-import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
-import Button from "@/components/common/Button/Button";
-import AddPicture from "@/components/pages/guestbook/AddPicture/AddPicture";
+import Header from '@/components/layout/Header/Header';
+import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigation';
+import Button from '@/components/common/Button/Button';
+import AddPicture from '@/components/pages/guestbook/AddPicture/AddPicture';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function GuestBook() {
   const [images, setImages] = useState<string[]>([]);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   const onAdd = (url: string) => {
     if (images.length >= 4) return;
@@ -21,16 +21,16 @@ export default function GuestBook() {
 
   const onClick = () => {
     if (images.length === 0) {
-      alert("사진을 최소 1장 이상 첨부해주세요");
+      alert('사진을 최소 1장 이상 첨부해주세요');
       return;
     }
 
-    if (content.trim() === "") {
-      alert("내용을 입력해주세요");
+    if (content.trim() === '') {
+      alert('내용을 입력해주세요');
       return;
     }
 
-    alert("방명록이 등록되었습니다");
+    alert('방명록이 등록되었습니다');
   };
 
   return (
@@ -49,6 +49,7 @@ export default function GuestBook() {
         <div className={styles.desc}>
           <textarea
             value={content}
+            rows={8}
             onChange={(e) => setContent(e.target.value)}
             placeholder="제주 런케이션은 어땠나요?"
             className={styles.textarea}
