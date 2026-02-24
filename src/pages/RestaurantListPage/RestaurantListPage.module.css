@@ -19,6 +19,10 @@
   scrollbar-gutter: stable;
 }
 
+.main::-webkit-scrollbar {
+  display: none;
+}
+
 .storeList {
   display: flex;
   flex-direction: column;

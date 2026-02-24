@@ -125,10 +125,9 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
-
 
 table {
   border-collapse: collapse;
@@ -150,5 +149,13 @@ button {
 
 * {
   box-sizing: border-box;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
+}
+
+.font-pretendard {
+  font-family: "Pretendard", sans-serif !important;
+}
+
+.font-plus-jakarta-sans {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
 }

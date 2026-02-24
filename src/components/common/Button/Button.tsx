@@ -6,6 +6,7 @@ interface ButtonProps {
   variant?: "primary" | "default";
   onClick?: () => void;
   type: "button";
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -13,9 +14,15 @@ export default function Button({
   variant = "default",
   onClick,
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   return (
-    <button type={type} className={`btn ${variant}`} onClick={onClick}>
+    <button
+      type={type}
+      className={`btn ${variant}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

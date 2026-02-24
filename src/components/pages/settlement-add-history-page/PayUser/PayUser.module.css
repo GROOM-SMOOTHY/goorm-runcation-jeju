@@ -1,0 +1,110 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-main);
+    background-color: var(--bg-white);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    min-width: 280px;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: var(--text-label-strong);
+}
+
+.categories {
+    width: 100%;
+}
+
+.Trigger {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background-color: var(--bg-select);
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.Trigger:hover {
+    background-color: var(--bg-textarea);
+    border-color: var(--border-main);
+}
+
+.Content {
+    min-width: 200px;
+    padding: 6px;
+    border-radius: 12px;
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-main);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+    z-index: 50;
+    animation: openMenu 0.2s ease-out;
+}
+
+.RadioItem {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text-primary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 8px 12px 8px 36px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.1s ease;
+}
+
+.RadioItem[data-disabled] {
+    color: var(--text-tertiary);
+    pointer-events: none;
+}
+
+.RadioItem[data-highlighted],
+.RadioItem:hover {
+    background-color: var(--bg-select);
+}
+
+.RadioItem[data-state="checked"] {
+    color: var(--brand-primary);
+    font-weight: 500;
+}
+
+.ItemIndicator {
+    position: absolute;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-primary);
+}
+
+@keyframes openMenu {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
