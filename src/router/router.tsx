@@ -17,7 +17,8 @@ import RestaurantListPage from '@/pages/RestaurantListPage/RestaurantListPage';
 
 import StartPage from '@/pages/StartPage/StartPage';
 import MyPage from '@/pages/MyPage/MyPage';
-import GuestBook from "@/pages/GuestBook/GuestBook";
+import GuestBook from '@/pages/GuestBook/GuestBook';
+import LoginPage from '@/pages/LoginPage/LoginPage';
 
 export default function AppRouter() {
   return (
@@ -27,6 +28,8 @@ export default function AppRouter() {
         <Route path="/" element={<StartPage />} />
 
         <Route path="/register" element={<SignUp />} />
+
+        <Route path="/login" element={<LoginPage />} />
 
         {/* 로그인 성공 후 메인 페이지 */}
         <Route path="/home" element={<HomePage />} />
@@ -39,7 +42,7 @@ export default function AppRouter() {
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
-        
+
         {/* 방명록 페이지 */}
         <Route path="/guestbook" element={<GuestBook />} />
 
