@@ -14,17 +14,17 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+export const Befault: Story = {
+  args: {
+    children: "회원가입",
+    variant: "default",
+  },
+};
+
 export const Primary: Story = {
   args: {
     children: "회원가입",
     variant: "primary",
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    children: "회원가입",
-    variant: "default",
   },
 };
 
@@ -52,6 +52,6 @@ export const ClickLoading: Story = {
     );
   },
   args: {
-    variant: "primary",
+    variant: "default",
   },
 };

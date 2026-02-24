@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Loading from "@/components/common/Loading/Loading";
-import "@/components/common/Button/Button.module.css";
+import styles from "@/components/common/Button/Button.module.css";
 
 interface ButtonProps {
   children: ReactNode;
@@ -22,11 +22,16 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`btn ${variant} ${loading ? "loading" : ""}`}
+      className={`
+        ${styles.btn}
+        ${styles[variant]}
+        ${loading ? styles.loading : ""}
+      `}
+      
       onClick={onClick}
       disabled={disabled || loading}
     >
-      <span className="btn-content">
+      <span className={styles.content}>
         {loading ? "로딩중" : children}
         {loading && <Loading />}
       </span>
