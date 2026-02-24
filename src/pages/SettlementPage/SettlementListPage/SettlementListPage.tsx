@@ -6,7 +6,7 @@ import SettleCard, {
   type AccountHolder,
 } from "@/components/pages/settlement-history-page/SettleCard/SettleCard";
 import AnimatedToast from "@/components/common/Toast/AnimatedToast";
-import styles from "@/pages/SettlementListPage/SettlementListPage.module.css";
+import styles from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage.module.css";
 
 const accountHolder: AccountHolder = {
   name: "김나영",
@@ -68,15 +68,11 @@ export default function SettlementListPage() {
           <section className={styles.summaryCard}>
             <div className={styles.summaryItem}>
               <span className={styles.summaryLabel}>지금까지 낸 금액</span>
-              <span className={styles.summaryAmountPaid}>
-                ₩142,500
-              </span>
+              <span className={styles.summaryAmountPaid}>₩142,500</span>
             </div>
             <div className={styles.summaryItem}>
               <span className={styles.summaryLabel}>내야할 금액</span>
-              <span className={styles.summaryAmountToPay}>
-                ₩32,000
-              </span>
+              <span className={styles.summaryAmountToPay}>₩32,000</span>
             </div>
           </section>
           <h2 className={styles.sectionTitle}>정산 목록</h2>
