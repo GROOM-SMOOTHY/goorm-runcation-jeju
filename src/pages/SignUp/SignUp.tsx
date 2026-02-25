@@ -63,7 +63,7 @@ export default function SignUp() {
       await insertUser(signUpData);
 
       alert('회원가입 완료');
-      navigate('/main', { replace: true });
+      navigate('/login', { replace: true });
     } catch (err) {
       console.error(err);
       const message =
@@ -89,7 +89,7 @@ export default function SignUp() {
 
   const insertUser = async (signUpData: { user?: { id: string } | null }) => {
     const { data, error } = await supabase.from('users').insert({
-      id: crypto.randomUUID(), // 서비스용 user id
+      id: signUpData.user?.id,
       account_id: signUpData.user?.id, // auth.users.id
       nickname: name,
       email: email,
