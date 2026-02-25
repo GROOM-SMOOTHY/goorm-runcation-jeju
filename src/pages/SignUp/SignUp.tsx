@@ -10,6 +10,7 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
@@ -17,33 +18,63 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
+  const validatePassword = (password: string) => {
+    return (
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /\d/.test(password)
+    );
+  };
+
   const onClick = async () => {
     if (!isVerified) return alert("인증 먼저 하셈");
     if (!isAgreed) return alert("서비스 이용약관에 동의하지 않으셨습니다.");
     if (!email || !name) return alert("이메일/이름 입력해줘");
     if (isLoading) return;
 
+    if (!validatePassword(password)) {
+      alert("비밀번호는 8자 이상, 영문과 숫자를 포함해야 합니다.");
+      return;
+    }
+
     try {
+      // 제한이 걸려서 풀어야 하는거
       setIsLoading(true);
 
-      const tempPassword = crypto.randomUUID();
-
+      // 여기서 오류가 나고 있는거임
       const { data, error } = await supabase.auth.signUp({
-        email,
-        password: tempPassword,
-        options: {
-          data: {
-            name,
-            phone,
-            avatar_url: null,
-          },
-        },
+        email: email.trim(),
+        password: password.trim(),
       });
+      if (error) {
+        alert(error.message);
+        return;
+      }
+      if (!data.user) {
+        alert("회원가입 실패");
+        return;
+      }
 
-      if (error) return alert(error.message);
-
-      alert("회원가입 요청 완료");
+      const { error: insertError } = await supabase.from("users").insert({
+        id: crypto.randomUUID(), // 서비스용 user id
+        account_id: data.user.id, // auth.users.id
+        nickname: name,
+        email: email,
+        phone: phone,
+        profile: null,
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
+      if (insertError) {
+        alert("users 저장 실패: " + insertError.message);
+        return;
+      }
+      alert("회원가입 완료");
       navigate("/main");
+    } catch (err) {
+      console.error(err);
+      alert("에러 발생");
     } finally {
       setIsLoading(false);
     }
@@ -73,6 +104,8 @@ export default function SignUp() {
           onChangeCode={setCode}
           onVerified={() => setIsVerified(true)}
         />
+
+        <SignUpInput type="password" value={password} onChange={setPassword} />
 
         <label className={styles.checkBox}>
           <input
