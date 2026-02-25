@@ -11,7 +11,6 @@ import StoreCard from "@/components/pages/restaurant-list-page/StoreCard/StoreCa
 import type { StoreCardProps } from "@/components/pages/restaurant-list-page/StoreCard/StoreCard";
 import styles from "@/pages/RestaurantListPage/RestaurantListPage.module.css";
 
-// 지역 필터 (전체는 LocalFilter 컴포넌트에서 렌더링)
 const REGIONS = ["제주시", "서귀포시", "애월", "한림", "대정", "안덕", "중문", "남원", "표선", "성산", "구좌", "조천"];
 
 const libraries: ("places")[] = ["places"];
