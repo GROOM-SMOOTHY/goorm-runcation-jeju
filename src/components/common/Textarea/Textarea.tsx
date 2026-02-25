@@ -1,4 +1,4 @@
-import styles from "@/components/Textarea/textarea.module.css";
+import styles from './textarea.module.css';
 
 interface TextareaProps {
   value: string;
