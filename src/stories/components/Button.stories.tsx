@@ -1,34 +1,34 @@
-import React from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import Button from "@/components/common/Button/Button";
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import Button from '@/components/common/Button/Button';
 
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
   argTypes: {
-    loading: { control: "boolean" },
-    disabled: { control: "boolean" },
+    loading: { control: 'boolean' },
+    disabled: { control: 'boolean' },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Befault: Story = {
+export const Default: Story = {
   args: {
-    children: "회원가입",
-    variant: "default",
+    children: '확인',
+    variant: 'default',
   },
 };
 
 export const Primary: Story = {
   args: {
-    children: "회원가입",
-    variant: "primary",
+    children: '확인',
+    variant: 'primary',
   },
 };
 
-export const ClickLoading: Story = {
+export const LoadingButton: Story = {
   render: (args) => {
     const [loading, setLoading] = React.useState(false);
 
@@ -42,16 +42,12 @@ export const ClickLoading: Story = {
     };
 
     return (
-      <Button
-        {...args}
-        loading={loading}
-        onClick={handleClick}
-      >
+      <Button {...args} loading={loading} onClick={handleClick}>
         회원가입
       </Button>
     );
   },
   args: {
-    variant: "default",
+    variant: 'default',
   },
 };
