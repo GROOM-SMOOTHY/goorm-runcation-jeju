@@ -49,12 +49,12 @@ export default function RestaurantListPage() {
           language: 'ko',
           region: 'kr',
           maxResultCount: 20,
-          // 📍 제주도 위도/경도 경계 제한 부활!
+          // 제주도 위도/경도 경계 제한 부활!
           locationRestriction: {
-            west: 126.10, // 서쪽 끝
-            east: 127.00, // 동쪽 끝
-            south: 33.10, // 남쪽 끝
-            north: 33.60, // 북쪽 끝
+            west: 126.10,
+            east: 127.00,
+            south: 33.10,
+            north: 33.60,
           }
         };
 
