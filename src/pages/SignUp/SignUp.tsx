@@ -4,6 +4,7 @@ import SignUpEmailVerification from "@/components/pages/SignUp/SignUpEmailVerifi
 import Button from "@/components/common/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -12,17 +13,39 @@ export default function SignUp() {
   const [code, setCode] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const onClick = () => {
-    if (!isVerified) {
-      return alert("인증 먼저 하셈");
-    } else if (!isAgreed) {
-      return alert("서비스 이용약관에 동의하지 않으셨습니다.");
-    } else {
-      alert("회원가입 되셨습니다.");
+  const onClick = async () => {
+    if (!isVerified) return alert("인증 먼저 하셈");
+    if (!isAgreed) return alert("서비스 이용약관에 동의하지 않으셨습니다.");
+    if (!email || !name) return alert("이메일/이름 입력해줘");
+    if (isLoading) return;
+
+    try {
+      setIsLoading(true);
+
+      const tempPassword = crypto.randomUUID();
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password: tempPassword,
+        options: {
+          data: {
+            name,
+            phone,
+            avatar_url: null,
+          },
+        },
+      });
+
+      if (error) return alert(error.message);
+
+      alert("회원가입 요청 완료");
       navigate("/main");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,16 +63,9 @@ export default function SignUp() {
       </div>
 
       <div className={styles.main}>
-        <SignUpInput
-          type="name"
-          value={name}
-          onChange={(val) => setName(val)}
-        />
-        <SignUpInput
-          type="phone"
-          value={phone}
-          onChange={(val) => setPhone(val)}
-        />
+        <SignUpInput type="name" value={name} onChange={setName} />
+        <SignUpInput type="phone" value={phone} onChange={setPhone} />
+
         <SignUpEmailVerification
           email={email}
           input={code}
@@ -57,6 +73,7 @@ export default function SignUp() {
           onChangeCode={setCode}
           onVerified={() => setIsVerified(true)}
         />
+
         <label className={styles.checkBox}>
           <input
             type="checkbox"
@@ -66,12 +83,19 @@ export default function SignUp() {
           <span>서비스 이용약관 및 개인정보 처리방침에 동의합니다.</span>
         </label>
       </div>
+
       <div className={styles.footer}>
-        <Button variant="primary" type="button" onClick={onClick}>
-          시작하기{" "}
+        <Button
+          variant="primary"
+          type="button"
+          onClick={onClick}
+          disabled={isLoading}
+        >
+          {isLoading ? "처리중" : "시작하기"}
         </Button>
+
         <p className={styles.front}>
-          이미 계정이 있으신가요?{' '}
+          이미 계정이 있으신가요?{" "}
           <Link to="/login" className={styles.login}>
             로그인
           </Link>
