@@ -67,7 +67,14 @@
   color: var(--text-label);
 }
 
-.footer span {
+.footer span,
+.footer .signUpLink {
   font-weight: 700;
   color: var(--brand-primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
 }
