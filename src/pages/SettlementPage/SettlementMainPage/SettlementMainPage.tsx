@@ -8,7 +8,7 @@ import MemberAccountCard, {
 import PayHistoryCard from "@/components/pages/settlement-main-page/PayHistoryCard";
 import styles from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage.module.css";
 
-const GROUP_NAME = "제주 런케이션";
+const GROUP_NAME = '제주 런케이션';
 const TOTAL_EXPENDITURE = 10_000_000;
 
 const MEMBER_ACCOUNTS: MemberAccount[] = [
@@ -107,7 +107,7 @@ export default function SettlementMainPage() {
         <GroupPaymentStateCard
           totalAmount={TOTAL_EXPENDITURE}
           groupName={GROUP_NAME}
-          onAddClick={() => navigate("/settlement/add")}
+          onAddClick={() => navigate('/settlement/add')}
         />
 
         <section className={styles.section}>
@@ -121,7 +121,7 @@ export default function SettlementMainPage() {
             <button
               type="button"
               className={styles.moreLink}
-              onClick={() => navigate("/settlement/list")}
+              onClick={() => navigate('/settlement/list')}
             >
               더보기
             </button>

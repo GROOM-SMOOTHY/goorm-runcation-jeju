@@ -25,15 +25,14 @@ export default function AppRouter() {
 
         <Route path="/register" element={<SignUp />} />
 
+        <Route path="/login" element={<LoginPage />} />
+
         {/* 로그인 성공 후 메인 페이지 */}
         <Route path="/home" element={<HomePage />} />
-
         {/* 지역 스탬프 */}
         <Route path="/stamp" element={<StampPage />} />
-
         {/* 메인 */}
         <Route path="/travel" element={<TravelPage />} />
-
         {/* 그룹 페이지 */}
         <Route path="/group" element={<GroupPage />} />
 
