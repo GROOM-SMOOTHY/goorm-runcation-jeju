@@ -1,21 +1,40 @@
-/* 기존 CSS 유지 */
 .FilterContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; 
   gap: 8px;
-  margin-top: 12px;
+  
+  width: 100%; 
+  min-width: 0; 
+  max-width: 100%; 
+  font-weight: 500;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+
+.FilterContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .FilterButton {
+  flex-shrink: 0; 
+  
   padding: 12px 16px;
   border-radius: 20px;
+  
   background-color: var(--bg-searchbar);
+  color: var(--text-secondary, #333);
+  border: 2px solid transparent; 
+  
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
   height: 44px;
-  width: auto;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .FilterButton:hover {
@@ -29,11 +48,11 @@
 .AllButton {
   background-color: var(--brand-primary);
   border: 2px solid var(--brand-primary);
-  color: var(--bg-white);
+  color: var(--bg-white, #ffffff);
 }
 
 .AllButton:hover {
-  background-color: var(--badge-bg-orange);
+  background-color: var(--badge-bg-orange, #fff4e6);
   color: var(--brand-primary);
   font-weight: bold;
 }

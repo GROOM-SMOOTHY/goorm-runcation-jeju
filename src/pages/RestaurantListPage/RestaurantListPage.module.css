@@ -11,7 +11,7 @@
 .main {
   flex: 1;
   min-height: 0;
-  padding: 16px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -32,7 +32,8 @@
 .emptyMessage {
   text-align: center;
   color: var(--text-tertiary);
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: 500;
   padding: 32px 0;
 }
 
@@ -68,3 +69,4 @@
   opacity: 0;
   pointer-events: none;
 }
+
