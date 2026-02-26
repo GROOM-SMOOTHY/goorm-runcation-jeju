@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
-import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
 import { createGroup, insertGroupMember } from "@/services/groupService";
 import { useUser } from "@/store/useUser";
+import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
+import type { Database } from "@/types/supabase";
 
 export type Steps = "group-info-form" | "success";
 
 export interface GroupFormValues {
   groupName: string;
-  course: string;
-  generation: string;
+  course: Database["public"]["Enums"]["course_type"] | null;
+  generation: number | null;
 }
 
 const initialFormValues: GroupFormValues = {
   groupName: "",
-  course: "",
-  generation: "",
+  course: null,
+  generation: null,
 };
 
 export default function useCreateGroupModal(
@@ -51,15 +52,15 @@ export default function useCreateGroupModal(
     }
 
     setIsSubmitting(true);
-    const code = generateUniqueGroupCode();
 
     try {
+      const code = await generateUniqueGroupCode();
       const group = await createGroup({
         name: formValues.groupName,
         course: formValues.course,
         batch: formValues.generation,
         code,
-        creatorId: userId,
+        creator_id: userId,
       });
 
       await insertGroupMember({

@@ -1,6 +1,7 @@
 import Input from "@/components/common/Input/Input";
 import styles from "./styles.module.css";
 import type { GroupFormValues } from "./useCreateGroupModal";
+import CourseSelectBox from "./CourseSelectBox/CourseSelectBox";
 
 interface Props {
   formValues: GroupFormValues;
@@ -17,16 +18,21 @@ export default function GroupInfoStep({ formValues, onChange }: Props) {
         name="groupName"
         placeholder="그룹명을 입력해주세요."
       />
+      <div className={styles.selectBoxWrapper}>
+        <label className={styles.selectLabel} htmlFor="course-select">
+          과정
+        </label>
+        <CourseSelectBox
+          value={formValues.course}
+          onChange={(value) => onChange({ ...formValues, course: value })}
+        />
+      </div>
       <Input
-        value={formValues.course}
-        onChange={(value) => onChange({ ...formValues, course: value })}
-        label="과정"
-        name="course"
-        placeholder="과정을 선택해주세요."
-      />
-      <Input
-        value={formValues.generation}
-        onChange={(value) => onChange({ ...formValues, generation: value })}
+        type="number"
+        value={formValues.generation?.toString() ?? ""}
+        onChange={(value) =>
+          onChange({ ...formValues, generation: Number(value) })
+        }
         label="기수"
         name="generation"
         placeholder="기수를 입력해주세요."
