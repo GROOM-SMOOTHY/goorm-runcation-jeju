@@ -1,4 +1,8 @@
 import { supabase } from "@/lib/supabase";
+import type { Tables, TablesInsert } from "@/types/supabase";
+
+export type UsersRow = Tables<"users">;
+type UsersInsert = TablesInsert<"users">;
 
 export interface CreateUserParams {
   userId: string;
@@ -12,33 +16,23 @@ export async function createUser({
   nickname,
   email,
   phone,
-}: CreateUserParams) {
-  const { data, error } = await supabase.from("users").insert({
+}: CreateUserParams): Promise<UsersRow | null> {
+  const insert: UsersInsert = {
     id: userId,
     account_id: userId,
     nickname,
     email,
     phone,
     profile: null,
-    created_at: new Date(),
-    updated_at: new Date(),
-  });
+  };
+
+  const { data, error } = await supabase.from("users").insert(insert).select().single();
 
   if (error) {
     throw new Error("회원 정보 저장에 실패했습니다. " + error.message);
   }
 
   return data;
-}
-
-export interface UsersRow {
-  id: string;
-  email: string | null;
-  nickname: string | null;
-  phone: string | null;
-  profile: string | null;
-  created_at: string;
-  updated_at: string;
 }
 
 export async function getUserById(userId: string): Promise<UsersRow | null> {
@@ -52,5 +46,5 @@ export async function getUserById(userId: string): Promise<UsersRow | null> {
     throw new Error("사용자 정보 조회에 실패했습니다. " + error.message);
   }
 
-  return data as UsersRow | null;
+  return data;
 }
