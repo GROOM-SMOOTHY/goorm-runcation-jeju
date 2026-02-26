@@ -5,9 +5,12 @@ import CodeInput from "@/components/common/CodeInput/CodeInput";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import InputCodeLogo from "@/assets/input-code-logo.png";
 import Button from "@/components/common/Button/Button";
+import useGroupJoin, { CODE_LENGTH } from "./hooks/useGroupJoin";
 
 export default function GroupJoinPage() {
   const navigate = useNavigate();
+  const { code, setCode, isSubmitting, handleJoin } = useGroupJoin();
+
   return (
     <>
       <Header title="그룹 참여하기" onBack={() => navigate(-1)} />
@@ -15,10 +18,15 @@ export default function GroupJoinPage() {
         <div className={styles.titleWrap}>
           <h1 className={styles.title}>인증코드 입력</h1>
           <p className={styles.description}>
-            참여할 그룹의 6자리 인증코드를 입력해주세요
+            참여할 그룹의 {CODE_LENGTH}자리 인증코드를 입력해주세요
           </p>
         </div>
-        <CodeInput />
+        <CodeInput
+          value={code}
+          onChange={setCode}
+          onComplete={setCode}
+          length={CODE_LENGTH}
+        />
         <div className={styles.info}>
           <IoIosInformationCircleOutline
             color="var(--brand-primary)"
@@ -35,7 +43,14 @@ export default function GroupJoinPage() {
         />
       </div>
       <div className={styles.buttonWrap}>
-        <Button>그룹 참여하기</Button>
+        <Button
+          type="button"
+          onClick={handleJoin}
+          disabled={code.trim().length !== CODE_LENGTH}
+          loading={isSubmitting}
+        >
+          그룹 참여하기
+        </Button>
       </div>
     </>
   );
