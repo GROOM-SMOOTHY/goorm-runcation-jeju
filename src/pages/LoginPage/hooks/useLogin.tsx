@@ -14,7 +14,6 @@ function userRowToState(row: UsersRow, fallbackEmail: string): UserState {
       phone: row.phone ?? "",
       profile: row.profile ?? null,
       created_at: new Date(row.created_at),
-      updated_at: new Date(row.updated_at),
     },
   } as UserState;
 }
@@ -50,7 +49,7 @@ export default function useLogin() {
       }
 
       setUser(userRowToState(userRow, email));
-      navigate("/main");
+      navigate("/group");
     } catch (err) {
       console.error("로그인 에러:", err);
       const message =
