@@ -4,7 +4,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
-import GroupPage from "@/pages/GruopPage/GroupPage";
+import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
@@ -16,6 +16,7 @@ import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 
 import StartPage from "@/pages/StartPage/StartPage";
 import LoginPage from "@/pages/LoginPage/LoginPage";
+import GroupJoinPage from "@/pages/GroupJoinPage";
 
 export default function AppRouter() {
   return (
@@ -36,6 +37,7 @@ export default function AppRouter() {
         <Route path="/travel" element={<TravelPage />} />
         {/* 그룹 페이지 */}
         <Route path="/group" element={<GroupPage />} />
+        <Route path="/group/join/:groupId" element={<GroupJoinPage />} />
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
