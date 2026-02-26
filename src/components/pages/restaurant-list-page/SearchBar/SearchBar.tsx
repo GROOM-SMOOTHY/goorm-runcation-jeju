@@ -5,8 +5,8 @@ import { useDebounce } from "@/hooks/useDebounce";
 
 interface SearchBarProps {
   placeholder?: string;
-  data?: string[];
-  onSearch?: (results: string[]) => void;
+  data?: string[]; //  부모에서 넘겨주는 data는 안 써도 되지만, 다른 곳에서 쓸 수도 있으니 남겨둠
+  onSearch?: (keyword: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -19,34 +19,40 @@ const SearchBar: React.FC<SearchBarProps> = ({
   // 디바운스 적용
   const debouncedInput = useDebounce(input, 300);
 
+  // 필터링 로직 제거하고, 디바운스된 '문자열' 자체를 부모에게 전달
   React.useEffect(() => {
-    if (!onSearch) return;
+    if (onSearch) {
+      onSearch(debouncedInput);
+    }
+  }, [debouncedInput, onSearch]);
 
-    const filtered = data.filter((item) =>
-      item.toLowerCase().includes(debouncedInput.toLowerCase())
-    );
-
-    onSearch(filtered);
-  }, [debouncedInput, data]);
-
+  // 돋보기 클릭 시에도 입력된 '문자열' 자체를 부모에게 전달
   const handleSearchClick = () => {
-    if (!onSearch) return;
+    if (onSearch) {
+      onSearch(input);
+    }
+  };
 
-    const filtered = data.filter((item) =>
-      item.toLowerCase().includes(input.toLowerCase())
-    );
-
-    onSearch(filtered);
+  // 사용성을 위해 엔터키(Enter)를 눌렀을 때도 검색되도록 추가
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && onSearch) {
+      onSearch(input);
+    }
   };
 
   return (
     <div className={styles.SearchBar}>
-      <FaSearch className={styles.Icon} onClick={handleSearchClick} />
+      <FaSearch 
+        className={styles.Icon} 
+        onClick={handleSearchClick} 
+        style={{ cursor: "pointer" }} // 마우스 오버 시 클릭할 수 있다는 시각적 피드백 추가
+      />
       <input
         type="text"
         className={styles.Input}
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
       />
     </div>
