@@ -11,7 +11,7 @@ export type CourseTypeKey = keyof typeof CourseType;
 
 export interface TypeBadgeProps {
   course: CourseTypeKey;
-  generation?: string;
+  generation?: string | number;
 }
 
 export default function TypeBadge({ course, generation = "" }: TypeBadgeProps) {
