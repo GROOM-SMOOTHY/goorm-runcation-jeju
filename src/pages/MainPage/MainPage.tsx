@@ -1,8 +1,6 @@
 import Header from "@/components/layout/Header/Header";
 import styles from "./styles.module.css";
-import TypeBadge, {
-  type CourseTypeKey,
-} from "@/components/common/TypeBadge/TypeBadge";
+import TypeBadge from "@/components/common/TypeBadge/TypeBadge";
 import GruopCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
 import PendingSettlementPanel from "@/components/pages/main-page/PendingSettlementPanel";
 import WeatherPanel from "@/components/pages/main-page/WeatherPanel";
@@ -25,9 +23,7 @@ export default function MainPage() {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.userInfoWrap}>
-            {group?.course && (
-              <TypeBadge course={group.course as CourseTypeKey} />
-            )}
+            {group?.course && <TypeBadge course={group.course} />}
             {group?.batch && (
               <TypeBadge course="DEFAULT" generation={group.batch} />
             )}

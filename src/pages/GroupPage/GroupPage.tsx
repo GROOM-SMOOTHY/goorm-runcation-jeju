@@ -9,7 +9,6 @@ import { SheetContent } from "@/components/pages/group-list-page/JoinGroupBottom
 import { useUser } from "@/store/useUser";
 import { getGroupList } from "@/services/groupService";
 import type { Tables } from "@/types/supabase";
-import type { CourseTypeKey } from "@/components/common/TypeBadge/TypeBadge";
 
 const PAGE_SIZE = 10;
 
@@ -99,7 +98,7 @@ export default function GroupPage() {
             {groups.map((group) => (
               <JoinCourseItem
                 key={group.id}
-                title={group.course as CourseTypeKey}
+                course={group.course}
                 participants={0}
                 generation={group.batch ?? 1}
                 onClick={() => {}}
