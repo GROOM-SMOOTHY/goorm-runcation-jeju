@@ -1,0 +1,68 @@
+.trigger {
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  height: 55px;
+  line-height: 1;
+  border-radius: 16px;
+  font-size: 16px;
+  color: var(--text-primary);
+  background-color: var(--bg-white);
+  border: 2px solid var(--border-main);
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+}
+
+.trigger:hover {
+  border-color: var(--text-tertiary);
+}
+
+.trigger[data-state="open"] {
+  border-color: var(--text-tertiary);
+}
+
+.trigger[data-placeholder] {
+  color: var(--text-placeholder);
+}
+
+.content {
+  overflow: hidden;
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  border: 2px solid var(--border-main);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 110;
+}
+
+.viewport {
+  padding: 4px;
+}
+
+.item {
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--text-primary);
+  border-radius: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.item:hover,
+.item[data-highlighted] {
+  background-color: var(--border-main);
+}
+
+.item[data-state="checked"] {
+  background-color: var(--border-main);
+  font-weight: 500;
+}
+
+.icon {
+  margin-left: 8px;
+  color: var(--text-tertiary);
+}
