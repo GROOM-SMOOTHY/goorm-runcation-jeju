@@ -5,12 +5,12 @@ import { useDebounce } from "@/hooks/useDebounce";
 
 interface SearchBarProps {
   placeholder?: string;
-  data?: string[]; //  부모에서 넘겨주는 data는 안 써도 되지만, 다른 곳에서 쓸 수도 있으니 남겨둠
+  data?: string[];
   onSearch?: (keyword: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = "제주 맛집을 검색해보아요",
+  placeholder = "제주 맛집을 검색해보세요",
   data = [],
   onSearch,
 }) => {
