@@ -19,6 +19,8 @@ const LocalFilter: React.FC<LocalFilterProps> = ({ regions, selectedRegion, onSe
 
   // 마우스 버튼을 눌렀을 때
   const onDragStart = (e: MouseEvent<HTMLDivElement>) => {
+   if (e.button !== 0) return; // 좌클릭만 드래그 시작
+   e.preventDefault();
     setIsDragging(true);
     didDragRef.current = false;
     
