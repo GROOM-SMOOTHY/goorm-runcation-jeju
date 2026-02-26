@@ -11,7 +11,6 @@ interface SearchBarProps {
 
 const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "제주 맛집을 검색해보세요",
-  data = [],
   onSearch,
 }) => {
   const [input, setInput] = React.useState("");
