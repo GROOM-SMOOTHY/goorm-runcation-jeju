@@ -11,11 +11,6 @@ export function generateGroupCode(): string {
   return code;
 }
 
-/**
- * 그룹 코드를 생성하고, isCodeTaken으로 중복 여부를 확인한 뒤 사용 가능한 코드만 반환합니다.
- * @param isCodeTaken - 코드가 이미 사용 중이면 true를 반환하는 비동기 함수 (예: getGroupByCode(code) !== null)
- * @returns 사용 가능한 6자리 코드
- */
 export async function generateUniqueGroupCode(): Promise<string> {
   for (let attempt = 0; attempt < MAX_UNIQUE_ATTEMPTS; attempt++) {
     const code = generateGroupCode();
