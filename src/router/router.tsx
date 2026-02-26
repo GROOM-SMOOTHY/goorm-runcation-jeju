@@ -15,6 +15,7 @@ import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 
 import StartPage from "@/pages/StartPage/StartPage";
+import LoginPage from "@/pages/LoginPage/LoginPage";
 
 export default function AppRouter() {
   return (
