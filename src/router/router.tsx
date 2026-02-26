@@ -3,13 +3,14 @@ import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
-import StampPage from "@/pages/StampPage";
+import StampPage from "@/pages/StampPage/StampPage";
 import GroupPage from "@/pages/GruopPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
 import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
 import SettlementListPage from "@/pages/SettlementPage/SettlementListPage/SettlementListPage";
+import LoginPage from "@/pages/LoginPage";
 
 import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
