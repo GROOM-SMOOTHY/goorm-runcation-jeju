@@ -1,0 +1,41 @@
+.btn {
+  width: 100%;
+  height: 56px;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  background-color: var(--brand-primary);
+  color: var(--text-white);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.primary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-main);
+}
+
+.loading,
+.btn:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

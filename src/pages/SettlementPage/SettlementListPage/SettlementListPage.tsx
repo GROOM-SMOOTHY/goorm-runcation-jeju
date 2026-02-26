@@ -4,9 +4,9 @@ import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigat
 import SettleCard, {
   type SettleCardProps,
   type AccountHolder,
-} from '@/components/pages/settlement-history-page/SettleCard/SettleCard';
-import AnimatedToast from '@/components/common/Toast/AnimatedToast';
-import styles from './SettlementListPage.module.css';
+} from "@/components/pages/settlement-history-page/SettleCard/SettleCard";
+import AnimatedToast from "@/components/common/Toast/AnimatedToast";
+import styles from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage.module.css";
 
 const accountHolder: AccountHolder = {
   name: '김나영',

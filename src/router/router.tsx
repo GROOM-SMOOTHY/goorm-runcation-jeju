@@ -38,6 +38,7 @@ export default function AppRouter() {
         <Route path="/travel" element={<TravelPage />} />
         {/* 그룹 페이지 */}
         <Route path="/group" element={<GroupPage />} />
+        <Route path="/group/join/:groupId" element={<GroupJoinPage />} />
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
@@ -54,9 +55,6 @@ export default function AppRouter() {
           element={<RestaurantStorePage />}
         />
 
-        {/* 마이 페이지 */}
-        <Route path="/mypage" element={<MyPage />} />
-
         {/* 정산 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
 
@@ -65,6 +63,9 @@ export default function AppRouter() {
 
         {/* 정산 메인 페이지 */}
         <Route path="/settlement" element={<SettlementMainPage />} />
+
+        {/* 정산 목록 추가하기 페이지 */}
+        <Route path="/settlement/add" element={<SettlementAddPage />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
