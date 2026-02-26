@@ -192,7 +192,8 @@ export default function RestaurantListPage() {
                   key={store.id} 
                   {...store} 
                   onToggleFavorite={() => handleToggleFavorite(store.id)}
-                  onClick={() => navigate(`/restaurants/${store.id}`)}
+                  // 식당 이름(store.name)을 URL에 안전하게 넣기 위해 encodeURIComponent 사용
+                  onClick={() => navigate(`/restaurants/${store.id}/${encodeURIComponent(store.name)}`)} 
                 />
               ))}
               
