@@ -1,16 +1,8 @@
+import type { Database } from "@/types/supabase";
 import styles from "./typeBadge.module.css";
 
-export const CourseType = {
-  FRONTEND: "frontend",
-  BACKEND: "backend",
-  DESIGN: "design",
-  DEFAULT: "default",
-} as const;
-
-export type CourseTypeKey = keyof typeof CourseType;
-
 export interface TypeBadgeProps {
-  course: CourseTypeKey;
+  course: Database["public"]["Enums"]["course_type"] | "DEFAULT";
   generation?: string | number;
 }
 
@@ -20,8 +12,8 @@ export default function TypeBadge({ course, generation = "" }: TypeBadgeProps) {
   return (
     <div className={styles.container}>
       {!isGeneration && (
-        <div className={`${styles.badge} ${styles[CourseType[course]]}`}>
-          {CourseType[course].toUpperCase()}
+        <div className={`${styles.badge} ${styles[course.toLowerCase()]}`}>
+          {course}
         </div>
       )}
 
