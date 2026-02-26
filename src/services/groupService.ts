@@ -59,27 +59,19 @@ export async function isGroupMember(
   return data != null;
 }
 
-export interface CreateGroupParams {
-  name: string;
-  course: string;
-  batch: string;
-  code: string;
-  creatorId: string;
-}
-
 export async function createGroup({
   name,
   course,
   batch,
   code,
-  creatorId,
-}: CreateGroupParams): Promise<GroupsRow> {
+  creator_id,
+}: TablesInsert<"groups"> & { creator_id: string }): Promise<GroupsRow> {
   const insert: GroupsInsert = {
     name,
     course: course || null,
     batch: batch ? Number(batch) : null,
     code,
-    creator_id: creatorId,
+    creator_id,
   };
 
   const { data, error } = await supabase
@@ -121,4 +113,18 @@ export async function insertGroupMember({
   if (error) {
     throw new Error("그룹 멤버 등록 실패", { cause: error });
   }
+}
+
+export async function hasGroupCode(code: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("groups")
+    .select("id")
+    .eq("code", code.trim())
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data != null;
 }
