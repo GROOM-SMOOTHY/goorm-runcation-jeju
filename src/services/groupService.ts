@@ -128,3 +128,23 @@ export async function hasGroupCode(code: string): Promise<boolean> {
 
   return data != null;
 }
+
+export async function deleteGroup(groupId: string): Promise<void> {
+  const { error: membersError } = await supabase
+    .from("group_members")
+    .delete()
+    .eq("group_id", groupId);
+
+  if (membersError) {
+    throw new Error("그룹 멤버 삭제 실패", { cause: membersError });
+  }
+
+  const { error: groupError } = await supabase
+    .from("groups")
+    .delete()
+    .eq("id", groupId);
+
+  if (groupError) {
+    throw new Error("그룹 삭제 실패", { cause: groupError });
+  }
+}

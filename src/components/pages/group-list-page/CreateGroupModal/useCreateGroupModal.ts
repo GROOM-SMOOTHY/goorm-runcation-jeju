@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { createGroup, insertGroupMember } from "@/services/groupService";
+import {
+  createGroup,
+  deleteGroup,
+  insertGroupMember,
+} from "@/services/groupService";
 import { useUser } from "@/store/useUser";
 import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
 import type { Database } from "@/types/supabase";
@@ -63,11 +67,19 @@ export default function useCreateGroupModal(
         creator_id: userId,
       });
 
-      await insertGroupMember({
-        groupId: group.id,
-        userId: userId,
-        role: "OWNER",
-      });
+      try {
+        await insertGroupMember({
+          groupId: group.id,
+          userId: userId,
+          role: "OWNER",
+        });
+      } catch (memberError) {
+        await deleteGroup(group.id).catch((rollbackError) => {
+          console.error("롤백 실패(그룹 삭제):", rollbackError);
+        });
+        throw memberError;
+      }
+
       setCreatedGroupCode(code);
       setSteps("success");
     } catch (error) {
