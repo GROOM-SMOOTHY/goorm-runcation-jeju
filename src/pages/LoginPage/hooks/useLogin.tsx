@@ -61,7 +61,7 @@ export default function useLogin() {
     }
   }, [email, password, setUser, navigate]);
 
-  const goToSignUp = useCallback(() => navigate("/"), [navigate]);
+  const goToSignUp = useCallback(() => navigate("/register"), [navigate]);
 
   return {
     email,
