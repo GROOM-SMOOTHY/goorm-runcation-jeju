@@ -50,7 +50,8 @@ export default function RestaurantListPage() {
   const [showScrollToTop, setShowScrollToTop] = useState(false); // 맨 위로 버튼 노출 여부
 
   // Google Places API를 통해 데이터를 가져오고 상태를 업데이트
-  const fetchPlacesData = useCallback(async (isFirst: boolean = true) => {
+  const fetchPlacesData = useCallback(async (isFirst: boolean = true, forcedKeywordIdx?: number) => {
+    const effectiveKeywordIdx = isFirst ? (forcedKeywordIdx ?? 0) : keywordIdx;
     // 로딩 중이거나 API 미로드 시 중복 호출 방지
     if (!isLoaded || (isFirst && isLoading) || (!isFirst && isFetchingMore)) return;
 
@@ -63,7 +64,7 @@ export default function RestaurantListPage() {
       const regionText = (!selectedRegion || selectedRegion === "전체") ? "제주도" : `제주도 ${selectedRegion}`;
             
       // 쿼리 조립 2 : 사용자가 검색어를 입력했으면 그 검색어 사용, 아니면 내부 키워드(맛집->식당->카페) 순회
-      const queryTarget = searchKeyword ? searchKeyword : DEFAULT_KEYWORDS[keywordIdx];
+    const queryTarget = searchKeyword ? searchKeyword : DEFAULT_KEYWORDS[effectiveKeywordIdx];
 
       // 최종 완성된 API 요청 텍스트 (예: "제주도 애월 고기국수" 또는 "제주도 식당")
       const finalQuery = `${regionText} ${queryTarget}`;
@@ -107,8 +108,8 @@ export default function RestaurantListPage() {
       });
 
         // 기존 리스트 뒤에 새 리스트를 붙이고, 중복되는 매장은 자동으로 걸러냄
-        setStores(prev => {
-          const combined = (isFirst && keywordIdx === 0) ? newStores : [...prev, ...newStores];
+    setStores(prev => {
+      const combined = isFirst ? newStores : [...prev, ...newStores];
           return Array.from(new Map<string, StoreItem>(combined.map(p => [p.id, p])).values());
         });
 
@@ -143,7 +144,7 @@ export default function RestaurantListPage() {
     setStores([]);
     setKeywordIdx(0);
     setNextPageFunc(null);
-    fetchPlacesData(true);
+    fetchPlacesData(true, 0);
   }, [selectedRegion, searchKeyword, isLoaded]);
 
   // 무한 스크롤 감지를 위한 IntersectionObserver 설정

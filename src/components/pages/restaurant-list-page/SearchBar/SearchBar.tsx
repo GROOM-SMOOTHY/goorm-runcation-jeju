@@ -42,11 +42,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <div className={styles.SearchBar}>
-      <FaSearch 
-        className={styles.Icon} 
-        onClick={handleSearchClick} 
-        style={{ cursor: "pointer" }} // 마우스 오버 시 클릭할 수 있다는 시각적 피드백 추가
-      />
+      <button
+        type="button"
+        className={styles.IconButton}
+        onClick={handleSearchClick}
+        aria-label="검색"
+      >
+        <FaSearch className={styles.Icon} />
+      </button>
       <input
         type="text"
         className={styles.Input}
