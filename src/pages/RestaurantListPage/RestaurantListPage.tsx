@@ -113,21 +113,10 @@ export default function RestaurantListPage() {
           return Array.from(new Map<string, StoreItem>(combined.map(p => [p.id, p])).values());
         });
 
-        // 다음 페이지가 있는지 확인
-        if (response.hasNextPage) {
-          setNextPageFunc(() => response.getNextPage);
-        } else {
-
-          // 60개를 다 불러왔는데 사용자가 검색한 게 없다면?
-          // 다음 내부 키워드(예: '식당' -> '카페')로 넘어가서 스크롤 시 또 API를 부르게 만든다!
-          if (!searchKeyword && keywordIdx < DEFAULT_KEYWORDS.length - 1) {
-            setKeywordIdx(prev => prev + 1);
-            setNextPageFunc(null);
-          } else {
-
-            // 진짜 검색 결과가 다 끝났을 때
-            setNextPageFunc(null);
-          }
+        // searchByText는 pagination 미지원, 키워드 릴레이만 사용
+        setNextPageFunc(null);
+        if (!searchKeyword && keywordIdx < DEFAULT_KEYWORDS.length - 1) {
+          setKeywordIdx(prev => prev + 1);
         }
       }
     } catch (error) {

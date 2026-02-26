@@ -43,6 +43,8 @@ export default function RestaurantStorePage() {
   // 상태 관리: 실제 API에서 가져온 데이터를 저장할 상태
   const [store, setStore] = useState<StoreDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 
   // [핵심] Google Places API를 사용해 식당 상세 정보 가져오기
   useEffect(() => {
@@ -59,7 +61,8 @@ export default function RestaurantStorePage() {
           fields: ['name', 'formatted_address', 'formatted_phone_number', 'opening_hours', 'photos', 'geometry', 'types']
         }, (place, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK && place) {
-            
+            setErrorMessage(null);
+
             // 1. 이미지 처리
             let photoUrl = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80";
             if (place.photos && place.photos.length > 0) {
@@ -93,12 +96,14 @@ export default function RestaurantStorePage() {
               placeId: id,
             });
           } else {
+            setErrorMessage("식당 정보를 불러오지 못했습니다.");
             addToast("식당 정보를 불러오지 못했습니다.", "", "error");
           }
           setIsLoading(false);
         });
       } catch (error) {
         console.error("상세 정보 로딩 에러:", error);
+        setErrorMessage("식당 정보를 불러오지 못했습니다.");
         setIsLoading(false);
       }
     };
@@ -154,7 +159,18 @@ export default function RestaurantStorePage() {
     );
   }
 
-  if (!store) return null; // 데이터 로딩 실패 시 렌더링 방지
+  if (errorMessage) {
+    return (
+      <div className={styles.page}>
+        <Header title="맛집 상세" onBack={() => navigate(-1)} />
+        <main className={styles.container}>
+          <p>{errorMessage}</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (!store) return null;
 
   return (
     <div className={styles.page}>
