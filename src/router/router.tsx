@@ -4,7 +4,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage";
-import GroupPage from "@/pages/GruopPage/GroupPage";
+import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
