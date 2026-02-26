@@ -201,7 +201,7 @@ export type Database = {
         Row: {
           batch: number | null;
           code: string;
-          course: string | null;
+          course: Database["public"]["Enums"]["course_type"] | null;
           created_at: string | null;
           creator_id: string;
           id: string;
@@ -211,7 +211,7 @@ export type Database = {
         Insert: {
           batch?: number | null;
           code: string;
-          course?: string | null;
+          course?: Database["public"]["Enums"]["course_type"] | null;
           created_at?: string | null;
           creator_id: string;
           id?: string;
@@ -221,7 +221,7 @@ export type Database = {
         Update: {
           batch?: number | null;
           code?: string;
-          course?: string | null;
+          course?: Database["public"]["Enums"]["course_type"] | null;
           created_at?: string | null;
           creator_id?: string;
           id?: string;
@@ -404,6 +404,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
+      course_type: "FRONTEND" | "BACKEDN" | "DESIGN";
       expense_state: "PENDING" | "COMPLETE";
       member_role: "OWNER" | "MEMBER";
     };
@@ -539,6 +540,7 @@ export const Constants = {
   },
   public: {
     Enums: {
+      course_type: ["FRONTEND", "BACKEDN", "DESIGN"],
       expense_state: ["PENDING", "COMPLETE"],
       member_role: ["OWNER", "MEMBER"],
     },
