@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px;
+}
+
+.reachStamp {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 20px;
+  color: var(--brand-primary);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title p:first-child {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--text-primary);
+}
+
+.title p:last-child {
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.process {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: var(--bg-white);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.top span {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.bottom {
+  justify-content: center;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--text-secondary);
+}
+
+.stampTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.luStamp {
+  width: 24px;
+  height: 24px;
+}
+.stampTitle span {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.stamp {
+  display: grid;
+  gap: 28px;
+  padding: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: var(--bg-white);
+}
+
+.reachStamp {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  line-height: 20px !important;
+  color: var(--brand-primary) !important;
+}
