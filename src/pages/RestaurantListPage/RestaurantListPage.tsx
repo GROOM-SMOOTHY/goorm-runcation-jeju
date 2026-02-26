@@ -30,16 +30,16 @@ export default function RestaurantListPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [displayCount, setDisplayCount] = useState(10); 
-  const loaderRef = useRef<HTMLDivElement>(null); 
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   // 1. 구글 Places API 데이터 불러오기
   useEffect(() => {
-    if (!isLoaded) return;
+    let cancelled = false;
 
     const fetchPlacesData = async () => {
       setIsLoading(true);
       try {
-        const regionText = (!selectedRegion || selectedRegion === "전체") 
+        const regionText = (!selectedRegion || selectedRegion === "전체")
           ? "제주도" 
           : `제주도 ${selectedRegion}`;
 
@@ -49,7 +49,8 @@ export default function RestaurantListPage() {
           language: 'ko',
           region: 'kr',
           maxResultCount: 20,
-          // 제주도 위도/경도 경계 제한 부활!
+
+          // 제주도 위도/경도 경계 제한
           locationRestriction: {
             west: 126.10,
             east: 127.00,
@@ -137,16 +138,20 @@ export default function RestaurantListPage() {
 
           const shuffledStores = fetchedStores.sort(() => Math.random() - 0.5);
 
-          setStores(shuffledStores);
-          setSearchResultNames(shuffledStores.map((s) => s.name));
+          if (!cancelled) {
+            setStores(shuffledStores);
+            setSearchResultNames(shuffledStores.map((s) => s.name));
+          }
         } else {
           setStores([]);
           setSearchResultNames([]);
         }
       } catch (error) {
+        if (!cancelled) {
         console.error("데이터 로딩 에러:", error);
+        }
       } finally {
-        setIsLoading(false);
+        if (!cancelled) setIsLoading(false);
       }
     };
 
@@ -157,22 +162,24 @@ export default function RestaurantListPage() {
     setDisplayCount(10);
   }, [selectedRegion, searchResultNames]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setDisplayCount((prev) => prev + 10);
-        }
-      },
-      { threshold: 0.5 }
-    );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+  const loaderRef = useCallback((node: HTMLDivElement | null) => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
     }
+    if (node) {
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            setDisplayCount((prev) => prev + 10);
+          }
+        },
+        { threshold: 0.5 }
+      );
+      observerRef.current.observe(node);
+    }
+  }, []);
 
-    return () => observer.disconnect();
-  }, [stores]); 
 
   const storeNames = useMemo(() => stores.map((s) => s.name), [stores]);
 
