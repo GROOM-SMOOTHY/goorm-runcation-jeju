@@ -404,7 +404,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      course_type: "FRONTEND" | "BACKEDN" | "DESIGN";
+      course_type: "FRONTEND" | "BACKEND" | "DESIGN";
       expense_state: "PENDING" | "COMPLETE";
       member_role: "OWNER" | "MEMBER";
     };
@@ -540,7 +540,7 @@ export const Constants = {
   },
   public: {
     Enums: {
-      course_type: ["FRONTEND", "BACKEDN", "DESIGN"],
+      course_type: ["FRONTEND", "BACKEND", "DESIGN"],
       expense_state: ["PENDING", "COMPLETE"],
       member_role: ["OWNER", "MEMBER"],
     },
