@@ -34,6 +34,7 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
       // Google Places API 호출
       const response = await window.google.maps.places.Place.searchByText({
         textQuery: finalQuery,
+      
         fields: ['id', 'displayName', 'formattedAddress', 'rating', 'photos', 'types'],
         language: 'ko',
         region: 'kr',
@@ -51,6 +52,8 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
           description: place.formattedAddress || "주소 정보 없음",
           rating: place.rating || 0,
           isFavorite: false,
+          latitude: place.location?.latitude, 
+          longitude: place.location?.longitude,
         }));
 
         setStores(prev => {
@@ -79,7 +82,7 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
       setKeywordIdx(0);
       fetchPlacesData(true);
     }
-  }, [selectedRegion, searchKeyword, isLoaded]); // fetchPlacesData를 넣으면 무한 루프 위험이 있어 제외하거나 useCallback 처리 확인
+  }, [selectedRegion, searchKeyword, isLoaded]);
 
   return { 
     stores, 

@@ -51,7 +51,7 @@ export default function AppRouter() {
 
         {/* 맛집 리스트 상세 페이지 */}
         <Route
-          path="/restaurants/:id/:slug"
+          path="/restaurants/:id"
           element={<RestaurantStorePage />}
         />
 

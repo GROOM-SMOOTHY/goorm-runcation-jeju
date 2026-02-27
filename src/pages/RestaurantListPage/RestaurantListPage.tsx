@@ -66,7 +66,9 @@ export default function RestaurantListPage() {
                   key={store.id} 
                   {...store} 
                   onToggleFavorite={() => handleToggleFavorite(store.id)}
-                  onClick={() => navigate(`/restaurants/${store.id}/${encodeURIComponent(store.name)}`)} 
+                  onClick={() => navigate(
+                    `/restaurants/${store.id}`
+                  )} 
                 />
               ))}
               
