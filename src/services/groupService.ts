@@ -27,11 +27,15 @@ export async function getGroupList({
   return data;
 }
 
-export async function getGroupByCode(code: string): Promise<GroupsRow | null> {
+export async function getGroup(groupId: string): Promise<GroupsRow | null> {
+  if (!groupId) {
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("groups")
     .select("*")
-    .eq("code", code.trim())
+    .eq("id", groupId)
     .maybeSingle();
 
   if (error) {
@@ -147,4 +151,24 @@ export async function deleteGroup(groupId: string): Promise<void> {
   if (groupError) {
     throw new Error("그룹 삭제 실패", { cause: groupError });
   }
+}
+
+/**
+ * 그룹에 맞는 코드인지 화깅ㄴ
+ */
+export async function isValidGroupCode(
+  groupId: string,
+  code: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("groups")
+    .select("code")
+    .eq("id", groupId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data?.code?.trim() === code.trim();
 }
