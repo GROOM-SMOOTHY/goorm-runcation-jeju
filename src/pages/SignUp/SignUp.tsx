@@ -1,30 +1,28 @@
 import styles from "@/pages/SignUp/SignUp.module.css";
 import SignUpInput from "@/components/pages/SignUp/SignUpInput/SignUpInput";
 import SignUpEmailVerification from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification";
+import { Link } from "react-router-dom";
+import useSignUp from "@/pages/SignUp/hooks/useSignUp";
 import Button from "@/components/common/Button/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [code, setCode] = useState("");
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    if (!isVerified) {
-      return alert("인증 먼저 하셈");
-    } else if (!isAgreed) {
-      return alert("서비스 이용약관에 동의하지 않으셨습니다.");
-    } else {
-      alert("회원가입 되셨습니다.");
-      navigate("/main");
-    }
-  };
+  const {
+    name,
+    setName,
+    phone,
+    setPhone,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    code,
+    setCode,
+    isAgreed,
+    setIsAgreed,
+    isLoading,
+    handleSignUp,
+    handleVerified,
+  } = useSignUp();
 
   return (
     <div className={styles.container}>
@@ -40,23 +38,19 @@ export default function SignUp() {
       </div>
 
       <div className={styles.main}>
-        <SignUpInput
-          type="name"
-          value={name}
-          onChange={(val) => setName(val)}
-        />
-        <SignUpInput
-          type="phone"
-          value={phone}
-          onChange={(val) => setPhone(val)}
-        />
+        <SignUpInput type="name" value={name} onChange={setName} />
+        <SignUpInput type="phone" value={phone} onChange={setPhone} />
+
         <SignUpEmailVerification
           email={email}
           input={code}
           onChangeEmail={setEmail}
           onChangeCode={setCode}
-          onVerified={() => setIsVerified(true)}
+          onVerified={handleVerified}
         />
+
+        <SignUpInput type="password" value={password} onChange={setPassword} />
+
         <label className={styles.checkBox}>
           <input
             type="checkbox"
@@ -66,12 +60,14 @@ export default function SignUp() {
           <span>서비스 이용약관 및 개인정보 처리방침에 동의합니다.</span>
         </label>
       </div>
+
       <div className={styles.footer}>
-        <Button variant="primary" type="button" onClick={onClick}>
-          시작하기{" "}
+        <Button type="button" onClick={handleSignUp} disabled={isLoading}>
+          {isLoading ? "처리중" : "시작하기"}
         </Button>
+
         <p className={styles.front}>
-          이미 계정이 있으신가요?{' '}
+          이미 계정이 있으신가요?{" "}
           <Link to="/login" className={styles.login}>
             로그인
           </Link>

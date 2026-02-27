@@ -5,6 +5,17 @@
     gap: 16px;
 }
 
+.selectBoxWrapper {
+    display: grid;
+}
+
+.selectLabel {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 35px;
+    color: var(--text-primary);
+}
+
 .successWrap {
     width: 100%;
     display: flex;
