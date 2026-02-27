@@ -11,6 +11,8 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     libraries: LIBRARIES,
+    language: "ko",
+    region: "KR",
   });
 
   const [stores, setStores] = useState<StoreItem[]>([]);
@@ -34,7 +36,7 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
       // Google Places API 호출
       const response = await window.google.maps.places.Place.searchByText({
         textQuery: finalQuery,
-      
+        
         fields: ['id', 'displayName', 'formattedAddress', 'rating', 'photos', 'types'],
         language: 'ko',
         region: 'kr',
