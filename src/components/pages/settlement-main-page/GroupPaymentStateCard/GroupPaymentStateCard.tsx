@@ -17,9 +17,11 @@ export default function GroupPaymentStateCard({
       <span className={styles.label}>우리 그룹 총 지출</span>
       <div className={styles.row}>
         <span className={styles.amount}>₩{totalAmount.toLocaleString()}</span>
-        <span className={styles.context}>/ {groupName}</span>
+        {groupName && <span className={styles.context}>/ {groupName}</span>}
       </div>
-      <Button type="button" variant="primary" onClick={onAddClick}>정산내역 추가하기</Button>
+      <Button type="button" onClick={onAddClick}>
+        정산내역 추가하기
+      </Button>
     </section>
   );
 }
