@@ -108,12 +108,39 @@ export default function RestaurantStorePage() {
     return <div className={styles.error}>데이터를 찾을 수 없습니다.</div>;
   }
 
+  // 공유 기능(Web Share API)
+  const handleShare = async () => {
+    const shareData = {
+      title: `[제주 맛집] ${store.name}`,
+      text: `${store.name} - ${store.category}\n위치: ${store.location}`,
+      url: window.location.href, // 현재 페이지 주소
+    };
+  
+    try {
+      // 브라우저가 공유 기능을 지원하는지 확인
+      if (navigator.share) {
+        await navigator.share(shareData);
+        addToast("공유창을 열었습니다.", "", "success");
+      } else {
+        // 지원하지 않는 경우 (데스크탑 등) 클립보드 복사로 대체
+        await navigator.clipboard.writeText(window.location.href);
+        addToast("주소가 클립보드에 복사되었습니다.", "친구에게 공유해보세요!", "success");
+      }
+    } catch (error) {
+      // 사용자가 공유를 취소했을 때는 에러 처리를 하지 않는 것이 자연스럽습니다.
+      if ((error as Error).name !== 'AbortError') {
+        addToast("공유 중 오류가 발생했습니다.", "", "error");
+      }
+    }
+  };
+
+
   return (
     <div className={styles.page}>
       <div className={styles.headerBar}>
         <Header title="맛집 상세" onBack={() => navigate(-1)} />
         <div className={styles.headerActions}>
-          <button className={styles.iconButton} onClick={() => {}}>
+          <button className={styles.iconButton} onClick={handleShare}>
             <FiShare2 size={20} />
           </button>
           <button className={styles.iconButton} onClick={() => setIsLiked(!isLiked)}>
