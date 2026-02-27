@@ -1,27 +1,29 @@
-import { Routes, Route } from "react-router-dom";
-import HomePage from "@/pages/HomePage";
-import NotFoundPage from "@/pages/NotFoundPage";
-import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
-import TravelPage from "@/pages/TravelPage";
-import StampPage from "@/pages/StampPage/StampPage";
-import GroupPage from "@/pages/GruopPage/GroupPage";
-import MainPage from "@/pages/MainPage/MainPage";
-import SignUp from "@/pages/SignUp/SignUp";
-import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
-import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
-import SettlementListPage from "@/pages/SettlementPage/SettlementListPage/SettlementListPage";
-import LoginPage from "@/pages/LoginPage";
+import { Routes, Route } from 'react-router-dom';
+import HomePage from '@/pages/HomePage';
+import NotFoundPage from '@/pages/NotFoundPage/NotFoundPage';
+import BackgroundLayout from '@/components/layout/BackgroundLayout/BackgroundLayout';
+import TravelPage from '@/pages/TravelPage';
+import StampPage from '@/pages/StampPage';
+import GroupPage from '@/pages/GruopPage/GroupPage';
+import MainPage from '@/pages/MainPage/MainPage';
+import SignUp from '@/pages/SignUp/SignUp';
 
-import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage";
-import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
+import LoginPage from '@/pages/Login/Login';
+import SettlementMainPage from '@/pages/SettlementPage/SettlementMainPage/SettlementMainPage';
+import SettlementAddPage from '@/pages/SettlementPage/SettlementAddPage/SettlementAddPage';
+import SettlementListPage from '@/pages/SettlementPage/SettlementListPage/SettlementListPage';
 
-import StartPage from "@/pages/StartPage/StartPage";
+import RestaurantStorePage from '@/pages/RestaurantStorePage/RestaurantStorePage';
+import RestaurantListPage from '@/pages/RestaurantListPage/RestaurantListPage';
+
+import StartPage from '@/pages/StartPage/StartPage';
+import MyPage from '@/pages/MyPage/MyPage';
+import GuestBook from '@/pages/GuestBook/GuestBook';
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route element={<BackgroundLayout />}>
-        {/* 첫 페이지 = 로그인 */}
         <Route path="/" element={<StartPage />} />
 
         <Route path="/register" element={<SignUp />} />
@@ -36,9 +38,13 @@ export default function AppRouter() {
         <Route path="/travel" element={<TravelPage />} />
         {/* 그룹 페이지 */}
         <Route path="/group" element={<GroupPage />} />
+        <Route path="/group/join/:groupId" element={<GroupJoinPage />} />
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
+
+        {/* 방명록 페이지 */}
+        <Route path="/guestbook" element={<GuestBook />} />
 
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />

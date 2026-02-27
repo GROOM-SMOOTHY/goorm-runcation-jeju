@@ -1,9 +1,9 @@
-import styles from '@/pages/LoginPage/LoginPage.module.css';
-import LoginIcon from '@/assets/LoginPageIcon.png';
-import Header from '@/components/layout/Header/Header';
-import Button from '@/components/common/Button/Button';
-import Input from '@/components/common/Input/Input';
-import useLogin from './hooks/useLogin';
+import styles from "@/pages/LoginPage/LoginPage.module.css";
+import LoginIcon from "@/assets/LoginPageIcon.png";
+import Header from "@/components/layout/Header/Header";
+import Button from "@/components/common/Button/Button";
+import Input from "@/components/common/Input/Input";
+import useLogin from "./hooks/useLogin";
 
 export default function LoginPage() {
   const {
@@ -52,16 +52,16 @@ export default function LoginPage() {
         {/* TODO: props loading으로 제어 */}
         <Button
           type="button"
-          variant="primary"
           onClick={handleLogin}
           disabled={isLoading}
+          loading={isLoading}
         >
-          {isLoading ? '로그인 중...' : '로그인'}
+          로그인
         </Button>
 
         <div className={styles.footer}>
           <p>
-            아직 회원이 아니신가요?{' '}
+            아직 회원이 아니신가요?{" "}
             <button
               type="button"
               className={styles.signUpLink}

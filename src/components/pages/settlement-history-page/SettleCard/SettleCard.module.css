@@ -24,7 +24,6 @@
   background: none;
   cursor: pointer;
   text-align: left;
-  font: inherit;
 }
 
 .header:hover {
@@ -89,7 +88,6 @@
   font-weight: 600;
 }
 
-
 /* 본문 슬라이드 */
 .bodyWrapper {
   display: grid;
@@ -110,7 +108,6 @@
 .bodyInner {
   padding: 0 16px 16px;
 }
-
 
 /* 입금 상태 행 + 스위치 */
 .statusRow {
@@ -178,7 +175,6 @@
   transform: translateX(16px);
 }
 
-
 /* TOTAL AMOUNT */
 .totalSection {
   margin-bottom: 12px;
@@ -227,14 +223,12 @@
   white-space: nowrap;
 }
 
-
 /* 1인당 금액 */
 .amountPerPerson {
   font-size: 14px;
   color: var(--text-tertiary);
   margin: 0 0 12px;
 }
-
 
 /* 받는 사람 */
 .accountHolder {
@@ -308,7 +302,6 @@
   color: var(--text-primary);
 }
 
-
 /* 미완료 / 완료 섹션 */
 .section {
   margin-bottom: 16px;
@@ -360,7 +353,6 @@
   color: var(--badge-label-emerald);
 }
 
-
 /* 멤버 태그 그리드 */
 .memberTags {
   display: grid;
@@ -402,7 +394,6 @@
   color: var(--text-white);
   font-size: 12px;
 }
-
 
 /* 멤버 이름 말줄임 */
 .memberTagName {
