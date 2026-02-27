@@ -12,13 +12,15 @@ export default function useSettlementMain() {
   const [totalExpenses, setTotalExpenses] = useState<number>(0);
   const [recentSettlements, setRecentSettlements] = useState<
     (Tables<"expense_participants"> & {
-      payer: Tables<"users">;
-      expense: Tables<"expenses">;
+      expense: Tables<"expenses"> & {
+        payer: Tables<"users">;
+      };
     })[]
   >([]);
 
   useEffect(() => {
     if (!group) return;
+    if (!userId) return;
 
     getGroupTotalExpenses(group.id).then((total) => {
       setTotalExpenses(total);
@@ -27,7 +29,7 @@ export default function useSettlementMain() {
     getRecentSettlements(userId).then((settlements) => {
       setRecentSettlements(settlements);
     });
-  }, []);
+  }, [group, userId]);
 
   return {
     totalExpenses,

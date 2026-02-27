@@ -91,7 +91,7 @@ export default function SettlementMainPage() {
                 category={item.expense.category}
                 title={item.expense.payment_title}
                 date={item.expense.expense_date ?? ""}
-                userName={item.payer.nickname ?? ""}
+                userName={item.expense.payer.nickname ?? ""}
                 price={item.expense.total_amount}
                 myPrice={item.amount ?? 0}
                 status={item.state ?? ""}
