@@ -47,6 +47,7 @@ export async function getRecentSettlements(userId: string): Promise<
       `,
     )
     .eq("user_id", userId)
+    .order("expense_date", { ascending: false })
     .limit(3);
 
   if (error) {
