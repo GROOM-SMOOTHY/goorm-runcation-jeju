@@ -1,5 +1,7 @@
 import styles from "@/components/Stamp/stamp.module.css";
+import { format } from "date-fns/format";
 import { MdLock } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface StampProps {
   region?: string;
@@ -14,10 +16,17 @@ export default function Stamp({
   date,
   status = "locked",
 }: StampProps) {
+  const navigate = useNavigate();
   const isActive = status === "active";
 
+  const handleClickStamp = () => {
+    if (!isActive) {
+      navigate(`/stamp/add?region=${region}`);
+    }
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} onClick={handleClickStamp}>
       <div className={`${styles.container} ${!isActive ? styles.locked : ""}`}>
         <div className={styles.circle}>
           {isActive && imgUrl && (
@@ -35,7 +44,9 @@ export default function Stamp({
         </p>
       )}
 
-      {isActive && date && <p className={styles.date}>{date}</p>}
+      {isActive && date && (
+        <p className={styles.date}>{format(new Date(date), "yyyy.MM.dd")}</p>
+      )}
     </div>
   );
 }
