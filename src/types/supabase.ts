@@ -12,31 +12,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.1";
   };
-  graphql_public: {
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json;
-          operationName?: string;
-          query?: string;
-          variables?: Json;
-        };
-        Returns: Json;
-      };
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
   public: {
     Tables: {
       account_infos: {
@@ -115,6 +90,7 @@ export type Database = {
       };
       expenses: {
         Row: {
+          category: string | null;
           created_at: string | null;
           expense_date: string | null;
           group_id: string;
@@ -124,6 +100,7 @@ export type Database = {
           total_amount: number;
         };
         Insert: {
+          category?: string | null;
           created_at?: string | null;
           expense_date?: string | null;
           group_id: string;
@@ -133,6 +110,7 @@ export type Database = {
           total_amount: number;
         };
         Update: {
+          category?: string | null;
           created_at?: string | null;
           expense_date?: string | null;
           group_id?: string;
@@ -339,30 +317,6 @@ export type Database = {
           },
         ];
       };
-      profiles: {
-        Row: {
-          avatar_url: string | null;
-          created_at: string | null;
-          id: string;
-          nickname: string;
-          updated_at: string | null;
-        };
-        Insert: {
-          avatar_url?: string | null;
-          created_at?: string | null;
-          id: string;
-          nickname: string;
-          updated_at?: string | null;
-        };
-        Update: {
-          avatar_url?: string | null;
-          created_at?: string | null;
-          id?: string;
-          nickname?: string;
-          updated_at?: string | null;
-        };
-        Relationships: [];
-      };
       users: {
         Row: {
           account_id: string;
@@ -535,9 +489,6 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       course_type: ["FRONTEND", "BACKEND", "DESIGN"],

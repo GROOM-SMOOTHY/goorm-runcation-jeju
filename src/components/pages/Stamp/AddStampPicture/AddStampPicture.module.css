@@ -1,6 +1,6 @@
 .container {
-  width: 432px;
-  height: 432px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;

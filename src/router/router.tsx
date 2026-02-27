@@ -20,6 +20,7 @@ import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 import StartPage from "@/pages/StartPage/StartPage";
 import MyPage from "@/pages/MyPage/MyPage";
 import GuestBook from "@/pages/GuestBook/GuestBook";
+import GroupJoinPage from "@/pages/GroupJoinPage";
 
 export default function AppRouter() {
   return (
@@ -35,6 +36,7 @@ export default function AppRouter() {
         <Route path="/home" element={<HomePage />} />
         {/* 지역 스탬프 */}
         <Route path="/stamp" element={<StampPage />} />
+        <Route path="/stamp/add" element={<AddStampPage />} />
         {/* 메인 */}
         <Route path="/travel" element={<TravelPage />} />
         {/* 그룹 페이지 */}
@@ -68,6 +70,9 @@ export default function AppRouter() {
 
         {/* 정산 목록 추가하기 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
+
+        {/* 500 */}
+        <Route path="/500" element={<ServerError />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />

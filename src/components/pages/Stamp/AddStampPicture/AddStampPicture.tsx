@@ -3,9 +3,13 @@ import { PiCameraPlusBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import { useRef, useEffect } from "react";
 
+export interface AddPhoto {
+  url: string | null;
+  file: File;
+}
 interface AddStampPictureProps {
   upload: string | null;
-  onChangeUpload: (url: string | null) => void;
+  onChangeUpload: (url: AddPhoto | null) => void;
 }
 
 export default function AddStampPicture({
@@ -29,7 +33,10 @@ export default function AddStampPicture({
     }
 
     const imgUrl = URL.createObjectURL(file);
-    onChangeUpload(imgUrl);
+    onChangeUpload({
+      url: imgUrl,
+      file,
+    });
   };
 
   const onCircleClick = () => {
@@ -40,7 +47,9 @@ export default function AddStampPicture({
     if (upload) {
       URL.revokeObjectURL(upload);
     }
+
     onChangeUpload(null);
+
     if (inputRef.current) {
       inputRef.current.value = "";
     }
