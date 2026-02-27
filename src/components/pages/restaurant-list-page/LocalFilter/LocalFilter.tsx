@@ -66,7 +66,7 @@ const LocalFilter: React.FC<LocalFilterProps> = ({
       onMouseLeave={onDragEnd}
       style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
     >
-      {/* 1. 좋아요 버튼 (맨 앞에 배치) */}
+      {/* 좋아요 버튼 (맨 앞에 배치) */}
       <button
         type="button"
         className={`${styles.FilterButton} ${styles.FavoriteButton} ${showFavoritesOnly ? styles.FavoriteActive : ""}`}
@@ -79,7 +79,7 @@ const LocalFilter: React.FC<LocalFilterProps> = ({
         좋아요
       </button>
 
-      {/* 2. 지역 버튼들 */}
+      {/* 지역 버튼들 */}
       {allRegions.map((region, idx) => {
         // 좋아요 필터가 켜져있으면 지역 버튼은 모두 비활성 상태로 보이게 처리
         const isActive = !showFavoritesOnly && (region === "전체" ? selectedRegion === "" : selectedRegion === region);

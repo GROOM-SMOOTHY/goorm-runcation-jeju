@@ -19,7 +19,7 @@
 
 .FilterButton {
   flex-shrink: 0; 
-  padding: 0 16px; /* height가 있으므로 상하 패딩은 0이 안전함 */
+  padding: 0 16px;
   border-radius: 20px;
   background-color: var(--bg-searchbar);
   color: var(--text-secondary, #333);
@@ -32,28 +32,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px; /* 아이콘과 텍스트 간격 */
+  gap: 6px;
 }
-/* 일반 버튼 호버 & 좋아요 활성화 스타일 통합 */
+
 .FilterButton:hover,
 .FavoriteActive {
-  background-color: var(--badge-bg-orange) !important;
-  border-color: var(--brand-primary) !important;
-  color: var(--brand-primary) !important;
+  background-color: var(--badge-bg-orange);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
   font-weight: bold;
 }
 
-/* 활성화 상태 공통 (전체 버튼 포함) */
-/* 지역 버튼이 활성화되거나, 전체 버튼이 기본/활성일 때 */
 .Active, 
 .AllButton {
   background-color: var(--brand-primary);
   border-color: var(--brand-primary);
-  color: var(--bg-white, #ffffff);
+  color: var(--bg-white);
   font-weight: bold;
 }
 
-/* 전체 버튼에 호버했을 때만 예외 처리 (선택 사항) */
 .AllButton:hover {
   background-color: var(--badge-bg-orange);
   color: var(--brand-primary);

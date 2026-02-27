@@ -28,7 +28,7 @@ export default function RestaurantListPage() {
   const { stores, setStores, isLoading, isFetchingMore, fetchPlacesData, hasMore } = 
     useRestaurants(selectedRegion, searchKeyword);
 
-  // 1. 페이지 로드 시 localStorage에서 좋아요 ID 목록 가져오기
+  // 페이지 로드 시 localStorage에서 좋아요 ID 목록 가져오기
   useEffect(() => {   
     const savedFavorites = localStorage.getItem(STORAGE_KEY);
     if (savedFavorites && stores.length > 0) {
@@ -42,7 +42,7 @@ export default function RestaurantListPage() {
     }
   }, [stores.length, showFavoritesOnly]);
 
-  // 2. 즐겨찾기 토글 및 localStorage 동기화
+  // 즐겨찾기 토글 및 localStorage 동기화
   const handleToggleFavorite = (id: string) => {
     setStores(prev => {
       const newStores = prev.map(s => s.id === id ? { ...s, isFavorite: !s.isFavorite } : s);
@@ -72,7 +72,7 @@ export default function RestaurantListPage() {
     if (mainRef.current) setShowScrollToTop(mainRef.current.scrollTop > 300);
   };
 
-  // 2. 화면에 실제로 렌더링할 식당 리스트 결정
+  // 화면에 실제로 렌더링할 식당 리스트 결정
   const displayedStores = useMemo(() => {
     if (!showFavoritesOnly) return stores;
     // 좋아요 필터가 켜져 있으면 isFavorite이 true인 것만 필터링

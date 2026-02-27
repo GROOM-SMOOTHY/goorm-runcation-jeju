@@ -20,7 +20,7 @@ export default function RestaurantStorePage() {
   const { state } = useLocation();
   const addToast = useToastStore((state) => state.addToast);
 
-  // 1. 초기값: 리스트에서 전달받은 데이터가 있으면 사용, 없으면 null
+  // 초기값: 리스트에서 전달받은 데이터가 있으면 사용, 없으면 null
   const [store, setStore] = useState<any>(state?.storeData || null);
   // 리스트에서 넘어온 데이터에 상세 정보(주소 등)가 이미 있다면 로딩 생략
   const [isLoading, setIsLoading] = useState(!state?.storeData?.address);
