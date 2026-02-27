@@ -36,7 +36,8 @@ export default function PayHistoryCard({
     <div className={styles.container}>
       <div className={styles.leftWrap}>
         <div className={styles.category}>
-          {CATEGORY_ICONS[category as keyof typeof CATEGORY_ICONS]}
+          {CATEGORY_ICONS[category as keyof typeof CATEGORY_ICONS] ??
+            CATEGORY_ICONS.etc}
         </div>
         <div className={styles.titleWrap}>
           <span className={styles.title}>{title}</span>
