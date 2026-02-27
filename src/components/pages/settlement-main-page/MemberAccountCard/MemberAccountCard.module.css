@@ -137,3 +137,16 @@
 .moreButton:hover {
   background: var(--badge-bg-orange);
 }
+
+.emptyRow {
+  padding: 12px;
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+}
