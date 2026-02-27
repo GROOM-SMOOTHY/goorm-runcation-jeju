@@ -27,6 +27,10 @@ export default function useAddStamp() {
     if (!photo || !description) {
       return;
     }
+    if (!region) {
+      alert("지역 정보가 필요합니다");
+      return;
+    }
 
     if (!userId) {
       alert("로그인 후 이용해주세요");

@@ -20,7 +20,10 @@ export default function AddStampPage() {
 
   return (
     <>
-      <Header title={`${region} 도장깨기`} onBack={() => navigate(-1)} />
+      <Header
+        title={`${region || "지역"} 도장깨기`}
+        onBack={() => navigate(-1)}
+      />
 
       <div className={styles.container}>
         <div className={styles.field}>
