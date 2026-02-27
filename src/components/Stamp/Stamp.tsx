@@ -21,7 +21,7 @@ export default function Stamp({
 
   const handleClickStamp = () => {
     if (!isActive) {
-      navigate(`/stamp/add?region=${region}`);
+      navigate(`/stamp/add?region=${encodeURIComponent(region || "")}`);
     }
   };
 
