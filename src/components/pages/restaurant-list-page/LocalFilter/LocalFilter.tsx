@@ -1,14 +1,24 @@
 import * as React from "react";
 import { useRef, useState, type MouseEvent } from "react";
+import { FaHeart } from "react-icons/fa"; // 하트 아이콘 추가
 import styles from "./LocalFilter.module.css";
 
 interface LocalFilterProps {
   regions: string[];
   selectedRegion: string;
   onSelectRegion: (region: string) => void;
+  // 좋아요 필터 관련 props 추가
+  showFavoritesOnly: boolean;
+  onToggleFavorites: (active: boolean) => void;
 }
 
-const LocalFilter: React.FC<LocalFilterProps> = ({ regions, selectedRegion, onSelectRegion }) => {
+const LocalFilter: React.FC<LocalFilterProps> = ({ 
+  regions, 
+  selectedRegion, 
+  onSelectRegion,
+  showFavoritesOnly,
+  onToggleFavorites
+}) => {
   const allRegions = ["전체", ...regions];
   
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -17,25 +27,22 @@ const LocalFilter: React.FC<LocalFilterProps> = ({ regions, selectedRegion, onSe
   const [scrollLeft, setScrollLeft] = useState<number>(0);
   const didDragRef = useRef(false);
 
-  // 마우스 버튼을 눌렀을 때
   const onDragStart = (e: MouseEvent<HTMLDivElement>) => {
-   if (e.button !== 0) return; // 좌클릭만 드래그 시작
-   e.preventDefault();
+    if (e.button !== 0) return;
+    e.preventDefault();
     setIsDragging(true);
     didDragRef.current = false;
     
     if (scrollRef.current) {
-      setStartX(e.pageX); // 현재 마우스 위치
-      setScrollLeft(scrollRef.current.scrollLeft); // 현재 스크롤 위치 저장
+      setStartX(e.pageX);
+      setScrollLeft(scrollRef.current.scrollLeft);
     }
   };
 
-  // 마우스 버튼을 뗐거나 영역 밖으로 나갔을 때
   const onDragEnd = () => {
     setIsDragging(false);
   };
 
-  // 마우스를 누른 상태로 움직일 때
   const onDragMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isDragging || !scrollRef.current) return;
 
@@ -57,18 +64,34 @@ const LocalFilter: React.FC<LocalFilterProps> = ({ regions, selectedRegion, onSe
       onMouseMove={onDragMove}
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
-      style={{ cursor: isDragging ? 'grabbing' : 'pointer', overflowX: 'auto', display: 'flex' }}
+      style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
     >
+      {/* 1. 좋아요 버튼 (맨 앞에 배치) */}
+      <button
+        type="button"
+        className={`${styles.FilterButton} ${styles.FavoriteButton} ${showFavoritesOnly ? styles.FavoriteActive : ""}`}
+        onClick={() => {
+          if (didDragRef.current) return;
+          onToggleFavorites(!showFavoritesOnly);
+          if (!showFavoritesOnly) onSelectRegion(""); // 좋아요 클릭 시 지역 선택 해제
+        }}
+      >
+        좋아요
+      </button>
+
+      {/* 2. 지역 버튼들 */}
       {allRegions.map((region, idx) => {
-        const isActive = region === "전체" ? selectedRegion === "" : selectedRegion === region;
+        // 좋아요 필터가 켜져있으면 지역 버튼은 모두 비활성 상태로 보이게 처리
+        const isActive = !showFavoritesOnly && (region === "전체" ? selectedRegion === "" : selectedRegion === region);
+        
         return (
           <button
             type="button"
             key={idx}
             className={`${styles.FilterButton} ${region === "전체" ? styles.AllButton : ""} ${isActive ? styles.Active : ""}`}
             onClick={() => {
-              // 드래그 중이었다면 클릭 이벤트 무시
               if (didDragRef.current) return;
+              onToggleFavorites(false); // 지역 선택 시 좋아요 필터 해제
               onSelectRegion(region === "전체" ? "" : region);
             }}
           >

@@ -12,6 +12,7 @@ import { useToastStore } from "@/components/common/Toast/ToastStore";
 import styles from "@/pages/RestaurantStorePage/RestaurantStorePage.module.css";
 
 const libraries: ("places")[] = ["places"];
+const STORAGE_KEY = "favorite_restaurants_ids";
 
 export default function RestaurantStorePage() {
   const navigate = useNavigate();
@@ -23,7 +24,16 @@ export default function RestaurantStorePage() {
   const [store, setStore] = useState<any>(state?.storeData || null);
   // 리스트에서 넘어온 데이터에 상세 정보(주소 등)가 이미 있다면 로딩 생략
   const [isLoading, setIsLoading] = useState(!state?.storeData?.address);
-  const [isLiked, setIsLiked] = useState(false);
+
+  // 좋아요 초기 상태를 로컬 스토리지에서 확인
+  const [isLiked, setIsLiked] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && id) {
+      const favoriteIds = JSON.parse(saved) as string[];
+      return favoriteIds.includes(id);
+    }
+    return false;
+  });
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -108,6 +118,30 @@ export default function RestaurantStorePage() {
     return <div className={styles.error}>데이터를 찾을 수 없습니다.</div>;
   }
 
+  // 좋아요 토글 함수 수정
+  const toggleLike = () => {
+    if (!id) return;
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    let favoriteIds: string[] = saved ? JSON.parse(saved) : [];
+
+    if (isLiked) {
+      // 좋아요 취소: 목록에서 제거
+      favoriteIds = favoriteIds.filter((favId) => favId !== id);
+      addToast("좋아요 목록에서 제거되었습니다.", "", "success");
+    } else {
+      // 좋아요 추가: 목록에 추가
+      if (!favoriteIds.includes(id)) {
+        favoriteIds.push(id);
+      }
+      addToast("좋아요 목록에 추가되었습니다.", "", "success");
+    }
+
+    // 로컬 스토리지 업데이트 및 상태 변경
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favoriteIds));
+    setIsLiked(!isLiked);
+  };
+
   // 공유 기능(Web Share API)
   const handleShare = async () => {
     const shareData = {
@@ -143,7 +177,7 @@ export default function RestaurantStorePage() {
           <button className={styles.iconButton} onClick={handleShare}>
             <FiShare2 size={20} />
           </button>
-          <button className={styles.iconButton} onClick={() => setIsLiked(!isLiked)}>
+          <button className={styles.iconButton} onClick={toggleLike}>
             {isLiked ? <FaHeart size={20} color="red" /> : <FiHeart size={20} />}
           </button>
         </div>
