@@ -21,16 +21,18 @@ const regions = [
   "남원읍",
 ];
 
+const TOTAL_STAMP_LENGTH = regions.length;
+
 export default function Stamp() {
-  const totalStamp = 9;
-  const [stamp] = useState(9);
-
-  const boundedStamp = Math.min(Math.max(stamp, 0), totalStamp);
-  const progress = (boundedStamp / totalStamp) * 100;
-
   const [places, setPlaces] = useState<
     (Tables<"places"> & { photo: Tables<"photos"> | null })[]
   >([]);
+
+  const boundedStamp = Math.min(
+    Math.max(places?.length || 0, 0),
+    TOTAL_STAMP_LENGTH,
+  );
+  const progress = (boundedStamp / TOTAL_STAMP_LENGTH) * 100;
 
   const { id: userId } = useUser();
 
@@ -55,13 +57,13 @@ export default function Stamp() {
             <p>전체 달성도</p>
             <span>
               <span className={styles.reachStamp}>{boundedStamp}</span> /{" "}
-              {totalStamp} 장소
+              {TOTAL_STAMP_LENGTH} 장소
             </span>
           </div>
           <Progress progress={progress} />
           <div>
             <p className={styles.bottom}>
-              {totalStamp - boundedStamp}개의 장소가 남았어요{" "}
+              {TOTAL_STAMP_LENGTH - boundedStamp}개의 장소가 남았어요{" "}
             </p>
           </div>
         </div>
