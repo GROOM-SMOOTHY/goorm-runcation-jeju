@@ -4,7 +4,22 @@ import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigat
 import StampComponent from "@/components/Stamp/Stamp";
 import Progress from "@/components/common/Progress/Progress";
 import { LuStamp } from "react-icons/lu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getPlaces } from "@/services/placeService";
+import { useUser } from "@/store";
+import type { Tables } from "@/types/supabase";
+
+const regions = [
+  "연동",
+  "한림읍",
+  "구좌읍",
+  "성산읍",
+  "조천읍",
+  "애월읍",
+  "서귀동",
+  "중문동",
+  "남원읍",
+];
 
 export default function Stamp() {
   const totalStamp = 9;
@@ -12,6 +27,21 @@ export default function Stamp() {
 
   const boundedStamp = Math.min(Math.max(stamp, 0), totalStamp);
   const progress = (boundedStamp / totalStamp) * 100;
+
+  const [places, setPlaces] = useState<
+    (Tables<"places"> & { photo: Tables<"photos"> | null })[]
+  >([]);
+
+  const { id: userId } = useUser();
+
+  useEffect(() => {
+    if (userId) {
+      getPlaces(userId).then((places) => {
+        setPlaces(places);
+      });
+    }
+  }, [userId]);
+
   return (
     <>
       <Header title="도장깨기" />
@@ -40,15 +70,19 @@ export default function Stamp() {
           <span>지역별 방문 스탬프</span>
         </div>
         <div className={styles.stamp}>
-          <StampComponent region="연동" />
-          <StampComponent region="한림읍" />
-          <StampComponent region="구좌읍" />
-          <StampComponent region="성산읍" />
-          <StampComponent region="조천읍" />
-          <StampComponent region="애월읍" />
-          <StampComponent region="서귀동" />
-          <StampComponent region="중문동" />
-          <StampComponent region="남원읍" />
+          {regions.map((region) => {
+            const place = places.find((p) => p.region === region);
+            console.log(place);
+            return (
+              <StampComponent
+                key={region}
+                region={region}
+                status={place?.photo?.image_url ? "active" : "locked"}
+                imgUrl={place?.photo?.image_url || undefined}
+                date={place?.created_at}
+              />
+            );
+          })}
         </div>
       </div>
       <ButtonNavigation />
