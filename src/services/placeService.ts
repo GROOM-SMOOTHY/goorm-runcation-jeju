@@ -29,7 +29,7 @@ export async function addPlaces(params: AddStampParams) {
     throw new Error("도장 찍기에 실패했습니다");
   }
 
-  const { data: stampData, error: insertStampError } = await supabase
+  const { data: photoData, error: insertPhotoError } = await supabase
     .from("photos")
     .insert({
       type: "place",
@@ -40,11 +40,12 @@ export async function addPlaces(params: AddStampParams) {
     .select()
     .single();
 
-  if (insertStampError) {
-    throw new Error(insertStampError.message);
+  if (insertPhotoError) {
+    await supabase.from("places").delete().eq("id", placeData.id);
+    throw new Error(insertPhotoError.message);
   }
 
-  if (!stampData) {
+  if (!photoData) {
     await supabase.from("places").delete().eq("id", placeData.id);
     throw new Error("이미지 업로드에 실패했습니다");
   }
