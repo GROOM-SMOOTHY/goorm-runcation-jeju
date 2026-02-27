@@ -1,4 +1,5 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export interface UserState {
   id: string;
@@ -14,27 +15,30 @@ export interface UserState {
   logoutUser: () => void;
 }
 
-export const useUser = create<UserState>((set) => ({
-  id: '',
-  data: {
-    email: '',
-    nickname: '',
-    phone: '',
-    profile: null,
-    created_at: new Date(),
-    updated_at: new Date(),
-  },
-  setUser: (user: UserState) => set({ ...user }),
-  logoutUser: () =>
-    set({
-      id: '',
-      data: {
-        email: '',
-        nickname: '',
-        phone: '',
-        profile: null,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
+const emptyUserData = {
+  email: "",
+  nickname: "",
+  phone: "",
+  profile: null as string | null,
+  created_at: new Date(),
+  updated_at: new Date(),
+};
+
+export const useUser = create<UserState>()(
+  persist(
+    (set) => ({
+      id: "",
+      data: emptyUserData,
+      setUser: (user: UserState) => set({ ...user }),
+      logoutUser: () =>
+        set({
+          id: "",
+          data: { ...emptyUserData },
+        }),
     }),
-}));
+    {
+      name: "user-storage",
+      partialize: (state) => ({ id: state.id, data: state.data }),
+    },
+  ),
+);
