@@ -8,12 +8,12 @@ import { useState } from "react";
 
 export default function Stamp() {
   const totalStamp = 9;
-  const [stamp, setStamp] = useState(9);
+  const [stamp] = useState(9);
 
-  const progress = (stamp / totalStamp) * 100;
-
+  const boundedStamp = Math.min(Math.max(stamp, 0), totalStamp);
+  const progress = (boundedStamp / totalStamp) * 100;
   return (
-    <div className={styles.container}>
+    <>
       <Header title="도장깨기" />
       <div className={styles.content}>
         <div className={styles.title}>
@@ -24,14 +24,14 @@ export default function Stamp() {
           <div className={styles.top}>
             <p>전체 달성도</p>
             <span>
-              <span className={styles.reachStamp}>{stamp}</span> / {totalStamp}{" "}
-              장소
+              <span className={styles.reachStamp}>{boundedStamp}</span> /{" "}
+              {totalStamp} 장소
             </span>
           </div>
           <Progress progress={progress} />
           <div>
             <p className={styles.bottom}>
-              {totalStamp - stamp}개의 장소가 남았어요
+              {totalStamp - boundedStamp}개의 장소가 남았어요{" "}
             </p>
           </div>
         </div>
@@ -52,6 +52,6 @@ export default function Stamp() {
         </div>
       </div>
       <ButtonNavigation />
-    </div>
+    </>
   );
 }

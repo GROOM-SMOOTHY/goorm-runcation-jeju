@@ -3,6 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
   background-color: #fafafa;
+  flex: 1;
 }
 
 .content {
@@ -11,6 +12,12 @@
   flex-direction: column;
   gap: 28px;
   padding: 24px;
+  background-color: var(--bg-primary);
+  overflow-y: auto;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 .reachStamp {
@@ -89,10 +96,8 @@
 
 .stamp {
   display: grid;
-  gap: 28px;
-  padding: 24px;
   grid-template-columns: repeat(3, 1fr);
-  background-color: var(--bg-white);
+  gap: 16px;
 }
 
 .reachStamp {
