@@ -21,13 +21,14 @@ export async function getGroupTotalExpenses(groupId: string): Promise<number> {
 
 /**
  * 최근 정산 내역 조회 (3개)
- * @param groupId - 그룹 ID
+ * @param userId - 내 id
  * @returns 최근 정산 내역
  */
 export async function getRecentSettlements(userId: string): Promise<
   (Tables<"expense_participants"> & {
-    payer: Tables<"users">;
-    expense: Tables<"expenses">;
+    expense: Tables<"expenses"> & {
+      payer: Tables<"users">;
+    };
   })[]
 > {
   const { data, error } = await supabase
@@ -35,15 +36,15 @@ export async function getRecentSettlements(userId: string): Promise<
     .select(
       `
       *,
-      payer:users (
-        id,
-        nickname,
-        profile
-      ),
       expense:expenses (
-        *
+        *,
+        payer:users (
+          id,
+          nickname,
+          profile
+        )
       )
-    `,
+      `,
     )
     .eq("user_id", userId)
     .limit(3);
@@ -52,5 +53,6 @@ export async function getRecentSettlements(userId: string): Promise<
     throw error;
   }
 
-  return data;
+  // Supabase 타입 추론 한계로 data가 null일 수 있음. 빈 배열 반환
+  return data ?? [];
 }
