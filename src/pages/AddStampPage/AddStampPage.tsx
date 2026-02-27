@@ -3,11 +3,17 @@ import Textarea from "@/components/common/Textarea/Textarea";
 import Header from "@/components/layout/Header/Header";
 import AddStampPicture from "@/components/pages/Stamp/AddStampPicture/AddStampPicture";
 import styles from "./styles.module.css";
-import { useState } from "react";
+import useAddStamp from "./hooks/useAddStamp";
 
 export default function AddStampPage() {
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [description, setDescription] = useState("");
+  const {
+    photo,
+    description,
+    handlePhotoChange,
+    setDescription,
+    handleAddStamp,
+  } = useAddStamp();
+
   return (
     <>
       <Header title="도장깨기" />
@@ -15,7 +21,10 @@ export default function AddStampPage() {
       <div className={styles.container}>
         <div className={styles.field}>
           <p className={styles.label}>포토로그</p>
-          <AddStampPicture upload={photo} onChangeUpload={setPhoto} />
+          <AddStampPicture
+            upload={photo?.url || null}
+            onChangeUpload={handlePhotoChange}
+          />
         </div>
         <div className={styles.field}>
           <p className={styles.label}>한 줄 기록</p>
@@ -27,7 +36,9 @@ export default function AddStampPage() {
         </div>
       </div>
       <div className={styles.buttonWrap}>
-        <Button>도장찍기</Button>
+        <Button disabled={!photo || !description} onClick={handleAddStamp}>
+          도장찍기
+        </Button>
       </div>
     </>
   );
