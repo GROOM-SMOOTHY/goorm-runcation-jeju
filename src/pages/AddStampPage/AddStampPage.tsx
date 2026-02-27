@@ -4,9 +4,13 @@ import Header from "@/components/layout/Header/Header";
 import AddStampPicture from "@/components/pages/Stamp/AddStampPicture/AddStampPicture";
 import styles from "./styles.module.css";
 import useAddStamp from "./hooks/useAddStamp";
+import { useNavigate } from "react-router-dom";
 
 export default function AddStampPage() {
+  const navigate = useNavigate();
+
   const {
+    region,
     photo,
     description,
     handlePhotoChange,
@@ -16,7 +20,7 @@ export default function AddStampPage() {
 
   return (
     <>
-      <Header title="도장깨기" />
+      <Header title={`${region} 도장깨기`} onBack={() => navigate(-1)} />
 
       <div className={styles.container}>
         <div className={styles.field}>

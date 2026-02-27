@@ -49,6 +49,7 @@ export default function useAddStamp() {
   };
 
   return {
+    region,
     photo,
     description,
     handlePhotoChange,
