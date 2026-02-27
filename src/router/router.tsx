@@ -8,6 +8,7 @@ import AddStampPage from "@/pages/AddStampPage/AddStampPage";
 import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
+import ServerError from "@/pages/ServerError/ServerError";
 
 import LoginPage from "@/pages/LoginPage/LoginPage";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
@@ -45,9 +46,6 @@ export default function AppRouter() {
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
 
-        {/* 방명록 페이지 */}
-        <Route path="/guestbook" element={<GuestBook />} />
-
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
 
@@ -68,6 +66,9 @@ export default function AppRouter() {
 
         {/* 정산 목록 추가하기 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
+
+        {/* 500 */}
+        <Route path="/500" element={<ServerError />} />
 
         {/* 404 */}
         <Route path="*" element={<NotFoundPage />} />
