@@ -3,12 +3,10 @@ import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
-import StampPage from "@/pages/StampPage/StampPage";
-import AddStampPage from "@/pages/AddStampPage/AddStampPage";
+import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
-import ServerError from "@/pages/ServerError/ServerError";
 
 import LoginPage from "@/pages/LoginPage/LoginPage";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
@@ -19,8 +17,11 @@ import RestaurantStorePage from "@/pages/RestaurantStorePage/RestaurantStorePage
 import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 
 import StartPage from "@/pages/StartPage/StartPage";
+import MyPage from "@/pages/MyPage/MyPage";
 import GuestBook from "@/pages/GuestBook/GuestBook";
 import GroupJoinPage from "@/pages/GroupJoinPage";
+import AddStampPage from "@/pages/AddStampPage";
+import ServerError from "@/pages/ServerError/ServerError";
 
 export default function AppRouter() {
   return (
@@ -45,6 +46,10 @@ export default function AppRouter() {
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<MainPage />} />
+
+        {/* 방명록 페이지 */}
+        <Route path="/guestbook" element={<GuestBook />} />
+        <Route path="/mypage" element={<MyPage />} />
 
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />

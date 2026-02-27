@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-white);
   display: flex;
   flex-direction: column;
 }
@@ -13,6 +13,7 @@
   flex-direction: column;
   gap: 40px;
   padding: 24px;
+  background: var(--bg-primary);
 }
 
 .location {
