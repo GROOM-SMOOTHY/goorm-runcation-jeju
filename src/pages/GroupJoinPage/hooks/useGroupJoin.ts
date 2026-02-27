@@ -1,17 +1,19 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@/store/useUser";
 import { useGroup } from "@/store/useGroup";
 import {
-  getGroupByCode,
   isGroupMember,
   insertGroupMember,
+  isValidGroupCode,
+  getGroup,
 } from "@/services/groupService";
 
 export const CODE_LENGTH = 6;
 
 export default function useGroupJoin() {
   const navigate = useNavigate();
+  const { groupId = "" } = useParams();
   const { id: userId } = useUser((s) => s);
   const setGroup = useGroup((s) => s.setGroup);
 
@@ -32,13 +34,19 @@ export default function useGroupJoin() {
 
     setIsSubmitting(true);
     try {
-      const group = await getGroupByCode(trimmed);
-      if (!group) {
+      const isValid = await isValidGroupCode(groupId, trimmed);
+      if (!isValid) {
         alert("유효하지 않은 인증코드입니다.");
         return;
       }
 
-      const alreadyMember = await isGroupMember(group.id, userId);
+      const group = await getGroup(groupId);
+      if (!group) {
+        alert("그룹을 찾을 수 없습니다.");
+        return;
+      }
+
+      const alreadyMember = await isGroupMember(groupId, userId);
       if (alreadyMember) {
         setGroup(group);
         navigate("/main", { replace: true });
