@@ -7,8 +7,7 @@ import MemberAccountCard, {
 } from "@/components/pages/settlement-main-page/MemberAccountCard/MemberAccountCard";
 import PayHistoryCard from "@/components/pages/settlement-main-page/PayHistoryCard";
 import styles from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage.module.css";
-const GROUP_NAME = '제주 런케이션';
-const TOTAL_EXPENDITURE = 10_000_000;
+import useSettlementMain from "./useSettlementMain";
 
 const MEMBER_ACCOUNTS: MemberAccount[] = [
   {
@@ -53,50 +52,10 @@ const MEMBER_ACCOUNTS: MemberAccount[] = [
   },
 ];
 
-const RECENT_SETTLEMENTS: Array<{
-  id: string;
-  imgUrl: string;
-  title: string;
-  date: string;
-  userName: string;
-  price: number;
-  myPrice?: number;
-  status?: string;
-}> = [
-  {
-    id: "1",
-    imgUrl:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    myPrice: 36250,
-  },
-  {
-    id: "2",
-    imgUrl:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    myPrice: 36250,
-  },
-  {
-    id: "3",
-    imgUrl:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?w=96&h=96&fit=crop",
-    title: "제주 흑돼지 저녁 식사",
-    date: "10월 24일",
-    userName: "김민수",
-    price: 145000,
-    status: "정산 진행 중",
-  },
-];
-
 export default function SettlementMainPage() {
   const navigate = useNavigate();
+
+  const { totalExpenses, group, recentSettlements } = useSettlementMain();
 
   return (
     <div className={styles.page}>
@@ -104,9 +63,9 @@ export default function SettlementMainPage() {
 
       <main className={styles.main}>
         <GroupPaymentStateCard
-          totalAmount={TOTAL_EXPENDITURE}
-          groupName={GROUP_NAME}
-          onAddClick={() => navigate('/settlement/add')}
+          totalAmount={totalExpenses}
+          groupName={group?.name ?? ""}
+          onAddClick={() => navigate("/settlement/add")}
         />
 
         <section className={styles.section}>
@@ -120,22 +79,22 @@ export default function SettlementMainPage() {
             <button
               type="button"
               className={styles.moreLink}
-              onClick={() => navigate('/settlement/list')}
+              onClick={() => navigate("/settlement/list")}
             >
               더보기
             </button>
           </div>
           <div className={styles.historyList}>
-            {RECENT_SETTLEMENTS.map((item) => (
+            {recentSettlements.map((item) => (
               <PayHistoryCard
                 key={item.id}
-                imgUrl={item.imgUrl}
-                title={item.title}
-                date={item.date}
-                userName={item.userName}
-                price={item.price}
-                myPrice={item.myPrice}
-                status={item.status}
+                category={item.expense.category}
+                title={item.expense.payment_title}
+                date={item.expense.expense_date ?? ""}
+                userName={item.payer.nickname ?? ""}
+                price={item.expense.total_amount}
+                myPrice={item.amount ?? 0}
+                status={item.state ?? ""}
               />
             ))}
           </div>
