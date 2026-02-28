@@ -1,36 +1,45 @@
-import type { ReactNode } from 'react';
-import Loading from '@/components/common/Loading/Loading';
-import styles from '@/components/common/Button/Button.module.css';
+import { forwardRef, type ReactNode, type ButtonHTMLAttributes } from "react";
+import Loading from "@/components/common/Loading/Loading";
+import styles from "@/components/common/Button/Button.module.css";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: 'primary' | 'default';
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
-  disabled?: boolean;
+  variant?: "primary" | "default";
   loading?: boolean;
 }
 
-export default function Button({
-  children,
-  variant = 'default',
-  onClick,
-  type = 'button',
-  disabled = false,
-  loading = false,
-}: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={`
-        ${styles.btn}
-        ${styles[variant]}
-        ${loading ? styles.loading : ''}
-      `}
-      onClick={onClick}
-      disabled={disabled || loading}
-    >
-      <span className={styles.content}>{loading ? <Loading /> : children}</span>
-    </button>
-  );
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant = "default",
+      loading = false,
+      className = "",
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        className={`
+          ${styles.btn}
+          ${styles[variant]}
+          ${loading ? styles.loading : ""}
+          ${className}
+        `}
+        disabled={disabled || loading}
+        {...props}
+      >
+        <span className={styles.content}>
+          {loading ? <Loading /> : children}
+        </span>
+      </button>
+    );
+  },
+);
+
+Button.displayName = "Button";
+
+export default Button;
