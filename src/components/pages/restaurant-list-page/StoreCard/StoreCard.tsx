@@ -1,12 +1,13 @@
 import * as React from "react";
 import styles from "@/components/pages/restaurant-list-page/StoreCard/StoreCard.module.css";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaStar } from "react-icons/fa";
 
 export interface StoreCardProps {
   imageUrl: string;
   location: string;
   category: string;
   name: string;
+  rating?: number;
   description: string;
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
@@ -18,6 +19,7 @@ const StoreCard: React.FC<StoreCardProps> = ({
   location,
   category,
   name,
+  rating,
   description,
   isFavorite = false,
   onToggleFavorite,
@@ -41,6 +43,12 @@ const StoreCard: React.FC<StoreCardProps> = ({
       </div>
       <div className={styles.Info}>
         <div className={styles.Tags}>
+          {rating !== undefined && rating > 0 && (
+            <span className={styles.ratingBadge}>
+              <FaStar className={styles.starIcon} />
+              {rating.toFixed(1)}
+            </span>
+          )}
           <span className={styles.Location}>{location}</span>
           <span className={styles.Category}>{category}</span>
         </div>

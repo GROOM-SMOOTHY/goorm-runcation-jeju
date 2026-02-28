@@ -62,17 +62,15 @@
   font-weight: 500;
 }
 
-.Location {
-  color: var(--brand-primary);
-  background-color: var(--badge-bg-orange);
-  padding: 2px 6px;
-  border-radius: 8px;
-}
 
+.Location,
 .Category {
-  color: var(--text-label-strong);
   padding: 4px 8px;
-  border-radius: 6px;
+  background-color: var(--badge-bg-orange, #fff4e6);
+  color: var(--brand-primary, #ff6b6b);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 12px;
 }
 
 .Name {
@@ -86,4 +84,27 @@
   font-size: 12px;
   color: var(--text-tertiary);
   line-height: 1.4;
+}
+
+.tagWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+
+.ratingBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.starIcon {
+  color: #FFB800; 
+  font-size: 14px;
+  margin-top: -2px;
 }

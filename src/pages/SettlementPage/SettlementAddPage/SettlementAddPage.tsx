@@ -130,11 +130,14 @@ export default function SettlementAddPage() {
       addToast("정산 완료", `${title} 내역이 저장되었습니다.`, "success");
 
       setAmount(0);
-      navigate("/settlement");
-    } catch (err: any) {
-      console.error("데이터 저장 실패:", err.message);
+      navigate(-1);
+    } catch (err) {
+      const error = err as Error;
+      console.error("데이터 저장 실패:", error.message);
       addToast("저장 실패", "데이터 저장 중 에러가 발생했습니다.", "error");
     }
+
+    console.log(amount, title, category, members, date, user);
   };
 
   return (

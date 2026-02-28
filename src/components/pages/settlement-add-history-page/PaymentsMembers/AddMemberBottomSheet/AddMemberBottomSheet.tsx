@@ -3,9 +3,15 @@ import styles from "./AddMemberBottomSheet.module.css";
 import { IoMdClose } from "react-icons/io";
 import Button from "@/components/common/Button/Button";
 import { useGroup } from "@/store/useGroup";
-import { supabase } from "@/lib/supabase";
 import defaultProfile from "@/assets/default-profile.png";
-import type { Member } from "../PaymentsMembers";
+import { getGroupMembersWithUsers } from "@/services/groupMembersService";
+
+export interface Member {
+  id: string;
+  userId: string;
+  name: string;
+  profileSrc: string | null;
+}
 
 interface AddMemberBottomSheetProps {
   onClose: () => void;
@@ -33,37 +39,16 @@ export default function AddMemberBottomSheet({
   useEffect(() => {
     if (!group?.id) return;
 
-    const fetchMembers = async () => {
-      const { data, error } = await supabase
-        .from("group_members")
-        .select(
-          `
-                    user_id,
-                    users (
-                        id,
-                        nickname,
-                        profile
-                    )
-                `,
-        )
-        .eq("group_id", group.id);
-
-      if (error) {
-        console.error("그룹 멤버 불러오기 실패:", error.message);
-        return;
-      }
-
-      const formatted: Member[] = data.map((item: any) => ({
-        id: item.users.id,
-        userId: item.users.id,
-        name: item.users.nickname,
-        profileSrc: item.users.profile,
+    getGroupMembersWithUsers(group.id).then((groupMembers) => {
+      const formattedMembers: Member[] = groupMembers.map((groupMember) => ({
+        id: groupMember.id,
+        userId: groupMember.user_id,
+        name: groupMember.user.nickname || "",
+        profileSrc: groupMember.user.profile,
       }));
 
-      setMembers(formatted);
-    };
-
-    fetchMembers();
+      setMembers(formattedMembers);
+    });
   }, [group?.id]);
 
   const toggleMember = (member: Member) => {
