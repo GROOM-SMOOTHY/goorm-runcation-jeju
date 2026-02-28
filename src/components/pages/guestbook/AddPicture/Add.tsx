@@ -3,8 +3,12 @@ import { MdAddAPhoto } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { useRef, useState, useEffect } from "react";
 
+interface AddFile {
+  url: string;
+  file: File;
+}
 interface AddProps {
-  onAdd: (data: { url: string; file: File }) => void;
+  onAdd: (data: AddFile) => void;
 }
 
 export default function Add({ onAdd }: AddProps) {
