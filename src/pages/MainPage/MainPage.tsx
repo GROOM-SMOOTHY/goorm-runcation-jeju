@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header/Header";
 import styles from "./styles.module.css";
 import TypeBadge from "@/components/common/TypeBadge/TypeBadge";
-import GruopCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
+import GroupCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
 import PendingSettlementPanel from "@/components/pages/main-page/PendingSettlementPanel";
 import WeatherPanel from "@/components/pages/main-page/WeatherPanel";
 import MainShortcutCard from "@/components/pages/main-page/MainShortcutCard";
@@ -9,7 +9,7 @@ import GuestBookCard from "@/components/pages/main-page/GuestBookCard";
 import { useNavigate } from "react-router-dom";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import { useGroup } from "@/store";
-import { fetchCurrentWeather } from "@/api/Weather";
+import { fetchCurrentWeather } from "@/api/weather";
 import { useEffect, useState } from "react";
 
 const imageSrc =
@@ -55,7 +55,7 @@ export default function MainPage() {
           </div>
           <div className={styles.groupInfoWrap}>
             <span className={styles.title}>어디로 놀러갈까?</span>
-            <GruopCodeDisplay code={group?.code || ""} />
+            <GroupCodeDisplay code={group?.code || ""} />
           </div>
         </div>
 
@@ -71,7 +71,9 @@ export default function MainPage() {
 
         <div className={styles.noticeContainer}>
           <PendingSettlementPanel count={10} />
-          <WeatherPanel degree={degree ?? 0} weather={weather} />
+          {degree && weather !== "로딩중" && (
+            <WeatherPanel degree={degree} weather={weather} />
+          )}
         </div>
 
         <div className={styles.shortcutContainer}>
@@ -82,8 +84,7 @@ export default function MainPage() {
               title={
                 <>
                   지역별
-                  <br />
-                  맛집 탐방
+                  <br />D 맛집 탐방
                 </>
               }
               onClick={() => {
