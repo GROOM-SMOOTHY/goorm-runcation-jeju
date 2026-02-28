@@ -64,7 +64,7 @@ export default function AddStampPicture({
   }, [upload]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onCircleClick}>
       <div className={styles.column}>
         {upload ? (
           <div className={styles.imageContainer}>
@@ -72,7 +72,7 @@ export default function AddStampPicture({
             <IoMdClose onClick={onRemoveImage} className={styles.cancelIcon} />
           </div>
         ) : (
-          <div className={styles.circle} onClick={onCircleClick}>
+          <div className={styles.circle}>
             <div className={styles.icon}>
               <PiCameraPlusBold />
             </div>
