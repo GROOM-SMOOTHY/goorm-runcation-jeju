@@ -2,35 +2,35 @@
   width: 100%;
   min-height: 100vh;
   padding: 24px;
+
   background-image: url(../../assets/SignUpBackground.png);
   background-size: cover;
   background-position: center;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative;
+  justify-content: space-between;
+  overflow-y: auto;
 }
 
 .header {
-  width: 100%;
-  gap: 16px;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 16px;
   text-align: center;
-  margin-top: calc(60px - 24px);
 }
 
 .up {
-  width: 100%;
-  gap: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 12px;
 }
 
 .down {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,38 +38,38 @@
 }
 
 .logo {
+  width: 72px;
+  height: auto;
   object-fit: cover;
 }
 
 .logoName {
   font-size: 20px;
   font-weight: 700;
-  line-height: 28px;
   letter-spacing: 4px;
   color: var(--brand-primary);
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
-  line-height: 36px;
-  letter-spacing: -0.75px;
+  line-height: 32px;
   color: var(--text-primary);
 }
 
 .desc {
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 14px;
+  line-height: 22px;
   color: var(--text-secondary);
 }
 
 .main {
-  margin-top: 60px;
+  flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
   gap: 16px;
+  width: 100%;
 }
 
 .checkBox {
@@ -79,7 +79,7 @@
   gap: 8px;
 
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 18px;
   color: var(--text-primary);
 
@@ -88,14 +88,10 @@
 
 .checkBox input {
   appearance: none;
-  -webkit-appearance: none;
-
   width: 16px;
   height: 16px;
-
   border-radius: 50%;
   border: 1.5px solid var(--bg-white);
-
   position: relative;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -109,35 +105,29 @@
 .checkBox input:checked::after {
   content: "";
   position: absolute;
-
   width: 4px;
   height: 8px;
-
   border: solid var(--bg-white);
   border-width: 0 2px 2px 0;
-
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -60%) rotate(45deg);
 }
 
 .footer {
-  position: absolute;
-  bottom: 48px;
-  width: 100%;
-  gap: 24px;
-  padding: 0px 24px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  width: 100%;
 }
 
 .front {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-white);
+  text-align: center;
 }
 
 .front a {
