@@ -5,12 +5,12 @@ import GroupCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
 import PendingSettlementPanel from "@/components/pages/main-page/PendingSettlementPanel";
 import WeatherPanel from "@/components/pages/main-page/WeatherPanel";
 import MainShortcutCard from "@/components/pages/main-page/MainShortcutCard";
-import GuestBookCard from "@/components/pages/main-page/GuestBookCard";
 import { useNavigate } from "react-router-dom";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import { useGroup } from "@/store";
 import { fetchCurrentWeather } from "@/api/weather";
 import { useEffect, useState } from "react";
+import GuestBookList from "@/components/pages/main-page/GuestBookList";
 
 const imageSrc =
   "https://res.klook.com/image/upload/fl_lossy.progressive,q_60/Mobile/City/rbijqoq1b491jsbcnnoe.jpg";
@@ -107,39 +107,7 @@ export default function MainPage() {
           </div>
         </div>
 
-        <div className={styles.guestbookContainer}>
-          <span className={styles.label}>방명록</span>
-          <div className={styles.guestbookList}>
-            <GuestBookCard
-              title="김나영님"
-              description="레전드 맛집있음 꼭 가는거 추천합니다~~"
-              image={imageSrc}
-              course="FRONTEND"
-              generation={7}
-            />
-            <GuestBookCard
-              title="김나영님"
-              description="레전드 맛집있음 꼭 가는거 추천합니다~~"
-              image={imageSrc}
-              course="FRONTEND"
-              generation={7}
-            />
-            <GuestBookCard
-              title="김나영님"
-              description="레전드 맛집있음 꼭 가는거 추천합니다~~"
-              image={imageSrc}
-              course="FRONTEND"
-              generation={7}
-            />
-            <GuestBookCard
-              title="김나영님"
-              description="레전드 맛집있음 꼭 가는거 추천합니다~~"
-              image={imageSrc}
-              course="FRONTEND"
-              generation={7}
-            />
-          </div>
-        </div>
+        <GuestBookList />
       </div>
 
       <BottomNavigation />
