@@ -34,6 +34,8 @@ export default function Stamp() {
   );
   const progress = (boundedStamp / TOTAL_STAMP_LENGTH) * 100;
 
+  const leftStamp = TOTAL_STAMP_LENGTH - boundedStamp;
+
   const { id: userId } = useUser();
 
   useEffect(() => {
@@ -63,7 +65,9 @@ export default function Stamp() {
           <Progress progress={progress} />
           <div>
             <p className={styles.bottom}>
-              {TOTAL_STAMP_LENGTH - boundedStamp}개의 장소가 남았어요{" "}
+              {leftStamp === 0
+                ? "🏆 모든 도장을 다 모았어요"
+                : `${leftStamp}개의 장소가 남았어요`}
             </p>
           </div>
         </div>
