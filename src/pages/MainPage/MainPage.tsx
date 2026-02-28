@@ -9,6 +9,8 @@ import GuestBookCard from "@/components/pages/main-page/GuestBookCard";
 import { useNavigate } from "react-router-dom";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import { useGroup } from "@/store";
+import { fetchCurrentWeather } from "@/api/Weather";
+import { useEffect, useState } from "react";
 
 const imageSrc =
   "https://res.klook.com/image/upload/fl_lossy.progressive,q_60/Mobile/City/rbijqoq1b491jsbcnnoe.jpg";
@@ -16,6 +18,29 @@ const imageSrc =
 export default function MainPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
+
+  const [weather, setWeather] = useState("로딩중");
+  const [degree, setDegree] = useState<number | null>(null);
+
+  useEffect(() => {
+    const loadWeather = async () => {
+      try {
+        const lat = 33.4996;
+        const lon = 126.5312;
+
+        const result = await fetchCurrentWeather(lat, lon);
+
+        setWeather(result.description);
+        setDegree(result.temp);
+      } catch (error) {
+        console.log(error);
+        setWeather("정보 없음");
+        setDegree(null);
+      }
+    };
+    loadWeather();
+  }, []);
+
   return (
     <>
       <Header title="메인" />
@@ -37,14 +62,16 @@ export default function MainPage() {
         <div className={styles.imageWrapper}>
           <img src={imageSrc} alt="메인 이미지" />
           <div className={styles.imageOverlay}>
-            <span className={styles.todayWeather}>오늘의 날씨</span>
-            <span className={styles.todayWeatherValue}>맑음 20°C</span>
+            <span className={styles.todayWeather}>오늘 제주도 날씨</span>
+            <span className={styles.todayWeatherValue}>
+              {weather} {degree !== null ? `${degree}°C` : ""}
+            </span>
           </div>
         </div>
 
         <div className={styles.noticeContainer}>
           <PendingSettlementPanel count={10} />
-          <WeatherPanel degree={20} weather="맑음" />
+          <WeatherPanel degree={degree ?? 0} weather={weather} />
         </div>
 
         <div className={styles.shortcutContainer}>
