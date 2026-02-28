@@ -1,10 +1,14 @@
 import styles from "@/components/pages/guestbook/AddPicture/Add.module.css";
 import { MdAddAPhoto } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
+interface AddFile {
+  url: string;
+  file: File;
+}
 interface AddProps {
-  onAdd: (url: string) => void;
+  onAdd: (data: AddFile) => void;
 }
 
 export default function Add({ onAdd }: AddProps) {
@@ -27,34 +31,22 @@ export default function Add({ onAdd }: AddProps) {
 
     const imgUrl = URL.createObjectURL(file);
     setUpload(imgUrl);
-    onAdd(imgUrl);
+    onAdd({
+      url: imgUrl,
+      file: file,
+    });
   };
 
   const onCircleClick = () => {
     inputRef.current?.click();
   };
 
-  const onRemoveImage = () => {
-    if (upload) {
-      URL.revokeObjectURL(upload);
-    }
-    setUpload(null);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (upload) {
-        URL.revokeObjectURL(upload);
-      }
-    };
-  }, [upload]);
-
   return (
     <div className={styles.container}>
       {upload ? (
         <>
           <img src={upload} alt="preview" className={styles.preview} />
-          <IoMdClose onClick={onRemoveImage} className={styles.cancelIcon} />
+          <IoMdClose className={styles.cancelIcon} />
         </>
       ) : (
         <div className={styles.addPicture} onClick={onCircleClick}>

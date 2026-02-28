@@ -179,7 +179,7 @@ export default function SettlementAddPage() {
         </div>
       </div>
       <div className={styles.buttonContainer}>
-        <Button type="button" onClick={handleAddSettlement}>
+        <Button variant="primary" type="button" onClick={handleAddSettlement}>
           정산 내역 추가하기
         </Button>
       </div>

@@ -62,14 +62,25 @@ const Input: React.FC<InputProps> = ({
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
+  const phoneNumber = (value: string) => {
+    const numbers = value.replace(/\D/g, "").slice(0, 11);
+
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) {
+      return numbers.replace(/(\d{3})(\d+)/, "$1-$2");
+    }
+
+    return numbers.replace(/(\d{3})(\d{4})(\d+)/, "$1-$2-$3");
+  };
+
   return (
     <Form.Root className={styles.Root}>
       <Form.Field className={styles.Field} name={name}>
-        {label &&
+        {label && (
           <div className={styles.LabelWrapper}>
             <Form.Label className={styles.Label}>{label}</Form.Label>
           </div>
-        }
+        )}
 
         {variant === "auth" ? (
           <div className={styles.AuthContainer}>
@@ -83,7 +94,6 @@ const Input: React.FC<InputProps> = ({
                 placeholder={placeholder}
               />
             </Form.Control>
-
 
             <Form.Message className={styles.Message} match="valueMissing">
               {label}을 입력해주세요
@@ -110,9 +120,7 @@ const Input: React.FC<InputProps> = ({
                 >
                   인증요청 다시보내기
                 </span>
-                <span className={styles.TimerText}>
-                  {formatTime(timeLeft)}
-                </span>
+                <span className={styles.TimerText}>{formatTime(timeLeft)}</span>
               </div>
             )}
           </div>
@@ -122,14 +130,20 @@ const Input: React.FC<InputProps> = ({
               className={styles.Input}
               type={type}
               value={value}
-              onChange={(e) => onChange?.(e.target.value)}
+              onChange={(e) => {
+                const inputValue = e.target.value;
+
+                if (type === "tel") {
+                  onChange?.(phoneNumber(inputValue));
+                } else {
+                  onChange?.(inputValue);
+                }
+              }}
               required={required}
               placeholder={placeholder}
             />
           </Form.Control>
         )}
-
-
       </Form.Field>
     </Form.Root>
   );

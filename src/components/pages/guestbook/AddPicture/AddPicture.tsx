@@ -2,9 +2,13 @@ import styles from "@/components/pages/guestbook/AddPicture/AddPicture.module.cs
 import Add from "@/components/pages/guestbook/AddPicture/Add";
 import { IoMdClose } from "react-icons/io";
 
+interface AddFile {
+  url: string;
+  file: File;
+}
 interface AddPictureProps {
   images: string[];
-  onAdd: (url: string) => void;
+  onAdd: (data: AddFile) => void;
   onRemove: (index: number) => void;
 }
 
