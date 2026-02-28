@@ -2,7 +2,6 @@ import { useBottomSheet } from "@/components/common/BottomSheet";
 import { IoMdClose } from "react-icons/io";
 import JoinCourseItem from "../JoinCourseItem";
 import styles from "./JoinGroupBottomSheet.module.css";
-
 import useJoinGroupSheet from "./useJoinGroupSheet";
 
 interface SheetContentProps {

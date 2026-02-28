@@ -3,8 +3,15 @@ import PaymentMemberChips from "./PaymentsMemberChips";
 import styles from "./PaymentsMembers.module.css";
 import { useBottomSheet } from "@/components/common/BottomSheet";
 import AddMemberBottomSheet from "./AddMemberBottomSheet/AddMemberBottomSheet";
-import type { Member } from "./data";
+import defaultProfile from "@/assets/default-profile.png";
 
+
+export interface Member {
+    id: string;
+    userId: string;
+    name: string;
+    profileSrc: string | null;
+}
 
 interface Props {
     selectedMembers?: Member[];
@@ -12,7 +19,7 @@ interface Props {
 }
 
 function isSameMember(a: Member, b: Member) {
-    return a.userId === b.userId
+    return a.userId === b.userId;
 }
 
 export default function PaymentsMembers({ selectedMembers = [], onChangeMembers }: Props) {
@@ -47,8 +54,8 @@ export default function PaymentsMembers({ selectedMembers = [], onChangeMembers 
             <div className={styles.members}>
                 {selectedMembers.map((member) => (
                     <PaymentMemberChips
-                        key={`${member.name}-${member.profileSrc}`}
-                        profileSrc={member.profileSrc}
+                        key={member.userId}
+                        profileSrc={member.profileSrc || defaultProfile}
                         name={member.name}
                         onClose={() => handleRemoveMember(member)}
                     />
@@ -62,4 +69,3 @@ export default function PaymentsMembers({ selectedMembers = [], onChangeMembers 
         </div>
     );
 }
-
