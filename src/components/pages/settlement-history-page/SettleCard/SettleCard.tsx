@@ -20,7 +20,7 @@ export interface SettlementMember {
 }
 
 export interface SettleCardProps {
-  expenseId: string; // 👈 추가
+  expenseId: string;
   title: string;
   date: string;
   totalMemberCount: number;
