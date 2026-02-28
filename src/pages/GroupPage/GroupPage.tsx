@@ -2,64 +2,23 @@ import Header from "@/components/layout/Header/Header";
 import styles from "./styles.module.css";
 import GroupCardButton from "@/components/pages/group-list-page/GroupCardButton/GroupCardButton";
 import JoinCourseItem from "@/components/pages/group-list-page/JoinCourseItem";
-import { useCallback, useEffect, useState } from "react";
 import CreateGroupModal from "@/components/pages/group-list-page/CreateGroupModal/CreateGroupModal";
-import { useBottomSheet } from "@/components/common/BottomSheet";
-import { SheetContent } from "@/components/pages/group-list-page/JoinGroupBottomSheet/JoinGroupBottomSheet";
 import { useUser } from "@/store/useUser";
-import { getGroupList } from "@/services/groupService";
-import type { Tables } from "@/types/supabase";
-
-const PAGE_SIZE = 10;
+import { useNavigate } from "react-router-dom";
+import { useGroupPage } from "./useGroupPage";
 
 export default function GroupPage() {
-  const [openCreateGroupModal, setOpenCreateGroupModal] =
-    useState<boolean>(false);
-  const [groups, setGroups] = useState<Tables<"groups">[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   const user = useUser((s) => s.data);
 
-  const { open: openJoinGroupBottomSheet, BottomSheet } = useBottomSheet({
-    content: ({ close }) => <SheetContent onClose={close} />,
-  });
-
-  const fetchGroups = useCallback(
-    async (nextPage: number) => {
-      if (isLoading) return;
-
-      try {
-        setIsLoading(true);
-        const dataList = await getGroupList({
-          page: nextPage,
-          limit: PAGE_SIZE,
-        });
-
-        if (!dataList || dataList.length === 0) {
-          return;
-        }
-
-        setGroups((prev) => [...prev, ...dataList]);
-      } catch (error) {
-        console.error("그룹 목록 조회 실패:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [isLoading],
-  );
-
-  useEffect(() => {
-    fetchGroups(1);
-  }, []);
-
-  const handleCreateGroup = () => {
-    setOpenCreateGroupModal(true);
-  };
-
-  const handleJoinGroup = () => {
-    openJoinGroupBottomSheet();
-  };
+  const {
+    groups,
+    openCreateGroupModal,
+    handleCreateGroup,
+    handleJoinGroup,
+    closeCreateGroupModal,
+    BottomSheet,
+  } = useGroupPage();
 
   return (
     <>
@@ -101,17 +60,16 @@ export default function GroupPage() {
                 course={group.course}
                 participants={0}
                 generation={group.batch ?? 1}
-                onClick={() => {}}
+                onClick={() => navigate(`/group/join/${group.id}`)}
               />
             ))}
-            {/* <div ref={loaderRef} className={styles.loader}></div> */}
           </div>
         </div>
       </div>
 
       <CreateGroupModal
         open={openCreateGroupModal}
-        onClose={() => setOpenCreateGroupModal(false)}
+        onClose={closeCreateGroupModal}
       />
       <BottomSheet />
     </>
