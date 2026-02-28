@@ -6,7 +6,7 @@ import Button from "@/components/common/Button/Button";
 import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import Input from "@/components/common/Input/Input";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,11 @@ export default function MyPage() {
   const navigate = useNavigate();
 
   const onClick = async () => {
+    if (!userId) {
+      alert("로그인이 필요합니다");
+      return;
+    }
+
     if (!isValid) {
       alert("모든 정보를 입력해주세요");
       return;
