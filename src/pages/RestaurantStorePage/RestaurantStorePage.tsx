@@ -186,7 +186,8 @@ export default function RestaurantStorePage() {
       <main className={styles.container}>
         <section
           className={styles.hero}
-          style={{ backgroundImage: `url(${store.imageUrl})` }}
+          style={{ background: `url(${store.imageUrl}) no-repeat center center / cover`,
+}}
         >
           <div className={styles.heroOverlay} />
           <div className={styles.heroTitleWrap}>
