@@ -2,19 +2,10 @@ import { useBottomSheet } from "@/components/common/BottomSheet";
 import { IoMdClose } from "react-icons/io";
 import JoinCourseItem from "../JoinCourseItem";
 import styles from "./JoinGroupBottomSheet.module.css";
-import type { CourseTypeKey } from "@/components/common/TypeBadge/TypeBadge";
 import useJoinGroupSheet from "./useJoinGroupSheet";
 
 interface SheetContentProps {
   onClose: () => void;
-}
-
-// TODO: course 값을 enum으로 관리해야할 듯
-function mapCourseToTypeKey(course: string | null): CourseTypeKey {
-  if (course === "FRONTEND" || course === "BACKEND" || course === "DESIGN") {
-    return course;
-  }
-  return "DEFAULT";
 }
 
 export function SheetContent({ onClose }: SheetContentProps) {
@@ -37,7 +28,7 @@ export function SheetContent({ onClose }: SheetContentProps) {
         {groups.map((group) => (
           <JoinCourseItem
             key={group.id}
-            title={mapCourseToTypeKey(group.course)}
+            course={group.course}
             participants={0}
             generation={group.batch ?? 1}
             onClick={() => handleJoinGroup(group)}

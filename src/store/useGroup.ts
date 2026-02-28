@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { Tables } from "@/types/supabase";
 import { persist } from "zustand/middleware";
+import type { Tables } from "@/types/supabase";
 
 export type GroupState = Tables<"groups"> | null;
 
@@ -19,7 +19,6 @@ export const useGroup = create<UseGroupState>()(
     }),
     {
       name: "group-storage",
-      partialize: (state) => ({ group: state.group }),
-    },
-  ),
+    }
+  )
 );
