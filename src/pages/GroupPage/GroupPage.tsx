@@ -58,8 +58,9 @@ export default function GroupPage() {
               <JoinCourseItem
                 key={group.id}
                 course={group.course}
-                participants={0}
+                participants={group.members?.length}
                 generation={group.batch ?? 1}
+                members={group.members}
                 onClick={() => navigate(`/group/join/${group.id}`)}
               />
             ))}
