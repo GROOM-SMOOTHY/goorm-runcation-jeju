@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 
 interface AddPictureProps {
   images: string[];
-  onAdd: (url: string) => void;
+  onAdd: (data: { url: string; file: File }) => void;
   onRemove: (index: number) => void;
 }
 
