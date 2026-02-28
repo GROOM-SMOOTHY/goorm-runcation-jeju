@@ -6,9 +6,10 @@ import Button from "@/components/common/Button/Button";
 import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import Input from "@/components/common/Input/Input";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
+import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
   const [name, setName] = useState("");
@@ -16,7 +17,6 @@ export default function MyPage() {
   const [bank, setBank] = useState("");
   const [account, setAccount] = useState("");
   const [depositor, setDepositor] = useState("");
-  const { id: userId } = useUser();
 
   const isValid =
     name.trim() &&
@@ -24,6 +24,9 @@ export default function MyPage() {
     bank.trim() &&
     account.trim() &&
     depositor.trim();
+
+  const { id: userId } = useUser();
+  const navigate = useNavigate();
 
   const onClick = async () => {
     if (!isValid) {
@@ -70,11 +73,13 @@ export default function MyPage() {
       if (accountError) throw accountError;
 
       alert("저장되었습니다!");
+      navigate(-1);
     } catch (err) {
       console.error(err);
       alert("저장 중 오류가 발생했습니다.");
     }
   };
+
   return (
     <div className={styles.container}>
       <Header title="마이페이지" />
