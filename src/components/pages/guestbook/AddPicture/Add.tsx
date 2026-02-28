@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { useRef, useState, useEffect } from "react";
 
 interface AddProps {
-  onAdd: (url: string) => void;
+  onAdd: (data: { url: string; file: File }) => void;
 }
 
 export default function Add({ onAdd }: AddProps) {
@@ -27,7 +27,10 @@ export default function Add({ onAdd }: AddProps) {
 
     const imgUrl = URL.createObjectURL(file);
     setUpload(imgUrl);
-    onAdd(imgUrl);
+    onAdd({
+      url: imgUrl,
+      file: file,
+    });
   };
 
   const onCircleClick = () => {
