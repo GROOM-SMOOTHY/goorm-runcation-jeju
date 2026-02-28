@@ -7,7 +7,8 @@ import StampPage from "@/pages/StampPage";
 import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
-
+import ServerError from "@/pages/ServerError/ServerError";
+import GroupJoinPage from "@/pages/GroupJoinPage";
 import LoginPage from "@/pages/LoginPage/LoginPage";
 import SettlementMainPage from "@/pages/SettlementPage/SettlementMainPage/SettlementMainPage";
 import SettlementAddPage from "@/pages/SettlementPage/SettlementAddPage/SettlementAddPage";
@@ -19,9 +20,7 @@ import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 import StartPage from "@/pages/StartPage/StartPage";
 import MyPage from "@/pages/MyPage/MyPage";
 import GuestBook from "@/pages/GuestBook/GuestBook";
-import GroupJoinPage from "@/pages/GroupJoinPage";
 import AddStampPage from "@/pages/AddStampPage";
-import ServerError from "@/pages/ServerError/ServerError";
 
 export default function AppRouter() {
   return (

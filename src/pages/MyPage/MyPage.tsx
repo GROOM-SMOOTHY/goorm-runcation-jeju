@@ -1,33 +1,79 @@
-import styles from '@/pages/MyPage/MyPage.module.css';
-import Header from '@/components/layout/Header/Header';
-import MyProfilePicture from '@/components/pages/Mypage/MyProfilePicture/MyProfilePicture';
-import TipBox from '@/components/pages/Mypage/TipBox/TipBox';
-import Button from '@/components/common/Button/Button';
-import ButtonNavigation from '@/components/common/BottomNavigation/BottomNavigation';
+import styles from "@/pages/MyPage/MyPage.module.css";
+import Header from "@/components/layout/Header/Header";
+import MyProfilePicture from "@/components/pages/Mypage/MyProfilePicture/MyProfilePicture";
+import TipBox from "@/components/pages/Mypage/TipBox/TipBox";
+import Button from "@/components/common/Button/Button";
+import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigation";
+import Input from "@/components/common/Input/Input";
 
-import { useState } from 'react';
-import Input from '@/components/common/Input/Input';
+import { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { useUser } from "@/store";
 
 export default function MyPage() {
-  const [name, setName] = useState('');
-  const [tel, setTel] = useState('');
-  const [bank, setBank] = useState('');
-  const [account, setAccount] = useState('');
-  const [depositor, setDepositor] = useState('');
+  const [name, setName] = useState("");
+  const [tel, setTel] = useState("");
+  const [bank, setBank] = useState("");
+  const [account, setAccount] = useState("");
+  const [depositor, setDepositor] = useState("");
+  const { id: userId } = useUser();
 
-  const isVaild =
+  const isValid =
     name.trim() &&
     tel.trim() &&
     bank.trim() &&
     account.trim() &&
     depositor.trim();
 
-  const onClick = () => {
-    if (!isVaild) {
-      alert('모든 정보를 입력해주세요!');
+  const onClick = async () => {
+    if (!isValid) {
+      alert("모든 정보를 입력해주세요");
       return;
     }
-    alert('저장되었습니다!');
+    try {
+      const { error: userError } = await supabase
+        .from("users")
+        .update({
+          nickname: name,
+          phone: tel,
+          updated_at: new Date(),
+        })
+        .eq("id", userId);
+
+      if (userError) throw userError;
+
+      const { data: member, error: memberError } = await supabase
+        .from("group_members")
+        .select("group_id")
+        .eq("user_id", userId)
+        .order("joined_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (memberError || !member) {
+        alert("그룹 정보를 찾을 수 없습니다");
+        return;
+      }
+
+      const currentGroupId = member.group_id;
+
+      const { error: accountError } = await supabase
+        .from("account_infos")
+        .upsert({
+          user_id: userId,
+          group_id: currentGroupId,
+          bank_name: bank,
+          account_number: account,
+          account_holder: depositor,
+        });
+
+      if (accountError) throw accountError;
+
+      alert("저장되었습니다!");
+    } catch (err) {
+      console.error(err);
+      alert("저장 중 오류가 발생했습니다.");
+    }
   };
   return (
     <div className={styles.container}>
