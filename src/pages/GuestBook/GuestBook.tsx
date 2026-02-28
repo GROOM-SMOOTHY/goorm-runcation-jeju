@@ -10,10 +10,14 @@ import { uploadImage } from "@/utils/supabase/storage";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 
+import Overlay from "@/assets/Overlay.png";
+
 export default function GuestBook() {
   const [images, setImages] = useState<string[]>([]);
   const [content, setContent] = useState("");
   const [files, setFiles] = useState<File[]>([]);
+
+  const { id: userId } = useUser();
 
   const onAdd = (data: { url: string; file: File }) => {
     if (files.length >= 4) return;
@@ -22,17 +26,27 @@ export default function GuestBook() {
   };
 
   const onRemove = (index: number) => {
+    const targetUrl = images[index];
+
+    if (targetUrl) {
+      URL.revokeObjectURL(targetUrl);
+    }
+
     setImages((prev) => prev.filter((_, i) => i !== index));
     setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const { id: userId } = useUser();
-
   const onClick = async () => {
+    if (!userId) {
+      alert("로그인이 필요합니다");
+      return;
+    }
+
     if (files.length === 0) {
       alert("사진을 최소 1장 이상 첨부해주세요");
       return;
     }
+
     if (content.trim() === "") {
       alert("내용을 입력해주세요");
       return;
@@ -51,6 +65,7 @@ export default function GuestBook() {
       }
 
       const currentGroupId = member.group_id;
+
       const { data: post, error: postError } = await supabase
         .from("guestbook_posts")
         .insert({
@@ -61,13 +76,19 @@ export default function GuestBook() {
         .select()
         .single();
 
-      if (postError) throw postError;
+      if (postError || !post) throw postError;
 
       const uploadUrls = await Promise.all(
         files.map((file) => uploadImage("images", file)),
       );
 
-      const validUrls = uploadUrls.filter((url): url is string => url !== null);
+      if (uploadUrls.some((url) => url === null)) {
+        await supabase.from("guestbook_posts").delete().eq("id", post.id);
+
+        throw new Error("일부 이미지 업로드에 실패했습니다.");
+      }
+
+      const validUrls = uploadUrls as string[];
 
       const photoRows = validUrls.map((url, index) => ({
         image_url: url,
@@ -80,9 +101,15 @@ export default function GuestBook() {
         .from("photos")
         .insert(photoRows);
 
-      if (photoError) throw photoError;
+      if (photoError) {
+        // photos 저장 실패 시 게시글 롤백
+        await supabase.from("guestbook_posts").delete().eq("id", post.id);
+
+        throw photoError;
+      }
 
       alert("방명록이 등록되었습니다");
+
       setImages([]);
       setFiles([]);
       setContent("");
@@ -95,10 +122,11 @@ export default function GuestBook() {
   return (
     <div className={styles.container}>
       <Header title="방명록" />
+
       <div className={styles.box}>
         <div className={styles.location}>
           <div className={styles.img}>
-            <img src="/src/assets/Overlay.png" />
+            <img src={Overlay} alt="overlay" />
           </div>
         </div>
 
