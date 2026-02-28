@@ -7,10 +7,11 @@ import WeatherPanel from "@/components/pages/main-page/WeatherPanel";
 import MainShortcutCard from "@/components/pages/main-page/MainShortcutCard";
 import { useNavigate } from "react-router-dom";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
-import { useGroup } from "@/store";
+import { useGroup, useUser } from "@/store";
 import { fetchCurrentWeather } from "@/api/weather";
 import { useEffect, useState } from "react";
 import GuestBookList from "@/components/pages/main-page/GuestBookList";
+import { getMyPendingSettlementCount } from "@/services/expenseParticipantsService";
 
 const imageSrc =
   "https://res.klook.com/image/upload/fl_lossy.progressive,q_60/Mobile/City/rbijqoq1b491jsbcnnoe.jpg";
@@ -18,9 +19,17 @@ const imageSrc =
 export default function MainPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
+  const { id: userId } = useUser();
 
   const [weather, setWeather] = useState("로딩중");
   const [degree, setDegree] = useState<number | null>(null);
+  const [pendingSettlementCount, setPendingSettlementCount] = useState(0);
+
+  useEffect(() => {
+    getMyPendingSettlementCount(userId).then((count) => {
+      setPendingSettlementCount(count);
+    });
+  }, [userId]);
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -70,7 +79,7 @@ export default function MainPage() {
         </div>
 
         <div className={styles.noticeContainer}>
-          <PendingSettlementPanel count={10} />
+          <PendingSettlementPanel count={pendingSettlementCount} />
           {degree && weather !== "로딩중" && (
             <WeatherPanel degree={degree} weather={weather} />
           )}
