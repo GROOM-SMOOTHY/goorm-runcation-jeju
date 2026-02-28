@@ -84,7 +84,8 @@ export default function MainPage() {
               title={
                 <>
                   지역별
-                  <br />D 맛집 탐방
+                  <br />
+                  맛집 탐방
                 </>
               }
               onClick={() => {
