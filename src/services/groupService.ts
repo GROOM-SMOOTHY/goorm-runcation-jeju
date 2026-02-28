@@ -6,19 +6,13 @@ type GroupsInsert = TablesInsert<"groups">;
 type GroupMembersInsert = TablesInsert<"group_members">;
 type MemberRole = Enums<"member_role">;
 
-interface GroupListParams {
-  page: number;
-  limit: number;
-}
+// interface GroupListParams {
+//   page: number;
+//   limit: number;
+// }
 
-export async function getGroupList({
-  page,
-  limit,
-}: GroupListParams): Promise<GroupsRow[]> {
-  const { data, error } = await supabase
-    .from("groups")
-    .select("*")
-    .range((page - 1) * limit, page * limit - 1);
+export async function getGroupList(): Promise<GroupsRow[]> {
+  const { data, error } = await supabase.from("groups").select("*");
 
   if (error) {
     throw new Error(error.message);
@@ -27,11 +21,7 @@ export async function getGroupList({
   return data;
 }
 
-export async function getGroup(groupId: string): Promise<GroupsRow | null> {
-  if (!groupId) {
-    return null;
-  }
-
+export async function getGroup(groupId: string): Promise<GroupsRow> {
   const { data, error } = await supabase
     .from("groups")
     .select("*")
@@ -40,6 +30,57 @@ export async function getGroup(groupId: string): Promise<GroupsRow | null> {
 
   if (error) {
     throw new Error(error.message);
+  }
+
+  return data;
+}
+
+/**
+ * 그룹 목록 조회 (그룹 멤버 포함)
+ */
+export type GroupWithMembers = GroupsRow & {
+  members: (Tables<"group_members"> & { user: Tables<"users"> })[];
+};
+export async function getGroupListWithMembers(): Promise<GroupWithMembers[]> {
+  const { data: group, error: groupError } = await supabase
+    .from("groups")
+    .select("*");
+
+  if (groupError || !group) {
+    throw new Error(groupError?.message ?? "그룹 조회 실패");
+  }
+
+  const { data: members, error: membersError } = await supabase
+    .from("group_members")
+    .select("*, user:user_id(*)");
+
+  if (membersError) {
+    throw new Error(membersError.message);
+  }
+
+  return (
+    group?.map((group) => ({
+      ...group,
+      members: members.filter((member) => member.group_id === group.id),
+    })) ?? []
+  );
+}
+
+export async function getGroupWithMembers(
+  groupId: string,
+): Promise<GroupsRow & { members: Tables<"group_members">[] }> {
+  const { data, error } = await supabase
+    .from("groups")
+    .select("*, group_members:group_members(*)")
+    .eq("id", groupId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    throw new Error("그룹 조회 실패");
   }
 
   return data;
