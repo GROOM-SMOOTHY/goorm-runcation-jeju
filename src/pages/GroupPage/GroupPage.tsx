@@ -6,6 +6,8 @@ import CreateGroupModal from "@/components/pages/group-list-page/CreateGroupModa
 import { useUser } from "@/store/useUser";
 import { useNavigate } from "react-router-dom";
 import { useGroupPage } from "./useGroupPage";
+import { fetchCurrentWeather } from "@/api/weather";
+import { useState, useEffect } from "react";
 
 export default function GroupPage() {
   const navigate = useNavigate();
@@ -20,6 +22,25 @@ export default function GroupPage() {
     BottomSheet,
   } = useGroupPage();
 
+  const [weather, setWeather] = useState("로딩중");
+
+  useEffect(() => {
+    const loadWeather = async () => {
+      try {
+        const lat = 33.4996;
+        const lon = 126.5312;
+
+        const result = await fetchCurrentWeather(lat, lon);
+
+        setWeather(result.description);
+      } catch (error) {
+        console.log(error);
+        setWeather("정보 없음");
+      }
+    };
+    loadWeather();
+  }, []);
+
   return (
     <>
       <Header title="그룹" />
@@ -31,7 +52,7 @@ export default function GroupPage() {
             <span className={styles.title}>
               {user.nickname}님,
               <br />
-              오늘의 제주는 <span className={styles.highlight}>맑음</span>
+              오늘의 제주는 <span className={styles.highlight}>{weather}</span>
             </span>
           </div>
           <div className={styles.content}>
