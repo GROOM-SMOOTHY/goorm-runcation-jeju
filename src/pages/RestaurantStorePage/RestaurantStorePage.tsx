@@ -11,7 +11,7 @@ import StoreMap from "@/components/pages/restaurant-store-page/StoreMap/StoreMap
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 import styles from "@/pages/RestaurantStorePage/RestaurantStorePage.module.css";
 
-const libraries: ("places")[] = ["places"];
+const libraries: "places"[] = ["places"];
 const STORAGE_KEY = "favorite_restaurants_ids";
 
 export default function RestaurantStorePage() {
@@ -57,7 +57,9 @@ export default function RestaurantStorePage() {
       setIsLoading(true);
       try {
         // PlacesService는 DOM 요소가 필요하므로 가상 div 생성
-        const service = new window.google.maps.places.PlacesService(document.createElement("div"));
+        const service = new window.google.maps.places.PlacesService(
+          document.createElement("div"),
+        );
 
         service.getDetails(
           {
@@ -74,7 +76,10 @@ export default function RestaurantStorePage() {
             ],
           },
           (place, status) => {
-            if (status === window.google.maps.places.PlacesServiceStatus.OK && place) {
+            if (
+              status === window.google.maps.places.PlacesServiceStatus.OK &&
+              place
+            ) {
               const photoUrl =
                 place.photos?.[0]?.getUrl({ maxWidth: 1200 }) ||
                 "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80";
@@ -83,20 +88,30 @@ export default function RestaurantStorePage() {
                 name: place.name,
                 imageUrl: photoUrl,
                 address: place.formatted_address,
-                location: place.formatted_address?.match(/([가-힣]+(읍|면|동))/)?.[0] || "제주도",
+                location:
+                  place.formatted_address?.match(/([가-힣]+(읍|면|동))/)?.[0] ||
+                  "제주도",
                 rating: place.rating || 0,
-                category: place.types?.includes("cafe") ? "카페/디저트" : "식당",
+                category: place.types?.includes("cafe")
+                  ? "카페/디저트"
+                  : "식당",
                 contact: place.formatted_phone_number || "전화번호 정보 없음",
                 latitude: place.geometry?.location?.lat(),
                 longitude: place.geometry?.location?.lng(),
                 // 추가로 영업시간 정보가 필요하다면 여기에 매핑
-                hours: place.opening_hours?.weekday_text || ["영업시간 정보 없음"],
+                hours: place.opening_hours?.weekday_text || [
+                  "영업시간 정보 없음",
+                ],
               });
             } else {
-              addToast("상세 정보를 불러올 수 없습니다.", "ID를 확인해주세요.", "error");
+              addToast(
+                "상세 정보를 불러올 수 없습니다.",
+                "ID를 확인해주세요.",
+                "error",
+              );
             }
             setIsLoading(false);
-          }
+          },
         );
       } catch (error) {
         addToast("API 호출 중 오류가 발생했습니다.", "", "error");
@@ -149,7 +164,7 @@ export default function RestaurantStorePage() {
       text: `${store.name} - ${store.category}\n위치: ${store.location}`,
       url: window.location.href, // 현재 페이지 주소
     };
-  
+
     try {
       // 브라우저가 공유 기능을 지원하는지 확인
       if (navigator.share) {
@@ -158,16 +173,19 @@ export default function RestaurantStorePage() {
       } else {
         // 지원하지 않는 경우 (데스크탑 등) 클립보드 복사로 대체
         await navigator.clipboard.writeText(window.location.href);
-        addToast("주소가 클립보드에 복사되었습니다.", "친구에게 공유해보세요!", "success");
+        addToast(
+          "주소가 클립보드에 복사되었습니다.",
+          "친구에게 공유해보세요!",
+          "success",
+        );
       }
     } catch (error) {
       // 사용자가 공유를 취소했을 때는 에러 처리를 하지 않는 것이 자연스럽습니다.
-      if ((error as Error).name !== 'AbortError') {
+      if ((error as Error).name !== "AbortError") {
         addToast("공유 중 오류가 발생했습니다.", "", "error");
       }
     }
   };
-
 
   return (
     <div className={styles.page}>
@@ -178,7 +196,11 @@ export default function RestaurantStorePage() {
             <FiShare2 size={20} />
           </button>
           <button className={styles.iconButton} onClick={toggleLike}>
-            {isLiked ? <FaHeart size={20} color="red" /> : <FiHeart size={20} />}
+            {isLiked ? (
+              <FaHeart size={20} color="red" />
+            ) : (
+              <FiHeart size={20} />
+            )}
           </button>
         </div>
       </div>
@@ -186,8 +208,9 @@ export default function RestaurantStorePage() {
       <main className={styles.container}>
         <section
           className={styles.hero}
-          style={{ background: `url(${store.imageUrl}) no-repeat center center / cover`,
-}}
+          style={{
+            background: `url(${store.imageUrl}) no-repeat center center / cover`,
+          }}
         >
           <div className={styles.heroOverlay} />
           <div className={styles.heroTitleWrap}>
@@ -210,7 +233,6 @@ export default function RestaurantStorePage() {
 
         <StoreMap latitude={store.latitude} longitude={store.longitude} />
       </main>
-      <BottomNavigation />
     </div>
   );
 }
