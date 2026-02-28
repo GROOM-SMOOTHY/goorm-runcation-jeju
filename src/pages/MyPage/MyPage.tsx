@@ -6,12 +6,15 @@ import Button from "@/components/common/Button/Button";
 import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import Input from "@/components/common/Input/Input";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
+  const { id: userId } = useUser();
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [tel, setTel] = useState("");
   const [bank, setBank] = useState("");
@@ -25,8 +28,31 @@ export default function MyPage() {
     account.trim() &&
     depositor.trim();
 
-  const { id: userId } = useUser();
-  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState<{
+    nickname: string;
+    email: string;
+  } | null>(null);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const fetchUser = async () => {
+      const { data, error } = await supabase
+        .from("users")
+        .select("nickname, email")
+        .eq("id", userId)
+        .single();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setUserInfo(data);
+    };
+
+    fetchUser();
+  }, [userId]);
 
   const onClick = async () => {
     if (!userId) {
@@ -91,8 +117,8 @@ export default function MyPage() {
       <div className={styles.box}>
         <div className={styles.profile}>
           <MyProfilePicture />
-          <h3 className={styles.nick}>닉네임</h3>
-          <p className={styles.email}>이메일</p>
+          <h3 className={styles.nick}>{userInfo?.nickname}</h3>
+          <p className={styles.email}>{userInfo?.email}</p>
         </div>
 
         <div className={styles.input}>
@@ -139,7 +165,7 @@ export default function MyPage() {
         </div>
         <div className={styles.footer}>
           <TipBox />
-          <Button type="button" variant="primary" onClick={onClick}>
+          <Button type="button" variant="default" onClick={onClick}>
             저장하기
           </Button>
         </div>
