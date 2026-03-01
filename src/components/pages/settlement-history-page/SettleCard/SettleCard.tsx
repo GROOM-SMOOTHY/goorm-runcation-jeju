@@ -31,7 +31,7 @@ export interface SettleCardProps {
   status: SettlementStatus;
   currentUserName?: string;
   defaultExpanded?: boolean;
-  onStatusChange?: (expenseId: string, newStatus: SettlementStatus) => Promise<void>; // 👈 인자 수정
+  onStatusChange?: (expenseId: string, newStatus: SettlementStatus) => Promise<void>;
 }
 
 const SettleCard: React.FC<SettleCardProps> = ({
@@ -45,37 +45,49 @@ const SettleCard: React.FC<SettleCardProps> = ({
   accountHolder,
   status,
   currentUserName,
-  defaultExpanded = false,
   onStatusChange,
 }) => {
   const addToast = useToastStore((state) => state.addToast);
-  const [expanded, setExpanded] = useState(defaultExpanded);
+  const [expanded, setExpanded] = useState(false);
 
-  // 1. 이미 완료된 상태인지 확인 (DB 기준)
-  const isAlreadyCompleted = status === "completed";
-  const [depositMarkedComplete, setDepositMarkedComplete] = useState(isAlreadyCompleted);
-  
+  // 로컬 스토리지 키
+  const storageKey = `settle_done_${expenseId}`;
+
+  // 초기 상태를 로컬 스토리지에서 가져옴
+  const [depositMarkedComplete, setDepositMarkedComplete] = useState(() => {
+    return localStorage.getItem(storageKey) === "true";
+  });
+
+  // 부모로부터 받은 status가 변경될 때 내부 상태 동기화
   useEffect(() => {
-    setDepositMarkedComplete(isAlreadyCompleted);
-  }, [status, isAlreadyCompleted]);
+    setDepositMarkedComplete(status === "completed");
+  }, [status]);
 
-  // 2. 스위치 변경 핸들러
   const handleStatusToggle = async (checked: boolean) => {
-    if (isAlreadyCompleted) return; // 이미 완료된 정산은 변경 불가 (고정)
-
-    if (checked) {
-      try {
-        await onStatusChange?.(expenseId, "completed");
+    try {
+      if (checked) {
+        
+        // 켰을 때
+        localStorage.setItem(storageKey, "true");
         setDepositMarkedComplete(true);
-        addToast("정산 완료", "입금 확인 처리가 되었습니다.", "success");
-      } catch (error) {
+        await onStatusChange?.(expenseId, "completed");
+        addToast("입금 완료", "입금 확인 상태로 변경되었습니다.", "success");
+      } else {
+
+        // 껐을 때
+        localStorage.removeItem(storageKey);
         setDepositMarkedComplete(false);
-        addToast("오류 발생", "업데이트에 실패했습니다.", "error");
+        await onStatusChange?.(expenseId, "pending");
+        addToast("확인 취소", "입금 미완료 상태로 변경되었습니다.", "warning");
       }
+    } catch (error) {
+      addToast("오류 발생", "상태 변경에 실패했습니다.", "error");
+      // 에러 발생 시 UI 상태 롤백
+      setDepositMarkedComplete(!checked);
     }
   };
 
-  /* 토글에 따라 "나"를 미완료/완료 중 한쪽에만 표시 */
+  /* UI 표시용 멤버 리스트 계산 */
   const displayedPending: SettlementMember[] = (() => {
     if (!currentUserName) return pendingMembers;
     if (depositMarkedComplete) {
@@ -100,12 +112,13 @@ const SettleCard: React.FC<SettleCardProps> = ({
     const rest = list.filter((m) => m.name !== currentUserName);
     return me ? [me, ...rest] : list;
   };
+
   const pendingSorted = putMeFirst(displayedPending);
   const completedSorted = putMeFirst(displayedCompleted);
 
   const completedCount = displayedCompleted.length;
   const progressPercent = totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
-  const isProgressFull = completedCount === totalMemberCount && totalMemberCount > 0;
+  const isProgressFull = totalMemberCount > 0 && completedCount === totalMemberCount;
   const amountPerPerson = totalMemberCount > 0 ? Math.floor(totalAmount / totalMemberCount) : 0;
 
   const handleCopyAccount = async () => {
@@ -142,7 +155,6 @@ const SettleCard: React.FC<SettleCardProps> = ({
                 className={styles.statusSwitch}
                 checked={depositMarkedComplete}
                 onCheckedChange={handleStatusToggle}
-                disabled={isAlreadyCompleted} // 👈 3. 완료된 경우 조작 불가(고정)
               >
                 <Switch.Thumb className={styles.statusSwitchThumb} />
               </Switch.Root>
@@ -173,6 +185,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
               <button type="button" className={styles.copyButton} onClick={handleCopyAccount}><MdContentCopy /></button>
             </div>
 
+            {/* 미완료 섹션 */}
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
                 <span className={styles.sectionBarPending} />
@@ -190,6 +203,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </div>
             </div>
 
+            {/* 완료 섹션 */}
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
                 <span className={styles.sectionBarCompleted} />

@@ -13,6 +13,13 @@ import { supabase } from "@/lib/supabase";
 import { useGroup } from "@/store/useGroup";
 import { useUser } from "@/store/useUser";
 
+// 참여자 데이터 타입 정의
+interface ParticipantInfo {
+  name: string;
+  isPaid: boolean;
+  userId: string;
+}
+
 export default function SettlementListPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
@@ -21,54 +28,81 @@ export default function SettlementListPage() {
   const [settlements, setSettlements] = useState<SettleCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. 지금까지 낸 금액 & 내야할 금액 실시간 계산
+  // 1. 실시간 상단 요약 정보 계산
   const summary = useMemo(() => {
     return settlements.reduce((acc, curr) => {
-      // 1인당 금액 계산
       const amountPerPerson = curr.totalMemberCount > 0 
-        ? Math.floor(curr.totalAmount / curr.totalMemberCount) 
-        : 0;
+        ? Math.floor(curr.totalAmount / curr.totalMemberCount) : 0;
       
-      // 내가 참여자인지 확인 (pending + completed 멤버 중 내 닉네임이 있는지)
       const isMeInvolved = [...curr.pendingMembers, ...curr.completedMembers].some(
         (m) => m.name === userData?.nickname
       );
 
       if (isMeInvolved) {
-        if (curr.status === 'completed') {
-          acc.paid += amountPerPerson;
-        } else {
-          acc.toPay += amountPerPerson;
-        }
+        if (curr.status === 'completed') acc.paid += amountPerPerson;
+        else acc.toPay += amountPerPerson;
       }
       return acc;
     }, { paid: 0, toPay: 0 });
   }, [settlements, userData?.nickname]);
 
-  // 2. DB 업데이트 핸들러 (본인의 입금 상태만 변경)
+  // 2. 상태 업데이트 핸들러
   const handleUpdateStatus = async (expenseId: string, newStatus: SettlementStatus) => {
-    if (newStatus !== "completed" || !storedUserId) return;
+    if (!storedUserId || !userData?.nickname) return;
+  
+    const dbState = newStatus === "completed" ? "COMPLETE" : "PENDING";
+  
+    setSettlements((prev) => {
+      return prev.map((s) => {
+        if (s.expenseId === expenseId) {
+          let updatedCompleted = [...s.completedMembers];
+          let updatedPending = [...s.pendingMembers];
+  
+          if (newStatus === "completed") {
+            if (!updatedCompleted.some(m => m.name === userData.nickname)) {
+              updatedCompleted.push({ name: userData.nickname });
+              updatedPending = updatedPending.filter(m => m.name !== userData.nickname);
+            }
+          } else {
+            updatedCompleted = updatedCompleted.filter(m => m.name !== userData.nickname);
+            if (!updatedPending.some(m => m.name === userData.nickname)) {
+              updatedPending.push({ name: userData.nickname });
+            }
+          }
+  
+          supabase
+          .from("expense_participants")
+          .update({ state: dbState }) 
+          .eq("expense_id", expenseId)
+          .eq("user_id", storedUserId)
+          .select()
+          .then(({ data, error }) => {
+            if (error) {
+              console.error("❌ DB 업데이트 에러 상세:", error.message);
+              console.error("에러 코드:", error.code);
+            } else {
+              console.log("✅ DB 업데이트 성공 데이터:", data);
+              localStorage.setItem(`settle_done_${expenseId}`, newStatus === "completed" ? "true" : "false");
+            }
+          });
 
-    const { error } = await supabase
-      .from("expense_participants")
-      .update({ is_paid: true })
-      .eq("expense_id", expenseId)
-      .eq("user_id", storedUserId);
-
-    if (error) throw error;
-
-    // 업데이트 성공 시 로컬 상태 반영 (즉시 게이지 상승)
-    setSettlements((prev) =>
-      prev.map((s) =>
-        s.expenseId === expenseId ? { ...s, status: "completed" as const } : s
-      )
-    );
+          return { 
+            ...s, 
+            status: newStatus,
+            completedMembers: updatedCompleted,
+            pendingMembers: updatedPending
+          };
+        }
+        return s;
+      });
+    });
   };
 
   useEffect(() => {
     const fetchSettlements = async () => {
       if (!group?.id) return;
       setLoading(true);
+      
       try {
         const { data: expensesData, error: expensesError } = await supabase
           .from('expenses')
@@ -83,55 +117,52 @@ export default function SettlementListPage() {
           ...(expensesData?.flatMap(e => e.expense_participants?.map((p: any) => p.user_id)) || [])
         ]));
   
-        const { data: usersData } = await supabase
-          .from('users')
-          .select('id, nickname')
-          .in('id', allUserIds);
-  
-        const { data: accountsData } = await supabase
-          .from('account_infos')
-          .select('user_id, bank_name, account_number')
-          .in('user_id', allUserIds);
+        const [usersRes, accountsRes] = await Promise.all([
+          supabase.from('users').select('id, nickname').in('id', allUserIds),
+          supabase.from('account_infos').select('user_id, bank_name, account_number').in('user_id', allUserIds)
+        ]);
   
         const formattedData: SettleCardProps[] = expensesData.map((item: any) => {
-          const payerUser = usersData?.find(u => u.id === item.payer_id);
-          const payerAccount = accountsData?.find(a => a.user_id === item.payer_id);
-          const myParticipantInfo = item.expense_participants?.find((p: any) => p.user_id === storedUserId);
+          const payerUser = usersRes.data?.find(u => u.id === item.payer_id);
+          const payerAccount = accountsRes.data?.find(a => a.user_id === item.payer_id);
           
-          const participantsWithNames = item.expense_participants?.map((p: any) => ({
-            name: usersData?.find(u => u.id === p.user_id)?.nickname || "알 수 없음",
-            is_paid: p.is_paid
+          // 참여자 데이터 가공 및 타입 지정
+          const participants: ParticipantInfo[] = item.expense_participants?.map((p: any) => ({
+            name: usersRes.data?.find(u => u.id === p.user_id)?.nickname || "알 수 없음",
+            isPaid: p.state === 'COMPLETE',
+            userId: p.user_id
           })) || [];
+
+          const myData = participants.find((p: ParticipantInfo) => p.userId === storedUserId);
+          const isMeCompleted = myData?.isPaid || false;
   
           return {
             expenseId: item.id,
             title: item.payment_title,
             date: item.expense_date ? new Date(item.expense_date).toLocaleDateString() : "-",
-            totalMemberCount: item.expense_participants?.length || 0,
+            totalMemberCount: participants.length,
             totalAmount: item.total_amount,
-            completedMembers: participantsWithNames
-              .filter((p: any) => p.is_paid)
-              .map((p: any) => ({ name: p.name })),
-            pendingMembers: participantsWithNames
-              .filter((p: any) => !p.is_paid)
-              .map((p: any) => ({ name: p.name })),
+            // 🔍 filter와 map에 명시적 타입 부여로 에러 해결
+            completedMembers: participants
+              .filter((p: ParticipantInfo) => p.isPaid)
+              .map((p: ParticipantInfo) => ({ name: p.name })),
+            pendingMembers: participants
+              .filter((p: ParticipantInfo) => !p.isPaid)
+              .map((p: ParticipantInfo) => ({ name: p.name })),
             accountHolder: {
               name: payerUser?.nickname || "알 수 없음",
               bank: payerAccount?.bank_name || "미등록",
-              accountNumberMasked: payerAccount?.account_number 
-                ? `${payerAccount.account_number.slice(0, 4)}***` 
-                : "계좌 없음",
+              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}***` : "계좌 없음",
               accountNumberForCopy: payerAccount?.account_number || "",
             },
-            status: myParticipantInfo?.is_paid ? 'completed' : 'pending',
+            status: isMeCompleted ? 'completed' : 'pending',
             currentUserName: userData?.nickname || "",
-            defaultExpanded: false,
           };
         });
   
         setSettlements(formattedData);
       } catch (err: any) {
-        console.error("데이터 로드 실패:", err.message);
+        console.error("로드 실패:", err.message);
       } finally {
         setLoading(false);
       }
@@ -141,43 +172,38 @@ export default function SettlementListPage() {
   }, [group?.id, storedUserId, userData?.nickname]);
 
   return (
-    <>
-      <div className={styles.page}>
-        <Header title="정산 내역" onBack={() => navigate(-1)} />
-        <main className={styles.main}>
-          {loading ? (
-            <div className={styles.loading}>정산 내역을 불러오고 있어요...</div>
-          ) : (
-            <>
-              <section className={styles.summaryCard}>
-                <div className={styles.summaryItem}>
-                  <span className={styles.summaryLabel}>지금까지 낸 금액</span>
-                  <span className={styles.summaryAmountPaid}>₩{summary.paid.toLocaleString()}</span>
-                </div>
-                <div className={styles.summaryItem}>
-                  <span className={styles.summaryLabel}>내야할 금액</span>
-                  <span className={styles.summaryAmountToPay}>₩{summary.toPay.toLocaleString()}</span>
-                </div>
-              </section>
-              
-              <h2 className={styles.sectionTitle}>정산 목록</h2>
-              <div className={styles.cardList}>
-                {settlements.map((settlement) => (
-                  <SettleCard
-                    key={settlement.expenseId}
-                    {...settlement}
-                    onStatusChange={handleUpdateStatus}
-                  />
-                ))}
+    <div className={styles.page}>
+      <Header title="정산 내역" onBack={() => navigate(-1)} />
+      
+      <main className={styles.main}>
+        {loading ? (
+          <div className={styles.loading}>불러오는 중...</div>
+        ) : (
+          <>
+            <section className={styles.summaryCard}>
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>지금까지 낸 금액</span>
+                <span className={styles.summaryAmountPaid}>₩{summary.paid.toLocaleString()}</span>
               </div>
-            </>
-          )}
-        </main>
-        <div className={styles.bottomNavWrap}>
-          <BottomNavigation />
-        </div>
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>내야할 금액</span>
+                <span className={styles.summaryAmountToPay}>₩{summary.toPay.toLocaleString()}</span>
+              </div>
+            </section>
+
+            <div className={styles.cardList}>
+              {settlements.map((s) => (
+                <SettleCard key={s.expenseId} {...s} onStatusChange={handleUpdateStatus} />
+              ))}
+            </div>
+          </>
+        )}
+      </main>
+      
+      <div className={styles.bottomNavWrap}>
+        <BottomNavigation />
       </div>
       <AnimatedToast />
-    </>
+    </div>
   );
 }
