@@ -145,7 +145,6 @@ export default function MainPage() {
                       <span style={{ marginRight: "8px" }}>{recommendStore.rating}</span>
                     </>
                   )}
-                  <span>{weather} {degree !== null && `${degree}°C`}</span>
                 </div>
               </div>
             </>
