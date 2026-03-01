@@ -28,7 +28,7 @@ export default function SettlementListPage() {
   const [settlements, setSettlements] = useState<SettleCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. 실시간 상단 요약 정보 계산
+  // 실시간 상단 요약 정보 계산
   const summary = useMemo(() => {
     return settlements.reduce((acc, curr) => {
       const amountPerPerson = curr.totalMemberCount > 0 
@@ -46,7 +46,7 @@ export default function SettlementListPage() {
     }, { paid: 0, toPay: 0 });
   }, [settlements, userData?.nickname]);
 
-  // 2. 상태 업데이트 핸들러
+  // 상태 업데이트 핸들러
   const handleUpdateStatus = async (expenseId: string, newStatus: SettlementStatus) => {
     if (!storedUserId || !userData?.nickname) return;
   
@@ -78,10 +78,10 @@ export default function SettlementListPage() {
           .select()
           .then(({ data, error }) => {
             if (error) {
-              console.error("❌ DB 업데이트 에러 상세:", error.message);
+              console.error("DB 업데이트 에러 상세:", error.message);
               console.error("에러 코드:", error.code);
             } else {
-              console.log("✅ DB 업데이트 성공 데이터:", data);
+              console.log("DB 업데이트 성공 데이터:", data);
               localStorage.setItem(`settle_done_${expenseId}`, newStatus === "completed" ? "true" : "false");
             }
           });
