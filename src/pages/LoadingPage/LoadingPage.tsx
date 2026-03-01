@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/components/pages/Loading/Loading.module.css";
+import styles from "@/pages/LoadingPage/LoadingPage.module.css";
 import orangeImg from "@/assets/orange.png"
 
 const LoadingPage: React.FC = () => {
