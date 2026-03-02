@@ -8,16 +8,13 @@ import GroupCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
 import PendingSettlementPanel from "@/components/pages/main-page/PendingSettlementPanel";
 import WeatherPanel from "@/components/pages/main-page/WeatherPanel";
 import MainShortcutCard from "@/components/pages/main-page/MainShortcutCard";
-import GuestBookCard from "@/components/pages/main-page/GuestBookCard";
+import { useNavigate } from "react-router-dom";
 import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
-import Loading from "@/components/common/Loading/Loading";
-
-import { useGroup } from "@/store";
+import { useGroup, useUser } from "@/store";
 import { fetchCurrentWeather } from "@/api/weather";
-import { useRestaurantDetail } from "@/hooks/useRestaurantDetail";
-import styles from "./styles.module.css";
-
-const defaultImage = "https://res.klook.com/image/upload/fl_lossy.progressive,q_60/Mobile/City/rbijqoq1b491jsbcnnoe.jpg";
+import { useEffect, useState } from "react";
+import GuestBookList from "@/components/pages/main-page/GuestBookList";
+import { getMyPendingSettlementCount } from "@/services/expenseParticipantsService";
 
 const isLocationInJeju = (lat: number, lon: number) => {
   return lat >= 33.1 && lat <= 33.6 && lon >= 126.1 && lon <= 127.0;
@@ -26,13 +23,17 @@ const isLocationInJeju = (lat: number, lon: number) => {
 export default function MainPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
-  const { isLoaded } = useRestaurantDetail();
+  const { id: userId } = useUser();
 
   const [weather, setWeather] = useState("로딩중");
   const [degree, setDegree] = useState<number | null>(null);
-  const [recommendStore, setRecommendStore] = useState<any>(null);
-  const [isStoreLoading, setIsStoreLoading] = useState(true);
-  const [cardTitle, setCardTitle] = useState("제주 핫플레이스 추천 맛집");
+  const [pendingSettlementCount, setPendingSettlementCount] = useState(0);
+
+  useEffect(() => {
+    getMyPendingSettlementCount(userId).then((count) => {
+      setPendingSettlementCount(count);
+    });
+  }, [userId]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -152,25 +153,44 @@ export default function MainPage() {
         </div>
 
         <div className={styles.noticeContainer}>
-          <PendingSettlementPanel count={10} />
-          {degree && weather !== "로딩중" && <WeatherPanel degree={degree} weather={weather} />}
+          <PendingSettlementPanel count={pendingSettlementCount} />
+          {degree && weather !== "로딩중" && (
+            <WeatherPanel degree={degree} weather={weather} />
+          )}
         </div>
 
         <div className={styles.shortcutContainer}>
           <span className={styles.label}>빠른 실행</span>
           <div className={styles.shortcutList}>
-            <MainShortcutCard type="store" title={<>지역별<br />맛집 탐방</>} onClick={() => navigate("/restaurants")} />
-            <MainShortcutCard type="settlement" title={<>정산하기<br />& N빵</>} onClick={() => navigate("/settlement")} />
+            <MainShortcutCard
+              type="store"
+              title={
+                <>
+                  지역별
+                  <br />
+                  맛집 탐방
+                </>
+              }
+              onClick={() => {
+                navigate("/restaurants");
+              }}
+            />
+            <MainShortcutCard
+              type="settlement"
+              title={
+                <>
+                  정산하기
+                  <br />& N빵
+                </>
+              }
+              onClick={() => {
+                navigate("/settlement");
+              }}
+            />
           </div>
         </div>
 
-        <div className={styles.guestbookContainer}>
-          <span className={styles.label}>방명록</span>
-          <div className={styles.guestbookList}>
-            <GuestBookCard title="김나영님" description="레전드 맛집있음 추천!" image={defaultImage} course="FRONTEND" generation={7} />
-            <GuestBookCard title="김나영님" description="분위기 미쳤어요" image={defaultImage} course="FRONTEND" generation={7} />
-          </div>
-        </div>
+        <GuestBookList />
       </div>
 
       <BottomNavigation />

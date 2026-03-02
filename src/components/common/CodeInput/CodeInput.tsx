@@ -17,6 +17,16 @@ export default function CodeInput({
   const [value, setValue] = useState(initialValue);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const updateValue = (newValue: string) => {
+    const sliced = newValue.slice(0, length);
+    setValue(sliced);
+    onChange?.(sliced);
+
+    if (sliced.length === length) {
+      onComplete?.(sliced);
+    }
+  };
+
   // 입력 값 변경 핸들러
   const handleChange = (index: number, inputValue: string) => {
     const valueArray = value.split("");
@@ -41,13 +51,22 @@ export default function CodeInput({
   // 백스페이스 핸들러
   const handleKeyDown = (
     index: number,
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e.key === "Backspace") {
       if (!value[index] && index > 0) {
         inputRefs.current[index - 1]?.focus();
       }
     }
+  };
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text").trim();
+
+    updateValue(pastedData);
+
+    const nextIndex = Math.min(pastedData.length, length) - 1;
+    inputRefs.current[nextIndex]?.focus();
   };
 
   return (
@@ -67,11 +86,12 @@ export default function CodeInput({
             value={value[i] || ""}
             onChange={(e) => handleChange(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
+            onPaste={handlePaste}
             className={style.OTPInput}
             maxLength={1}
           />
-        ))}  
-        </div>
+        ))}
+      </div>
     </div>
   );
 }

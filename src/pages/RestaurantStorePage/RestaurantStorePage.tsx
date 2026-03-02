@@ -56,13 +56,17 @@ export default function RestaurantStorePage() {
       text: `${store.name} - ${store.category}\n위치: ${store.location}`,
       url: window.location.href,
     };
-  
+
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        addToast("주소가 클립보드에 복사되었습니다.", "친구에게 공유해보세요!", "success");
+        addToast(
+          "주소가 클립보드에 복사되었습니다.",
+          "친구에게 공유해보세요!",
+          "success",
+        );
       }
     } catch (error) {
       if ((error as Error).name !== 'AbortError') {
@@ -97,7 +101,11 @@ export default function RestaurantStorePage() {
             <FiShare2 size={20} />
           </button>
           <button className={styles.iconButton} onClick={toggleLike}>
-            {isLiked ? <FaHeart size={20} color="red" /> : <FiHeart size={20} />}
+            {isLiked ? (
+              <FaHeart size={20} color="red" />
+            ) : (
+              <FiHeart size={20} />
+            )}
           </button>
         </div>
       </div>
@@ -105,7 +113,9 @@ export default function RestaurantStorePage() {
       <main className={styles.container}>
         <section
           className={styles.hero}
-          style={{ backgroundImage: `url(${store.imageUrl})` }}
+          style={{
+            background: `url(${store.imageUrl}) no-repeat center center / cover`,
+          }}
         >
           <div className={styles.heroOverlay} />
           <div className={styles.heroTitleWrap}>
@@ -133,7 +143,6 @@ export default function RestaurantStorePage() {
           isLoaded={isLoaded}
         />
       </main>
-      <BottomNavigation />
     </div>
   );
 }

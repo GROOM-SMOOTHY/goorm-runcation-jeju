@@ -65,22 +65,24 @@ export default function SignUpInput({
   const isPasswordValid = type === "password" ? validatePassword(value) : true;
 
   return (
-    <div className={styles.field}>
-      <label className={styles.label}>{label}</label>
+    <>
+      <div className={styles.field}>
+        <label className={styles.label}>{label}</label>
 
-      <input
-        className={styles.input}
-        type={inputType}
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-      />
+        <input
+          className={styles.input}
+          type={inputType}
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+        />
+      </div>
 
       {type === "password" && value && !isPasswordValid && (
         <p className={styles.error}>
           비밀번호는 8자 이상, 대문자와 영문과 숫자를 포함해야 합니다.
         </p>
       )}
-    </div>
+    </>
   );
 }

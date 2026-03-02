@@ -1,7 +1,9 @@
 import { MdKeyboardArrowRight } from "react-icons/md";
 import styles from "./JoinCourseItem.module.css";
-import type { Database } from "@/types/supabase";
+import type { Database, Tables } from "@/types/supabase";
 import { getCourseName } from "@/utils/course";
+import AvatarStack from "@/components/common/AvatarStack";
+import DefaultAvatar from "@/assets/default-avatar.png";
 
 const COURSE_BG_COLOR: Record<
   Database["public"]["Enums"]["course_type"] | "DEFAULT",
@@ -27,6 +29,7 @@ export interface JoinCourseItemProps {
   course: Database["public"]["Enums"]["course_type"] | null;
   participants: number;
   generation: number;
+  members: (Tables<"group_members"> & { user: Tables<"users"> })[];
   onClick: () => void;
 }
 
@@ -41,6 +44,7 @@ export default function JoinCourseItem({
   course,
   participants,
   generation,
+  members,
   onClick,
 }: JoinCourseItemProps) {
   return (
@@ -69,6 +73,14 @@ export default function JoinCourseItem({
             {course ? getCourseName(course) : "기타"} {generation}기
           </span>
           <span className={styles.participants}>{participants}명 참여중</span>
+          <AvatarStack
+            avatars={members.map(
+              (member) => member.user.profile ?? DefaultAvatar,
+            )}
+            totalCount={members.length}
+            visibleCount={2}
+            size="sm"
+          />
         </div>
       </div>
       <MdKeyboardArrowRight

@@ -29,8 +29,9 @@ export function SheetContent({ onClose }: SheetContentProps) {
           <JoinCourseItem
             key={group.id}
             course={group.course}
-            participants={0}
+            participants={group.members?.length ?? 0}
             generation={group.batch ?? 1}
+            members={group.members}
             onClick={() => handleJoinGroup(group)}
           />
         ))}

@@ -11,13 +11,26 @@ import { useRestaurants } from "@/hooks/useRestaurants";
 import styles from "./RestaurantListPage.module.css";
 import LoadingPage from "@/pages/LoadingPage/LoadingPage";
 
-const REGIONS = ["제주시", "서귀포시", "애월", "한림", "대정", "안덕", "중문", "남원", "표선", "성산", "구좌", "조천"];
+const REGIONS = [
+  "제주시",
+  "서귀포시",
+  "애월",
+  "한림",
+  "대정",
+  "안덕",
+  "중문",
+  "남원",
+  "표선",
+  "성산",
+  "구좌",
+  "조천",
+];
 const STORAGE_KEY = "favorite_restaurants_ids";
 
 export default function RestaurantListPage() {
   const navigate = useNavigate();
   const mainRef = useRef<HTMLElement>(null);
-  
+
   const [selectedRegion, setSelectedRegion] = useState("전체");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -30,11 +43,11 @@ export default function RestaurantListPage() {
     const savedFavorites = localStorage.getItem(STORAGE_KEY);
     if (savedFavorites && stores.length > 0) {
       const favoriteIds = JSON.parse(savedFavorites) as string[];
-      setStores(prev => 
-        prev.map(s => ({
+      setStores((prev) =>
+        prev.map((s) => ({
           ...s,
-          isFavorite: favoriteIds.includes(s.id)
-        }))
+          isFavorite: favoriteIds.includes(s.id),
+        })),
       );
     }
   }, [stores.length, showFavoritesOnly]);
@@ -92,18 +105,22 @@ export default function RestaurantListPage() {
 
             <section className={styles.storeList}>
               {displayedStores.map((store) => (
-                <StoreCard 
-                  key={store.id} 
-                  {...store} 
+                <StoreCard
+                  key={store.id}
+                  {...store}
                   onToggleFavorite={() => handleToggleFavorite(store.id)}
-                  onClick={() => navigate(`/restaurants/${store.id}`, { state: { storeData: store } })} 
+                  onClick={() =>
+                    navigate(`/restaurants/${store.id}`, {
+                      state: { storeData: store },
+                    })
+                  }
                 />
               ))}
               
               {displayedStores.length === 0 && (
                 <div className={styles.emptyState}>
-                  {showFavoritesOnly 
-                    ? "아직 찜한 맛집이 없습니다. 하트를 눌러보세요!" 
+                  {showFavoritesOnly
+                    ? "아직 찜한 맛집이 없습니다. 하트를 눌러보세요!"
                     : "검색 결과가 없습니다."}
                 </div>
               )}

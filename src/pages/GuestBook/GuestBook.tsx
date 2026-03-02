@@ -1,16 +1,16 @@
 import styles from "@/pages/GuestBook/GuestBook.module.css";
 
 import Header from "@/components/layout/Header/Header";
-import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import Button from "@/components/common/Button/Button";
 import AddPicture from "@/components/pages/guestbook/AddPicture/AddPicture";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uploadImage } from "@/utils/supabase/storage";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 
-import Overlay from "@/assets/Overlay.png";
+import Textarea from "@/components/common/Textarea/Textarea";
+import { useNavigate } from "react-router-dom";
 
 export default function GuestBook() {
   const [images, setImages] = useState<string[]>([]);
@@ -18,6 +18,8 @@ export default function GuestBook() {
   const [files, setFiles] = useState<File[]>([]);
 
   const { id: userId } = useUser();
+
+  const navigate = useNavigate();
 
   const onAdd = (data: { url: string; file: File }) => {
     if (files.length >= 4) return;
@@ -109,50 +111,41 @@ export default function GuestBook() {
       }
 
       alert("방명록이 등록되었습니다");
-
-      setImages([]);
-      setFiles([]);
-      setContent("");
+      navigate(-1);
     } catch (err) {
       console.error(err);
       alert("등록 중 오류가 발생했습니다");
     }
   };
 
+  useEffect(() => {
+    return () => {
+      setImages([]);
+      setFiles([]);
+      setContent("");
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
-      <Header title="방명록" />
+      <Header title="방명록" onBack={() => navigate(-1)} />
 
       <div className={styles.box}>
-        <div className={styles.location}>
-          <div className={styles.img}>
-            <img src={Overlay} alt="overlay" />
-          </div>
-        </div>
-
         <div className={styles.desc}>
-          <textarea
+          <Textarea
             value={content}
-            rows={8}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="제주 런케이션은 어땠나요?"
-            className={styles.textarea}
+            onChange={(value) => setContent(value)}
+            placeholder="어느 장소에서 어떤 일을 했나요?"
           />
         </div>
 
-        <div className={styles.picture}>
-          <AddPicture images={images} onAdd={onAdd} onRemove={onRemove} />
-        </div>
-
-        <div className={styles.button}>
-          <Button type="button" onClick={onClick}>
-            방명록 등록하기
-          </Button>
-        </div>
+        <AddPicture images={images} onAdd={onAdd} onRemove={onRemove} />
       </div>
 
       <div className={styles.botNav}>
-        <BottomNavigation />
+        <Button type="button" onClick={onClick}>
+          방명록 등록하기
+        </Button>
       </div>
     </div>
   );

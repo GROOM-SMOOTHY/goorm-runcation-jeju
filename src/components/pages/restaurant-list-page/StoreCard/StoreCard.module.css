@@ -1,11 +1,13 @@
 .Card {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   background-color: var(--bg-white);
   box-shadow: 0 0 8px 1px var(--border-main);
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .Card:hover {
@@ -62,7 +64,6 @@
   font-weight: 500;
 }
 
-
 .Location,
 .Category {
   padding: 4px 8px;
@@ -93,7 +94,6 @@
   margin-bottom: 8px;
 }
 
-
 .ratingBadge {
   display: flex;
   align-items: center;
@@ -104,7 +104,7 @@
 }
 
 .starIcon {
-  color: #FFB800; 
+  color: #ffb800;
   font-size: 14px;
   margin-top: -2px;
 }
