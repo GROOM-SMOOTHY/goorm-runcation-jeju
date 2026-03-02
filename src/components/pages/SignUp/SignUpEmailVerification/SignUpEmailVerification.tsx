@@ -1,5 +1,6 @@
 import styles from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification.module.css";
 import { useState } from "react";
+import { supabase } from "@/lib/supabase";
 
 interface SignUpEmailVerificationProps {
   email: string;
@@ -19,26 +20,42 @@ export default function SignUpEmailVerification({
   const [show, setShow] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
 
-  const MOCK_DATA = "123456";
-
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValidEmail = validEmail.test(email);
-  const codeNumber = input.length === 6;
+  const codeNumber = input.length === 8;
 
-  const onClickButton = () => {
+  const onClickButton = async () => {
     if (!isValidEmail) {
-      return alert("이메일 형식이 유효하지 않습니다.");
+      alert("이메일 형식이 유효하지 않습니다");
+      return;
+    }
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true,
+      },
+    });
+    if (error) {
+      alert(error.message);
+      return;
     }
     setShow(true);
-    alert("인증코드가 전송되었습니다.");
+    alert("인증코드가 전송되었습니다");
   };
-  const onClickVerify = () => {
-    if (input === MOCK_DATA) {
-      setIsVerified(true);
-      onVerified();
-      return alert("인증 성공");
+
+  const onClickVerify = async () => {
+    const { error } = await supabase.auth.verifyOtp({
+      email,
+      token: input,
+      type: "email",
+    });
+    if (error) {
+      alert("인증코드가 올바르지 않습니다");
+      return;
     }
-    alert("인증코드가 올바르지 않습니다.");
+    setIsVerified(true);
+    onVerified();
+    alert("인증 성공");
   };
 
   return (
@@ -68,7 +85,7 @@ export default function SignUpEmailVerification({
           <label className={styles.label}>인증코드</label>
           <input
             className={styles.input}
-            placeholder="6자리 번호 입력"
+            placeholder="8자리 번호 입력"
             value={input}
             onChange={(e) => onChangeCode(e.target.value)}
             disabled={isVerified}
