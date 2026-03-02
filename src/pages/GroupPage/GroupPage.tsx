@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useGroupPage } from "./useGroupPage";
 import { fetchCurrentWeather } from "@/api/weather";
 import { useState, useEffect } from "react";
+import Loading from "@/components/common/Loading/Loading";
 
 export default function GroupPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function GroupPage() {
     BottomSheet,
   } = useGroupPage();
 
-  const [weather, setWeather] = useState("로딩중");
+  const [weather, setWeather] = useState<string | null>(null);
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -35,7 +36,7 @@ export default function GroupPage() {
         setWeather(result.description);
       } catch (error) {
         console.log(error);
-        setWeather("정보 없음");
+        setWeather("날씨 정보 없음");
       }
     };
     loadWeather();
@@ -48,11 +49,17 @@ export default function GroupPage() {
       <div className={styles.background}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <span className={styles.hello}>Hello, Nomad</span>
             <span className={styles.title}>
               {user.nickname}님,
               <br />
-              오늘의 제주는 <span className={styles.highlight}>{weather}</span>
+                오늘의 제주는{' '}
+                {weather ? (
+                  <span className={styles.highlight}>{weather}</span>
+                ) : (
+                  <span className={styles.weatherInlineLoading}>
+                    <Loading />
+                  </span>
+                )}
             </span>
           </div>
           <div className={styles.content}>

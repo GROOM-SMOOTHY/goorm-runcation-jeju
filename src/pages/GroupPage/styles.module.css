@@ -72,3 +72,20 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
+.weatherInlineLoading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+  
+  .weatherInlineLoading div[class*="spinner"] {
+    width: 20px !important;
+    height: 20px !important;
+    border-width: 2px !important;
+    margin: 0 !important;
+  }
