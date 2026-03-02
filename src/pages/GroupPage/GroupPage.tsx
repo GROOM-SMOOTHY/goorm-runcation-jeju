@@ -48,7 +48,6 @@ export default function GroupPage() {
       <div className={styles.background}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <span className={styles.hello}>Hello, Nomad</span>
             <span className={styles.title}>
               {user.nickname}님,
               <br />
