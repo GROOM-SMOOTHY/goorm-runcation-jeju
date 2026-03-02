@@ -9,7 +9,7 @@ interface SheetContentProps {
 }
 
 export function SheetContent({ onClose }: SheetContentProps) {
-  const { groups, handleJoinGroup } = useJoinGroupSheet();
+  const { groups, isLoading, handleJoinGroup } = useJoinGroupSheet();
 
   return (
     <>
@@ -29,14 +29,14 @@ export function SheetContent({ onClose }: SheetContentProps) {
           <JoinCourseItem
             key={group.id}
             course={group.course}
-            participants={group.members?.length}
+            participants={group.members?.length ?? 0}
             generation={group.batch ?? 1}
             members={group.members}
             onClick={() => handleJoinGroup(group)}
           />
         ))}
 
-        {groups.length === 0 && (
+        {!isLoading && groups.length === 0 && (
           <p className={styles.emptyText}>참여 가능한 그룹이 없습니다.</p>
         )}
       </div>

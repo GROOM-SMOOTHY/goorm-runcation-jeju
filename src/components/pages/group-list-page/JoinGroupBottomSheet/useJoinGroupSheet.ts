@@ -8,14 +8,20 @@ import { useGroup } from "@/store";
 
 export default function useJoinGroupSheet() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [groups, setGroups] = useState<GroupWithMembers[]>([]);
 
   const { setGroup } = useGroup();
 
   useEffect(() => {
     getGroupListWithMembers().then((data) => {
+      setIsLoading(false);
       setGroups(data);
     });
+
+    return () => {
+      setIsLoading(false);
+    };
   }, []);
 
   const handleJoinGroup = useCallback(
@@ -28,6 +34,7 @@ export default function useJoinGroupSheet() {
 
   return {
     groups,
+    isLoading,
     handleJoinGroup,
   };
 }
