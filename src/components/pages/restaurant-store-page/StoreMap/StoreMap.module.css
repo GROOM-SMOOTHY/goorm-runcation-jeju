@@ -5,7 +5,7 @@
   border-radius: 16px;
   overflow: hidden;
   background: var(--bg-white);
-  box-shadow: 0 0 10px 1px var(--border-main);
+  border: 1px solid var(--border-main);
 }
 
 .header {

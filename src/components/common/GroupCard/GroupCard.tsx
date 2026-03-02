@@ -1,10 +1,10 @@
-import type { CourseTypeKey } from "../TypeBadge/TypeBadge";
 import TypeBadge from "../TypeBadge/TypeBadge";
 import AvatarStack from "../AvatarStack";
 import styles from "./GroupCard.module.css";
+import type { Database } from "@/types/supabase";
 
 interface Props {
-  course: CourseTypeKey;
+  course: Database["public"]["Enums"]["course_type"];
   generation: string;
   participantsCount: number;
   title: string;

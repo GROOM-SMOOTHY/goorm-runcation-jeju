@@ -3,7 +3,7 @@ import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
 import TravelPage from "@/pages/TravelPage";
-import StampPage from "@/pages/StampPage";
+import StampPage from "@/pages/StampPage/StampPage";
 import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
 import SignUp from "@/pages/SignUp/SignUp";
@@ -54,10 +54,7 @@ export default function AppRouter() {
         <Route path="/restaurants" element={<RestaurantListPage />} />
 
         {/* 맛집 리스트 상세 페이지 */}
-        <Route
-          path="/restaurants/:id"
-          element={<RestaurantStorePage />}
-        />
+        <Route path="/restaurants/:id" element={<RestaurantStorePage />} />
 
         {/* 정산 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />

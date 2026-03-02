@@ -1,11 +1,10 @@
 .FilterContainer {
   display: flex;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
   gap: 8px;
-  padding: 12px 16px;
-  width: 100%; 
-  min-width: 0; 
-  max-width: 100%; 
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   box-sizing: border-box;
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -18,12 +17,12 @@
 }
 
 .FilterButton {
-  flex-shrink: 0; 
+  flex-shrink: 0;
   padding: 0 16px;
   border-radius: 20px;
   background-color: var(--bg-searchbar);
   color: var(--text-secondary, #333);
-  border: 2px solid transparent; 
+  border: 2px solid transparent;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -43,7 +42,7 @@
   font-weight: bold;
 }
 
-.Active, 
+.Active,
 .AllButton {
   background-color: var(--brand-primary);
   border-color: var(--brand-primary);

@@ -13,7 +13,7 @@
 .headerActions {
   position: absolute;
   top: 50%;
-  right: 12px;
+  right: 24px;
   transform: translateY(-50%);
   display: flex;
   gap: 8px;
@@ -41,10 +41,11 @@
 }
 
 .container {
-  padding: 0 16px 16px;
+  padding: 0 24px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  background: var(--bg-primary);
 }
 
 .hero {
@@ -133,7 +134,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 8px; 
+  padding: 4px 8px;
   background-color: var(--badge-bg-orange);
   color: var(--brand-primary);
   font-size: 12px;
@@ -152,12 +153,11 @@
   font-size: 13px;
   font-weight: 600;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .ratingTag svg {
-  color: #FFB800;
+  color: #ffb800;
   font-size: 14px;
 }
 

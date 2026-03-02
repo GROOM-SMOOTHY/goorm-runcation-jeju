@@ -38,3 +38,22 @@ export async function getGroupMembersWithUsers(
 
   return data;
 }
+
+/**
+ * 소속된 그룹 조회
+ */
+export type UserGroup = Tables<"group_members"> & {
+  groups: Tables<"groups">;
+};
+export async function getUserGroup(userId: string): Promise<UserGroup[]> {
+  const { data, error } = await supabase
+    .from("group_members")
+    .select("*, groups:group_id(*)")
+    .eq("user_id", userId);
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}

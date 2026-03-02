@@ -3,17 +3,17 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 16px;
   background-color: var(--bg-white);
-  box-shadow: 0 0 10px 1px var(--border-main);
   width: auto;
   max-width: 100%;
+  border: 1px solid var(--border-main);
 }
 
 .item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   padding: 12px 0px;
   position: relative;
 }
@@ -60,7 +60,6 @@
   background-color: var(--badge-bg-emerald);
   color: var(--badge-label-emerald);
 }
-
 
 .text {
   flex: 1;
