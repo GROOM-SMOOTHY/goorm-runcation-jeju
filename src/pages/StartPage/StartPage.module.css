@@ -29,7 +29,6 @@
   z-index: 0;
 }
 
-
 .logo::before {
   content: attr(data-content);
   position: absolute;
@@ -116,5 +115,5 @@
   font-weight: 600;
   line-height: 12px;
   letter-spacing: 1.1px;
-  color: var(--text-label-strong);
+  color: var(--text-secondary);
 }
