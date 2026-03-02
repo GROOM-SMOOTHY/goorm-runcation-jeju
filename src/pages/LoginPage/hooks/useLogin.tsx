@@ -57,13 +57,14 @@ export default function useLogin() {
         return;
       }
 
+      setUser(userRowToState(userRow, email));
+
       if (userGroup.length !== 0 && userGroup[0] && userGroup[0].groups) {
         setGroup(userGroup[0].groups);
         navigate("/main");
         return;
       }
 
-      setUser(userRowToState(userRow, email));
       navigate("/group");
     } catch (err) {
       console.error("로그인 에러:", err);
