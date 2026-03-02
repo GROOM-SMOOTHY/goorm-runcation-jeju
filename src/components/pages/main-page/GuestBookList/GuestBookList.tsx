@@ -16,15 +16,20 @@ export default function GuestBookList() {
       </div>
       <div className={styles.guestbookList}>
         {guestBookList.map((guestBook) => (
-          <GuestBookCard
+          <Link
             key={guestBook.id}
-            name={guestBook.author.nickname ?? ""}
-            description={guestBook.content}
-            image={guestBook.photo?.image_url ?? ""}
-            course={guestBook.group?.course ?? "FRONTEND"}
-            generation={guestBook.group?.batch ?? 0}
-          />
-        ))}{" "}
+            to={`/guestbook/${guestBook.id}`}
+            className={styles.cardLink}
+          >
+            <GuestBookCard
+              name={guestBook.author.nickname ?? ""}
+              description={guestBook.content}
+              image={guestBook.photo?.image_url ?? ""}
+              course={guestBook.group?.course ?? "FRONTEND"}
+              generation={guestBook.group?.batch ?? 0}
+            />
+          </Link>
+        ))}
       </div>
     </div>
   );
