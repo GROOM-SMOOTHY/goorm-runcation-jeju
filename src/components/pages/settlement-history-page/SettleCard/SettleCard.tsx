@@ -173,7 +173,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </div>
             </div>
 
-            <p className={styles.amountPerPerson}>1인당 {amountPerPerson.toLocaleString()}원</p>
+            <p className={styles.amountPerPerson}>1인당{amountPerPerson.toLocaleString()}원</p>
 
             <div className={styles.accountHolder}>
               <div className={styles.avatar}><FaUser className={styles.avatarIcon} /></div>
@@ -182,7 +182,11 @@ const SettleCard: React.FC<SettleCardProps> = ({
                 {currentUserName != null && accountHolder.name === currentUserName && <span className={styles.accountHolderMeBadge}>나</span>}
               </div>
               <span className={styles.accountNumber}>{accountHolder.bank} {accountHolder.accountNumberMasked}</span>
-              <button type="button" className={styles.copyButton} onClick={handleCopyAccount}><MdContentCopy /></button>
+              {accountHolder.accountNumberForCopy && accountHolder.accountNumberForCopy.trim() !== "" && (
+                <button type="button" className={styles.copyButton} onClick={handleCopyAccount}>
+                  <MdContentCopy />
+                </button>
+              )}
             </div>
 
             {/* 미완료 섹션 */}
