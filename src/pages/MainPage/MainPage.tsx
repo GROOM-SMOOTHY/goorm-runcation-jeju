@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-
 import Header from "@/components/layout/Header/Header";
 import TypeBadge from "@/components/common/TypeBadge/TypeBadge";
 import GroupCodeDisplay from "@/components/pages/main-page/GroupCodeDisplay";
@@ -15,24 +12,46 @@ import { fetchCurrentWeather } from "@/api/weather";
 import { useEffect, useState } from "react";
 import GuestBookList from "@/components/pages/main-page/GuestBookList";
 import { getMyPendingSettlementCount } from "@/services/expenseParticipantsService";
+import { useJsApiLoader } from "@react-google-maps/api";
+import styles from "./styles.module.css";
+import Loading from "@/components/common/Loading/Loading";
+
+const defaultImage = "https://via.placeholder.com/800x400?text=Jeju+Restaurant";
 
 const isLocationInJeju = (lat: number, lon: number) => {
   return lat >= 33.1 && lat <= 33.6 && lon >= 126.1 && lon <= 127.0;
 };
+
+// 수정 해야함
+// 구글 API 라이브러리 설정
+const libraries: ("places" | "geometry" | "drawing" | "visualization")[] = ["places"];
 
 export default function MainPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
   const { id: userId } = useUser();
 
-  const [weather, setWeather] = useState("로딩중");
+  // 구글 지도 로드 상태 관리
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY || "",
+    libraries,
+  });
+
+  const [weather, setWeather] = useState<string | null>(null);
   const [degree, setDegree] = useState<number | null>(null);
   const [pendingSettlementCount, setPendingSettlementCount] = useState(0);
 
+  const [recommendStore, setRecommendStore] = useState<any>(null);
+  const [isStoreLoading, setIsStoreLoading] = useState(true);
+  const [cardTitle, setCardTitle] = useState("제주 핫플레이스 추천");
+
   useEffect(() => {
-    getMyPendingSettlementCount(userId).then((count) => {
-      setPendingSettlementCount(count);
-    });
+    if (userId) {
+      getMyPendingSettlementCount(userId).then((count) => {
+        setPendingSettlementCount(count);
+      });
+    }
   }, [userId]);
 
   useEffect(() => {
@@ -40,38 +59,40 @@ export default function MainPage() {
 
     const fetchPlacesAndWeather = async (lat: number, lon: number, title: string) => {
       setCardTitle(title);
+      setIsStoreLoading(true);
 
       try {
         const result = await fetchCurrentWeather(lat, lon);
         setWeather(result.description);
         setDegree(result.temp);
-      } catch (e) {
-        console.error(e);
-      }
 
-      const service = new window.google.maps.places.PlacesService(document.createElement("div"));
-      const center = new window.google.maps.LatLng(lat, lon);
+        const service = new window.google.maps.places.PlacesService(document.createElement("div"));
+        const center = new window.google.maps.LatLng(lat, lon);
 
-      service.nearbySearch(
-        {
-          location: center,
-          radius: 5000,
-          type: "restaurant",
-        },
-        (results, status) => {
-          if (status === window.google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
-            const validStores = results.filter((store) => store.photos && store.photos.length > 0);
-            const sortedStores = (validStores.length > 0 ? validStores : results).sort(
-              (a, b) => (b.rating || 0) - (a.rating || 0)
-            );
+        service.nearbySearch(
+          {
+            location: center,
+            radius: 5000,
+            type: "restaurant",
+          },
+          (results, status) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
+              const validStores = results.filter((store) => store.photos && store.photos.length > 0);
+              const sortedStores = (validStores.length > 0 ? validStores : results).sort(
+                (a, b) => (b.rating || 0) - (a.rating || 0)
+              );
 
-            const topStores = sortedStores.slice(0, 5);
-            const randomIndex = Math.floor(Math.random() * topStores.length);
-            setRecommendStore(topStores[randomIndex]);
+              const topStores = sortedStores.slice(0, 5);
+              const randomIndex = Math.floor(Math.random() * topStores.length);
+              setRecommendStore(topStores[randomIndex]);
+            }
+            setIsStoreLoading(false);
           }
-          setIsStoreLoading(false);
-        }
-      );
+        );
+      } catch (e) {
+        console.error("데이터 로드 실패:", e);
+        setIsStoreLoading(false);
+      }
     };
 
     if (navigator.geolocation) {
@@ -125,6 +146,7 @@ export default function MainPage() {
           </div>
         </div>
 
+        {/* 맛집 추천 카드 섹션 */}
         <div className={styles.imageWrapper} onClick={handleCardClick}>
           {isStoreLoading ? (
             <Loading />
@@ -154,8 +176,14 @@ export default function MainPage() {
 
         <div className={styles.noticeContainer}>
           <PendingSettlementPanel count={pendingSettlementCount} />
-          {degree && weather !== "로딩중" && (
+          
+          {/* 날씨 데이터가 있으면 패널을 보여주고, 없으면 로딩 컴포넌트를 보여줌 */}
+          {degree !== null && weather !== null ? (
             <WeatherPanel degree={degree} weather={weather} />
+          ) : (
+            <div className={styles.weatherLoading}>
+              <Loading />
+            </div>
           )}
         </div>
 
@@ -171,9 +199,7 @@ export default function MainPage() {
                   맛집 탐방
                 </>
               }
-              onClick={() => {
-                navigate("/restaurants");
-              }}
+              onClick={() => navigate("/restaurants")}
             />
             <MainShortcutCard
               type="settlement"
@@ -183,13 +209,10 @@ export default function MainPage() {
                   <br />& N빵
                 </>
               }
-              onClick={() => {
-                navigate("/settlement");
-              }}
+              onClick={() => navigate("/settlement")}
             />
           </div>
         </div>
-
         <GuestBookList />
       </div>
 
@@ -197,3 +220,5 @@ export default function MainPage() {
     </>
   );
 }
+
+
