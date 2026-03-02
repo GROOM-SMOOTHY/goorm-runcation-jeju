@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header/Header";
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
 import useLogin from "./hooks/useLogin";
+import { useRef } from "react";
 
 export default function LoginPage() {
   const {
@@ -16,9 +17,12 @@ export default function LoginPage() {
     goToSignUp,
   } = useLogin();
 
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <div className={styles.container}>
       <Header title="로그인" />
+
       <div className={styles.box}>
         <section className={styles.content} aria-label="로그인 안내">
           <div className={styles.header}>
@@ -30,7 +34,15 @@ export default function LoginPage() {
           <p>제주에서의 특별한 런케이션, 스무디와 함께하세요</p>
         </section>
 
-        <div className={styles.input}>
+        <div
+          className={styles.input}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              buttonRef.current?.click();
+            }
+          }}
+        >
           <Input
             label="이메일 주소"
             name="email"
@@ -52,9 +64,10 @@ export default function LoginPage() {
         {/* TODO: props loading으로 제어 */}
         <Button
           type="button"
-          onClick={handleLogin}
+          ref={buttonRef}
           disabled={isLoading}
           loading={isLoading}
+          onClick={handleLogin}
         >
           로그인
         </Button>
