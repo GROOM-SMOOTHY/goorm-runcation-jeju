@@ -22,6 +22,7 @@ export const fetchCurrentWeather = async (lat: number, lon: number) => {
   }
 
   return {
+    main: data.weather[0].main,
     description: data.weather[0].description,
     temp: Math.round(data.main.temp),
   };
