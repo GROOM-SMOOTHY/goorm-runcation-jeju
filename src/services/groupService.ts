@@ -71,7 +71,7 @@ export async function getGroupWithMembers(
 ): Promise<GroupsRow & { members: Tables<"group_members">[] }> {
   const { data, error } = await supabase
     .from("groups")
-    .select("*, group_members:group_members(*)")
+    .select("*, members:group_members(*)")
     .eq("id", groupId)
     .maybeSingle();
 
