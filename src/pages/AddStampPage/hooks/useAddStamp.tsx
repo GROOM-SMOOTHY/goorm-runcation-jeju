@@ -3,6 +3,7 @@ import { addPlaces } from "@/services/placeService";
 import { useUser } from "@/store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export default function useAddStamp() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function useAddStamp() {
   const [description, setDescription] = useState("");
 
   const { id: userId } = useUser();
+
+  const addToast = useToastStore((state) => state.addToast);
 
   const handlePhotoChange = (photo: AddPhoto | null) => {
     if (photo) {
@@ -28,12 +31,12 @@ export default function useAddStamp() {
       return;
     }
     if (!region) {
-      alert("지역 정보가 필요합니다");
+      addToast("지역 정보가 필요합니다", "warning");
       return;
     }
 
     if (!userId) {
-      alert("로그인 후 이용해주세요");
+      addToast("로그인 후 이용해주세요", "warning");
       return;
     }
 
@@ -45,10 +48,10 @@ export default function useAddStamp() {
         user_id: userId,
       });
 
-      alert("저장되었습니다");
+      addToast("저장되었습니다", "success");
       navigate(-1);
     } catch (error) {
-      alert((error as Error).message);
+      addToast((error as Error).message, "error");
     }
   };
 

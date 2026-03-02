@@ -11,6 +11,7 @@ import { useUser } from "@/store";
 
 import Textarea from "@/components/common/Textarea/Textarea";
 import { useNavigate } from "react-router-dom";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export default function GuestBook() {
   const [images, setImages] = useState<string[]>([]);
@@ -20,6 +21,8 @@ export default function GuestBook() {
   const { id: userId } = useUser();
 
   const navigate = useNavigate();
+
+  const addToast = useToastStore((state) => state.addToast);
 
   const onAdd = (data: { url: string; file: File }) => {
     if (files.length >= 4) return;
@@ -40,17 +43,17 @@ export default function GuestBook() {
 
   const onClick = async () => {
     if (!userId) {
-      alert("로그인이 필요합니다");
+      addToast("로그인이 필요합니다", "warning");
       return;
     }
 
     if (files.length === 0) {
-      alert("사진을 최소 1장 이상 첨부해주세요");
+      addToast("사진을 최소 1장 이상 첨부해주세요", "warning");
       return;
     }
 
     if (content.trim() === "") {
-      alert("내용을 입력해주세요");
+      addToast("내용을 입력해주세요", "warning");
       return;
     }
 
@@ -62,7 +65,7 @@ export default function GuestBook() {
         .single();
 
       if (memberError || !member?.group_id) {
-        alert("그룹 정보를 찾을 수 없습니다");
+        addToast("그룹 정보를 찾을 수 없습니다", "warning");
         return;
       }
 
@@ -110,11 +113,11 @@ export default function GuestBook() {
         throw photoError;
       }
 
-      alert("방명록이 등록되었습니다");
+      addToast("방명록이 등록되었습니다", "success");
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("등록 중 오류가 발생했습니다");
+      addToast("등록 중 오류가 발생했습니다", "error");
     }
   };
 

@@ -8,6 +8,7 @@ import {
   isValidGroupCode,
   getGroup,
 } from "@/services/groupService";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export const CODE_LENGTH = 6;
 
@@ -20,14 +21,16 @@ export default function useGroupJoin() {
   const [code, setCode] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const addToast = useToastStore((state) => state.addToast);
+
   const handleJoin = useCallback(async () => {
     const trimmed = code.trim();
     if (trimmed.length !== CODE_LENGTH) {
-      alert(`${CODE_LENGTH}자리 인증코드를 입력해주세요.`);
+      addToast(`${CODE_LENGTH}자리 인증코드를 입력해주세요.`, "warning");
       return;
     }
     if (!userId) {
-      alert("로그인 후 그룹에 참여할 수 있습니다.");
+      addToast("로그인 후 그룹에 참여할 수 있습니다.", "warning");
       return;
     }
     if (isSubmitting) return;
@@ -36,13 +39,13 @@ export default function useGroupJoin() {
     try {
       const isValid = await isValidGroupCode(groupId, trimmed);
       if (!isValid) {
-        alert("유효하지 않은 인증코드입니다.");
+        addToast("유효하지 않은 인증코드입니다.", "warning");
         return;
       }
 
       const group = await getGroup(groupId);
       if (!group) {
-        alert("그룹을 찾을 수 없습니다.");
+        addToast("그룹을 찾을 수 없습니다.", "warning");
         return;
       }
 
@@ -61,9 +64,9 @@ export default function useGroupJoin() {
       setGroup(group);
       navigate("/main", { replace: true });
     } catch (error) {
-      console.error("그룹 참여 실패:", error);
-      alert(
+      addToast(
         error instanceof Error ? error.message : "그룹 참여에 실패했습니다.",
+        "error",
       );
     } finally {
       setIsSubmitting(false);

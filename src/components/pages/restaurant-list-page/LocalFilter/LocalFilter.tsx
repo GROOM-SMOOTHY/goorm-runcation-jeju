@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useRef, useState, type MouseEvent } from "react";
-import { FaHeart } from "react-icons/fa"; // 하트 아이콘 추가
 import styles from "./LocalFilter.module.css";
 
 interface LocalFilterProps {
@@ -12,15 +11,15 @@ interface LocalFilterProps {
   onToggleFavorites: (active: boolean) => void;
 }
 
-const LocalFilter: React.FC<LocalFilterProps> = ({ 
-  regions, 
-  selectedRegion, 
+const LocalFilter: React.FC<LocalFilterProps> = ({
+  regions,
+  selectedRegion,
   onSelectRegion,
   showFavoritesOnly,
-  onToggleFavorites
+  onToggleFavorites,
 }) => {
   const allRegions = ["전체", ...regions];
-  
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
@@ -32,7 +31,7 @@ const LocalFilter: React.FC<LocalFilterProps> = ({
     e.preventDefault();
     setIsDragging(true);
     didDragRef.current = false;
-    
+
     if (scrollRef.current) {
       setStartX(e.pageX);
       setScrollLeft(scrollRef.current.scrollLeft);
@@ -48,23 +47,23 @@ const LocalFilter: React.FC<LocalFilterProps> = ({
 
     const x = e.pageX;
     const walk = (x - startX) * 1.5;
-    
+
     if (Math.abs(walk) > 5) {
       didDragRef.current = true;
     }
-    
+
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
-    <div 
+    <div
       className={styles.FilterContainer}
       ref={scrollRef}
       onMouseDown={onDragStart}
       onMouseMove={onDragMove}
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
-      style={{ cursor: isDragging ? 'grabbing' : 'pointer' }}
+      style={{ cursor: isDragging ? "grabbing" : "pointer" }}
     >
       {/* 좋아요 버튼 (맨 앞에 배치) */}
       <button
@@ -82,8 +81,12 @@ const LocalFilter: React.FC<LocalFilterProps> = ({
       {/* 지역 버튼들 */}
       {allRegions.map((region, idx) => {
         // 좋아요 필터가 켜져있으면 지역 버튼은 모두 비활성 상태로 보이게 처리
-        const isActive = !showFavoritesOnly && (region === "전체" ? selectedRegion === "" : selectedRegion === region);
-        
+        const isActive =
+          !showFavoritesOnly &&
+          (region === "전체"
+            ? selectedRegion === ""
+            : selectedRegion === region);
+
         return (
           <button
             type="button"
