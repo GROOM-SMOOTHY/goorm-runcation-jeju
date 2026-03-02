@@ -43,7 +43,9 @@ export default function AddStampPicture({
     inputRef.current?.click();
   };
 
-  const onRemoveImage = () => {
+  const onRemoveImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
     if (upload) {
       URL.revokeObjectURL(upload);
     }
