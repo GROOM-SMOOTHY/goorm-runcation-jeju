@@ -26,10 +26,11 @@ export default function SettlementAddPage() {
   const [title, setTitle] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [members, setMembers] = useState<Member[]>([]);
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date()); // 기본값 현재 날짜 기준
   const [user, setUser] = useState<string>("");
   const [accountInfo, setAccountInfo] = useState<string>("등록된 계좌 없음");
 
+  
   // 스토어의 ID가 변경되거나 복구될 때 local state에 강제 동기화
   useEffect(() => {
     if (storedUserId) {
@@ -53,7 +54,6 @@ export default function SettlementAddPage() {
         .single();
 
       if (error) {
-        console.error("계좌 정보 불러오기 실패:", error.message);
         setAccountInfo("등록된 계좌 정보가 없습니다.");
         return;
       }
@@ -133,11 +133,8 @@ export default function SettlementAddPage() {
       navigate(-1);
     } catch (err) {
       const error = err as Error;
-      console.error("데이터 저장 실패:", error.message);
       addToast("저장 실패", "데이터 저장 중 에러가 발생했습니다.", "error");
     }
-
-    console.log(amount, title, category, members, date, user);
   };
 
   return (
