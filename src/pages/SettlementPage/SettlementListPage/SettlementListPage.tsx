@@ -13,7 +13,26 @@ import { supabase } from "@/lib/supabase";
 import { useGroup } from "@/store/useGroup";
 import { useUser } from "@/store/useUser";
 
-// 참여자 데이터 타입 정의
+// --- 타입 정의 추가 ---
+interface ParticipantData {
+  id: string;
+  expense_id: string;
+  user_id: string;
+  state: 'PENDING' | 'COMPLETE';
+  amount: number;
+}
+
+interface ExpenseData {
+  id: string;
+  payer_id: string;
+  payment_title: string;
+  total_amount: number;
+  expense_date: string;
+  category: string;
+  group_id: string;
+  expense_participants: ParticipantData[];
+}
+
 interface ParticipantInfo {
   name: string;
   isPaid: boolean;
@@ -28,7 +47,6 @@ export default function SettlementListPage() {
   const [settlements, setSettlements] = useState<SettleCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 실시간 상단 요약 정보 계산
   const summary = useMemo(() => {
     return settlements.reduce((acc, curr) => {
       const amountPerPerson = curr.totalMemberCount > 0 
@@ -46,7 +64,6 @@ export default function SettlementListPage() {
     }, { paid: 0, toPay: 0 });
   }, [settlements, userData?.nickname]);
 
-  // 상태 업데이트 핸들러
   const handleUpdateStatus = async (expenseId: string, newStatus: SettlementStatus) => {
     if (!storedUserId || !userData?.nickname) return;
   
@@ -75,13 +92,10 @@ export default function SettlementListPage() {
           .update({ state: dbState }) 
           .eq("expense_id", expenseId)
           .eq("user_id", storedUserId)
-          .select()
-          .then(({ data, error }) => {
+          .then(({ error }) => {
             if (error) {
-              console.error("DB 업데이트 에러 상세:", error.message);
-              console.error("에러 코드:", error.code);
+              console.error("DB 업데이트 에러:", error.message);
             } else {
-              console.log("DB 업데이트 성공 데이터:", data);
               localStorage.setItem(`settle_done_${expenseId}`, newStatus === "completed" ? "true" : "false");
             }
           });
@@ -104,6 +118,7 @@ export default function SettlementListPage() {
       setLoading(true);
       
       try {
+        // any 제거: ExpenseData[]로 타입 지정
         const { data: expensesData, error: expensesError } = await supabase
           .from('expenses')
           .select(`*, expense_participants (*)`)
@@ -111,10 +126,13 @@ export default function SettlementListPage() {
           .order('expense_date', { ascending: false });
   
         if (expensesError) throw expensesError;
+        if (!expensesData) return;
+
+        const typedExpenses = expensesData as ExpenseData[];
   
         const allUserIds = Array.from(new Set([
-          ...(expensesData?.map(e => e.payer_id) || []),
-          ...(expensesData?.flatMap(e => e.expense_participants?.map((p: any) => p.user_id)) || [])
+          ...typedExpenses.map(e => e.payer_id),
+          ...typedExpenses.flatMap(e => e.expense_participants?.map(p => p.user_id) || [])
         ]));
   
         const [usersRes, accountsRes] = await Promise.all([
@@ -122,18 +140,17 @@ export default function SettlementListPage() {
           supabase.from('account_infos').select('user_id, bank_name, account_number').in('user_id', allUserIds)
         ]);
   
-        const formattedData: SettleCardProps[] = expensesData.map((item: any) => {
+        const formattedData: SettleCardProps[] = typedExpenses.map((item) => {
           const payerUser = usersRes.data?.find(u => u.id === item.payer_id);
           const payerAccount = accountsRes.data?.find(a => a.user_id === item.payer_id);
           
-          // 참여자 데이터 가공 및 타입 지정
-          const participants: ParticipantInfo[] = item.expense_participants?.map((p: any) => ({
+          const participants: ParticipantInfo[] = item.expense_participants?.map((p) => ({
             name: usersRes.data?.find(u => u.id === p.user_id)?.nickname || "알 수 없음",
             isPaid: p.state === 'COMPLETE',
             userId: p.user_id
           })) || [];
 
-          const myData = participants.find((p: ParticipantInfo) => p.userId === storedUserId);
+          const myData = participants.find((p) => p.userId === storedUserId);
           const isMeCompleted = myData?.isPaid || false;
   
           return {
@@ -144,17 +161,17 @@ export default function SettlementListPage() {
             totalAmount: item.total_amount,
 
             completedMembers: participants
-              .filter((p: ParticipantInfo) => p.isPaid)
-              .map((p: ParticipantInfo) => ({ name: p.name })),
+              .filter((p) => p.isPaid)
+              .map((p) => ({ name: p.name })),
 
             pendingMembers: participants
-              .filter((p: ParticipantInfo) => !p.isPaid)
-              .map((p: ParticipantInfo) => ({ name: p.name })),
+              .filter((p) => !p.isPaid)
+              .map((p) => ({ name: p.name })),
               
             accountHolder: {
               name: payerUser?.nickname || "알 수 없음",
-              bank: payerAccount?.bank_name || "은행, ",
-              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}` : "계좌 미등록",
+              bank: payerAccount?.bank_name || "은행 미등록",
+              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}***` : "계좌 미등록",
               accountNumberForCopy: payerAccount?.account_number || "",
             },
 
@@ -164,8 +181,9 @@ export default function SettlementListPage() {
         });
   
         setSettlements(formattedData);
-      } catch (err: any) {
-        console.error("로드 실패:", err.message);
+      } catch (err) {
+        const error = err as Error;
+        console.error("로드 실패:", error.message);
       } finally {
         setLoading(false);
       }
