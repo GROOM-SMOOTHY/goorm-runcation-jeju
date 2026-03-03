@@ -255,8 +255,12 @@ export default function SettlementListPage() {
               {settlements.map((s) => (
                 <SettleCard
                   key={s.expenseId}
-                  {...s}
-                  onStatusChange={handleUpdateStatus}
+                  expenseId={s.expenseId}
+                  title={s.title}
+                  category={s.category}
+                  expenseDate={s.date ?? ""}
+                  memberCount={s.totalMemberCount}
+                  isProgressFull={s.isProgressFull}
                 />
               ))}
             </div>
