@@ -39,7 +39,7 @@ export default function MyPage() {
     const fetchUser = async () => {
       const { data, error } = await supabase
         .from("users")
-        .select("nickname, email")
+        .select("nickname, email, phone")
         .eq("id", userId)
         .single();
 
@@ -49,13 +49,17 @@ export default function MyPage() {
       }
 
       setUserInfo(data);
+      setName(data.nickname ?? "");
+      setTel(data.phone ?? "");
     };
 
     fetchUser();
   }, [userId]);
 
   const onClick = async () => {
-    if (!userId) {
+    const { data } = await supabase.auth.getUser();
+    const authId = data.user?.id;
+    if (!authId) {
       alert("로그인이 필요합니다");
       return;
     }
@@ -72,14 +76,14 @@ export default function MyPage() {
           phone: tel,
           updated_at: new Date(),
         })
-        .eq("id", userId);
+        .eq("id", authId);
 
       if (userError) throw userError;
 
       const { data: member, error: memberError } = await supabase
         .from("group_members")
         .select("group_id")
-        .eq("user_id", userId)
+        .eq("user_id", authId)
         .order("joined_at", { ascending: false })
         .limit(1)
         .single();
@@ -91,18 +95,41 @@ export default function MyPage() {
 
       const currentGroupId = member.group_id;
 
-      const { error: accountError } = await supabase
+      // 1️⃣ 계좌 존재 여부 확인
+      const { data: existingAccount, error: checkError } = await supabase
         .from("account_infos")
-        .upsert({
-          user_id: userId,
-          group_id: currentGroupId,
-          bank_name: bank,
-          account_number: account,
-          account_holder: depositor,
-        });
+        .select("id")
+        .eq("user_id", authId)
+        .eq("group_id", currentGroupId)
+        .maybeSingle();
 
-      if (accountError) throw accountError;
+      if (checkError) throw checkError;
 
+      if (existingAccount) {
+        const { error: updateError } = await supabase
+          .from("account_infos")
+          .update({
+            bank_name: bank,
+            account_number: account,
+            account_holder: depositor,
+          })
+          .eq("user_id", authId)
+          .eq("group_id", currentGroupId);
+
+        if (updateError) throw updateError;
+      } else {
+        const { error: insertError } = await supabase
+          .from("account_infos")
+          .insert({
+            user_id: authId,
+            group_id: currentGroupId,
+            bank_name: bank,
+            account_number: account,
+            account_holder: depositor,
+          });
+
+        if (insertError) throw insertError;
+      }
       alert("저장되었습니다!");
       navigate(-1);
     } catch (err) {
