@@ -18,6 +18,12 @@
   display: none;
 }
 
+.cardLink {
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
 .header {
   width: 100%;
   display: flex;

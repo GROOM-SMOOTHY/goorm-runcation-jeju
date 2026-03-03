@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 import { useNavigate } from "react-router-dom";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export default function MyPage() {
   const { id: userId } = useUser();
@@ -20,6 +21,8 @@ export default function MyPage() {
   const [bank, setBank] = useState("");
   const [account, setAccount] = useState("");
   const [depositor, setDepositor] = useState("");
+
+  const addToast = useToastStore((state) => state.addToast);
 
   const isValid =
     name.trim() &&
@@ -39,7 +42,7 @@ export default function MyPage() {
     const fetchUser = async () => {
       const { data, error } = await supabase
         .from("users")
-        .select("nickname, email")
+        .select("nickname, email, phone")
         .eq("id", userId)
         .single();
 
@@ -49,19 +52,23 @@ export default function MyPage() {
       }
 
       setUserInfo(data);
+      setName(data.nickname ?? "");
+      setTel(data.phone ?? "");
     };
 
     fetchUser();
   }, [userId]);
 
   const onClick = async () => {
-    if (!userId) {
+    const { data } = await supabase.auth.getUser();
+    const authId = data.user?.id;
+    if (!authId) {
       alert("로그인이 필요합니다");
       return;
     }
 
     if (!isValid) {
-      alert("모든 정보를 입력해주세요");
+      addToast("모든 정보를 입력해주세요", "", "warning");
       return;
     }
     try {
@@ -72,42 +79,65 @@ export default function MyPage() {
           phone: tel,
           updated_at: new Date(),
         })
-        .eq("id", userId);
+        .eq("id", authId);
 
       if (userError) throw userError;
 
       const { data: member, error: memberError } = await supabase
         .from("group_members")
         .select("group_id")
-        .eq("user_id", userId)
+        .eq("user_id", authId)
         .order("joined_at", { ascending: false })
         .limit(1)
         .single();
 
       if (memberError || !member) {
-        alert("그룹 정보를 찾을 수 없습니다");
+        addToast("그룹 정보를 찾을 수 없습니다", "", "warning");
         return;
       }
 
       const currentGroupId = member.group_id;
 
-      const { error: accountError } = await supabase
+      // 1️⃣ 계좌 존재 여부 확인
+      const { data: existingAccount, error: checkError } = await supabase
         .from("account_infos")
-        .upsert({
-          user_id: userId,
-          group_id: currentGroupId,
-          bank_name: bank,
-          account_number: account,
-          account_holder: depositor,
-        });
+        .select("id")
+        .eq("user_id", authId)
+        .eq("group_id", currentGroupId)
+        .maybeSingle();
 
-      if (accountError) throw accountError;
+      if (checkError) throw checkError;
 
+      if (existingAccount) {
+        const { error: updateError } = await supabase
+          .from("account_infos")
+          .update({
+            bank_name: bank,
+            account_number: account,
+            account_holder: depositor,
+          })
+          .eq("user_id", authId)
+          .eq("group_id", currentGroupId);
+
+        if (updateError) throw updateError;
+      } else {
+        const { error: insertError } = await supabase
+          .from("account_infos")
+          .insert({
+            user_id: authId,
+            group_id: currentGroupId,
+            bank_name: bank,
+            account_number: account,
+            account_holder: depositor,
+          });
+
+        if (insertError) throw insertError;
+      }
       alert("저장되었습니다!");
       navigate(-1);
     } catch (err) {
       console.error(err);
-      alert("저장 중 오류가 발생했습니다.");
+      addToast("저장 중 오류가 발생했습니다.", "", "error");
     }
   };
 

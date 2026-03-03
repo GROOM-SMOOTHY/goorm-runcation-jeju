@@ -7,6 +7,7 @@ import {
 import { useUser } from "@/store/useUser";
 import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
 import type { Database } from "@/types/supabase";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export type Steps = "group-info-form" | "success";
 
@@ -34,6 +35,8 @@ export default function useCreateGroupModal(
 
   const { id: userId } = useUser((s) => s);
 
+  const addToast = useToastStore((state) => state.addToast);
+
   const validateForm = useCallback(() => {
     if (!formValues.groupName) {
       return "그룹명을 입력해주세요.";
@@ -51,7 +54,7 @@ export default function useCreateGroupModal(
   const handleCreateGroup = useCallback(async () => {
     const errorMessage = validateForm();
     if (errorMessage) {
-      alert(errorMessage);
+      addToast("입력 오류", errorMessage, "error");
       return;
     }
 
@@ -84,7 +87,11 @@ export default function useCreateGroupModal(
       setSteps("success");
     } catch (error) {
       console.error(error);
-      alert((error as Error).message);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 오류가 발생했습니다.";
+      addToast("그룹 생성 실패", message, "error");
     } finally {
       setIsSubmitting(false);
     }

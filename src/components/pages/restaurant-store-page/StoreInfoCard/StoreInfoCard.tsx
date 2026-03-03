@@ -1,5 +1,10 @@
 import React from "react";
-import { MdLocationOn, MdPhone, MdAccessTime, MdContentCopy } from "react-icons/md";
+import {
+  MdLocationOn,
+  MdPhone,
+  MdAccessTime,
+  MdContentCopy,
+} from "react-icons/md";
 import styles from "@/components/pages/restaurant-store-page/StoreInfoCard/StoreInfoCard.module.css";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 
@@ -16,7 +21,11 @@ const iconConfig = [
   { icon: <MdAccessTime />, className: styles["icon-hours"] },
 ];
 
-const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }) => {
+const StoreInfoCard: React.FC<StoreInfoCardProps> = ({
+  address,
+  contact,
+  hours,
+}) => {
   const addToast = useToastStore((state) => state.addToast);
   const labels = ["주소", "연락처", "영업시간"];
   const texts = [address, contact, hours];
@@ -29,14 +38,16 @@ const StoreInfoCard: React.FC<StoreInfoCardProps> = ({ address, contact, hours }
     } catch {
       addToast("복사에 실패했습니다", "", "error");
     }
-   };
+  };
 
   return (
     <div className={styles.card}>
       {texts.map((text, index) => (
         <div key={index} className={styles.item}>
           {/* 아이콘 원형 */}
-          <span className={`${styles.iconWrapper} ${iconConfig[index].className}`}>
+          <span
+            className={`${styles.iconWrapper} ${iconConfig[index].className}`}
+          >
             {iconConfig[index].icon}
           </span>
 

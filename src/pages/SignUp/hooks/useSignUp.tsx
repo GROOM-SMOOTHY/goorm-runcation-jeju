@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { signUp } from "@/services/authService";
 import { createUser } from "@/services/userService";
 import { validatePassword } from "@/utils/validate";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export default function useSignUp() {
   const [name, setName] = useState("");
@@ -15,6 +16,8 @@ export default function useSignUp() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const addToast = useToastStore((state) => state.addToast);
 
   const validationCheck = useCallback((): string | null => {
     if (!isVerified) {
@@ -40,7 +43,7 @@ export default function useSignUp() {
 
       const validationError = validationCheck();
       if (validationError) {
-        alert(validationError);
+        addToast(validationError, "", "warning");
         return;
       }
 
@@ -56,13 +59,13 @@ export default function useSignUp() {
         phone,
       });
 
-      alert("회원가입 완료");
+      addToast("회원가입 완료", "", "success");
       navigate("/login", { replace: true });
     } catch (err) {
       console.error(err);
       const message =
         err instanceof Error ? err.message : "회원가입에 실패했습니다.";
-      alert(message);
+      addToast(message, "", "error");
     } finally {
       setIsLoading(false);
     }
