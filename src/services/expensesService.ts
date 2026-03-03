@@ -56,3 +56,48 @@ export async function getRecentSettlements(userId: string): Promise<
   // Supabase 타입 추론 한계로 data가 null일 수 있음. 빈 배열 반환
   return data ?? [];
 }
+
+/**
+ * 지출 내역 상세 조회
+ */
+
+export type ExpenseDetail = Tables<"expenses"> & {
+  payer: Tables<"users"> & {
+    account_id: string;
+    account_bank: Tables<"account_infos">;
+  };
+  participants: (Tables<"expense_participants"> & {
+    user: Tables<"users">;
+  })[];
+};
+
+export async function getExpenseDetail(
+  expenseId: string,
+): Promise<ExpenseDetail> {
+  const { data, error } = await supabase
+    .from("expenses")
+    .select(
+      `
+      *, 
+      payer:users (
+        id, 
+        nickname, 
+        profile,
+        account_id,
+        account_bank:account_infos (id, account_holder, account_number, bank_name)
+      ), 
+      participants:expense_participants (
+        *,
+        user:users (id, nickname, profile)
+      )
+        `,
+    )
+    .eq("id", expenseId)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
