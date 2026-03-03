@@ -30,18 +30,18 @@ export default function SignUpEmailVerification({
 
   const onClickButton = () => {
     if (!isValidEmail) {
-      return addToast("이메일 형식이 유효하지 않습니다.", "warning");
+      return addToast("이메일 형식이 유효하지 않습니다.", "", "warning");
     }
     setShow(true);
-    addToast("인증코드가 전송되었습니다.", "success");
+    addToast("인증코드가 전송되었습니다.", "", "success");
   };
   const onClickVerify = () => {
     if (input === MOCK_DATA) {
       setIsVerified(true);
       onVerified();
-      return addToast("인증 성공", "success");
+      return addToast("인증 성공", "", "success");
     }
-    addToast("인증코드가 올바르지 않습니다.", "warning");
+    addToast("인증코드가 올바르지 않습니다.", "", "warning");
   };
 
   return (

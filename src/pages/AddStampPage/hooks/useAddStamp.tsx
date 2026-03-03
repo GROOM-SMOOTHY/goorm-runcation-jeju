@@ -31,12 +31,12 @@ export default function useAddStamp() {
       return;
     }
     if (!region) {
-      addToast("지역 정보가 필요합니다", "warning");
+      addToast("지역 정보가 필요합니다", "", "warning");
       return;
     }
 
     if (!userId) {
-      addToast("로그인 후 이용해주세요", "warning");
+      addToast("로그인 후 이용해주세요", "", "warning");
       return;
     }
 
@@ -48,10 +48,13 @@ export default function useAddStamp() {
         user_id: userId,
       });
 
-      addToast("저장되었습니다", "success");
+      addToast("저장되었습니다", "", "success");
       navigate(-1);
     } catch (error) {
-      addToast((error as Error).message, "error");
+      const message =
+        error instanceof Error ? error.message : "저장 중 오류가 발생했습니다.";
+
+      addToast(message, "", "error");
     }
   };
 

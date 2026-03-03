@@ -18,12 +18,12 @@ export default function MyProfilePicture() {
 
     const allowedType = ["image/jpeg", "image/png"];
     if (!allowedType.includes(file.type)) {
-      return addToast("JPG 또는 PNG 파일만 업로드 가능합니다.", "warning");
+      return addToast("JPG 또는 PNG 파일만 업로드 가능합니다.", "", "warning");
     }
 
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return addToast("10MB 이하 파일만 업로드 가능합니다.", "warning");
+      return addToast("10MB 이하 파일만 업로드 가능합니다.", "", "warning");
     }
 
     const previewUrl = URL.createObjectURL(file);

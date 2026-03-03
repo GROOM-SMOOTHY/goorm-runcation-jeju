@@ -10,7 +10,7 @@ export default function GruopCodeDisplay({ code }: Props) {
   const addToast = useToastStore((state) => state.addToast);
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
-    addToast("코드가 복사되었습니다.", "success");
+    addToast("코드가 복사되었습니다.", "", "success");
   };
 
   return (

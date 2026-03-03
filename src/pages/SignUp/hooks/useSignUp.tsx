@@ -43,7 +43,7 @@ export default function useSignUp() {
 
       const validationError = validationCheck();
       if (validationError) {
-        addToast(validationError, "warning");
+        addToast(validationError, "", "warning");
         return;
       }
 
@@ -59,13 +59,13 @@ export default function useSignUp() {
         phone,
       });
 
-      addToast("회원가입 완료", "success");
+      addToast("회원가입 완료", "", "success");
       navigate("/login", { replace: true });
     } catch (err) {
       console.error(err);
       const message =
         err instanceof Error ? err.message : "회원가입에 실패했습니다.";
-      addToast(message, "error");
+      addToast(message, "", "error");
     } finally {
       setIsLoading(false);
     }

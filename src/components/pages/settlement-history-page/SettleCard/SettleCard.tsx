@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as Switch from "@radix-ui/react-switch";
-import { FaBuilding, FaUser, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaUser,
+  FaCheckCircle,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { MdContentCopy } from "react-icons/md";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 import Progress from "@/components/common/Progress/Progress";
@@ -62,7 +67,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
 
   /* 토글 ON = 나 입금 완료(완료 쪽), OFF = 나 미완료(미완료 쪽) */
   const [depositMarkedComplete, setDepositMarkedComplete] = useState(
-    status === "completed"
+    status === "completed",
   );
 
   useEffect(() => {
@@ -75,15 +80,23 @@ const SettleCard: React.FC<SettleCardProps> = ({
     if (depositMarkedComplete) {
       return pendingMembers.filter((m) => m.name !== currentUserName);
     }
-    const alreadyInPending = pendingMembers.some((m) => m.name === currentUserName);
-    return alreadyInPending ? pendingMembers : [...pendingMembers, { name: currentUserName }];
+    const alreadyInPending = pendingMembers.some(
+      (m) => m.name === currentUserName,
+    );
+    return alreadyInPending
+      ? pendingMembers
+      : [...pendingMembers, { name: currentUserName }];
   })();
 
   const displayedCompleted: SettlementMember[] = (() => {
     if (!currentUserName) return completedMembers;
     if (depositMarkedComplete) {
-      const alreadyInCompleted = completedMembers.some((m) => m.name === currentUserName);
-      return alreadyInCompleted ? completedMembers : [...completedMembers, { name: currentUserName }];
+      const alreadyInCompleted = completedMembers.some(
+        (m) => m.name === currentUserName,
+      );
+      return alreadyInCompleted
+        ? completedMembers
+        : [...completedMembers, { name: currentUserName }];
     }
     return completedMembers.filter((m) => m.name !== currentUserName);
   })();
@@ -99,10 +112,12 @@ const SettleCard: React.FC<SettleCardProps> = ({
   const completedSorted = putMeFirst(displayedCompleted);
 
   const completedCount = displayedCompleted.length;
-  const progressPercent = totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
+  const progressPercent =
+    totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
 
   /* 헤더 뱃지: 진행률이 다 찼을 때만 "정산완료", 아니면 "정산 미완료" */
-  const isProgressFull = completedCount === totalMemberCount && totalMemberCount > 0;
+  const isProgressFull =
+    completedCount === totalMemberCount && totalMemberCount > 0;
 
   /* 1인당 금액 = 총액 ÷ 인원수 */
   const amountPerPerson =
@@ -153,14 +168,20 @@ const SettleCard: React.FC<SettleCardProps> = ({
           <div className={styles.bodyInner}>
             {/* 토글 */}
             <div
-              className={`${styles.statusRow} ${depositMarkedComplete ? styles.statusRowCompleted : styles.statusRowPending
-                }`}
+              className={`${styles.statusRow} ${
+                depositMarkedComplete
+                  ? styles.statusRowCompleted
+                  : styles.statusRowPending
+              }`}
             >
               <div className={styles.statusMessage}>
                 {depositMarkedComplete ? (
                   <FaCheckCircle className={styles.statusIcon} aria-hidden />
                 ) : (
-                  <FaExclamationTriangle className={styles.statusIcon} aria-hidden />
+                  <FaExclamationTriangle
+                    className={styles.statusIcon}
+                    aria-hidden
+                  />
                 )}
                 <span>
                   {depositMarkedComplete
@@ -213,10 +234,13 @@ const SettleCard: React.FC<SettleCardProps> = ({
                 <FaUser className={styles.avatarIcon} aria-hidden />
               </div>
               <div className={styles.accountHolderNameWrap}>
-                <span className={styles.accountHolderName}>{accountHolder.name}</span>
-                {currentUserName != null && accountHolder.name === currentUserName && (
-                  <span className={styles.accountHolderMeBadge}>나</span>
-                )}
+                <span className={styles.accountHolderName}>
+                  {accountHolder.name}
+                </span>
+                {currentUserName != null &&
+                  accountHolder.name === currentUserName && (
+                    <span className={styles.accountHolderMeBadge}>나</span>
+                  )}
               </div>
               <span className={styles.accountNumber}>
                 {accountHolder.bank} {accountHolder.accountNumberMasked}
@@ -242,7 +266,8 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </div>
               <div className={styles.memberTags}>
                 {pendingSorted.map((m) => {
-                  const isMe = currentUserName != null && m.name === currentUserName;
+                  const isMe =
+                    currentUserName != null && m.name === currentUserName;
                   return (
                     <div
                       key={m.name}
@@ -252,7 +277,9 @@ const SettleCard: React.FC<SettleCardProps> = ({
                         <FaUser className={styles.memberTagAvatarIcon} />
                       </div>
                       <span className={styles.memberTagName}>{m.name}</span>
-                      {isMe && <span className={styles.memberTagMeLabel}>나</span>}
+                      {isMe && (
+                        <span className={styles.memberTagMeLabel}>나</span>
+                      )}
                     </div>
                   );
                 })}
@@ -270,7 +297,8 @@ const SettleCard: React.FC<SettleCardProps> = ({
               </div>
               <div className={styles.memberTags}>
                 {completedSorted.map((m) => {
-                  const isMe = currentUserName != null && m.name === currentUserName;
+                  const isMe =
+                    currentUserName != null && m.name === currentUserName;
                   return (
                     <div
                       key={m.name}
@@ -280,7 +308,9 @@ const SettleCard: React.FC<SettleCardProps> = ({
                         <FaUser className={styles.memberTagAvatarIcon} />
                       </div>
                       <span className={styles.memberTagName}>{m.name}</span>
-                      {isMe && <span className={styles.memberTagMeLabel}>나</span>}
+                      {isMe && (
+                        <span className={styles.memberTagMeLabel}>나</span>
+                      )}
                     </div>
                   );
                 })}

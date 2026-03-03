@@ -54,7 +54,7 @@ export default function useCreateGroupModal(
   const handleCreateGroup = useCallback(async () => {
     const errorMessage = validateForm();
     if (errorMessage) {
-      addToast(errorMessage, "error");
+      addToast("입력 오류", errorMessage, "error");
       return;
     }
 
@@ -87,7 +87,11 @@ export default function useCreateGroupModal(
       setSteps("success");
     } catch (error) {
       console.error(error);
-      addToast((error as Error).message, "error");
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 오류가 발생했습니다.";
+      addToast("그룹 생성 실패", message, "error");
     } finally {
       setIsSubmitting(false);
     }

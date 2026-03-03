@@ -26,11 +26,11 @@ export default function useGroupJoin() {
   const handleJoin = useCallback(async () => {
     const trimmed = code.trim();
     if (trimmed.length !== CODE_LENGTH) {
-      addToast(`${CODE_LENGTH}자리 인증코드를 입력해주세요.`, "warning");
+      addToast(`${CODE_LENGTH}자리 인증코드를 입력해주세요.`, "", "warning");
       return;
     }
     if (!userId) {
-      addToast("로그인 후 그룹에 참여할 수 있습니다.", "warning");
+      addToast("로그인 후 그룹에 참여할 수 있습니다.", "", "warning");
       return;
     }
     if (isSubmitting) return;
@@ -39,13 +39,13 @@ export default function useGroupJoin() {
     try {
       const isValid = await isValidGroupCode(groupId, trimmed);
       if (!isValid) {
-        addToast("유효하지 않은 인증코드입니다.", "warning");
+        addToast("유효하지 않은 인증코드입니다.", "", "warning");
         return;
       }
 
       const group = await getGroup(groupId);
       if (!group) {
-        addToast("그룹을 찾을 수 없습니다.", "warning");
+        addToast("그룹을 찾을 수 없습니다.", "", "warning");
         return;
       }
 
@@ -66,6 +66,7 @@ export default function useGroupJoin() {
     } catch (error) {
       addToast(
         error instanceof Error ? error.message : "그룹 참여에 실패했습니다.",
+        "",
         "error",
       );
     } finally {

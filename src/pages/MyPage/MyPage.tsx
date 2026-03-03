@@ -59,12 +59,12 @@ export default function MyPage() {
 
   const onClick = async () => {
     if (!userId) {
-      addToast("로그인이 필요합니다", "warning");
+      addToast("로그인이 필요합니다", "", "warning");
       return;
     }
 
     if (!isValid) {
-      addToast("모든 정보를 입력해주세요", "warning");
+      addToast("모든 정보를 입력해주세요", "", "warning");
       return;
     }
     try {
@@ -88,7 +88,7 @@ export default function MyPage() {
         .single();
 
       if (memberError || !member) {
-        addToast("그룹 정보를 찾을 수 없습니다", "warning");
+        addToast("그룹 정보를 찾을 수 없습니다", "", "warning");
         return;
       }
 
@@ -106,11 +106,11 @@ export default function MyPage() {
 
       if (accountError) throw accountError;
 
-      addToast("저장되었습니다!", "success");
+      addToast("저장되었습니다!", "", "success");
       navigate(-1);
     } catch (err) {
       console.error(err);
-      addToast("저장 중 오류가 발생했습니다.", "error");
+      addToast("저장 중 오류가 발생했습니다.", "", "error");
     }
   };
 

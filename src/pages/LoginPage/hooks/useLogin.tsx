@@ -35,7 +35,7 @@ export default function useLogin() {
   const handleLogin = useCallback(async () => {
     const error = validateLoginForm(email, password);
     if (error) {
-      addToast(error, "warning");
+      addToast(error, "", "warning");
       return;
     }
 
@@ -44,19 +44,19 @@ export default function useLogin() {
       const authData = await authSignIn(email, password);
       const authUserId = authData.user?.id;
       if (!authUserId) {
-        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "warning");
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
       const userRow = await getUserById(authUserId);
       if (!userRow) {
-        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "warning");
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
       const userGroup = await getUserGroup(authUserId);
       if (!userGroup) {
-        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "warning");
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
@@ -72,6 +72,7 @@ export default function useLogin() {
     } catch (err) {
       addToast(
         err instanceof Error ? err.message : "로그인에 실패했습니다.",
+        "",
         "error",
       );
     } finally {

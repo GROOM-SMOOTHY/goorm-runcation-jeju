@@ -24,6 +24,8 @@ export default function GroupPage() {
   } = useGroupPage();
 
   const [weather, setWeather] = useState("로딩중");
+  const weatherLabel =
+    weather === "로딩중" ? weather : getWeatherDescKo(weather);
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -54,9 +56,7 @@ export default function GroupPage() {
               {user.nickname}님,
               <br />
               오늘의 제주는{" "}
-              <span className={styles.highlight}>
-                {getWeatherDescKo(weather)}
-              </span>
+              <span className={styles.highlight}>{weatherLabel}</span>
             </span>
           </div>
           <div className={styles.content}>

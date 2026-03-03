@@ -5,7 +5,6 @@ import { FaHeart, FaStar } from "react-icons/fa";
 import { useJsApiLoader } from "@react-google-maps/api";
 
 import Header from "@/components/layout/Header/Header";
-import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import StoreInfoCard from "@/components/pages/restaurant-store-page/StoreInfoCard/StoreInfoCard";
 import StoreMap from "@/components/pages/restaurant-store-page/StoreMap/StoreMap";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
@@ -21,9 +20,11 @@ export default function RestaurantStorePage() {
   const addToast = useToastStore((state) => state.addToast);
 
   // 초기값: 리스트에서 전달받은 데이터가 있으면 사용, 없으면 null
-  const [store, setStore] = useState<any>(state?.storeData || null);
+  const [store, setStore] = useState(state?.storeData || null);
   // 리스트에서 넘어온 데이터에 상세 정보(주소 등)가 이미 있다면 로딩 생략
-  const [isLoading, setIsLoading] = useState(!state?.storeData?.address);
+  const [isLoading, setIsLoading] = useState<boolean>(
+    !state?.storeData?.address || false,
+  );
 
   // 좋아요 초기 상태를 로컬 스토리지에서 확인
   const [isLiked, setIsLiked] = useState(() => {
@@ -113,8 +114,12 @@ export default function RestaurantStorePage() {
             setIsLoading(false);
           },
         );
-      } catch (error) {
-        addToast("API 호출 중 오류가 발생했습니다.", "", "error");
+      } catch (err) {
+        const error =
+          err instanceof Error
+            ? err.message
+            : "API 호출 중 오류가 발생했습니다.";
+        addToast(error, "", "error");
         setIsLoading(false);
       }
     };

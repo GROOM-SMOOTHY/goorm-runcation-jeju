@@ -43,17 +43,17 @@ export default function GuestBook() {
 
   const onClick = async () => {
     if (!userId) {
-      addToast("로그인이 필요합니다", "warning");
+      addToast("로그인이 필요합니다", "", "warning");
       return;
     }
 
     if (files.length === 0) {
-      addToast("사진을 최소 1장 이상 첨부해주세요", "warning");
+      addToast("사진을 최소 1장 이상 첨부해주세요", "", "warning");
       return;
     }
 
     if (content.trim() === "") {
-      addToast("내용을 입력해주세요", "warning");
+      addToast("내용을 입력해주세요", "", "warning");
       return;
     }
 
@@ -65,7 +65,7 @@ export default function GuestBook() {
         .single();
 
       if (memberError || !member?.group_id) {
-        addToast("그룹 정보를 찾을 수 없습니다", "warning");
+        addToast("그룹 정보를 찾을 수 없습니다", "", "warning");
         return;
       }
 
@@ -113,11 +113,11 @@ export default function GuestBook() {
         throw photoError;
       }
 
-      addToast("방명록이 등록되었습니다", "success");
+      addToast("방명록이 등록되었습니다", "", "success");
       navigate(-1);
     } catch (err) {
       console.error(err);
-      addToast("등록 중 오류가 발생했습니다", "error");
+      addToast("등록 중 오류가 발생했습니다", "", "error");
     }
   };
 
