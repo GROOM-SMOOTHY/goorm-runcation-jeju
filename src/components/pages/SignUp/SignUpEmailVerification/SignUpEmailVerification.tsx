@@ -1,5 +1,6 @@
 import styles from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification.module.css";
 import { useState } from "react";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 interface SignUpEmailVerificationProps {
   email: string;
@@ -25,20 +26,22 @@ export default function SignUpEmailVerification({
   const isValidEmail = validEmail.test(email);
   const codeNumber = input.length === 6;
 
+  const addToast = useToastStore((state) => state.addToast);
+
   const onClickButton = () => {
     if (!isValidEmail) {
-      return alert("이메일 형식이 유효하지 않습니다.");
+      return addToast("이메일 형식이 유효하지 않습니다.", "", "warning");
     }
     setShow(true);
-    alert("인증코드가 전송되었습니다.");
+    addToast("인증코드가 전송되었습니다.", "", "success");
   };
   const onClickVerify = () => {
     if (input === MOCK_DATA) {
       setIsVerified(true);
       onVerified();
-      return alert("인증 성공");
+      return addToast("인증 성공", "", "success");
     }
-    alert("인증코드가 올바르지 않습니다.");
+    addToast("인증코드가 올바르지 않습니다.", "", "warning");
   };
 
   return (

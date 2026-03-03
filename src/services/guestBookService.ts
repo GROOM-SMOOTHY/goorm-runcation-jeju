@@ -10,6 +10,45 @@ export type GuestBook = Tables<"guestbook_posts"> & {
   photo: Tables<"photos"> | null;
 };
 
+/**
+ * 방명록 상세 조회 (author, group, photos 전체)
+ */
+export type GuestBookDetail = Tables<"guestbook_posts"> & {
+  author: Tables<"users">;
+  group: Tables<"groups">;
+  photos: Tables<"photos">[];
+};
+
+export async function getGuestBookDetail(
+  id: string,
+): Promise<GuestBookDetail | null> {
+  const { data: post, error: postError } = await supabase
+    .from("guestbook_posts")
+    .select("*, author:author_id(*), group:group_id(*)")
+    .eq("id", id)
+    .single();
+
+  if (postError || !post) {
+    return null;
+  }
+
+  const { data: photosData, error: photosError } = await supabase
+    .from("photos")
+    .select("*")
+    .eq("content_id", id)
+    .eq("type", "place")
+    .order("order", { ascending: true });
+
+  if (photosError) {
+    throw photosError;
+  }
+
+  return {
+    ...post,
+    photos: photosData ?? [],
+  };
+}
+
 export async function getGuestBookList(): Promise<GuestBook[]> {
   const { data: posts, error } = await supabase
     .from("guestbook_posts")
