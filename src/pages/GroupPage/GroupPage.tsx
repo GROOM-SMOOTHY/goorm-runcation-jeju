@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useGroupPage } from "./useGroupPage";
 import { fetchCurrentWeather } from "@/api/weather";
 import { useState, useEffect } from "react";
+import Loading from "@/components/common/Loading/Loading";
 import { getWeatherDescKo } from "@/utils/weather";
 
 export default function GroupPage() {
@@ -38,7 +39,7 @@ export default function GroupPage() {
         setWeather(result.main);
       } catch (error) {
         console.log(error);
-        setWeather("정보 없음");
+        setWeather("날씨 정보 없음");
       }
     };
     loadWeather();
@@ -54,8 +55,14 @@ export default function GroupPage() {
             <span className={styles.title}>
               {user.nickname}님,
               <br />
-              오늘의 제주는{" "}
-              <span className={styles.highlight}>{weatherLabel}</span>
+                오늘의 제주는{' '}
+                {weather ? (
+                    <span className={styles.highlight}>{weatherLabel}</span>
+                ) : (
+                  <span className={styles.weatherInlineLoading}>
+                    <Loading />
+                  </span>
+                )}
             </span>
           </div>
           <div className={styles.content}>

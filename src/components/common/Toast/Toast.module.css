@@ -1,73 +1,107 @@
-.Root {
-  border-radius: 8px;
-  padding: 12px 16px;
+.Viewport {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
   display: flex;
-  align-items: center;
+  flex-direction: column; 
   gap: 12px;
-  transform: translateX(100%);
+  z-index: 9999;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+}
+
+.Root {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transform: translateY(15px);
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  box-shadow: 0 4px 12px var(--text-secondary);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .show {
-  transform: translateX(0);
+  transform: translateY(0);
   opacity: 1;
 }
 
-/* 타입별 색상 */
-.success { 
-  background-color: var(--badge-label-blue); 
-  color: var(--bg-white); 
-}
-.error {
-  background-color: var(--toast-red); 
-  color: var(--bg-white); 
-}
-.warning { 
-  background-color: var(--toast-yellow); 
-  color: var(--bg-black); 
-}
-.info { 
-  background-color: var(--toast-green); 
-  color: var(--bg-white); 
-}
+.success { border-left: 4px solid var(--badge-label-blue); }
+.error   { border-left: 4px solid var(--toast-red); }
+.warning { border-left: 4px solid var(--toast-yellow); }
+.info    { border-left: 4px solid var(--toast-green); }
+
+.success .Icon { color: var(--badge-label-blue); }
+.error   .Icon { color: var(--toast-red); }
+.warning .Icon { color: var(--toast-yellow); }
+.info    .Icon { color: var(--toast-green); }
 
 .Content {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 12px;
   flex: 1;
 }
 
-.Icon { font-size: 20px; }
-
-.Text { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-
-.Title { font-weight: bold; font-size: 14px; }
-.Description { font-size: 13px; }
-
-.Action { display: flex; justify-content: flex-end; }
-
-.Button { padding: 6px 10px; border-radius: 4px; border: none; cursor: pointer; }
-
-.Viewport {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  display: flex;
-  flex-direction: column-reverse; /* 최신 토스트가 아래로 쌓임 */
-  gap: 10px;
-  z-index: 9999;
-  max-width: 90vw;
+.Icon { 
+  font-size: 22px;
+  margin-top: 6px;
 }
 
-/* 모바일 반응형 */
-@media (max-width <= 480px) {
+.Text { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+  flex: 1; 
+}
+
+.Title { 
+  font-weight: 700;
+  font-size: 15px; 
+  color: var(--text-primary, #1A1F27);
+}
+
+.Description { 
+  font-size: 13px; 
+  color: var(--text-secondary, #6B7684);
+  line-height: 1.5;
+}
+
+.Action { 
+  align-self: center;
+}
+
+.Button {
+  padding: 8px 8px; 
+  border-radius: 50%; 
+  border: none; 
+  background-color: var(--bg-secondary, #F2F4F6);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer; 
+  transition: all 0.2s;
+}
+
+.Button:hover {
+  filter: brightness(0.95);
+  transform: scale(1.02);
+}
+
+@media (max-width: 480px) {
   .Viewport {
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    bottom: 24px;
+    width: auto;
   }
-  .Root { width: 100%; }
+  .Root { 
+    width: 100%; 
+    padding: 16px;
+    border-radius: 20px;
+  }
 }
