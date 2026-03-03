@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.trigger {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-main);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.trigger:hover {
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+  background: var(--bg-select);
+}
+
+.trigger[data-state="on"] {
+  color: var(--brand-primary);
+  background: var(--badge-bg-orange);
+  border-color: var(--brand-primary);
+  font-weight: 600;
+}
