@@ -370,9 +370,6 @@
   color: var(--text-primary);
   font-size: 13px;
   font-weight: 500;
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
   justify-content: center;
   box-sizing: border-box;
 }
