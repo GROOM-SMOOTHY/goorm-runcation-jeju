@@ -120,6 +120,11 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
+  /* 한줄로 나오게 최대 5자 */
+  max-width: 8ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .moreButton {
