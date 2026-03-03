@@ -12,19 +12,10 @@ import styles from "./RestaurantListPage.module.css";
 import LoadingPage from "@/pages/LoadingPage/LoadingPage";
 
 const REGIONS = [
-  "제주시",
-  "서귀포시",
-  "애월",
-  "한림",
-  "대정",
-  "안덕",
-  "중문",
-  "남원",
-  "표선",
-  "성산",
-  "구좌",
-  "조천",
+  "제주시", "서귀포시", "애월", "한림", "대정", "안덕",
+  "중문", "남원", "표선", "성산", "구좌", "조천",
 ];
+
 const STORAGE_KEY = "favorite_restaurants_ids";
 
 export default function RestaurantListPage() {
@@ -36,52 +27,42 @@ export default function RestaurantListPage() {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const { stores, setStores, isLoading, isFetchingMore, fetchPlacesData, hasMore } = 
-    useRestaurants(selectedRegion, searchKeyword);
+  // isFetchingMore / hasMore 제거됨 - 30일 캐시 전략으로 페이지네이션 불필요
+  const { stores, setStores, isLoading } = useRestaurants(selectedRegion, searchKeyword);
 
-  useEffect(() => {   
+  // 즐겨찾기 상태 복원: stores가 처음 로드된 직후 1회만 실행
+  useEffect(() => {
+    if (stores.length === 0) return;
     const savedFavorites = localStorage.getItem(STORAGE_KEY);
-    if (savedFavorites && stores.length > 0) {
-      const favoriteIds = JSON.parse(savedFavorites) as string[];
-      setStores((prev) =>
-        prev.map((s) => ({
-          ...s,
-          isFavorite: favoriteIds.includes(s.id),
-        })),
+    if (!savedFavorites) return;
+    const favoriteIds = JSON.parse(savedFavorites) as string[];
+    setStores((prev) =>
+      prev.map((s) => ({ ...s, isFavorite: favoriteIds.includes(s.id) }))
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stores.length]);
+
+  const handleToggleFavorite = useCallback((id: string) => {
+    setStores((prev) => {
+      const next = prev.map((s) =>
+        s.id === id ? { ...s, isFavorite: !s.isFavorite } : s
       );
-    }
-  }, [stores.length, showFavoritesOnly]);
-
-  const handleToggleFavorite = (id: string) => {
-    setStores(prev => {
-      const newStores = prev.map(s => s.id === id ? { ...s, isFavorite: !s.isFavorite } : s);
-      const favoriteIds = newStores.filter(s => s.isFavorite).map(s => s.id);
+      const favoriteIds = next.filter((s) => s.isFavorite).map((s) => s.id);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(favoriteIds));
-      return newStores;
+      return next;
     });
-  };
+  }, [setStores]);
 
-  const loaderRef = useCallback((node: HTMLDivElement | null) => {
-    if (!node) return;
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        fetchPlacesData(false);
-      }
-    }, { threshold: 0.8 });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [fetchPlacesData, hasMore]);
-
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (mainRef.current) setShowScrollToTop(mainRef.current.scrollTop > 300);
-  };
+  }, []);
 
   const displayedStores = useMemo(() => {
     if (!showFavoritesOnly) return stores;
-    return stores.filter(store => store.isFavorite);
+    return stores.filter((s) => s.isFavorite);
   }, [stores, showFavoritesOnly]);
 
-  const storeNames = useMemo(() => stores.map(s => s.name), [stores]);
+  const storeNames = useMemo(() => stores.map((s) => s.name), [stores]);
 
   return (
     <div className={styles.page}>
@@ -92,17 +73,15 @@ export default function RestaurantListPage() {
       ) : (
         <>
           <Header title="맛집" onBack={() => navigate(-1)} />
-
           <main ref={mainRef} className={styles.main} onScroll={handleScroll}>
             <SearchBar data={storeNames} onSearch={setSearchKeyword} />
-            <LocalFilter 
-              regions={REGIONS} 
-              selectedRegion={selectedRegion} 
-              onSelectRegion={setSelectedRegion} 
+            <LocalFilter
+              regions={REGIONS}
+              selectedRegion={selectedRegion}
+              onSelectRegion={setSelectedRegion}
               showFavoritesOnly={showFavoritesOnly}
               onToggleFavorites={setShowFavoritesOnly}
             />
-
             <section className={styles.storeList}>
               {displayedStores.map((store) => (
                 <StoreCard
@@ -116,7 +95,6 @@ export default function RestaurantListPage() {
                   }
                 />
               ))}
-              
               {displayedStores.length === 0 && (
                 <div className={styles.emptyState}>
                   {showFavoritesOnly
@@ -124,17 +102,9 @@ export default function RestaurantListPage() {
                     : "검색 결과가 없습니다."}
                 </div>
               )}
-              
-              {hasMore && (
-                <div ref={loaderRef} className={styles.loaderArea}>
-                  {isFetchingMore && <span>추가 정보를 가져오는 중...</span>}
-                </div>
-              )}
             </section>
           </main>
-
           <BottomNavigation />
-
           <button
             className={`${styles.scrollToTopButton} ${!showScrollToTop ? styles.hidden : ""}`}
             onClick={() => mainRef.current?.scrollTo({ top: 0, behavior: "smooth" })}

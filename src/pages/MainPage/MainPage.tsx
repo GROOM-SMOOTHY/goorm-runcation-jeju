@@ -13,127 +13,217 @@ import { useEffect, useState } from "react";
 import GuestBookList from "@/components/pages/main-page/GuestBookList";
 import { getMyPendingSettlementCount } from "@/services/expenseParticipantsService";
 import { useJsApiLoader } from "@react-google-maps/api";
+import { createClient } from "@supabase/supabase-js";
 import styles from "./styles.module.css";
 import Loading from "@/components/common/Loading/Loading";
+import DEFAULT_IMAGE from "@/assets/Rectangle.png";
 
-const defaultImage = "https://via.placeholder.com/800x400?text=Jeju+Restaurant";
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
-const isLocationInJeju = (lat: number, lon: number) => {
-  return lat >= 33.1 && lat <= 33.6 && lon >= 126.1 && lon <= 127.0;
-};
+const LIBRARIES: ("places")[] = ["places"];
+const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
-// 수정 해야함
-// 구글 API 라이브러리 설정
-const libraries: ("places" | "geometry" | "drawing" | "visualization")[] = ["places"];
+function isDataFresh(updatedAt: string | null): boolean {
+  if (!updatedAt) return false;
+  return Date.now() - new Date(updatedAt).getTime() < THIRTY_DAYS_MS;
+}
+
+const isLocationInJeju = (lat: number, lon: number) =>
+  lat >= 33.1 && lat <= 33.6 && lon >= 126.1 && lon <= 127.0;
+
+interface GooglePhoto {
+  name: string;
+  getURI: (opts: { maxWidth: number }) => string;
+}
+
+// any 제거 - 명시적 타입 정의
+interface RecommendStore {
+  place_id: string;
+  name: string;
+  rating: number;
+  imageUrl: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+}
 
 export default function MainPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
   const { id: userId } = useUser();
 
-  // 구글 지도 로드 상태 관리
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY || "",
-    libraries,
+    libraries: LIBRARIES,
+    language: "ko",
+    region: "KR",
   });
 
   const [weather, setWeather] = useState<string | null>(null);
   const [degree, setDegree] = useState<number | null>(null);
   const [pendingSettlementCount, setPendingSettlementCount] = useState(0);
-
-  const [recommendStore, setRecommendStore] = useState<any>(null);
+  const [recommendStore, setRecommendStore] = useState<RecommendStore | null>(null);
   const [isStoreLoading, setIsStoreLoading] = useState(true);
   const [cardTitle, setCardTitle] = useState("제주 핫플레이스 추천");
 
   useEffect(() => {
-    if (userId) {
-      getMyPendingSettlementCount(userId).then((count) => {
-        setPendingSettlementCount(count);
-      });
-    }
+    if (!userId) return;
+    getMyPendingSettlementCount(userId).then(setPendingSettlementCount);
   }, [userId]);
 
   useEffect(() => {
     if (!isLoaded) return;
 
-    const fetchPlacesAndWeather = async (lat: number, lon: number, title: string) => {
+    let cancelled = false;
+
+    const fetchRecommend = async (lat: number, lon: number, title: string) => {
+      if (cancelled) return;
       setCardTitle(title);
       setIsStoreLoading(true);
 
       try {
-        const result = await fetchCurrentWeather(lat, lon);
-        setWeather(result.description);
-        setDegree(result.temp);
+        // 날씨는 병렬로 먼저 시작
+        const weatherPromise = fetchCurrentWeather(lat, lon);
 
-        const service = new window.google.maps.places.PlacesService(document.createElement("div"));
-        const center = new window.google.maps.LatLng(lat, lon);
+        // ── STEP 1: DB 캐시 조회 ──────────────────────────────────
+        const regionKeyword = lat >= 33.35 ? "제주시" : "서귀포시";
+        const { data: cachedRows } = await supabase
+          .from("restaurants")
+          .select("*")
+          .ilike("formatted_address", `%${regionKeyword}%`)
+          .order("rating", { ascending: false })
+          .limit(20);
 
-        service.nearbySearch(
-          {
-            location: center,
-            radius: 5000,
-            type: "restaurant",
-          },
-          (results, status) => {
-            if (status === window.google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
-              const validStores = results.filter((store) => store.photos && store.photos.length > 0);
-              const sortedStores = (validStores.length > 0 ? validStores : results).sort(
-                (a, b) => (b.rating || 0) - (a.rating || 0)
-              );
+        const freshRows = cachedRows?.filter((r) => isDataFresh(r.updated_at));
 
-              const topStores = sortedStores.slice(0, 5);
-              const randomIndex = Math.floor(Math.random() * topStores.length);
-              setRecommendStore(topStores[randomIndex]);
-            }
+        if (!cancelled && freshRows && freshRows.length > 0) {
+          const top5 = freshRows.slice(0, 5);
+          const picked = top5[Math.floor(Math.random() * top5.length)];
+          setRecommendStore({
+            place_id: picked.place_id,
+            name: picked.name,
+            rating: picked.rating || 0,
+            imageUrl: picked.image_url || DEFAULT_IMAGE,
+            latitude: picked.latitude,
+            longitude: picked.longitude,
+            address: picked.formatted_address || "제주도",
+          });
+
+          const weatherResult = await weatherPromise;
+          if (!cancelled) {
+            setWeather(weatherResult.description);
+            setDegree(weatherResult.temp);
             setIsStoreLoading(false);
           }
-        );
+          return;
+        }
+
+        // ── STEP 2: DB 없거나 30일 초과 → Google Places API ──────
+        const { places } = await google.maps.places.Place.searchByText({
+          textQuery: `제주도 ${regionKeyword} 맛집`,
+          fields: [
+            "id",
+            "displayName",
+            "formattedAddress",
+            "rating",
+            "photos",
+            "types",
+            "location",
+            "nationalPhoneNumber",
+            "regularOpeningHours",
+          ],
+          language: "ko",
+          maxResultCount: 20,
+        });
+
+        if (cancelled) return;
+
+        if (places && places.length > 0) {
+          const dbData = places.map((p) => ({
+            place_id: p.id,
+            name: p.displayName ?? "이름 없음",
+            formatted_address: p.formattedAddress ?? null,
+            latitude: p.location?.lat() ?? 0,
+            longitude: p.location?.lng() ?? 0,
+            rating: p.rating ?? 0,
+            types: p.types ?? [],
+            phone_number: p.nationalPhoneNumber ?? null,
+            opening_hours: p.regularOpeningHours?.weekdayDescriptions ?? null,
+            image_url: p.photos?.[0]
+              ? `https://places.googleapis.com/v1/${(p.photos[0] as unknown as GooglePhoto).name}/media?maxWidthPx=800&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
+              : null,
+            updated_at: new Date().toISOString(),
+          }));
+
+          // DB에 upsert (이후 30일간 API 재호출 없음)
+          await supabase
+            .from("restaurants")
+            .upsert(dbData, { onConflict: "place_id" });
+
+          if (cancelled) return;
+
+          const sorted = [...dbData].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          const top5 = sorted.slice(0, 5);
+          const picked = top5[Math.floor(Math.random() * top5.length)];
+
+          setRecommendStore({
+            place_id: picked.place_id,
+            name: picked.name,
+            rating: picked.rating || 0,
+            // image_url이 null이면 DEFAULT_IMAGE
+            imageUrl: picked.image_url || DEFAULT_IMAGE,
+            latitude: picked.latitude,
+            longitude: picked.longitude,
+            address: picked.formatted_address || "제주도",
+          });
+        }
+
+        const weatherResult = await weatherPromise;
+        if (!cancelled) {
+          setWeather(weatherResult.description);
+          setDegree(weatherResult.temp);
+        }
       } catch (e) {
-        console.error("데이터 로드 실패:", e);
-        setIsStoreLoading(false);
+        console.error("메인 데이터 로드 실패:", e);
+      } finally {
+        if (!cancelled) setIsStoreLoading(false);
       }
     };
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
+        ({ coords: { latitude, longitude } }) => {
           if (isLocationInJeju(latitude, longitude)) {
-            fetchPlacesAndWeather(latitude, longitude, "지금 내 주변 추천 맛집");
+            fetchRecommend(latitude, longitude, "지금 내 주변 추천 맛집");
           } else {
-            fetchPlacesAndWeather(33.4996, 126.5312, "제주 도착 전! 핫플레이스 추천");
+            fetchRecommend(33.4996, 126.5312, "제주 도착 전! 핫플레이스 추천");
           }
         },
-        () => fetchPlacesAndWeather(33.4996, 126.5312, "제주 핫플레이스 추천 맛집")
+        () => fetchRecommend(33.4996, 126.5312, "제주 핫플레이스 추천 맛집")
       );
     } else {
-      fetchPlacesAndWeather(33.4996, 126.5312, "제주 핫플레이스 추천 맛집");
+      fetchRecommend(33.4996, 126.5312, "제주 핫플레이스 추천 맛집");
     }
-  }, [isLoaded]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded]); // isLoaded만 의존 → 마운트 1회만 실행
 
   const handleCardClick = () => {
-    if (!recommendStore?.place_id) return;
-
-    const cleanStoreData = {
-      id: recommendStore.place_id,
-      name: recommendStore.name,
-      rating: recommendStore.rating,
-      imageUrl: recommendStore.photos?.[0]?.getUrl({ maxWidth: 800 }) || defaultImage,
-      latitude: recommendStore.geometry?.location?.lat(),
-      longitude: recommendStore.geometry?.location?.lng(),
-      address: recommendStore.vicinity || recommendStore.formatted_address || "제주도",
-    };
-
+    if (!recommendStore) return;
     navigate(`/restaurants/${recommendStore.place_id}`, {
-      state: { storeData: cleanStoreData },
+      state: { storeData: recommendStore },
     });
   };
 
   return (
     <>
       <Header title="메인" />
-
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.userInfoWrap}>
@@ -146,15 +236,19 @@ export default function MainPage() {
           </div>
         </div>
 
-        {/* 맛집 추천 카드 섹션 */}
+        {/* 맛집 추천 카드 */}
         <div className={styles.imageWrapper} onClick={handleCardClick}>
           {isStoreLoading ? (
             <Loading />
           ) : (
             <>
               <img
-                src={recommendStore?.photos?.[0]?.getUrl({ maxWidth: 800 }) || defaultImage}
+                src={recommendStore?.imageUrl || DEFAULT_IMAGE}
                 alt="추천 맛집"
+                onError={(e) => {
+                  // URL이 있어도 실제 로드 실패 시 기본 이미지로 교체
+                  e.currentTarget.src = DEFAULT_IMAGE;
+                }}
               />
               <div className={styles.imageOverlay}>
                 <span className={styles.todayWeather}>{cardTitle}</span>
@@ -162,7 +256,7 @@ export default function MainPage() {
                   {recommendStore?.name || "맛집 정보를 찾을 수 없습니다"}
                 </span>
                 <div className={styles.storeSubInfo}>
-                  {recommendStore?.rating && (
+                  {recommendStore?.rating != null && recommendStore.rating > 0 && (
                     <>
                       <FaStar size={14} color="#FFD700" style={{ marginRight: "4px" }} />
                       <span style={{ marginRight: "8px" }}>{recommendStore.rating}</span>
@@ -176,8 +270,6 @@ export default function MainPage() {
 
         <div className={styles.noticeContainer}>
           <PendingSettlementPanel count={pendingSettlementCount} />
-          
-          {/* 날씨 데이터가 있으면 패널을 보여주고, 없으면 로딩 컴포넌트를 보여줌 */}
           {degree !== null && weather !== null ? (
             <WeatherPanel degree={degree} weather={weather} />
           ) : (
@@ -192,33 +284,19 @@ export default function MainPage() {
           <div className={styles.shortcutList}>
             <MainShortcutCard
               type="store"
-              title={
-                <>
-                  지역별
-                  <br />
-                  맛집 탐방
-                </>
-              }
+              title={<>지역별<br />맛집 탐방</>}
               onClick={() => navigate("/restaurants")}
             />
             <MainShortcutCard
               type="settlement"
-              title={
-                <>
-                  정산하기
-                  <br />& N빵
-                </>
-              }
+              title={<>정산하기<br />& N빵</>}
               onClick={() => navigate("/settlement")}
             />
           </div>
         </div>
         <GuestBookList />
       </div>
-
       <BottomNavigation />
     </>
   );
 }
-
-
