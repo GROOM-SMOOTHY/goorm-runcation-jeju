@@ -19,7 +19,9 @@ export type GuestBookDetail = Tables<"guestbook_posts"> & {
   photos: Tables<"photos">[];
 };
 
-export async function getGuestBookDetail(id: string): Promise<GuestBookDetail | null> {
+export async function getGuestBookDetail(
+  id: string,
+): Promise<GuestBookDetail | null> {
   const { data: post, error: postError } = await supabase
     .from("guestbook_posts")
     .select("*, author:author_id(*), group:group_id(*)")
@@ -30,12 +32,16 @@ export async function getGuestBookDetail(id: string): Promise<GuestBookDetail | 
     return null;
   }
 
-  const { data: photosData } = await supabase
+  const { data: photosData, error: photosError } = await supabase
     .from("photos")
     .select("*")
     .eq("content_id", id)
     .eq("type", "place")
     .order("order", { ascending: true });
+
+  if (photosError) {
+    throw photosError;
+  }
 
   return {
     ...post,
