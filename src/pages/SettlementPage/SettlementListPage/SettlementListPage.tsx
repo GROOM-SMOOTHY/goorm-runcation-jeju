@@ -12,6 +12,7 @@ import styles from "@/pages/SettlementPage/SettlementListPage/SettlementListPage
 import { supabase } from "@/lib/supabase";
 import { useGroup } from "@/store/useGroup";
 import { useUser } from "@/store/useUser";
+import { format } from "date-fns";
 
 // --- 타입 정의 추가 ---
 interface ParticipantData {
@@ -185,7 +186,7 @@ export default function SettlementListPage() {
             expenseId: item.id,
             title: item.payment_title,
             date: item.expense_date
-              ? new Date(item.expense_date).toLocaleDateString()
+              ? format(new Date(item.expense_date), "yy.MM.dd")
               : "-",
             totalMemberCount: participants.length,
             totalAmount: item.total_amount,
