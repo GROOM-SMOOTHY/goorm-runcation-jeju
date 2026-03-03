@@ -69,13 +69,43 @@ export default function SettlementAddPage() {
       addToast("오류", "그룹 정보가 없습니다.", "error");
       return;
     }
-    if (amount <= 0 || !title) {
-      addToast("입력 확인", "정산 금액과 이름을 입력해주세요.", "warning");
+    if (amount <= 0) {
+      addToast("입력 확인", "정산 금액을 0원보다 크게 입력해주세요.", "warning");
+      return;
+    }
+
+    if (!title.trim()) {
+      addToast("입력 확인", "정산 이름을 입력해주세요.", "warning");
+      return;
+    }
+    if (title.length > 30) {
+      addToast("입력 확인", "정산명은 30자 이내로 입력해주세요.", "warning");
+      return;
+    }
+
+    if(date && date > new Date()) {
+      addToast("입력 확인", "오늘 날짜보다 미래로 설정할 수 없습니다.", "warning");
+      return;
+    }
+    if (!date) {
+    addToast("입력 확인", "지출 일자를 선택해주세요.", "warning");
+    return;
+    }
+
+    if (!category) {
+      addToast("입력 확인", "카테고리를 선택해주세요.", "warning");
       return;
     }
     if (!user) {
       addToast("입력 확인", "결제자를 선택해주세요.", "warning");
       return;
+    }
+    if (members.length > 20) {
+      addToast("입력 확인", "참여 멤버는 최대 20명까지 선택할 수 있습니다.", "warning");
+      return;
+    } else if (members.length === 0) {
+      addToast("입력 확인", "정산에 참여할 멤버를 선택해주세요.", "warning");
+      return; 
     }
 
     const isPayerMe = user === storedUserId;
@@ -234,7 +264,7 @@ export default function SettlementAddPage() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <Button variant="primary" type="button" onClick={handleAddSettlement}>
+        <Button variant="default" type="button" onClick={handleAddSettlement}>
           정산 내역 추가하기
         </Button>
       </div>

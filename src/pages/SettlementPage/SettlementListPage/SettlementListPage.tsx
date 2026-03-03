@@ -142,19 +142,22 @@ export default function SettlementListPage() {
             date: item.expense_date ? new Date(item.expense_date).toLocaleDateString() : "-",
             totalMemberCount: participants.length,
             totalAmount: item.total_amount,
-            // 🔍 filter와 map에 명시적 타입 부여로 에러 해결
+
             completedMembers: participants
               .filter((p: ParticipantInfo) => p.isPaid)
               .map((p: ParticipantInfo) => ({ name: p.name })),
+
             pendingMembers: participants
               .filter((p: ParticipantInfo) => !p.isPaid)
               .map((p: ParticipantInfo) => ({ name: p.name })),
+              
             accountHolder: {
               name: payerUser?.nickname || "알 수 없음",
-              bank: payerAccount?.bank_name || "미등록",
-              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}***` : "계좌 없음",
+              bank: payerAccount?.bank_name || "은행, ",
+              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}` : "계좌 미등록",
               accountNumberForCopy: payerAccount?.account_number || "",
             },
+
             status: isMeCompleted ? 'completed' : 'pending',
             currentUserName: userData?.nickname || "",
           };
