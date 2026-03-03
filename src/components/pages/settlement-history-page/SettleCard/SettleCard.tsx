@@ -5,11 +5,24 @@ import {
   FaUser,
   FaCheckCircle,
   FaExclamationTriangle,
+  FaCoffee,
 } from "react-icons/fa";
 import { MdContentCopy } from "react-icons/md";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 import Progress from "@/components/common/Progress/Progress";
 import styles from "@/components/pages/settlement-history-page/SettleCard/SettleCard.module.css";
+import {
+  PiForkKnifeFill,
+  PiCarFill,
+  PiDotsThreeCircleFill,
+} from "react-icons/pi";
+
+const CATEGORY_ICONS = {
+  food: <PiForkKnifeFill size={24} color="var(--brand-primary)" />,
+  transportation: <PiCarFill size={24} color="var(--brand-primary)" />,
+  cafe: <FaCoffee size={24} color="var(--brand-primary)" />,
+  etc: <PiDotsThreeCircleFill size={24} color="var(--brand-primary)" />,
+};
 
 export type SettlementStatus = "completed" | "pending";
 
@@ -26,6 +39,7 @@ export interface SettlementMember {
 
 export interface SettleCardProps {
   expenseId: string;
+  category: string;
   title: string;
   date: string;
   totalMemberCount: number;
@@ -44,6 +58,7 @@ export interface SettleCardProps {
 
 const SettleCard: React.FC<SettleCardProps> = ({
   expenseId,
+  category,
   title,
   date,
   totalMemberCount,
@@ -156,7 +171,7 @@ const SettleCard: React.FC<SettleCardProps> = ({
         onClick={() => setExpanded((prev) => !prev)}
       >
         <div className={styles.iconBlock}>
-          <FaBuilding className={styles.carIcon} />
+          {CATEGORY_ICONS[category as keyof typeof CATEGORY_ICONS]}
         </div>
         <div className={styles.headerText}>
           <span className={styles.title}>{title}</span>

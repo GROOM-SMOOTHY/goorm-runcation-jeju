@@ -190,6 +190,8 @@ export default function SettlementListPage() {
             totalMemberCount: participants.length,
             totalAmount: item.total_amount,
 
+            category: item.category,
+
             completedMembers: participants
               .filter((p) => p.isPaid)
               .map((p) => ({ name: p.name })),
