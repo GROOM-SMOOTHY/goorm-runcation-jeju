@@ -12,10 +12,18 @@ interface Props {
   expenseId: string;
 }
 export default function SettleCardDetail({ expanded, expenseId }: Props) {
-  const { expense, members } = useSettleCard({ expanded, expenseId });
-  const currentUser = useUser((state) => state.data);
+  const { expense, members, handleMySettleStatusToggle } = useSettleCard({
+    expanded,
+    expenseId,
+  });
+  const { id: userId, data: currentUser } = useUser((state) => state);
 
-  const depositMarkedComplete = members.every((m) => m?.state === "COMPLETE");
+  // 내가 돈을 냈는지
+  const isPaid =
+    members.find((m) => m?.user_id === userId && m?.state === "COMPLETE") !==
+    undefined;
+
+  const isMySettle = members.find((m) => m?.user_id === userId) !== undefined;
 
   const totalAmount = expense?.total_amount
     ? expense.total_amount.toLocaleString()
@@ -38,39 +46,38 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
     accountNumberForCopy: expense?.payer?.account_bank?.account_number ?? "",
   };
 
-  const handleStatusToggle = () => {
-    console.log("handleStatusToggle");
-  };
-
   return (
     <div
       className={`${styles.bodyWrapper} ${expanded ? "" : styles.bodyWrapperCollapsed}`}
     >
       <div className={styles.body}>
         <div className={styles.bodyInner}>
-          <div
-            className={`${styles.statusRow} ${depositMarkedComplete ? styles.statusRowCompleted : styles.statusRowPending}`}
-          >
-            <div className={styles.statusMessage}>
-              {depositMarkedComplete ? (
-                <FaCheckCircle className={styles.statusIcon} />
-              ) : (
-                <FaExclamationTriangle className={styles.statusIcon} />
-              )}
-              <span>
-                {depositMarkedComplete
-                  ? "입금이 완료되었습니다"
-                  : "입금이 미완료되었습니다"}
-              </span>
-            </div>
-            <Switch.Root
-              className={styles.statusSwitch}
-              checked={depositMarkedComplete}
-              onCheckedChange={handleStatusToggle}
+          {/* 내가 참여한 정산이라면  */}
+          {isMySettle && (
+            <div
+              className={`${styles.statusRow} ${isPaid ? styles.statusRowCompleted : styles.statusRowPending}`}
             >
-              <Switch.Thumb className={styles.statusSwitchThumb} />
-            </Switch.Root>
-          </div>
+              <div className={styles.statusMessage}>
+                {isPaid ? (
+                  <FaCheckCircle className={styles.statusIcon} />
+                ) : (
+                  <FaExclamationTriangle className={styles.statusIcon} />
+                )}
+                <span>
+                  {isPaid ? "입금이 완료되었어요" : "입금이 필요해요"}
+                </span>
+              </div>
+              <Switch.Root
+                className={styles.statusSwitch}
+                checked={isPaid}
+                onCheckedChange={() =>
+                  handleMySettleStatusToggle(isPaid ? "PENDING" : "COMPLETE")
+                }
+              >
+                <Switch.Thumb className={styles.statusSwitchThumb} />
+              </Switch.Root>
+            </div>
+          )}
 
           <div className={styles.totalSection}>
             <span className={styles.totalLabel}>TOTAL AMOUNT</span>
@@ -90,7 +97,7 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
           </div>
 
           <p className={styles.amountPerPerson}>
-            1인당{amountPerPerson.toLocaleString()}원
+            1인당 {amountPerPerson.toLocaleString()}원
           </p>
 
           <div className={styles.accountHolder}>

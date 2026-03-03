@@ -37,6 +37,7 @@ interface Props {
   expenseDate: string;
   memberCount: number;
   isProgressFull: boolean;
+  isPaid: boolean;
 }
 const SettleCard: React.FC<Props> = ({
   expenseId,
@@ -45,6 +46,7 @@ const SettleCard: React.FC<Props> = ({
   expenseDate,
   memberCount,
   isProgressFull,
+  isPaid,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -66,10 +68,14 @@ const SettleCard: React.FC<Props> = ({
         </div>
         <span
           className={
-            isProgressFull ? styles.badgeCompleted : styles.badgePending
+            isProgressFull
+              ? styles.badgeCompleted
+              : isPaid
+                ? styles.badgeInProgress
+                : styles.badgePending
           }
         >
-          {isProgressFull ? "정산완료" : "정산 미완료"}
+          {isProgressFull ? "정산완료" : isPaid ? "정산 중" : "정산 필요"}
         </span>
       </button>
       {expanded && (

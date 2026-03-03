@@ -87,6 +87,16 @@
   font-weight: 600;
 }
 
+.badgeInProgress {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 /* 본문 슬라이드 */
 .bodyWrapper {
   display: grid;
@@ -105,7 +115,7 @@
 }
 
 .bodyInner {
-  padding: 0 16px 16px;
+  padding: 16px;
 }
 
 /* 입금 상태 행 + 스위치 */
