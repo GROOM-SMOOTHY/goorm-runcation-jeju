@@ -133,6 +133,12 @@ const Input: React.FC<InputProps> = ({
               onChange={(e) => {
                 const inputValue = e.target.value;
 
+                if (name === "account") {
+                  const onlyNumbers = inputValue.replace(/\D/g, "");
+                  onChange?.(onlyNumbers);
+                  return;
+                }
+
                 if (type === "tel") {
                   onChange?.(phoneNumber(inputValue));
                 } else {
