@@ -2,9 +2,11 @@ import Button from "@/components/common/Button/Button";
 import Textarea from "@/components/common/Textarea/Textarea";
 import Header from "@/components/layout/Header/Header";
 import AddStampPicture from "@/components/pages/Stamp/AddStampPicture/AddStampPicture";
+import RecommendPlaces from "@/components/pages/RecommendPlaces/RecommendPlaces";
 import styles from "./styles.module.css";
 import useAddStamp from "./hooks/useAddStamp";
 import { useNavigate } from "react-router-dom";
+import type { Region } from "@/data/RecommendPlaces";
 
 export default function AddStampPage() {
   const navigate = useNavigate();
@@ -41,7 +43,12 @@ export default function AddStampPage() {
             placeholder="한 줄 기록을 입력해주세요"
           />
         </div>
+        <div className={styles.content}>
+          <p className={styles.label}>추천 장소</p>
+          {region && <RecommendPlaces region={region as Region} />}
+        </div>
       </div>
+
       <div className={styles.buttonWrap}>
         <Button disabled={!photo || !description} onClick={handleAddStamp}>
           도장찍기
