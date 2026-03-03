@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
-import Header from '@/components/layout/Header/Header';
-import BottomNavigation from '@/components/common/BottomNavigation/BottomNavigation';
+import Header from "@/components/layout/Header/Header";
+import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import SettleCard, {
   type SettleCardProps,
-  type SettlementStatus
+  type SettlementStatus,
 } from "@/components/pages/settlement-history-page/SettleCard/SettleCard";
 import AnimatedToast from "@/components/common/Toast/AnimatedToast";
 import styles from "@/pages/SettlementPage/SettlementListPage/SettlementListPage.module.css";
@@ -18,7 +18,7 @@ interface ParticipantData {
   id: string;
   expense_id: string;
   user_id: string;
-  state: 'PENDING' | 'COMPLETE';
+  state: "PENDING" | "COMPLETE";
   amount: number;
 }
 
@@ -43,68 +43,84 @@ export default function SettlementListPage() {
   const navigate = useNavigate();
   const { group } = useGroup();
   const { id: storedUserId, data: userData } = useUser();
-  
+
   const [settlements, setSettlements] = useState<SettleCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   const summary = useMemo(() => {
-    return settlements.reduce((acc, curr) => {
-      const amountPerPerson = curr.totalMemberCount > 0 
-        ? Math.floor(curr.totalAmount / curr.totalMemberCount) : 0;
-      
-      const isMeInvolved = [...curr.pendingMembers, ...curr.completedMembers].some(
-        (m) => m.name === userData?.nickname
-      );
+    return settlements.reduce(
+      (acc, curr) => {
+        const amountPerPerson =
+          curr.totalMemberCount > 0
+            ? Math.floor(curr.totalAmount / curr.totalMemberCount)
+            : 0;
 
-      if (isMeInvolved) {
-        if (curr.status === 'completed') acc.paid += amountPerPerson;
-        else acc.toPay += amountPerPerson;
-      }
-      return acc;
-    }, { paid: 0, toPay: 0 });
+        const isMeInvolved = [
+          ...curr.pendingMembers,
+          ...curr.completedMembers,
+        ].some((m) => m.name === userData?.nickname);
+
+        if (isMeInvolved) {
+          if (curr.status === "completed") acc.paid += amountPerPerson;
+          else acc.toPay += amountPerPerson;
+        }
+        return acc;
+      },
+      { paid: 0, toPay: 0 },
+    );
   }, [settlements, userData?.nickname]);
 
-  const handleUpdateStatus = async (expenseId: string, newStatus: SettlementStatus) => {
+  const handleUpdateStatus = async (
+    expenseId: string,
+    newStatus: SettlementStatus,
+  ) => {
     if (!storedUserId || !userData?.nickname) return;
-  
+
     const dbState = newStatus === "completed" ? "COMPLETE" : "PENDING";
-  
+
     setSettlements((prev) => {
       return prev.map((s) => {
         if (s.expenseId === expenseId) {
           let updatedCompleted = [...s.completedMembers];
           let updatedPending = [...s.pendingMembers];
-  
+
           if (newStatus === "completed") {
-            if (!updatedCompleted.some(m => m.name === userData.nickname)) {
+            if (!updatedCompleted.some((m) => m.name === userData.nickname)) {
               updatedCompleted.push({ name: userData.nickname });
-              updatedPending = updatedPending.filter(m => m.name !== userData.nickname);
+              updatedPending = updatedPending.filter(
+                (m) => m.name !== userData.nickname,
+              );
             }
           } else {
-            updatedCompleted = updatedCompleted.filter(m => m.name !== userData.nickname);
-            if (!updatedPending.some(m => m.name === userData.nickname)) {
+            updatedCompleted = updatedCompleted.filter(
+              (m) => m.name !== userData.nickname,
+            );
+            if (!updatedPending.some((m) => m.name === userData.nickname)) {
               updatedPending.push({ name: userData.nickname });
             }
           }
-  
-          supabase
-          .from("expense_participants")
-          .update({ state: dbState }) 
-          .eq("expense_id", expenseId)
-          .eq("user_id", storedUserId)
-          .then(({ error }) => {
-            if (error) {
-              console.error("DB 업데이트 에러:", error.message);
-            } else {
-              localStorage.setItem(`settle_done_${expenseId}`, newStatus === "completed" ? "true" : "false");
-            }
-          });
 
-          return { 
-            ...s, 
+          supabase
+            .from("expense_participants")
+            .update({ state: dbState })
+            .eq("expense_id", expenseId)
+            .eq("user_id", storedUserId)
+            .then(({ error }) => {
+              if (error) {
+                console.error("DB 업데이트 에러:", error.message);
+              } else {
+                localStorage.setItem(
+                  `settle_done_${expenseId}`,
+                  newStatus === "completed" ? "true" : "false",
+                );
+              }
+            });
+
+          return {
+            ...s,
             status: newStatus,
             completedMembers: updatedCompleted,
-            pendingMembers: updatedPending
+            pendingMembers: updatedPending,
           };
         }
         return s;
@@ -116,47 +132,61 @@ export default function SettlementListPage() {
     const fetchSettlements = async () => {
       if (!group?.id) return;
       setLoading(true);
-      
+
       try {
         // any 제거: ExpenseData[]로 타입 지정
         const { data: expensesData, error: expensesError } = await supabase
-          .from('expenses')
+          .from("expenses")
           .select(`*, expense_participants (*)`)
-          .eq('group_id', group.id)
-          .order('expense_date', { ascending: false });
-  
+          .eq("group_id", group.id)
+          .order("expense_date", { ascending: false });
+
         if (expensesError) throw expensesError;
         if (!expensesData) return;
 
         const typedExpenses = expensesData as ExpenseData[];
-  
-        const allUserIds = Array.from(new Set([
-          ...typedExpenses.map(e => e.payer_id),
-          ...typedExpenses.flatMap(e => e.expense_participants?.map(p => p.user_id) || [])
-        ]));
-  
+
+        const allUserIds = Array.from(
+          new Set([
+            ...typedExpenses.map((e) => e.payer_id),
+            ...typedExpenses.flatMap(
+              (e) => e.expense_participants?.map((p) => p.user_id) || [],
+            ),
+          ]),
+        );
+
         const [usersRes, accountsRes] = await Promise.all([
-          supabase.from('users').select('id, nickname').in('id', allUserIds),
-          supabase.from('account_infos').select('user_id, bank_name, account_number').in('user_id', allUserIds)
+          supabase.from("users").select("id, nickname").in("id", allUserIds),
+          supabase
+            .from("account_infos")
+            .select("user_id, bank_name, account_number")
+            .in("user_id", allUserIds),
         ]);
-  
+
         const formattedData: SettleCardProps[] = typedExpenses.map((item) => {
-          const payerUser = usersRes.data?.find(u => u.id === item.payer_id);
-          const payerAccount = accountsRes.data?.find(a => a.user_id === item.payer_id);
-          
-          const participants: ParticipantInfo[] = item.expense_participants?.map((p) => ({
-            name: usersRes.data?.find(u => u.id === p.user_id)?.nickname || "알 수 없음",
-            isPaid: p.state === 'COMPLETE',
-            userId: p.user_id
-          })) || [];
+          const payerUser = usersRes.data?.find((u) => u.id === item.payer_id);
+          const payerAccount = accountsRes.data?.find(
+            (a) => a.user_id === item.payer_id,
+          );
+
+          const participants: ParticipantInfo[] =
+            item.expense_participants?.map((p) => ({
+              name:
+                usersRes.data?.find((u) => u.id === p.user_id)?.nickname ||
+                "알 수 없음",
+              isPaid: p.state === "COMPLETE",
+              userId: p.user_id,
+            })) || [];
 
           const myData = participants.find((p) => p.userId === storedUserId);
           const isMeCompleted = myData?.isPaid || false;
-  
+
           return {
             expenseId: item.id,
             title: item.payment_title,
-            date: item.expense_date ? new Date(item.expense_date).toLocaleDateString() : "-",
+            date: item.expense_date
+              ? new Date(item.expense_date).toLocaleDateString()
+              : "-",
             totalMemberCount: participants.length,
             totalAmount: item.total_amount,
 
@@ -167,19 +197,21 @@ export default function SettlementListPage() {
             pendingMembers: participants
               .filter((p) => !p.isPaid)
               .map((p) => ({ name: p.name })),
-              
+
             accountHolder: {
               name: payerUser?.nickname || "알 수 없음",
-              bank: payerAccount?.bank_name || "은행 미등록",
-              accountNumberMasked: payerAccount?.account_number ? `${payerAccount.account_number.slice(0, 4)}***` : "계좌 미등록",
+              bank: payerAccount?.bank_name || "",
+              accountNumberMasked: payerAccount?.account_number
+                ? `${payerAccount.account_number.slice(0, 4)}***`
+                : "계좌 미등록",
               accountNumberForCopy: payerAccount?.account_number || "",
             },
 
-            status: isMeCompleted ? 'completed' : 'pending',
+            status: isMeCompleted ? "completed" : "pending",
             currentUserName: userData?.nickname || "",
           };
         });
-  
+
         setSettlements(formattedData);
       } catch (err) {
         const error = err as Error;
@@ -188,14 +220,14 @@ export default function SettlementListPage() {
         setLoading(false);
       }
     };
-  
+
     fetchSettlements();
   }, [group?.id, storedUserId, userData?.nickname]);
 
   return (
     <div className={styles.page}>
       <Header title="정산 내역" onBack={() => navigate(-1)} />
-      
+
       <main className={styles.main}>
         {loading ? (
           <div className={styles.loading}>불러오는 중...</div>
@@ -204,23 +236,31 @@ export default function SettlementListPage() {
             <section className={styles.summaryCard}>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>지금까지 낸 금액</span>
-                <span className={styles.summaryAmountPaid}>₩{summary.paid.toLocaleString()}</span>
+                <span className={styles.summaryAmountPaid}>
+                  ₩{summary.paid.toLocaleString()}
+                </span>
               </div>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>내야할 금액</span>
-                <span className={styles.summaryAmountToPay}>₩{summary.toPay.toLocaleString()}</span>
+                <span className={styles.summaryAmountToPay}>
+                  ₩{summary.toPay.toLocaleString()}
+                </span>
               </div>
             </section>
 
             <div className={styles.cardList}>
               {settlements.map((s) => (
-                <SettleCard key={s.expenseId} {...s} onStatusChange={handleUpdateStatus} />
+                <SettleCard
+                  key={s.expenseId}
+                  {...s}
+                  onStatusChange={handleUpdateStatus}
+                />
               ))}
             </div>
           </>
         )}
       </main>
-      
+
       <div className={styles.bottomNavWrap}>
         <BottomNavigation />
       </div>
