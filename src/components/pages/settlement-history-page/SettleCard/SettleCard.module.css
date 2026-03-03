@@ -119,11 +119,11 @@
 }
 
 .statusRowCompleted .statusMessage {
-  color: var(--badge-label-emerald);
+  color: var(--state-success-text);
 }
 
 .statusRowPending .statusMessage {
-  color: var(--badge-label-orange);
+  color: var(--state-warning-text);
 }
 
 .statusMessage {
