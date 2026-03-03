@@ -6,6 +6,7 @@ import { useUser, type UserState } from "@/store/useUser";
 import { LOGIN_VALIDATION, validateLoginForm } from "@/utils/validate";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 function userRowToState(row: UsersRow, fallbackEmail: string): UserState {
   return {
@@ -29,10 +30,12 @@ export default function useLogin() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const addToast = useToastStore((state) => state.addToast);
+
   const handleLogin = useCallback(async () => {
     const error = validateLoginForm(email, password);
     if (error) {
-      alert(error);
+      addToast(error, "", "warning");
       return;
     }
 
@@ -41,19 +44,19 @@ export default function useLogin() {
       const authData = await authSignIn(email, password);
       const authUserId = authData.user?.id;
       if (!authUserId) {
-        alert(LOGIN_VALIDATION.USER_NOT_FOUND);
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
       const userRow = await getUserById(authUserId);
       if (!userRow) {
-        alert(LOGIN_VALIDATION.USER_NOT_FOUND);
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
       const userGroup = await getUserGroup(authUserId);
       if (!userGroup) {
-        alert(LOGIN_VALIDATION.USER_NOT_FOUND);
+        addToast(LOGIN_VALIDATION.USER_NOT_FOUND, "", "warning");
         return;
       }
 
@@ -67,10 +70,11 @@ export default function useLogin() {
 
       navigate("/group");
     } catch (err) {
-      console.error("로그인 에러:", err);
-      const message =
-        err instanceof Error ? err.message : "로그인에 실패했습니다.";
-      alert(message);
+      addToast(
+        err instanceof Error ? err.message : "로그인에 실패했습니다.",
+        "",
+        "error",
+      );
     } finally {
       setIsLoading(false);
     }

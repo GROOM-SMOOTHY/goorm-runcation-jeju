@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useGroupPage } from "./useGroupPage";
 import { fetchCurrentWeather } from "@/api/weather";
 import { useState, useEffect } from "react";
+import { getWeatherDescKo } from "@/utils/weather";
 
 export default function GroupPage() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function GroupPage() {
   } = useGroupPage();
 
   const [weather, setWeather] = useState("로딩중");
+  const weatherLabel =
+    weather === "로딩중" ? weather : getWeatherDescKo(weather);
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -32,7 +35,7 @@ export default function GroupPage() {
 
         const result = await fetchCurrentWeather(lat, lon);
 
-        setWeather(result.description);
+        setWeather(result.main);
       } catch (error) {
         console.log(error);
         setWeather("정보 없음");
@@ -51,7 +54,8 @@ export default function GroupPage() {
             <span className={styles.title}>
               {user.nickname}님,
               <br />
-              오늘의 제주는 <span className={styles.highlight}>{weather}</span>
+              오늘의 제주는{" "}
+              <span className={styles.highlight}>{weatherLabel}</span>
             </span>
           </div>
           <div className={styles.content}>

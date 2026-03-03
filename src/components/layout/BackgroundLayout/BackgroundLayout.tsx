@@ -1,12 +1,25 @@
 import { Outlet } from "react-router-dom";
 import styles from "./BackgroundLayout.module.css";
-import { FaDownload, FaGithub } from "react-icons/fa";
-import { SiNotion } from "react-icons/si";
+import { MdGroups } from "react-icons/md";
+import { BiMapPin } from "react-icons/bi";
+import { BiWallet } from "react-icons/bi";
 
-// 소셜 아이콘 + 링크 배열
-const socialLinks = [
-  { Icon: FaGithub, url: "https://github.com/GROOM-SMOOTHY/goorm-runcation-jeju" },
-  { Icon: SiNotion, url: "https://www.notion.so/Team-Project-SMOOTHY-2bf878f91ae480fe948edbb2967a4bcc?source=copy_link" },
+const descriptionList = [
+  {
+    icon: <MdGroups size={28} color="#FF8800" />,
+    title: "방명록",
+    description: "제주도 런케이션에서 기억에 남는 장소를 공유해줘요",
+  },
+  {
+    icon: <BiMapPin size={28} color="#FF8800" />,
+    title: "도장깨기",
+    description: "제주도 지역명소를 도장깨기 해요",
+  },
+  {
+    icon: <BiWallet size={28} color="#FF8800" />,
+    title: "정산",
+    description: "제주도에서의 경비를 손쉽게 정산할 수 있게 도와줘요",
+  },
 ];
 
 const BackgroundLayout = () => {
@@ -14,41 +27,28 @@ const BackgroundLayout = () => {
     <div className={styles.background}>
       {/* 소개 섹션 */}
       <div className={styles.about}>
-        <p className={styles.highlight}>Group-based Travel Experience</p>
-        <h1 className={styles.title}>SMOOTHY</h1>
-        <p className={styles.subtitle}>
-          <span>GROUP</span> · <span>JOURNEY</span> · <span>STAMP</span>
-        </p>
+        <h2 className={styles.title}>SMOOTHY</h2>
+        <h1 className={styles.subtitle}>
+          제주 런케이션,
+          <br />
+          <span className={styles.highlight}>즐겁고 알차게</span>
+        </h1>
 
-        {/* 버튼 섹션 */}
-        <div className={styles.downloadButtons}>
-          <a href="#" className={styles.appButton}>
-            <FaDownload className={styles.icon} /> 앱 다운로드
-          </a>
-        </div>
+        <div className={styles.hr} />
 
-        {/* 소셜 아이콘 */}
-        <div className={styles.socialIcons}>
-          {socialLinks.map(({ Icon, url }, index) => (
-            <a
-              key={index}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="소셜 링크"
-            >
-              <Icon className={styles.socialIcon} />
-            </a>
+        <div className={styles.descriptionList}>
+          {descriptionList.map((item) => (
+            <div key={item.title} className={styles.descriptionItem}>
+              <div className={styles.descriptionIcon}>{item.icon}</div>
+              <div className={styles.descriptionContent}>
+                <p className={styles.descriptionTitle}>{item.title}</p>
+                <span className={styles.descriptionDescription}>
+                  {item.description}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
-
-        {/* 소개 텍스트 */}
-        <p className={styles.footerText}>
-          우리는 구름 DEEP DIVE에서 함께 협업하며 하나의 서비스를 완성하는 학습 기반 프로젝트 팀입니다.
-          각자 다른 배경과 강점을 가진 팀원들이 모여, 사용자에게 실질적이고 가치 있는 경험을 제공하는 것을 목표로 개발했습니다.
-          이번 프로젝트를 통해 우리는 기술 역량뿐 아니라 소통, 문제 해결, 역할 분담, 협업에 대한 깊은 이해를 쌓고 있습니다.
-          기수와 팀이 달라도, 모두가 같은 목표 아래 더 나은 서비스를 만들어가기 위해 함께 성장하고 있습니다.
-        </p>
       </div>
 
       {/* Outlet 렌더링 영역 */}

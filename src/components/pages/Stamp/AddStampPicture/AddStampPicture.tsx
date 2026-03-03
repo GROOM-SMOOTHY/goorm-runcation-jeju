@@ -2,6 +2,7 @@ import styles from "@/components/pages/Stamp/AddStampPicture/AddStampPicture.mod
 import { PiCameraPlusBold } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import { useRef, useEffect } from "react";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 export interface AddPhoto {
   url: string | null;
@@ -18,18 +19,28 @@ export default function AddStampPicture({
 }: AddStampPictureProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const addToast = useToastStore((state) => state.addToast);
+
   const onImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const allowedType = ["image/jpeg", "image/png"];
     if (!allowedType.includes(file.type)) {
-      return alert("JPG 또는 PNG 파일만 업로드 가능합니다.");
+      return addToast(
+        "업로드 실패",
+        "JPG 또는 PNG 파일만 업로드 가능합니다.",
+        "warning",
+      );
     }
 
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return alert("10MB 이하 파일만 업로드 가능합니다.");
+      return addToast(
+        "업로드 실패",
+        "10MB 이하 파일만 업로드 가능합니다.",
+        "warning",
+      );
     }
 
     const imgUrl = URL.createObjectURL(file);

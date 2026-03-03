@@ -20,6 +20,7 @@ import RestaurantListPage from "@/pages/RestaurantListPage/RestaurantListPage";
 import StartPage from "@/pages/StartPage/StartPage";
 import MyPage from "@/pages/MyPage/MyPage";
 import GuestBook from "@/pages/GuestBook/GuestBook";
+import GuestBookDetailPage from "@/pages/GuestBookDetailPage";
 import AddStampPage from "@/pages/AddStampPage";
 
 export default function AppRouter() {
@@ -48,6 +49,7 @@ export default function AppRouter() {
 
         {/* 방명록 페이지 */}
         <Route path="/guestbook" element={<GuestBook />} />
+        <Route path="/guestbook/:id" element={<GuestBookDetailPage />} />
         <Route path="/mypage" element={<MyPage />} />
 
         {/* 맛집 리스트 페이지 */}

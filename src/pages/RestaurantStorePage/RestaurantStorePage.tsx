@@ -4,7 +4,6 @@ import { FiHeart, FiShare2 } from "react-icons/fi";
 import { FaHeart, FaStar } from "react-icons/fa";
 
 import Header from "@/components/layout/Header/Header";
-import BottomNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import StoreInfoCard from "@/components/pages/restaurant-store-page/StoreInfoCard/StoreInfoCard";
 import StoreMap from "@/components/pages/restaurant-store-page/StoreMap/StoreMap";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
