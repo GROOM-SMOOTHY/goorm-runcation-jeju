@@ -38,6 +38,7 @@ interface Props {
   memberCount: number;
   isProgressFull: boolean;
   isPaid: boolean;
+  onSettleStatusChange?: () => void | Promise<void>;
 }
 const SettleCard: React.FC<Props> = ({
   expenseId,
@@ -47,6 +48,7 @@ const SettleCard: React.FC<Props> = ({
   memberCount,
   isProgressFull,
   isPaid,
+  onSettleStatusChange,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -79,7 +81,11 @@ const SettleCard: React.FC<Props> = ({
         </span>
       </button>
       {expanded && (
-        <SettleCardDetail expanded={expanded} expenseId={expenseId} />
+        <SettleCardDetail
+          expanded={expanded}
+          expenseId={expenseId}
+          onSettleStatusChange={onSettleStatusChange}
+        />
       )}
     </div>
   );

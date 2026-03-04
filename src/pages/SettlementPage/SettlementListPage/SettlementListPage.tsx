@@ -24,6 +24,7 @@ export default function SettlementListPage() {
     settlements,
     totalPaid,
     totalToPay,
+    refetch,
   } = useSettlementList();
 
   return (
@@ -60,6 +61,7 @@ export default function SettlementListPage() {
               userId={userId}
               filter={filter}
               setFilter={setFilter}
+              onSettleStatusChange={refetch}
             />
           </TabsContent>
           <TabsContent value="my">
@@ -68,6 +70,7 @@ export default function SettlementListPage() {
               userId={userId}
               filter={filter}
               setFilter={setFilter}
+              onSettleStatusChange={refetch}
             />
           </TabsContent>
         </Tabs>
