@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
-import PaymentsMembers from "@/components/pages/settlement-add-history-page/PaymentsMembers/PaymentsMembers";
-import { mockMembers, type Member } from "@/components/pages/settlement-add-history-page/PaymentsMembers/data";
-
+import PaymentsMembers, { type Member } from "@/components/pages/settlement-add-history-page/PaymentsMembers/PaymentsMembers";
+import { mockMembers } from "@/components/pages/settlement-add-history-page/PaymentsMembers/data";
 
 /** 스토리에서 선택된 멤버를 상태로 관리하는 래퍼 */
 function StatefulPaymentsMembers({ initialMembers }: { initialMembers: Member[] }) {
@@ -10,7 +9,7 @@ function StatefulPaymentsMembers({ initialMembers }: { initialMembers: Member[] 
     return (
         <PaymentsMembers
             selectedMembers={selectedMembers}
-            onChangeMembers={setSelectedMembers}
+            onChangeMembers={(members) => setSelectedMembers(members)}
         />
     );
 }

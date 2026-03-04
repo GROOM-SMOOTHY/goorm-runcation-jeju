@@ -16,6 +16,11 @@ export const Default: Story = {
   render: () => {
     const [upload, setUpload] = useState<string | null>(null);
 
-    return <AddStampPicture upload={upload} onChangeUpload={setUpload} />;
+    return (
+      <AddStampPicture
+        upload={upload}
+        onChangeUpload={(data) => setUpload(data?.url ?? null)}
+      />
+    );
   },
 };

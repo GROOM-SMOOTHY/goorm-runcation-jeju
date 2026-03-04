@@ -61,10 +61,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
       {/* SearchBar */}
       <SearchBar
         placeholder="제주 맛집을 검색해보아요"
-        data={mockRestaurants.map((r) => r.name)}
-        onSearch={(results) => {
-          setSearchValue(results.join(" "));
-          onSearch?.(results); // 🔥 Action 패널 호출
+        onSearch={(keyword) => {
+          setSearchValue(keyword);
         }}
       />
 
@@ -76,6 +74,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
           setSelectedRegion(region);
           onSelectRegion?.(region);
         }}
+        showFavoritesOnly={false}
+        onToggleFavorites={() => {}}
       />
 
       {/* StoreCard 리스트 */}

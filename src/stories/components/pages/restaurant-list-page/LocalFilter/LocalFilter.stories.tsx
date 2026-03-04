@@ -42,9 +42,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
     <div style={{ width: "400px" }}>
       <SearchBar
         placeholder="제주 맛집을 검색해보아요"
-        data={allRestaurants}
-        onSearch={(results) => {
-          setSearchKeyword(results.join(" "));
+        onSearch={(keyword) => {
+          setSearchKeyword(keyword);
         }}
       />
 
@@ -55,6 +54,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
           setSelectedRegion(region);
           onSelectRegion?.(region);
         }}
+        showFavoritesOnly={false}
+        onToggleFavorites={() => {}}
       />
     </div>
   );

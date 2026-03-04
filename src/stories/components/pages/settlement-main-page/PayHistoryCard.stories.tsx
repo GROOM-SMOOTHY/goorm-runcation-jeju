@@ -9,10 +9,6 @@ const meta = {
         layout: "centered",
     },
     argTypes: {
-        imgUrl: {
-            control: "text",
-            description: "이미지 URL",
-        },
         title: {
             control: "text",
             description: "결제 내역 제목",
@@ -42,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        imgUrl: "https://picsum.photos/80/80",
+        category: "food",
         title: "제주 맛집 회식",
         date: "2024.01.15",
         userName: "김나영",
@@ -53,7 +49,7 @@ export const Default: Story = {
 
 export const LargeTitle: Story = {
     args: {
-        imgUrl: "https://picsum.photos/80/80?random=2",
+        category: "transportation",
         title: "제주도 돌하르방 렌트카 20일 예약금액",
         date: "2024.02.01",
         userName: "이철수",

@@ -10,7 +10,7 @@ export const FilterToggleRoot = ({
   <ToggleGroup.Root
     type={type}
     className={className ? `${styles.list} ${className}` : styles.list}
-    {...props}
+    {...(props as Record<string, unknown>)}
   />
 );
 

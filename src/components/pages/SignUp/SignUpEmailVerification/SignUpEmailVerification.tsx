@@ -1,7 +1,6 @@
 import styles from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification.module.css";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 interface SignUpEmailVerificationProps {
   email: string;

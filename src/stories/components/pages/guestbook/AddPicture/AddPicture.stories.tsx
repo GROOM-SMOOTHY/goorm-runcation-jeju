@@ -16,9 +16,9 @@ export const Default: Story = {
   render: () => {
     const [images, setImages] = useState<string[]>([]);
 
-    const handleAdd = (url: string) => {
+    const handleAdd = (data: { url: string; file: File }) => {
       if (images.length >= 4) return;
-      setImages((prev) => [...prev, url]);
+      setImages((prev) => [...prev, data.url]);
     };
 
     const handleRemove = (index: number) => {

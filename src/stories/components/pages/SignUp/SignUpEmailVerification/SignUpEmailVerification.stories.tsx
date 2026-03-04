@@ -23,6 +23,7 @@ export const Default: Story = {
         input={input}
         onChangeEmail={setEmail}
         onChangeCode={setInput}
+        onVerified={() => {}}
       />
     );
   },

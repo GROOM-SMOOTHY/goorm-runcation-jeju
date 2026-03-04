@@ -9,9 +9,9 @@ const meta = {
         layout: "centered",
     },
     argTypes: {
-        title: {
+        name: {
             control: "text",
-            description: "카드 제목",
+            description: "작성자 이름",
         },
         description: {
             control: "text",
@@ -38,21 +38,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        title: "김나영님",
+        name: "김나영님",
         description: "레전드 맛집있음\n꼭 가는거 추천합니다~~",
         image: "https://picsum.photos/160/160",
-        course: "FE",
+        course: "FRONTEND",
         generation: 7,
     },
 };
 
 export const LongDescription: Story = {
     args: {
-        title: "김영숙님",
+        name: "김영숙님",
         description:
             "함께 달리고 맛있는 음식도 먹고! 제주에서 특별한 추억을 만들었어요. 다음 기수에도 참여하고 싶습니다.",
         image: "https://picsum.photos/320/180?random=2",
-        course: "백엔드",
+        course: "BACKEND",
         generation: 2,
     },
 };
