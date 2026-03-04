@@ -52,8 +52,9 @@ const ToastItemComponent: React.FC<ToastItemProps> = ({ toast, removeToast }) =>
       if (timerRef.current !== null) {
         clearTimeout(timerRef.current as number);
       }
+      removeToast(toast.id);
     };
-  }, [toast.id]);
+  }, [toast.id, removeToast]);
 
   return (
     <Toast.Root
