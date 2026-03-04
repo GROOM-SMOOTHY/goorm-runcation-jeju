@@ -10,6 +10,7 @@ import StoreCard from "@/components/pages/restaurant-list-page/StoreCard/StoreCa
 import { useRestaurants } from "@/hooks/useRestaurants";
 import styles from "./RestaurantListPage.module.css";
 import LoadingPage from "@/pages/LoadingPage/LoadingPage";
+import Empty from "@/components/common/Empty/Empty";
 
 const REGIONS = [
   "제주시", "서귀포시", "애월", "한림", "대정", "안덕",
@@ -97,9 +98,17 @@ export default function RestaurantListPage() {
               ))}
               {displayedStores.length === 0 && (
                 <div className={styles.emptyState}>
-                  {showFavoritesOnly
-                    ? "아직 찜한 맛집이 없습니다. 하트를 눌러보세요!"
-                    : "검색 결과가 없습니다."}
+                  {showFavoritesOnly ? (
+                    <Empty 
+                      title="아직 찜한 맛집이 없습니다." 
+                      description="하트를 눌러 맛집을 저장해보세요!" 
+                    />
+                  ) : (
+                    <Empty 
+                      title="검색 결과가 없습니다." 
+                      description="다른 검색어를 입력하거나 필터를 조정해보세요." 
+                    />
+                  )}
                 </div>
               )}
             </section>
