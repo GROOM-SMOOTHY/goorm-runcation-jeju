@@ -38,7 +38,7 @@
   font-weight: 700;
 }
 
-@media (min-width: 360px) {
+@media (min-width: 420px) {
   .container {
     padding: 12px;
   }
