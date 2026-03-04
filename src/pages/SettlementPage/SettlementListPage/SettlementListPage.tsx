@@ -16,13 +16,36 @@ import styles from "./SettlementListPage.module.css";
 export default function SettlementListPage() {
   const navigate = useNavigate();
   const { id: userId } = useUser((state) => state);
-  const { type, filter, setType, setFilter, settlements } = useSettlementList();
+  const {
+    type,
+    filter,
+    setType,
+    setFilter,
+    settlements,
+    totalPaid,
+    totalToPay,
+  } = useSettlementList();
 
   return (
     <div className={styles.page}>
       <Header title="정산 내역" onBack={() => navigate(-1)} />
 
       <main className={styles.main}>
+        <section className={styles.summaryCard}>
+          <div className={styles.summaryItem}>
+            <span className={styles.summaryLabel}>지금까지 낸 금액</span>
+            <span className={styles.summaryAmountPaid}>
+              ₩{totalPaid.toLocaleString()}
+            </span>
+          </div>
+          <div className={styles.summaryItem}>
+            <span className={styles.summaryLabel}>내야할 금액</span>
+            <span className={styles.summaryAmountToPay}>
+              ₩{totalToPay.toLocaleString()}
+            </span>
+          </div>
+        </section>
+
         <Tabs
           value={type}
           onValueChange={(value) => setType(value as SettlementType)}
