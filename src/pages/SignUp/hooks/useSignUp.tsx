@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "@/services/authService";
 import { createUser } from "@/services/userService";
 import { validatePassword } from "@/utils/validate";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
+import { supabase } from "@/lib/supabase";
 
 export default function useSignUp() {
   const [name, setName] = useState("");
@@ -47,11 +47,17 @@ export default function useSignUp() {
         return;
       }
 
-      const signUpData = await signUp(email, password);
-      const userId = signUpData?.user?.id;
-      if (!userId) {
-        throw new Error("회원 정보를 가져올 수 없습니다.");
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user) {
+        throw new Error("인증된 사용자 정보를 가져올 수 없습니다.");
       }
+
+      const userId = user.id;
+
       await createUser({
         userId,
         nickname: name,
