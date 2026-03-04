@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
-  background-image: url("../../assets/ServerError.png");
+  background-image: url("/src/assets/ServerError.webp");
   background-size: cover;
   background-position: center;
 }

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { createClient } from "@supabase/supabase-js";
 import type { StoreCardProps } from "@/components/pages/restaurant-list-page/StoreCard/StoreCard";
-import DEFAULT_IMAGE from "@/assets/Rectangle.png";
+import DEFAULT_IMAGE from "/src/assets/Rectangle.webp";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,

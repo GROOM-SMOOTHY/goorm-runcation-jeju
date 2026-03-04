@@ -3,7 +3,7 @@ import styles from "./JoinCourseItem.module.css";
 import type { Database, Tables } from "@/types/supabase";
 import { getCourseName } from "@/utils/course";
 import AvatarStack from "@/components/common/AvatarStack";
-import DefaultAvatar from "@/assets/default-avatar.png";
+import DefaultAvatar from "/src/assets/default-avatar.webp";
 
 const COURSE_BG_COLOR: Record<
   Database["public"]["Enums"]["course_type"] | "DEFAULT",

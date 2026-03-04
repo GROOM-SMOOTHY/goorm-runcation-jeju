@@ -1,8 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage";
 import BackgroundLayout from "@/components/layout/BackgroundLayout/BackgroundLayout";
-import TravelPage from "@/pages/TravelPage";
 import StampPage from "@/pages/StampPage/StampPage";
 import GroupPage from "@/pages/GroupPage/GroupPage";
 import MainPage from "@/pages/MainPage/MainPage";
@@ -33,13 +31,10 @@ export default function AppRouter() {
 
         <Route path="/login" element={<LoginPage />} />
 
-        {/* 로그인 성공 후 메인 페이지 */}
-        <Route path="/home" element={<HomePage />} />
         {/* 지역 스탬프 */}
         <Route path="/stamp" element={<StampPage />} />
         <Route path="/stamp/add" element={<AddStampPage />} />
-        {/* 메인 */}
-        <Route path="/travel" element={<TravelPage />} />
+
         {/* 그룹 페이지 */}
         <Route path="/group" element={<GroupPage />} />
         <Route path="/group/join/:groupId" element={<GroupJoinPage />} />

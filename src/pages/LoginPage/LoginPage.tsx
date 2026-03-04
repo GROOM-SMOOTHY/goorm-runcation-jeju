@@ -1,5 +1,5 @@
 import styles from "@/pages/LoginPage/LoginPage.module.css";
-import LoginIcon from "@/assets/LoginPageIcon.png";
+import LoginIcon from "/src/assets/LoginPageIcon.webp";
 import Header from "@/components/layout/Header/Header";
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
