@@ -52,7 +52,7 @@ export async function getGroupListWithMembers(): Promise<GroupWithMembers[]> {
 
   const { data: members, error: membersError } = await supabase
     .from("group_members")
-    .select("*, user:user_id(*)");
+    .select("*, user:users(*)");
 
   if (membersError) {
     throw new Error(membersError.message);

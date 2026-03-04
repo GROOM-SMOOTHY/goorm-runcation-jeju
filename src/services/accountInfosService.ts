@@ -10,7 +10,7 @@ export async function getGroupMemberAccountInfos(
   // LEFT JOIN account_infos.user_id = users.id
   const { data, error } = await supabase
     .from("account_infos")
-    .select("*, users:user_id(*)") // left join users on user_id
+    .select("*, users:users(*)")
     .eq("group_id", groupId);
 
   if (error) {
