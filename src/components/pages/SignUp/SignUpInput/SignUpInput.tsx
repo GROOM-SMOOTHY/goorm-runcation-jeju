@@ -19,7 +19,7 @@ const config = {
   },
   password: {
     label: "비밀번호",
-    placeholder: "8자 이상, 영문+숫자 포함",
+    placeholder: "대문자 1개 이상과 영문, 숫자를 포함한 8자 이상",
     inputType: "password",
   },
 } as const;
