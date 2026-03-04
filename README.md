@@ -1,5 +1,5 @@
 <a href="링크넣기" target="_blank">
-<img src="./src/assets/mainImg.png" alt="배너" width="100%"/>
+<img src="./src/assets/mainImg.webp" alt="배너" width="100%"/>
 </a>
 
 <br/>
@@ -20,72 +20,71 @@ $ npm start
 
 - 프로젝트 이름: JEJU SMOOTHY
 - 프로젝트 설명: <br/>
-구름 제주 런케이션 경험을 바탕으로, <br/>
-팀원 정산과 제주 맛집/명소 추천 기능을 담은 웹앱입니다.
+  구름 제주 런케이션 경험을 바탕으로, <br/>
+  팀원 정산과 제주 맛집/명소 추천 기능을 담은 웹앱입니다.
 
 <br/>
 <br/>
 
 # 2. Team Members (팀원 및 팀 소개)
 
-|                                                         김나영                                                       |                                                        이권우                                                        |                                                        이예슬                                                        |
+|                                                        김나영                                                        |                                                        이권우                                                        |                                                        이예슬                                                        |
 | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/user-attachments/assets/78ec4937-81bb-4637-975d-631eb3c4601e" alt="김나영" width="150"> | <img src="https://github.com/user-attachments/assets/c1c2b1e3-656d-4712-98ab-a15e91efa2da" alt="이권우" width="150"> | <img src="https://github.com/user-attachments/assets/78ce1062-80a0-4edb-bf6b-5efac9dd992e" alt="이예슬" width="150"> |
 |                                                          FE                                                          |                                                          FE                                                          |                                                          FE                                                          |
-|                                         [GitHub](https://github.com/KNY1005)                                         |                                         [GitHub](https://github.com/GwonWooL)                                         |                                         [GitHub](https://github.com/Leemainsw)                                          |
+|                                         [GitHub](https://github.com/KNY1005)                                         |                                        [GitHub](https://github.com/GwonWooL)                                         |                                        [GitHub](https://github.com/Leemainsw)                                        |
 
 <br/>
 <br/>
 
 # 3. Key Features (주요 기능)
 
-
 ---
 
 ### **1. 로그인(인증코드 기반)**
 
-* 각 과정별로 발급된 **인증코드**를 입력하면 로그인됩니다.
-* 인증된 사용자만 웹앱 기능을 이용할 수 있습니다.
+- 각 과정별로 발급된 **인증코드**를 입력하면 로그인됩니다.
+- 인증된 사용자만 웹앱 기능을 이용할 수 있습니다.
 
 ---
 
 ### **2. 지역별 맛집 탐방**
 
-* 제주도의 지역 카테고리를 선택하여 지역별 맛집을 탐방할 수 있습니다.
-* 맛집 목록은 **지역별** 로 검색이 가능합니다.
-* 맛집을 선택하면 **위치, 주소, 연락처, 운영시간, 공유** 등의 상세정보를 확인할 수 있습니다.
-* 전화번호, 계좌번호 등은 **복사하기 기능**으로 편리하게 사용할 수 있습니다.
-* 지역별 맛집탐방 페이지에서는 **직접 촬영한 사진 업로드**를 통한 “도장 찍기” 기능을 사용할 수 있습니다.
-* **방명록 작성**이 가능합니다.
+- 제주도의 지역 카테고리를 선택하여 지역별 맛집을 탐방할 수 있습니다.
+- 맛집 목록은 **지역별** 로 검색이 가능합니다.
+- 맛집을 선택하면 **위치, 주소, 연락처, 운영시간, 공유** 등의 상세정보를 확인할 수 있습니다.
+- 전화번호, 계좌번호 등은 **복사하기 기능**으로 편리하게 사용할 수 있습니다.
+- 지역별 맛집탐방 페이지에서는 **직접 촬영한 사진 업로드**를 통한 “도장 찍기” 기능을 사용할 수 있습니다.
+- **방명록 작성**이 가능합니다.
 
 ---
 
 ### **3. 정산 기능 (N빵 계산기)**
 
-* 여행 중 발생한 비용 정산 목록을 확인할 수 있습니다.
-* 사용자 지정 아이콘으로 **정산 항목을 구분**할 수 있습니다.
-* “N빵 하러가기” 버튼을 통해
-  * **카테고리 선택**
-  * **입금 대상자 선택**
-  * **N빵 인원 수 설정**
-  * **최종 개인 부담 금액 계산**
+- 여행 중 발생한 비용 정산 목록을 확인할 수 있습니다.
+- 사용자 지정 아이콘으로 **정산 항목을 구분**할 수 있습니다.
+- “N빵 하러가기” 버튼을 통해
+  - **카테고리 선택**
+  - **입금 대상자 선택**
+  - **N빵 인원 수 설정**
+  - **최종 개인 부담 금액 계산**
     이 가능합니다.
-* 계산 완료 후 **입금 대상자의 계좌번호**가 표시되며, **복사 기능**을 지원합니다.
+- 계산 완료 후 **입금 대상자의 계좌번호**가 표시되며, **복사 기능**을 지원합니다.
 
 ---
 
 ### **4. 팀원 계좌번호 모아보기**
 
-* 팀원들의 계좌번호를 한 화면에서 볼 수 있습니다.
-* 계좌번호 복사 기능 제공.
-* 정산 과정에서 빠르고 편리하게 사용할 수 있습니다.
+- 팀원들의 계좌번호를 한 화면에서 볼 수 있습니다.
+- 계좌번호 복사 기능 제공.
+- 정산 과정에서 빠르고 편리하게 사용할 수 있습니다.
 
 ---
 
 ### **5. PWA 웹앱 설치**
 
-* 모바일에서 **홈 화면에 설치**할 수 있습니다.
-* 설치 시 앱처럼 실행되며 원활한 UX를 제공합니다.
+- 모바일에서 **홈 화면에 설치**할 수 있습니다.
+- 설치 시 앱처럼 실행되며 원활한 UX를 제공합니다.
 
 ---
 
@@ -94,11 +93,12 @@ $ npm start
 
 # 4. Tasks & Responsibilities (작업 및 역할 분담)
 
-|        |                                                                                                                      |                                                                                                                                                     |
-| ------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 김나영 | <img src="https://github.com/user-attachments/assets/78ec4937-81bb-4637-975d-631eb3c4601e" alt="이동규" width="100"> | <ul><li>프로젝트 계획 및 관리</li><li>UI/UX 디자인</li><li>커스텀훅 개발</li></ul>                                                       |
-| 이권우 | <img src="https://github.com/user-attachments/assets/c1c2b1e3-656d-4712-98ab-a15e91efa2da" alt="신유승" width="100"> | <ul><li>커스텀훅 개발</li></ul>                                                          |
-| 이예슬 | <img src="https://github.com/user-attachments/assets/78ce1062-80a0-4edb-bf6b-5efac9dd992e" alt="김나연" width="100"> | <ul><li>팀 리딩 및 커뮤니케이션</li><li>홈 페이지 개발</li><li>커스텀훅 개발</li></ul>|
+|        |                                                                                                                      |                                                                                        |
+| ------ | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| 김나영 | <img src="https://github.com/user-attachments/assets/78ec4937-81bb-4637-975d-631eb3c4601e" alt="이동규" width="100"> | <ul><li>프로젝트 계획 및 관리</li><li>UI/UX 디자인</li><li>커스텀훅 개발</li></ul>     |
+| 이권우 | <img src="https://github.com/user-attachments/assets/c1c2b1e3-656d-4712-98ab-a15e91efa2da" alt="신유승" width="100"> | <ul><li>커스텀훅 개발</li></ul>                                                        |
+| 이예슬 | <img src="https://github.com/user-attachments/assets/78ce1062-80a0-4edb-bf6b-5efac9dd992e" alt="김나연" width="100"> | <ul><li>팀 리딩 및 커뮤니케이션</li><li>홈 페이지 개발</li><li>커스텀훅 개발</li></ul> |
+
 |
 
 <br/>
@@ -108,29 +108,32 @@ $ npm start
 
 ## 5.1 Language
 
-|            |                                                                                                                          |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------ |
-| HTML5      | <img src="https://github.com/user-attachments/assets/2e122e74-a28b-4ce7-aff6-382959216d31" alt="HTML5" width="100">      |
-| CSS3       | <img src="https://github.com/user-attachments/assets/c531b03d-55a3-40bf-9195-9ff8c4688f13" alt="CSS3" width="100">       |
-| Javascript | <img src="https://github.com/user-attachments/assets/4a7d7074-8c71-48b4-8652-7431477669d1" alt="Javascript" width="100"> |
-| TypeScript | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="100"> | 
+|            |                                                                                                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| HTML5      | <img src="https://github.com/user-attachments/assets/2e122e74-a28b-4ce7-aff6-382959216d31" alt="HTML5" width="100">            |
+| CSS3       | <img src="https://github.com/user-attachments/assets/c531b03d-55a3-40bf-9195-9ff8c4688f13" alt="CSS3" width="100">             |
+| Javascript | <img src="https://github.com/user-attachments/assets/4a7d7074-8c71-48b4-8652-7431477669d1" alt="Javascript" width="100">       |
+| TypeScript | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="100"> |
+
 <br/>
 
 ## 5.2 Frontend
 
-|        |                                                                                     |    |
-| ------ | ----------------------------------------------------------------------------------- | -- |
-| React  | <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100"> | 19.x |
-| Vite   | <img src="https://vitejs.dev/logo.svg" alt="Vite" width="100">                      | 7.x ||
+|       |                                                                                                                     |      |
+| ----- | ------------------------------------------------------------------------------------------------------------------- | ---- | --- |
+| React | <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100"> | 19.x |
+| Vite  | <img src="https://vitejs.dev/logo.svg" alt="Vite" width="100">                                                      | 7.x  |     |
+
 <br/>
 
 ## 5.3 Lint & Tooling
 
-|          |                                                                                                                        |         |
-| -------- | ---------------------------------------------------------------------------------------------------------------------- | ------- |
-| Firebase | <img src="https://github.com/user-attachments/assets/1694e458-9bb0-4a0b-8fe6-8efc6e675fa1" alt="Firebase" width="100"> | 10.12.5 ||                                                                   
-| ESLint     | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg" alt="ESLint" width="100"> |
+|            |                                                                                                                                |         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------- | --- |
+| Firebase   | <img src="https://github.com/user-attachments/assets/1694e458-9bb0-4a0b-8fe6-8efc6e675fa1" alt="Firebase" width="100">         | 10.12.5 |     |
+| ESLint     | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg" alt="ESLint" width="100">             |
 | TypeScript | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="100"> |
+
 <br/>
 
 ## 5.4 Cooperation
@@ -334,7 +337,6 @@ chore : 빌드 업무 수정, 패키지 매니저 수정
 ```
 
 <br/>
-
 
 ## 커밋 예시
 

@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 import CodeInput from "@/components/common/CodeInput/CodeInput";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import InputCodeLogo from "@/assets/input-code-logo.png";
+import InputCodeLogo from "/src/assets/input-code-logo.webp";
 import Button from "@/components/common/Button/Button";
 import useGroupJoin, { CODE_LENGTH } from "./hooks/useGroupJoin";
 

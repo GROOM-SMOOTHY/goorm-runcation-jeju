@@ -28,7 +28,7 @@ export default function SignUp() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.up}>
-          <img src="/src/assets/LoginLogo.png" className={styles.logo} />
+          <img src="/src/assets/LoginLogo.webp" className={styles.logo} />
           <p className={styles.logoName}>SMOOTHY</p>
         </div>
         <div className={styles.down}>

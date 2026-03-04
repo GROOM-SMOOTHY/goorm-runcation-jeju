@@ -16,7 +16,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { createClient } from "@supabase/supabase-js";
 import styles from "./styles.module.css";
 import Loading from "@/components/common/Loading/Loading";
-import DEFAULT_IMAGE from "@/assets/Rectangle.png";
+import DEFAULT_IMAGE from "/src/assets/Rectangle.webp";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,

@@ -3,7 +3,7 @@ import styles from "./AddMemberBottomSheet.module.css";
 import { IoMdClose } from "react-icons/io";
 import Button from "@/components/common/Button/Button";
 import { useGroup } from "@/store/useGroup";
-import defaultProfile from "@/assets/default-profile.png";
+import defaultProfile from "/src/assets/default-profile.webp";
 import { getGroupMembersWithUsers } from "@/services/groupMembersService";
 
 export interface Member {

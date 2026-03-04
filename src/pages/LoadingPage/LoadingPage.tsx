@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "@/pages/LoadingPage/LoadingPage.module.css";
-import orangeImg from "@/assets/orange.png"
+import orangeImg from "/src/assets/orange.webp"
 
 const LoadingPage: React.FC = () => {
   return (

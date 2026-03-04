@@ -3,7 +3,7 @@
   min-height: 100vh;
   padding: 24px;
 
-  background-image: url(../../assets/SignUpBackground.png);
+  background-image: url(/src/assets/SignUpBackground.webp);
   background-size: cover;
   background-position: center;
 

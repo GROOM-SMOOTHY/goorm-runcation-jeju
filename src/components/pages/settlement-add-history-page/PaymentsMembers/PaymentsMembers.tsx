@@ -3,7 +3,7 @@ import PaymentMemberChips from "./PaymentsMemberChips";
 import styles from "./PaymentsMembers.module.css";
 import { useBottomSheet } from "@/components/common/BottomSheet";
 import AddMemberBottomSheet from "./AddMemberBottomSheet/AddMemberBottomSheet";
-import defaultProfile from "@/assets/default-profile.png";
+import defaultProfile from "/src/assets/default-profile.webp";
 
 
 export interface Member {

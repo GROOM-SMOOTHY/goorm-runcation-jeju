@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 100dvh;
 
-    background-image: url('@/assets/LoadingPage.png');
+    background-image: url('/src/assets/LoadingPage.webp');
     background-size: cover;
     background-position: center;
 
