@@ -21,7 +21,7 @@ export default function useSignUp() {
 
   const validationCheck = useCallback((): string | null => {
     if (!isVerified) {
-      return "인증이 필요합니다";
+      return "인증이 필요해요";
     }
     if (!isAgreed) {
       return "서비스 이용약관에 동의하지 않았어요";
