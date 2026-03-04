@@ -42,20 +42,18 @@
 
 .Content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   flex: 1;
 }
 
 .Icon { 
   font-size: 22px;
-  margin-top: 6px;
 }
 
 .Text { 
   display: flex; 
-  flex-direction: column; 
-  gap: 4px; 
+  flex-direction: column;
   flex: 1; 
 }
 
@@ -63,12 +61,6 @@
   font-weight: 700;
   font-size: 15px; 
   color: var(--text-primary, #1A1F27);
-}
-
-.Description { 
-  font-size: 13px; 
-  color: var(--text-secondary, #6B7684);
-  line-height: 1.5;
 }
 
 .Action { 
