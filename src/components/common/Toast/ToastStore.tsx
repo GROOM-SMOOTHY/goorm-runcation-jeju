@@ -14,6 +14,7 @@ interface ToastStore {
   toasts: ToastItem[];
   addToast: (title: string, description?: string, type?: ToastType) => void;  //
   removeToast: (id: string) => void;
+  clearToasts: () => void;
 }
 
 export const useToastStore = create<ToastStore>((set) => ({
@@ -39,4 +40,6 @@ export const useToastStore = create<ToastStore>((set) => ({
     set((state) => ({
       toasts: state.toasts.filter((toast) => toast.id !== id),
     })),
+    
+    clearToasts: () => set({ toasts: [] }),
 }));
