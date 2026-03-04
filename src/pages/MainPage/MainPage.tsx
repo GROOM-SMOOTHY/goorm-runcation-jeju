@@ -20,10 +20,10 @@ import DEFAULT_IMAGE from "@/assets/Rectangle.png";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
+  import.meta.env.VITE_SUPABASE_ANON_KEY,
 );
 
-const LIBRARIES: ("places")[] = ["places"];
+const LIBRARIES: "places"[] = ["places"];
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 function isDataFresh(updatedAt: string | null): boolean {
@@ -66,7 +66,9 @@ export default function MainPage() {
   const [weather, setWeather] = useState<string | null>(null);
   const [degree, setDegree] = useState<number | null>(null);
   const [pendingSettlementCount, setPendingSettlementCount] = useState(0);
-  const [recommendStore, setRecommendStore] = useState<RecommendStore | null>(null);
+  const [recommendStore, setRecommendStore] = useState<RecommendStore | null>(
+    null,
+  );
   const [isStoreLoading, setIsStoreLoading] = useState(true);
   const [cardTitle, setCardTitle] = useState("제주 핫플레이스 추천");
 
@@ -166,7 +168,9 @@ export default function MainPage() {
 
           if (cancelled) return;
 
-          const sorted = [...dbData].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          const sorted = [...dbData].sort(
+            (a, b) => (b.rating || 0) - (a.rating || 0),
+          );
           const top5 = sorted.slice(0, 5);
           const picked = top5[Math.floor(Math.random() * top5.length)];
 
@@ -203,7 +207,7 @@ export default function MainPage() {
             fetchRecommend(33.4996, 126.5312, "제주 도착 전! 핫플레이스 추천");
           }
         },
-        () => fetchRecommend(33.4996, 126.5312, "제주 핫플레이스 추천 맛집")
+        () => fetchRecommend(33.4996, 126.5312, "제주 핫플레이스 추천 맛집"),
       );
     } else {
       fetchRecommend(33.4996, 126.5312, "제주 핫플레이스 추천 맛집");
@@ -228,7 +232,9 @@ export default function MainPage() {
         <div className={styles.header}>
           <div className={styles.userInfoWrap}>
             {group?.course && <TypeBadge course={group.course} />}
-            {group?.batch && <TypeBadge course="DEFAULT" generation={group.batch} />}
+            {group?.batch && (
+              <TypeBadge course="DEFAULT" generation={group.batch} />
+            )}
           </div>
           <div className={styles.groupInfoWrap}>
             <span className={styles.title}>어디로 놀러갈까?</span>
@@ -239,7 +245,9 @@ export default function MainPage() {
         {/* 맛집 추천 카드 */}
         <div className={styles.imageWrapper} onClick={handleCardClick}>
           {isStoreLoading ? (
-            <Loading />
+            <div className={styles.loading}>
+              <Loading />
+            </div>
           ) : (
             <>
               <img
@@ -256,12 +264,19 @@ export default function MainPage() {
                   {recommendStore?.name || "맛집 정보를 찾을 수 없습니다"}
                 </span>
                 <div className={styles.storeSubInfo}>
-                  {recommendStore?.rating != null && recommendStore.rating > 0 && (
-                    <>
-                      <FaStar size={14} color="#FFD700" style={{ marginRight: "4px" }} />
-                      <span style={{ marginRight: "8px" }}>{recommendStore.rating}</span>
-                    </>
-                  )}
+                  {recommendStore?.rating != null &&
+                    recommendStore.rating > 0 && (
+                      <>
+                        <FaStar
+                          size={14}
+                          color="#FFD700"
+                          style={{ marginRight: "4px" }}
+                        />
+                        <span style={{ marginRight: "8px" }}>
+                          {recommendStore.rating}
+                        </span>
+                      </>
+                    )}
                 </div>
               </div>
             </>
@@ -270,13 +285,7 @@ export default function MainPage() {
 
         <div className={styles.noticeContainer}>
           <PendingSettlementPanel count={pendingSettlementCount} />
-          {degree !== null && weather !== null ? (
-            <WeatherPanel degree={degree} weather={weather} />
-          ) : (
-            <div className={styles.weatherLoading}>
-              <Loading />
-            </div>
-          )}
+          <WeatherPanel degree={degree} weather={weather} />
         </div>
 
         <div className={styles.shortcutContainer}>
@@ -284,12 +293,23 @@ export default function MainPage() {
           <div className={styles.shortcutList}>
             <MainShortcutCard
               type="store"
-              title={<>지역별<br />맛집 탐방</>}
+              title={
+                <>
+                  지역별
+                  <br />
+                  맛집 탐방
+                </>
+              }
               onClick={() => navigate("/restaurants")}
             />
             <MainShortcutCard
               type="settlement"
-              title={<>정산하기<br />& N빵</>}
+              title={
+                <>
+                  정산하기
+                  <br />& N빵
+                </>
+              }
               onClick={() => navigate("/settlement")}
             />
           </div>
