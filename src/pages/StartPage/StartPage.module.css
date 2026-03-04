@@ -117,3 +117,23 @@
   letter-spacing: 1.1px;
   color: var(--text-tertiary);
 }
+
+@media (max-width: 420px) {
+  .top {
+    min-height: 40vh;
+  }
+
+  .logo {
+    font-size: 36px;
+    line-height: 36px;
+    margin-top: -40px;
+  }
+
+  .desc p:first-child {
+    font-size: 22px;
+  }
+
+  .desc p:last-child {
+    font-size: 14px;
+  }
+}
