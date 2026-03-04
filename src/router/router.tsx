@@ -25,10 +25,13 @@ export default function AppRouter() {
   return (
     <Routes>
       <Route element={<BackgroundLayout />}>
+
         <Route path="/" element={<StartPage />} />
 
+        {/* 회원가입 페이지 */}
         <Route path="/register" element={<SignUp />} />
 
+        {/* 로그인 페이지 */}
         <Route path="/login" element={<LoginPage />} />
 
         {/* 지역 스탬프 */}
@@ -45,25 +48,18 @@ export default function AppRouter() {
         {/* 방명록 페이지 */}
         <Route path="/guestbook" element={<GuestBook />} />
         <Route path="/guestbook/:id" element={<GuestBookDetailPage />} />
+
+        {/* 마이 페이지 */}
         <Route path="/mypage" element={<MyPage />} />
 
-        {/* 맛집 리스트 페이지 */}
+        {/* 맛집 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
-
-        {/* 맛집 리스트 상세 페이지 */}
         <Route path="/restaurants/:id" element={<RestaurantStorePage />} />
 
         {/* 정산 페이지 */}
-        <Route path="/settlement/add" element={<SettlementAddPage />} />
-
-        {/* 정산 목록 페이지 */}
-        <Route path="/settlement/list" element={<SettlementListPage />} />
-
-        {/* 정산 메인 페이지 */}
         <Route path="/settlement" element={<SettlementMainPage />} />
-
-        {/* 정산 목록 추가하기 페이지 */}
         <Route path="/settlement/add" element={<SettlementAddPage />} />
+        <Route path="/settlement/list" element={<SettlementListPage />} />
 
         {/* 500 */}
         <Route path="/500" element={<ServerError />} />
