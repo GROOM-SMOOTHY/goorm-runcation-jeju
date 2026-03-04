@@ -37,3 +37,13 @@
   line-height: 20px;
   font-weight: 700;
 }
+
+@media (min-width: 360px) {
+  .container {
+    padding: 12px;
+  }
+
+  .description {
+    font-size: 12px;
+  }
+}
