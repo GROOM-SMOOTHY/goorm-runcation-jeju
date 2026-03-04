@@ -1,123 +1,121 @@
 .container {
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    padding: 24px;
-    background-color: var(--bg-primary);
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
-  }
-  
-  .container::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .inputContainer,
-  .inputField {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* 라벨 스타일 */
-  .inputLabel {
-    font-size: 16px;
-    line-height: 28px;
-    font-weight: 700;
-    letter-spacing: -0.45px;
-    color: var(--text-label-strong);
-    margin-bottom: 8px;
-  }
-  
-  /* 개별 카드 섹션 (정산명, 지출일자 등) */
-  .inputField {
-    gap: 8px;
-    border: 1px solid var(--border-main);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    border-radius: 16px;
-    padding: 20px 16px;
-    background-color: var(--bg-white);
-    width: 100%;
-  }
-  
-  /* ✅ 계좌 정보 입력 섹션 (카드 스타일 통일) */
-  .accountInputSection {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px 16px;
-    background-color: var(--bg-white);
-    border-radius: 16px;
-    border: 1px dashed var(--brand-primary);
-    margin-top: -8px;
-  }
-  
-  /* 아이콘과 경고 문구 정렬 */
-  .warningHeader {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--brand-primary);
-  }
-  
-  .warningText {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-  }
-  
-  /* 은행명/예금주 가로 배치 */
-  .accountRow {
-    display: flex;
-    gap: 12px;
-  }
-  
-  .accountRow > div {
-    flex: 1;
-  }
-  
-  /* 하단 결과 카드 */
-  .payInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid var(--border-main);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border-radius: 16px;
-    padding: 20px 16px;
-    background-color: var(--bg-white);
-    margin-top: 12px;
-  }
-  
-  .titleWrap {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .title {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-label);
-  }
-  
-  .subtitle {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    word-break: break-all;
-  }
-  
-  .amountWrap {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--brand-primary);
-    white-space: nowrap;
-  }
-  
-  .buttonContainer {
-    padding: 12px 24px 32px;
-    background-color: var(--bg-primary);
-  }
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 24px;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.inputContainer,
+.inputField {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 라벨 스타일 */
+.inputLabel {
+  font-size: 16px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.45px;
+  color: var(--text-label-strong);
+  margin-bottom: 8px;
+}
+
+/* 개별 카드 섹션 (정산명, 지출일자 등) */
+.inputField {
+  gap: 8px;
+  border: 1px solid var(--border-main);
+  border-radius: 16px;
+  padding: 20px 16px;
+  background-color: var(--bg-white);
+  width: 100%;
+}
+
+/* ✅ 계좌 정보 입력 섹션 (카드 스타일 통일) */
+.accountInputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 16px;
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  border: 1px dashed var(--brand-primary);
+  margin-top: -8px;
+}
+
+/* 아이콘과 경고 문구 정렬 */
+.warningHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--brand-primary);
+}
+
+.warningText {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+/* 은행명/예금주 가로 배치 */
+.accountRow {
+  display: flex;
+  gap: 12px;
+}
+
+.accountRow > div {
+  flex: 1;
+}
+
+/* 하단 결과 카드 */
+.payInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border-main);
+  border-radius: 16px;
+  padding: 20px 16px;
+  background-color: var(--bg-white);
+  margin-top: 12px;
+}
+
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-label);
+}
+
+.subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.amountWrap {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--brand-primary);
+  white-space: nowrap;
+}
+
+.buttonContainer {
+  padding: 12px 24px 32px;
+  background-color: var(--bg-primary);
+}

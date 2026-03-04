@@ -17,7 +17,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   padding: 16px;
   border: none;
   background: none;
@@ -87,6 +87,16 @@
   font-weight: 600;
 }
 
+.badgeInProgress {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 /* 본문 슬라이드 */
 .bodyWrapper {
   display: grid;
@@ -105,7 +115,7 @@
 }
 
 .bodyInner {
-  padding: 0 16px 16px;
+  padding: 16px;
 }
 
 /* 입금 상태 행 + 스위치 */
@@ -119,11 +129,11 @@
 }
 
 .statusRowCompleted .statusMessage {
-  color: var(--badge-label-emerald);
+  color: var(--state-success-text);
 }
 
 .statusRowPending .statusMessage {
-  color: var(--badge-label-orange);
+  color: var(--state-warning-text);
 }
 
 .statusMessage {
@@ -370,9 +380,6 @@
   color: var(--text-primary);
   font-size: 13px;
   font-weight: 500;
-  min-width: 0;
-  width: 100%;
-  max-width: 100%;
   justify-content: center;
   box-sizing: border-box;
 }
