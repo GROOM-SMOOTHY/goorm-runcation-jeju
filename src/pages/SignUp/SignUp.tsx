@@ -40,16 +40,18 @@ export default function SignUp() {
       <div className={styles.main}>
         <SignUpInput type="name" value={name} onChange={setName} />
         <SignUpInput type="phone" value={phone} onChange={setPhone} />
+        <SignUpInput type="password" value={password} onChange={setPassword} />
 
         <SignUpEmailVerification
           email={email}
           input={code}
+          password={password}
+          name={name}
+          phone={phone}
           onChangeEmail={setEmail}
           onChangeCode={setCode}
           onVerified={handleVerified}
         />
-
-        <SignUpInput type="password" value={password} onChange={setPassword} />
 
         <label className={styles.checkBox}>
           <input
