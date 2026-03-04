@@ -29,7 +29,7 @@ export interface JoinCourseItemProps {
   course: Database["public"]["Enums"]["course_type"] | null;
   participants: number;
   generation: number;
-  members: (Tables<"group_members"> & { user: Tables<"users"> })[];
+  members: (Tables<"group_members"> & { user: Tables<"users"> | null })[]; // ✅ user null 가능
   onClick: () => void;
 }
 
@@ -47,6 +47,10 @@ export default function JoinCourseItem({
   members,
   onClick,
 }: JoinCourseItemProps) {
+  const validMembers = members.filter((m) => m.user); // ✅ user 없는 멤버 제외
+
+  const avatars = validMembers.map((m) => m.user!.profile ?? DefaultAvatar);
+
   return (
     <div
       className={styles.container}
@@ -68,21 +72,22 @@ export default function JoinCourseItem({
             {generation}기
           </span>
         </div>
+
         <div className={styles.courseInfo}>
           <span className={styles.courseType}>
             {course ? getCourseName(course) : "기타"} {generation}기
           </span>
           <span className={styles.participants}>{participants}명 참여중</span>
+
           <AvatarStack
-            avatars={members.map(
-              (member) => member.user.profile ?? DefaultAvatar,
-            )}
-            totalCount={members.length}
+            avatars={avatars}
+            totalCount={validMembers.length} // ✅ 실제 보이는 멤버 수
             visibleCount={2}
             size="sm"
           />
         </div>
       </div>
+
       <MdKeyboardArrowRight
         size={24}
         style={{ color: "var(--text-tertiary)" }}
