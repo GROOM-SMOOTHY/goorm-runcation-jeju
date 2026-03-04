@@ -31,10 +31,8 @@ export default function SignUpEmailVerification({
     }
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: {
-        shouldCreateUser: true,
-      },
     });
+
     if (error) {
       alert(error.message);
       return;
@@ -53,6 +51,7 @@ export default function SignUpEmailVerification({
       alert("인증코드가 올바르지 않습니다");
       return;
     }
+
     setIsVerified(true);
     onVerified();
     alert("인증 성공");
