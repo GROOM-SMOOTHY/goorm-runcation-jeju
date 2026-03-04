@@ -27,7 +27,7 @@ export default function GuestBookList() {
             }}
           >
             <GuestBookCard
-              name={guestBook.author.nickname ?? ""}
+              name={guestBook.author?.nickname ?? ""}
               description={guestBook.content}
               image={guestBook.photo?.image_url ?? ""}
               course={guestBook.group?.course ?? "FRONTEND"}
