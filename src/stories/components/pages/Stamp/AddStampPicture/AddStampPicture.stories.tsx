@@ -12,10 +12,21 @@ export default meta;
 
 type Story = StoryObj<typeof AddStampPicture>;
 
+/* onChangeUpload 파라미터 타입 추출 */
+type AddPhoto = Parameters<
+  React.ComponentProps<typeof AddStampPicture>["onChangeUpload"]
+>[0];
+
 export const Default: Story = {
   render: () => {
     const [upload, setUpload] = useState<string | null>(null);
 
-    return <AddStampPicture upload={upload} onChangeUpload={setUpload} />;
+    const handleChangeUpload = (data: AddPhoto) => {
+      setUpload(data?.url ?? null);
+    };
+
+    return (
+      <AddStampPicture upload={upload} onChangeUpload={handleChangeUpload} />
+    );
   },
 };

@@ -12,8 +12,8 @@ const accountHolder = {
 const makeMembers = (name: string, count: number) =>
   Array.from({ length: count }, () => ({ name }));
 
-/** 20명 전원 미완료: 미완료에 20명, 그중 한 명만 "나"(이예슬) */
 const defaultArgs = {
+  expenseId: "expense-1",
   title: "점심 밥 모임",
   date: "2025.02.10",
   totalMemberCount: 20,
@@ -24,7 +24,12 @@ const defaultArgs = {
   status: "pending" as const,
   currentUserName: "이예슬",
   defaultExpanded: false,
-  onStatusChange: (s: "completed" | "pending") => console.log("status", s),
+  onStatusChange: async (
+    expenseId: string,
+    status: "completed" | "pending",
+  ) => {
+    console.log("status", expenseId, status);
+  },
 };
 
 const meta: Meta<typeof SettleCard> = {
@@ -53,12 +58,10 @@ const meta: Meta<typeof SettleCard> = {
 export default meta;
 type Story = StoryObj<typeof SettleCard>;
 
-/** 기본: 카드 1개 (접힌 상태 기본) */
 export const Default: Story = {
   args: defaultArgs,
 };
 
-/** 입금자가 나일 때: 받는 사람에 "나 (입금자)" 뱃지 표시 */
 export const AsAccountHolder: Story = {
   args: {
     ...defaultArgs,
@@ -69,11 +72,19 @@ export const AsAccountHolder: Story = {
   },
 };
 
-/** 리스트: 카드 여러 개, "나"는 이예슬 한 명만 표시 + 토글로 미완료/완료 와리가리 */
 export const List: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: 400 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        width: "100%",
+        maxWidth: 400,
+      }}
+    >
       <SettleCard
+        expenseId="expense-1"
         title="점심 밥 모임"
         date="2025.02.10"
         totalMemberCount={20}
@@ -84,8 +95,10 @@ export const List: Story = {
         status="completed"
         currentUserName="이예슬"
         defaultExpanded={false}
+        onStatusChange={async () => {}}
       />
       <SettleCard
+        expenseId="expense-2"
         title="저녁 회식"
         date="2025.02.12"
         totalMemberCount={8}
@@ -96,8 +109,10 @@ export const List: Story = {
         status="pending"
         currentUserName="이예슬"
         defaultExpanded={false}
+        onStatusChange={async () => {}}
       />
       <SettleCard
+        expenseId="expense-3"
         title="주말 여행 정산"
         date="2025.02.15"
         totalMemberCount={4}
@@ -108,6 +123,7 @@ export const List: Story = {
         status="pending"
         currentUserName="이예슬"
         defaultExpanded={false}
+        onStatusChange={async () => {}}
       />
     </div>
   ),

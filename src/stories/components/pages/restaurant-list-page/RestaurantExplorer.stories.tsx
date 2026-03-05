@@ -7,7 +7,8 @@ import StoreCard from "@/components/pages/restaurant-list-page/StoreCard/StoreCa
 
 const mockRestaurants: StoreCardProps[] = [
   {
-    imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
     location: "제주시",
     category: "카페",
     name: "달콤한 하루",
@@ -15,7 +16,8 @@ const mockRestaurants: StoreCardProps[] = [
     isFavorite: false,
   },
   {
-    imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
     location: "서귀포시",
     category: "레스토랑",
     name: "바다의 맛집",
@@ -23,7 +25,8 @@ const mockRestaurants: StoreCardProps[] = [
     isFavorite: true,
   },
   {
-    imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
     location: "한림",
     category: "술집",
     name: "한잔의 행복",
@@ -42,16 +45,14 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [restaurants, setRestaurants] = useState(mockRestaurants);
 
-  // 필터링
   const filteredRestaurants = useMemo(() => {
     return restaurants.filter(
       (r) =>
         r.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-        (selectedRegion ? r.location === selectedRegion : true)
+        (selectedRegion ? r.location === selectedRegion : true),
     );
   }, [searchValue, selectedRegion, restaurants]);
 
-  // 검색 결과 Action 호출
   useEffect(() => {
     onSearch?.(filteredRestaurants.map((r) => r.name));
   }, [filteredRestaurants, onSearch]);
@@ -63,8 +64,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
         placeholder="제주 맛집을 검색해보아요"
         data={mockRestaurants.map((r) => r.name)}
         onSearch={(results) => {
-          setSearchValue(results.join(" "));
-          onSearch?.(results); // 🔥 Action 패널 호출
+          setSearchValue(results);
+          onSearch?.([results]);
         }}
       />
 
@@ -76,6 +77,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
           setSelectedRegion(region);
           onSelectRegion?.(region);
         }}
+        showFavoritesOnly={false}
+        onToggleFavorites={() => {}}
       />
 
       {/* StoreCard 리스트 */}
@@ -93,13 +96,13 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
               key={restaurant.name}
               {...restaurant}
               onToggleFavorite={() => {
-            setRestaurants((prev) =>
-              prev.map((r) =>
-                r.name === restaurant.name
-                  ? { ...r, isFavorite: !r.isFavorite }
-                  : r
-              )
-            );
+                setRestaurants((prev) =>
+                  prev.map((r) =>
+                    r.name === restaurant.name
+                      ? { ...r, isFavorite: !r.isFavorite }
+                      : r,
+                  ),
+                );
               }}
             />
           ))
@@ -122,6 +125,7 @@ const meta: Meta<typeof Wrapper> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Wrapper>;
 
 export const Default: Story = {};

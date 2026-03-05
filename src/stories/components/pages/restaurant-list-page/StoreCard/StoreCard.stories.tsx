@@ -19,7 +19,8 @@ type Story = StoryObj<typeof StoreCard>;
 
 export const Default: Story = {
   args: {
-    imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
     location: "서울 강남구",
     category: "카페",
     name: "달콤한 하루",
