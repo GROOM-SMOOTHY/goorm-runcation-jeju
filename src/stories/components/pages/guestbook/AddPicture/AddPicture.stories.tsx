@@ -20,12 +20,10 @@ export const Default: Story = {
     const [images, setImages] = useState<string[]>([]);
 
     const handleAdd = (data: AddFile) => {
-      if (images.length >= 4) return;
-
-      // AddFile 내부에 url이 있다고 가정
-      if ("url" in data) {
-        setImages((prev) => [...prev, data.url]);
-      }
+      setImages((prev) => {
+        if (prev.length >= 4) return prev;
+        return [...prev, data.url];
+      });
     };
 
     const handleRemove = (index: number) => {
