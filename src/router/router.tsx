@@ -23,6 +23,7 @@ import GuestBook from "@/pages/GuestBook/GuestBook";
 import GuestBookDetailPage from "@/pages/GuestBookDetailPage";
 import AddStampPage from "@/pages/AddStampPage";
 import Authentication from "@/pages/Authentication/Authentication";
+import PasswordPage from "@/pages/PasswordPage/PasswordPage";
 
 export default function AppRouter() {
   return (
@@ -53,6 +54,7 @@ export default function AppRouter() {
         <Route path="/guestbook" element={<GuestBook />} />
         <Route path="/guestbook/:id" element={<GuestBookDetailPage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/password" element={<PasswordPage />} />
 
         {/* 맛집 리스트 페이지 */}
         <Route path="/restaurants" element={<RestaurantListPage />} />
