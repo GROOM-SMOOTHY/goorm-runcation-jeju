@@ -38,6 +38,39 @@
   color: var(--text-label);
 }
 
+.actionButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.actionButton {
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.actionButton:hover {
+  color: var(--brand-primary);
+}
+
+.actionButtonDanger {
+  color: var(--text-tertiary);
+}
+
+.actionButtonDanger:hover {
+  color: var(--toast-red);
+}
+
 .input {
   display: flex;
   flex-direction: column;
