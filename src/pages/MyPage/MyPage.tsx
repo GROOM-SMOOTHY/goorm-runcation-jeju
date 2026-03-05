@@ -11,6 +11,7 @@ import { supabase } from "@/lib/supabase";
 import { useUser } from "@/store";
 import { useNavigate } from "react-router-dom";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
+import { deleteUser } from "@/services/authService";
 
 export default function MyPage() {
   const { id: userId } = useUser();
@@ -152,7 +153,22 @@ export default function MyPage() {
     navigate("/login");
   };
 
-  const handleDeleteAccount = async () => {};
+  const handleDeleteAccount = async () => {
+    const confirm = window.confirm("정말 회원탈퇴하시겠습니까?");
+    if (!confirm) return;
+
+    try {
+      const { error } = await deleteUser();
+      if (error) throw error;
+
+      addToast("회원탈퇴되었습니다", "", "success");
+      localStorage.clear();
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      addToast("회원탈퇴 중 오류가 발생했습니다.", "", "error");
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -163,9 +179,6 @@ export default function MyPage() {
           <h3 className={styles.nick}>{userInfo?.nickname}</h3>
           <p className={styles.email}>{userInfo?.email}</p>
         </div>
-        <button onClick={handleLogout}> 로그아웃</button>
-        <button onClick={() => navigate("/password")}>비밀번호 변경</button>
-        <button onClick={handleDeleteAccount}>회원탈퇴</button>
 
         <div className={styles.input}>
           <Input
@@ -214,6 +227,29 @@ export default function MyPage() {
           <Button type="button" variant="default" onClick={onClick}>
             저장하기
           </Button>
+        </div>
+        <div className={styles.actionButtons}>
+          <button
+            type="button"
+            className={styles.actionButton}
+            onClick={handleLogout}
+          >
+            로그아웃
+          </button>
+          <button
+            type="button"
+            className={styles.actionButton}
+            onClick={() => navigate("/password")}
+          >
+            비밀번호 변경
+          </button>
+          <button
+            type="button"
+            className={`${styles.actionButton} ${styles.actionButtonDanger}`}
+            onClick={handleDeleteAccount}
+          >
+            회원탈퇴
+          </button>
         </div>
       </div>
       <div className={styles.botNav}>
