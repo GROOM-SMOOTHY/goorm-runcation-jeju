@@ -75,7 +75,7 @@ export default function JoinCourseItem({
           <span className={styles.participants}>{participants}명 참여중</span>
           <AvatarStack
             avatars={members.map(
-              (member) => member.user.profile ?? DefaultAvatar,
+              (member) => member.user?.profile ?? DefaultAvatar,
             )}
             totalCount={members.length}
             visibleCount={2}

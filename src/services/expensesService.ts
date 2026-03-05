@@ -168,7 +168,7 @@ export type ExpenseParticipantRow = Tables<"expense_participants"> & {
 export type ExpenseDetail = Tables<"expenses"> & {
   payer: Tables<"users"> & {
     account_id: string;
-    account_bank: Tables<"account_infos">;
+    account_bank: Tables<"account_infos">[];
   };
   participants: ExpenseParticipantRow[];
 };
