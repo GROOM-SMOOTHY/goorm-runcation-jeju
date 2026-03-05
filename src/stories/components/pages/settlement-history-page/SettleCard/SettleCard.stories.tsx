@@ -89,7 +89,7 @@ export const List: Story = {
         maxWidth: 400,
       }}
     >
-      <SettleCard
+      {/* <SettleCard
         expenseId="expense-1"
         title="점심 밥 모임"
         date="2025.02.10"
@@ -130,7 +130,7 @@ export const List: Story = {
         currentUserName="이예슬"
         defaultExpanded={false}
         onStatusChange={async () => {}}
-      />
+      /> */}
     </div>
   ),
 };

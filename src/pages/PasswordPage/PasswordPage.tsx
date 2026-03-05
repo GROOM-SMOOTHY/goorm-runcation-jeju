@@ -1,6 +1,6 @@
 import styles from "@/pages/PasswordPage/PasswordPage.module.css";
 import Header from "@/components/layout/Header/Header";
-import LoginIcon from "@/assets/LoginPageIcon.png";
+import LoginIcon from "@/assets/LoginPageIcon.webp";
 import ButtonNavigation from "@/components/common/BottomNavigation/BottomNavigation";
 import Input from "@/components/common/Input/Input";
 import Button from "@/components/common/Button/Button";

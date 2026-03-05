@@ -1,5 +1,5 @@
 import styles from "@/pages/Authentication/Authentication.module.css";
-import LoginIcon from "@/assets/LoginPageIcon.png";
+import LoginIcon from "@/assets/LoginPageIcon.webp";
 import Header from "@/components/layout/Header/Header";
 import Button from "@/components/common/Button/Button";
 import CodeInput from "@/components/common/CodeInput/CodeInput";
