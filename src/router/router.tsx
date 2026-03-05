@@ -22,6 +22,7 @@ import MyPage from "@/pages/MyPage/MyPage";
 import GuestBook from "@/pages/GuestBook/GuestBook";
 import GuestBookDetailPage from "@/pages/GuestBookDetailPage";
 import AddStampPage from "@/pages/AddStampPage";
+import Authentication from "@/pages/Authentication/Authentication";
 
 export default function AppRouter() {
   return (
@@ -32,6 +33,7 @@ export default function AppRouter() {
         <Route path="/register" element={<SignUp />} />
 
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/authentication" element={<Authentication />} />
 
         {/* 로그인 성공 후 메인 페이지 */}
         <Route path="/home" element={<HomePage />} />
