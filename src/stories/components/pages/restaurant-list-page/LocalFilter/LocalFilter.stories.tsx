@@ -8,14 +8,14 @@ interface WrapperProps {
   onSelectRegion?: (region: string) => void;
 }
 
-  const allRestaurants = [
-    "제주시 흑돼지 맛집",
-    "서귀포 해물탕",
-    "한림 카페거리",
-    "애월 바다뷰 카페",
-    "제주시 갈치조림",
-    "서귀포 올레길 맛집",
-  ];
+const allRestaurants = [
+  "제주시 흑돼지 맛집",
+  "서귀포 해물탕",
+  "한림 카페거리",
+  "애월 바다뷰 카페",
+  "제주시 갈치조림",
+  "서귀포 올레길 맛집",
+];
 
 const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -42,8 +42,9 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
     <div style={{ width: "400px" }}>
       <SearchBar
         placeholder="제주 맛집을 검색해보아요"
-        onSearch={(keyword) => {
-          setSearchKeyword(keyword);
+        data={allRestaurants}
+        onSearch={(results) => {
+          setSearchKeyword(results);
         }}
       />
 
@@ -74,6 +75,7 @@ const meta: Meta<typeof Wrapper> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Wrapper>;
 
 export const Default: Story = {};

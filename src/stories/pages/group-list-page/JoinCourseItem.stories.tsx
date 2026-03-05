@@ -62,7 +62,9 @@ const meta = {
     },
   },
 } satisfies Meta<typeof JoinCourseItem>;
+
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
@@ -71,7 +73,7 @@ export const Default: Story = {
     course: "FRONTEND",
     participants: 10,
     generation: 1,
-    members: mockMembers,
+    members: [],
     onClick: () => {},
   },
 };
