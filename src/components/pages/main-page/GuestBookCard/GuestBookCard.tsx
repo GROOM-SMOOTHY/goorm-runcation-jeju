@@ -24,7 +24,7 @@ export default function GuestBookCard({
       <div className={styles.contentBox}>
         <div className={styles.titleBox}>
           <h3 className={styles.title}>{name}</h3>
-          <span className={styles.typeBadge}>
+          <span className={`${styles.typeBadge} ${styles[course]}`}>
             {getCourseName(course)} {generation}기
           </span>
         </div>
