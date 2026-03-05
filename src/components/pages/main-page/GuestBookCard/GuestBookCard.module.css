@@ -61,6 +61,25 @@
   color: var(--badge-label-emerald);
 }
 
+.FRONTEND {
+  background-color: var(--badge-bg-emerald);
+  color: var(--badge-label-emerald);
+}
+
+.BACKEND {
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+}
+
+.DESIGN {
+  background-color: var(--badge-bg-purple);
+  color: var(--badge-label-purple);
+}
+
+.AI {
+  background-color: var(--badge-bg-orange);
+  color: var(--badge-label-orange);
+}
 .description {
   font-size: 14px;
   font-weight: 400;
