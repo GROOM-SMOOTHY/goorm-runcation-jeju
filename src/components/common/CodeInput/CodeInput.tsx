@@ -75,7 +75,10 @@ export default function CodeInput({
         <label className={style.label}>인증코드</label>
       </div>
 
-      <div className={style.OTPGroup}>
+      <div
+        className={style.OTPGroup}
+        style={{ "--length": length } as React.CSSProperties}
+      >
         {[...Array(length)].map((_, i) => (
           <input
             key={i}
@@ -89,6 +92,7 @@ export default function CodeInput({
             onPaste={handlePaste}
             className={style.OTPInput}
             maxLength={1}
+            data-length={length}
           />
         ))}
       </div>
