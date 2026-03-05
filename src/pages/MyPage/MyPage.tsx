@@ -98,7 +98,6 @@ export default function MyPage() {
 
       const currentGroupId = member.group_id;
 
-      // 1️⃣ 계좌 존재 여부 확인
       const { data: existingAccount, error: checkError } = await supabase
         .from("account_infos")
         .select("id")
@@ -141,6 +140,20 @@ export default function MyPage() {
     }
   };
 
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      addToast("로그아웃 실패", "", "error");
+      return;
+    }
+
+    addToast("로그아웃되었습니다", "", "success");
+    navigate("/login");
+  };
+
+  const handleDeleteAccount = async () => {};
+
   return (
     <div className={styles.container}>
       <Header title="마이페이지" />
@@ -150,6 +163,9 @@ export default function MyPage() {
           <h3 className={styles.nick}>{userInfo?.nickname}</h3>
           <p className={styles.email}>{userInfo?.email}</p>
         </div>
+        <button onClick={handleLogout}> 로그아웃</button>
+        <button onClick={() => navigate("/password")}>비밀번호 변경</button>
+        <button onClick={handleDeleteAccount}>회원탈퇴</button>
 
         <div className={styles.input}>
           <Input
