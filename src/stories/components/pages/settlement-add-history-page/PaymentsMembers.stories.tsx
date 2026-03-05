@@ -10,7 +10,7 @@ const mockMembers: Member[] = rawMembers.map((m, i) => ({
   id: String(i),
   userId: String(m.userId),
   name: m.name,
-  profileSrc: "",
+  profileSrc: m.profileSrc ?? null,
 }));
 
 function StatefulPaymentsMembers({
