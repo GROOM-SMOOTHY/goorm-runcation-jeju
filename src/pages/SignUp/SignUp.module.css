@@ -133,3 +133,7 @@
 .front a {
   color: var(--brand-primary);
 }
+
+.login {
+  margin-left: 8px;
+}

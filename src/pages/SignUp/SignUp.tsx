@@ -1,9 +1,10 @@
 import styles from "@/pages/SignUp/SignUp.module.css";
 import SignUpInput from "@/components/pages/SignUp/SignUpInput/SignUpInput";
-import SignUpEmailVerification from "@/components/pages/SignUp/SignUpEmailVerification/SignUpEmailVerification";
-import { Link } from "react-router-dom";
 import useSignUp from "@/pages/SignUp/hooks/useSignUp";
 import Button from "@/components/common/Button/Button";
+import { Link, useNavigate } from "react-router-dom";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
+import { supabase } from "@/lib/supabase";
 
 export default function SignUp() {
   const {
@@ -15,14 +16,54 @@ export default function SignUp() {
     setEmail,
     password,
     setPassword,
-    code,
-    setCode,
     isAgreed,
     setIsAgreed,
-    isLoading,
-    handleSignUp,
-    handleVerified,
   } = useSignUp();
+
+  const navigate = useNavigate();
+  const addToast = useToastStore((state) => state.addToast);
+
+  const handleEmailVerification = async () => {
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name.trim()) {
+      addToast("이름을 먼저 입력해주세요", "", "warning");
+      return;
+    }
+
+    if (!phone.trim()) {
+      addToast("전화번호를 먼저 입력해주세요", "", "warning");
+      return;
+    }
+
+    if (!validEmail.test(email)) {
+      addToast("이메일 형식이 올바르지 않습니다", "", "warning");
+      return;
+    }
+
+    if (!password) {
+      addToast("비밀번호를 먼저 입력해주세요", "", "warning");
+      return;
+    }
+
+    if (!isAgreed) {
+      addToast("약관에 동의해주세요", "", "warning");
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithOtp({ email });
+
+    if (error) {
+      addToast(error.message, "", "error");
+      return;
+    }
+
+    addToast("인증코드를 이메일로 전송했습니다", "", "success");
+
+    navigate("/authentication", {
+      state: { email, name, phone, password },
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -36,20 +77,11 @@ export default function SignUp() {
           <p className={styles.desc}>SMOOTHY와 함께하는 스마트한 런케이션</p>
         </div>
       </div>
-
       <div className={styles.main}>
         <SignUpInput type="name" value={name} onChange={setName} />
         <SignUpInput type="phone" value={phone} onChange={setPhone} />
-
-        <SignUpEmailVerification
-          email={email}
-          input={code}
-          onChangeEmail={setEmail}
-          onChangeCode={setCode}
-          onVerified={handleVerified}
-        />
-
         <SignUpInput type="password" value={password} onChange={setPassword} />
+        <SignUpInput type="email" value={email} onChange={setEmail} />
 
         <label className={styles.checkBox}>
           <input
@@ -60,14 +92,13 @@ export default function SignUp() {
           <span>서비스 이용약관 및 개인정보 처리방침에 동의합니다.</span>
         </label>
       </div>
-
       <div className={styles.footer}>
-        <Button type="button" onClick={handleSignUp} disabled={isLoading}>
-          {isLoading ? "처리중" : "시작하기"}
+        <Button type="button" onClick={handleEmailVerification}>
+          인증하고 회원가입
         </Button>
 
         <p className={styles.front}>
-          이미 계정이 있으신가요?{" "}
+          이미 계정이 있으신가요?
           <Link to="/login" className={styles.login}>
             로그인
           </Link>

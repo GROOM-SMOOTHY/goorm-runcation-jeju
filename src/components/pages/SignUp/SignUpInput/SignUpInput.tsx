@@ -1,7 +1,7 @@
 import styles from "@/components/pages/SignUp/SignUpInput/SignUpInput.module.css";
 
 interface SignUpInputProps {
-  type: "name" | "phone" | "password";
+  type: "name" | "phone" | "password" | "email";
   value: string;
   onChange: (value: string) => void;
 }
@@ -19,8 +19,13 @@ const config = {
   },
   password: {
     label: "비밀번호",
-    placeholder: "8자 이상, 영문+숫자 포함",
+    placeholder: "대문자 1개 이상과 영문, 숫자를 포함한 8자 이상",
     inputType: "password",
+  },
+  email: {
+    label: "이메일",
+    placeholder: "example@example.com",
+    inputType: "email",
   },
 } as const;
 

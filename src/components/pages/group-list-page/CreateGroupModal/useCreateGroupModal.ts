@@ -8,6 +8,7 @@ import { useUser } from "@/store/useUser";
 import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
 import type { Database } from "@/types/supabase";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
+import { useNavigate } from "react-router-dom";
 
 export type Steps = "group-info-form" | "success";
 
@@ -32,10 +33,13 @@ export default function useCreateGroupModal(
     useState<GroupFormValues>(initialFormValues);
   const [createdGroupCode, setCreatedGroupCode] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createdGroupId, setCreatedGroupId] = useState<string | null>(null);
 
   const { id: userId } = useUser((s) => s);
 
   const addToast = useToastStore((state) => state.addToast);
+
+  const navigate = useNavigate();
 
   const validateForm = useCallback(() => {
     if (!formValues.groupName) {
@@ -69,6 +73,7 @@ export default function useCreateGroupModal(
         code,
         creator_id: userId,
       });
+      setCreatedGroupId(group.id);
 
       try {
         await insertGroupMember({
@@ -102,14 +107,19 @@ export default function useCreateGroupModal(
       handleCreateGroup();
     } else if (steps === "success") {
       onClose();
+
+      if (createdGroupId) {
+        navigate(`/main`);
+      }
     }
-  }, [handleCreateGroup, onClose, steps]);
+  }, [handleCreateGroup, onClose, steps, createdGroupId, navigate]);
 
   const handleCopyCode = useCallback(async () => {
     if (!createdGroupCode) return;
     try {
       await navigator.clipboard.writeText(createdGroupCode);
       // TODO: 복사 완료 토스트/피드백 추가
+      addToast("복사 완료", "그룹 코드가 복사되었습니다.", "success");
     } catch {
       console.error("클립보드 복사 실패");
     }

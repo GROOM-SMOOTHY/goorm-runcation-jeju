@@ -12,13 +12,18 @@ export default meta;
 
 type Story = StoryObj<typeof AddPicture>;
 
+// AddPicture의 onAdd 타입 자동 추출
+type AddFile = Parameters<React.ComponentProps<typeof AddPicture>["onAdd"]>[0];
+
 export const Default: Story = {
   render: () => {
     const [images, setImages] = useState<string[]>([]);
 
-    const handleAdd = (data: { url: string; file: File }) => {
-      if (images.length >= 4) return;
-      setImages((prev) => [...prev, data.url]);
+    const handleAdd = (data: AddFile) => {
+      setImages((prev) => {
+        if (prev.length >= 4) return prev;
+        return [...prev, data.url];
+      });
     };
 
     const handleRemove = (index: number) => {

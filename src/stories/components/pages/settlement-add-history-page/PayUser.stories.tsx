@@ -3,9 +3,21 @@ import PayUser from "@/components/pages/settlement-add-history-page/PayUser";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const MOCK_USERS = [
-  { id: "user-1", nickname: "김나영" },
-  { id: "user-2", nickname: "이철수" },
-  { id: "user-3", nickname: "박지훈" },
+  {
+    id: "1",
+    name: "김민수",
+    profileSrc: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: "2",
+    name: "박지훈",
+    profileSrc: "https://i.pravatar.cc/150?img=2",
+  },
+  {
+    id: "3",
+    name: "이예슬",
+    profileSrc: "https://i.pravatar.cc/150?img=3",
+  },
 ];
 
 const meta = {
@@ -36,7 +48,7 @@ const meta = {
   argTypes: {
     value: {
       control: "select",
-      options: ["", ...MOCK_USERS.map((user) => user.id)],
+      options: MOCK_USERS.map((user) => user.id),
     },
   },
 } satisfies Meta<typeof PayUser>;

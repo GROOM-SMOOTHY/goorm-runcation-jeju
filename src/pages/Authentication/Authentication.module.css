@@ -46,17 +46,6 @@
   color: var(--brand-primary);
 }
 
-.header p {
-  line-height: 20px;
-  color: var(--text-secondary);
-}
-
-.input {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 .footer {
   text-align: center;
   margin-top: auto;
@@ -69,7 +58,6 @@
   color: var(--text-label);
 }
 
-.footer span,
 .footer .signUpLink {
   font-weight: 700;
   color: var(--brand-primary);
