@@ -44,7 +44,8 @@ export type GroupWithMembers = GroupsRow & {
 export async function getGroupListWithMembers(): Promise<GroupWithMembers[]> {
   const { data: group, error: groupError } = await supabase
     .from("groups")
-    .select("*");
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (groupError || !group) {
     throw new Error(groupError?.message ?? "그룹 조회 실패");
