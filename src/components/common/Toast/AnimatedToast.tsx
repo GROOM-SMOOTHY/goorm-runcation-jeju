@@ -52,8 +52,9 @@ const ToastItemComponent: React.FC<ToastItemProps> = ({ toast, removeToast }) =>
       if (timerRef.current !== null) {
         clearTimeout(timerRef.current as number);
       }
+      removeToast(toast.id);
     };
-  }, [toast.id]);
+  }, [toast.id, removeToast]);
 
   return (
     <Toast.Root
@@ -69,11 +70,6 @@ const ToastItemComponent: React.FC<ToastItemProps> = ({ toast, removeToast }) =>
         {ToastIcon[toast.type]}
         <div className={styles.Text}>
           <Toast.Title className={styles.Title}>{toast.title}</Toast.Title>
-          <Toast.Description asChild>
-            <span className={styles.Description}>
-              {toast.description || toast.createdAt.toLocaleString()}
-            </span>
-          </Toast.Description>
         </div>
         <Toast.Action className={styles.Action} asChild altText="닫기">
           {/* 클릭 시 Toast 닫기 */}

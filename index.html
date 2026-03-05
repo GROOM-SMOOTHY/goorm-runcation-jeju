@@ -1,18 +1,44 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/webp" href="/favicon.webp" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>react-runcation-jeju</title>
+<html lang="ko">
 
-    <!-- PWA 연결 -->
-    <link rel="manifest" href="/manifest.json" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <!-- 파비콘 -->
+  <link rel="icon" type="image/webp" href="/favicon.webp" />
+  <!-- 모바일 깨짐 방지 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <title>SMOOTHY | 런케이션 제주</title>
+  <meta name="description" content="구름 런케이션 수강생을 위한 제주도에서의 완벽한 워케이션, SMOOTHY와 함께하세요!" />
+  <meta name="keywords" content="제주도, 워케이션, 런케이션, SMOOTHY, GOORM, 런케이션 제주" />
+  <meta name="author" content="Team SMOOTHY" />
 
-  <body>
-    <div id="root"></div>
-    <div id="modal-root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- 카카오톡 OG 태그 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SMOOTHY | 런케이션 제주" />
+  
+  <meta property="og:url" content="https://goorm-runcation-jeju.vercel.app/" /> 
+  <meta property="og:title" content="SMOOTHY | 런케이션 제주" />
+  <meta property="og:description" content="구름 런케이션 수강생을 위한 제주도에서의 완벽한 워케이션" />
+
+  <!-- 미리보기 이미지(변경해야함) -->
+  <meta property="og:image" content="https://goorm-runcation-jeju.vercel.app/og-image.jpg" />
+
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- PWA 설정파일 -->
+  <link rel="manifest" href="/manifest.json" />
+  <!-- 테마 색상 -->
+  <meta name="theme-color" content="#ffffff" />
+  <!-- 앱 아이콘 -->
+  <link rel="apple-touch-icon" href="/src/assets/favicon.webp" /> 
+</head>
+
+<body>
+  <div id="root"></div>
+  <div id="modal-root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

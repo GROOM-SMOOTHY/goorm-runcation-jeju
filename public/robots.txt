@@ -1,0 +1,12 @@
+# 모든 검색 엔진 로봇에게 허용함
+User-agent: *
+
+# 사이트 전체 수집 허용
+Allow: /
+
+# 수집을 제외하고 싶은 경로
+Disallow: /settlement/
+Disallow: /mypage/
+
+# 사이트맵 위치 (파일명 sitemap.xml을 꼭 붙여주세요!)
+Sitemap: https://goorm-runcation-jeju.vercel.app/sitemap.xml
