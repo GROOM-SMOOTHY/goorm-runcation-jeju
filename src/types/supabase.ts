@@ -20,6 +20,7 @@ export type Database = {
           account_number: string;
           bank_name: string;
           created_at: string | null;
+          group_id: string;
           id: string;
           user_id: string;
         };
@@ -28,6 +29,7 @@ export type Database = {
           account_number: string;
           bank_name: string;
           created_at?: string | null;
+          group_id: string;
           id?: string;
           user_id: string;
         };
@@ -36,10 +38,18 @@ export type Database = {
           account_number?: string;
           bank_name?: string;
           created_at?: string | null;
+          group_id?: string;
           id?: string;
           user_id?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: "account_infos_group_id_fkey";
+            columns: ["group_id"];
+            isOneToOne: false;
+            referencedRelation: "groups";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "account_infos_user_id_fkey";
             columns: ["user_id"];
@@ -317,10 +327,59 @@ export type Database = {
           },
         ];
       };
+      restaurants: {
+        Row: {
+          created_at: string | null;
+          formatted_address: string | null;
+          id: string;
+          image_url: string | null;
+          latitude: number;
+          longitude: number;
+          name: string;
+          opening_hours: Json | null;
+          phone_number: string | null;
+          place_id: string;
+          rating: number | null;
+          types: Json | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          formatted_address?: string | null;
+          id?: string;
+          image_url?: string | null;
+          latitude: number;
+          longitude: number;
+          name: string;
+          opening_hours?: Json | null;
+          phone_number?: string | null;
+          place_id: string;
+          rating?: number | null;
+          types?: Json | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          formatted_address?: string | null;
+          id?: string;
+          image_url?: string | null;
+          latitude?: number;
+          longitude?: number;
+          name?: string;
+          opening_hours?: Json | null;
+          phone_number?: string | null;
+          place_id?: string;
+          rating?: number | null;
+          types?: Json | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
           account_id: string;
           created_at: string;
+          deleted_at: string | null;
           email: string | null;
           id: string;
           nickname: string | null;
@@ -331,6 +390,7 @@ export type Database = {
         Insert: {
           account_id: string;
           created_at?: string;
+          deleted_at?: string | null;
           email?: string | null;
           id?: string;
           nickname?: string | null;
@@ -341,6 +401,7 @@ export type Database = {
         Update: {
           account_id?: string;
           created_at?: string;
+          deleted_at?: string | null;
           email?: string | null;
           id?: string;
           nickname?: string | null;
@@ -355,7 +416,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_total_sum: { Args: never; Returns: number };
     };
     Enums: {
       course_type: "FRONTEND" | "BACKEND" | "DESIGN";
