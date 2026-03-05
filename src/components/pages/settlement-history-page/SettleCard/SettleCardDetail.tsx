@@ -6,6 +6,7 @@ import * as Switch from "@radix-ui/react-switch";
 import { FaCheckCircle, FaExclamationTriangle, FaUser } from "react-icons/fa";
 import { MdContentCopy } from "react-icons/md";
 import { useUser } from "@/store";
+import { useToastStore } from "@/components/common/Toast/ToastStore";
 
 interface Props {
   expanded: boolean;
@@ -24,6 +25,8 @@ export default function SettleCardDetail({
       onSettleStatusChange,
     });
   const { id: userId, data: currentUser } = useUser((state) => state);
+
+  const addToast = useToastStore((state) => state.addToast);
 
   // 내가 돈을 냈는지
   const isPaid =
@@ -51,6 +54,11 @@ export default function SettleCardDetail({
       expense?.payer?.account_bank?.[0]?.account_number ?? "",
     accountNumberForCopy:
       expense?.payer?.account_bank?.[0]?.account_number ?? "",
+  };
+
+  const handleCopyAccount = () => {
+    navigator.clipboard.writeText(accountHolder.accountNumberForCopy);
+    addToast("계좌번호가 복사되었습니다.", "", "success");
   };
 
   return (
@@ -139,7 +147,7 @@ export default function SettleCardDetail({
                 <button
                   type="button"
                   className={styles.copyButton}
-                  //   onClick={handleCopyAccount}
+                  onClick={handleCopyAccount}
                 >
                   <MdContentCopy />
                 </button>

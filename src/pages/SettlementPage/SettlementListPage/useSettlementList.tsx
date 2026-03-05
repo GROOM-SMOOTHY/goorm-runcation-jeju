@@ -39,14 +39,14 @@ export default function useSettlementList() {
   };
 
   useEffect(() => {
-    (() => {
-      fetchSettlements();
+    (async () => {
+      await fetchSettlements();
     })();
   }, [userId, group?.id, type, filter]);
 
   useEffect(() => {
-    (() => {
-      fetchTotalPaidAndToPay();
+    (async () => {
+      await fetchTotalPaidAndToPay();
     })();
   }, [userId, group?.id]);
 
