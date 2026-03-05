@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function WeatherPanel({ degree, weather }: Props) {
-  if (!degree || !weather) {
+  if (degree == null || weather == null) {
     return (
       <div className={styles.container}>
         <div className={styles.icon}>
