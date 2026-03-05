@@ -63,9 +63,8 @@ const Wrapper = ({ onSearch, onSelectRegion }: WrapperProps) => {
       <SearchBar
         placeholder="제주 맛집을 검색해보아요"
         data={mockRestaurants.map((r) => r.name)}
-        onSearch={(results) => {
-          setSearchValue(results);
-          onSearch?.([results]);
+        onSearch={(query) => {
+          setSearchValue(query);
         }}
       />
 
