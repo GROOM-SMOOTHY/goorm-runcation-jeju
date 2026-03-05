@@ -53,3 +53,25 @@
   font-weight: 500;
   color: var(--text-tertiary);
 }
+
+@media screen and (max-width: 480px) {
+  .iconBox {
+    width: 40px;
+    height: 40px;
+  }
+
+  .iconBox > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .titleText {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .arrowText {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
