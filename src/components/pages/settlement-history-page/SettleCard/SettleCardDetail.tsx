@@ -10,12 +10,19 @@ import { useUser } from "@/store";
 interface Props {
   expanded: boolean;
   expenseId: string;
+  onSettleStatusChange?: () => void | Promise<void>;
 }
-export default function SettleCardDetail({ expanded, expenseId }: Props) {
-  const { expense, members, handleMySettleStatusToggle } = useSettleCard({
-    expanded,
-    expenseId,
-  });
+export default function SettleCardDetail({
+  expanded,
+  expenseId,
+  onSettleStatusChange,
+}: Props) {
+  const { expense, members, isLoading, handleMySettleStatusToggle } =
+    useSettleCard({
+      expanded,
+      expenseId,
+      onSettleStatusChange,
+    });
   const { id: userId, data: currentUser } = useUser((state) => state);
 
   // 내가 돈을 냈는지
@@ -33,17 +40,17 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
   const completedCount = completedMembers.length;
   const pendingMembers = members.filter((m) => m?.state === "PENDING");
   const pendingCount = pendingMembers.length;
-  const progressPercent = (completedCount / totalMemberCount) * 100;
-  const amountPerPerson = (expense?.total_amount ?? 0) / totalMemberCount;
+  const progressPercent =
+    totalMemberCount > 0 ? (completedCount / totalMemberCount) * 100 : 0;
+  const amountPerPerson =
+    totalMemberCount > 0 ? (expense?.total_amount ?? 0) / totalMemberCount : 0;
   const accountHolder = {
     name: expense?.payer?.nickname ?? "",
-    bank: expense?.payer?.account_bank?.bank_name ?? "",
+    bank: expense?.payer?.account_bank?.[0]?.bank_name ?? "",
     accountNumberMasked:
-      expense?.payer?.account_bank?.account_number?.replace(
-        /(\d{4})(?=\d)/g,
-        "$1-",
-      ) ?? "",
-    accountNumberForCopy: expense?.payer?.account_bank?.account_number ?? "",
+      expense?.payer?.account_bank?.[0]?.account_number ?? "",
+    accountNumberForCopy:
+      expense?.payer?.account_bank?.[0]?.account_number ?? "",
   };
 
   return (
@@ -52,30 +59,41 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
     >
       <div className={styles.body}>
         <div className={styles.bodyInner}>
-          {/* 내가 참여한 정산이라면  */}
-          {isMySettle && (
+          {/* 내가 참여한 정산이라면 - 로딩 중에는 공간 예약으로 레이아웃 시프트 방지 */}
+          {(isLoading || isMySettle) && (
             <div
-              className={`${styles.statusRow} ${isPaid ? styles.statusRowCompleted : styles.statusRowPending}`}
+              className={`${styles.statusRow} ${!isLoading && isPaid ? styles.statusRowCompleted : styles.statusRowPending}`}
             >
               <div className={styles.statusMessage}>
-                {isPaid ? (
-                  <FaCheckCircle className={styles.statusIcon} />
+                {isLoading ? (
+                  <>
+                    <div className={styles.statusSkeletonIcon} aria-hidden />
+                    <span className={styles.statusSkeleton}>로딩 중...</span>
+                  </>
                 ) : (
-                  <FaExclamationTriangle className={styles.statusIcon} />
+                  <>
+                    {isPaid ? (
+                      <FaCheckCircle className={styles.statusIcon} />
+                    ) : (
+                      <FaExclamationTriangle className={styles.statusIcon} />
+                    )}
+                    <span>
+                      {isPaid ? "입금이 완료되었어요" : "입금이 필요해요"}
+                    </span>
+                  </>
                 )}
-                <span>
-                  {isPaid ? "입금이 완료되었어요" : "입금이 필요해요"}
-                </span>
               </div>
-              <Switch.Root
-                className={styles.statusSwitch}
-                checked={isPaid}
-                onCheckedChange={() =>
-                  handleMySettleStatusToggle(isPaid ? "PENDING" : "COMPLETE")
-                }
-              >
-                <Switch.Thumb className={styles.statusSwitchThumb} />
-              </Switch.Root>
+              {!isLoading && (
+                <Switch.Root
+                  className={styles.statusSwitch}
+                  checked={isPaid}
+                  onCheckedChange={() =>
+                    handleMySettleStatusToggle(isPaid ? "PENDING" : "COMPLETE")
+                  }
+                >
+                  <Switch.Thumb className={styles.statusSwitchThumb} />
+                </Switch.Root>
+              )}
             </div>
           )}
 
@@ -108,8 +126,8 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
               <span className={styles.accountHolderName}>
                 {accountHolder.name}
               </span>
-              {currentUser.nickname != null &&
-                accountHolder.name === currentUser.nickname && (
+              {accountHolder.name != null &&
+                accountHolder.name === currentUser?.nickname && (
                   <span className={styles.accountHolderMeBadge}>나</span>
                 )}
             </div>
@@ -140,17 +158,18 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
             <div className={styles.memberTags}>
               {pendingMembers.map((m) => (
                 <div
-                  key={m.user.id}
-                  className={`${styles.memberTag} ${currentUser.nickname != null && m.user.nickname === currentUser.nickname ? styles.memberTagIsMe : ""}`}
+                  key={m.user?.id ?? m.user_id}
+                  className={`${styles.memberTag} ${currentUser?.nickname != null && m.user?.nickname != null && m.user.nickname === currentUser.nickname ? styles.memberTagIsMe : ""}`}
                 >
                   <div className={styles.memberTagAvatar}>
                     <FaUser className={styles.memberTagAvatarIcon} />
                   </div>
                   <span className={styles.memberTagName}>
-                    {m.user.nickname}
+                    {m.user?.nickname ?? ""}
                   </span>
-                  {currentUser.nickname != null &&
-                    m.user.nickname === currentUser.nickname && (
+                  {currentUser?.nickname != null &&
+                    m.user?.nickname != null &&
+                    m.user.nickname === currentUser?.nickname && (
                       <span className={styles.memberTagMeLabel}>나</span>
                     )}
                 </div>
@@ -170,17 +189,17 @@ export default function SettleCardDetail({ expanded, expenseId }: Props) {
             <div className={styles.memberTags}>
               {completedMembers.map((m) => (
                 <div
-                  key={m.user.id}
-                  className={`${styles.memberTag} ${currentUser.nickname != null && m.user.nickname === currentUser.nickname ? styles.memberTagIsMe : ""}`}
+                  key={m.user?.id ?? m.user_id}
+                  className={`${styles.memberTag} ${m.user?.nickname != null && m.user.nickname === currentUser?.nickname ? styles.memberTagIsMe : ""}`}
                 >
                   <div className={styles.memberTagAvatar}>
                     <FaUser className={styles.memberTagAvatarIcon} />
                   </div>
                   <span className={styles.memberTagName}>
-                    {m.user.nickname}
+                    {m.user?.nickname ?? ""}
                   </span>
-                  {currentUser.nickname != null &&
-                    m.user.nickname === currentUser.nickname && (
+                  {m.user?.nickname != null &&
+                    m.user.nickname === currentUser?.nickname && (
                       <span className={styles.memberTagMeLabel}>나</span>
                     )}
                 </div>

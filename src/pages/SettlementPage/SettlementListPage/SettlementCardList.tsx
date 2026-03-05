@@ -10,6 +10,7 @@ interface Props {
   userId: string | undefined;
   filter: SettlementFilterType;
   setFilter: (filter: SettlementFilterType) => void;
+  onSettleStatusChange?: () => void | Promise<void>;
 }
 
 export default function SettlementCardList({
@@ -17,6 +18,7 @@ export default function SettlementCardList({
   userId,
   filter,
   setFilter,
+  onSettleStatusChange,
 }: Props) {
   return (
     <>
@@ -26,6 +28,7 @@ export default function SettlementCardList({
           <SettleCard
             key={s.id}
             expenseId={s.id}
+            onSettleStatusChange={onSettleStatusChange}
             title={s.payment_title}
             category={s.category ?? "etc"}
             expenseDate={

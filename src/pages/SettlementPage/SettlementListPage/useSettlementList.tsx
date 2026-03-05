@@ -12,35 +12,42 @@ export default function useSettlementList() {
   const [settlements, setSettlements] = useState<SettlementRow[]>([]);
   const [totalPaid, setTotalPaid] = useState<number>(0);
   const [totalToPay, setTotalToPay] = useState<number>(0);
-  const { id: userId } = useUser();
+
   const { group } = useGroup();
+  const { id: userId } = useUser();
+
+  const fetchSettlements = async () => {
+    const data = await getSettlements({
+      userId,
+      groupId: group?.id ?? "",
+      type,
+      filter,
+    });
+    setSettlements(data);
+  };
+
+  const fetchTotalPaidAndToPay = async () => {
+    const groupId = group?.id ?? "";
+    const paid = await getTotalPaidAndToPay(groupId, userId, "paid");
+    const toPay = await getTotalPaidAndToPay(groupId, userId, "toPay");
+    setTotalPaid(paid);
+    setTotalToPay(toPay);
+  };
+
+  const refetch = async () => {
+    await Promise.all([fetchSettlements(), fetchTotalPaidAndToPay()]);
+  };
 
   useEffect(() => {
-    const fetchSettlements = async () => {
-      const data = await getSettlements({
-        userId,
-        groupId: group?.id ?? "",
-        type,
-        filter,
-      });
-
-      setSettlements(data);
-    };
-
-    fetchSettlements();
+    (() => {
+      fetchSettlements();
+    })();
   }, [userId, group?.id, type, filter]);
 
   useEffect(() => {
-    const fetchTotalPaidAndToPay = async () => {
-      const groupId = group?.id ?? "";
-
-      const paid = await getTotalPaidAndToPay(groupId, userId, "paid");
-      const toPay = await getTotalPaidAndToPay(groupId, userId, "toPay");
-      setTotalPaid(paid);
-      setTotalToPay(toPay);
-    };
-
-    fetchTotalPaidAndToPay();
+    (() => {
+      fetchTotalPaidAndToPay();
+    })();
   }, [userId, group?.id]);
 
   return {
@@ -51,5 +58,6 @@ export default function useSettlementList() {
     settlements,
     totalPaid,
     totalToPay,
+    refetch,
   };
 }
