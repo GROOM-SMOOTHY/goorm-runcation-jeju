@@ -81,7 +81,7 @@ export default function JoinCourseItem({
 
           <AvatarStack
             avatars={avatars}
-            totalCount={validMembers.length} // ✅ 실제 보이는 멤버 수
+            totalCount={participants}
             visibleCount={2}
             size="sm"
           />
