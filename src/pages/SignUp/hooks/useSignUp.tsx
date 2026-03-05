@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function useSignUp() {
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -18,5 +19,7 @@ export default function useSignUp() {
     setPassword,
     isAgreed,
     setIsAgreed,
+    isLoading,
+    setIsLoading,
   };
 }
