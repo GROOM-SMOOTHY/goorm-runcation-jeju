@@ -80,8 +80,8 @@ export default function SignUp() {
       <div className={styles.main}>
         <SignUpInput type="name" value={name} onChange={setName} />
         <SignUpInput type="phone" value={phone} onChange={setPhone} />
-        <SignUpInput type="password" value={password} onChange={setPassword} />
         <SignUpInput type="email" value={email} onChange={setEmail} />
+        <SignUpInput type="password" value={password} onChange={setPassword} />
 
         <label className={styles.checkBox}>
           <input
