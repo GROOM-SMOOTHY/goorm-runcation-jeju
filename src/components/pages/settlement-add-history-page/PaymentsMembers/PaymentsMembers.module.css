@@ -37,7 +37,9 @@
 }
 
 .helpText {
-  font-size: 14px;
-  font-weight: 6000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
   color: var(--brand-primary);
 }
