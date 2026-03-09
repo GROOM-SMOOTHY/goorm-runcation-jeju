@@ -35,3 +35,9 @@
   border: 2px dashed var(--border-main);
   cursor: pointer;
 }
+
+.helpText {
+  font-size: 14px;
+  font-weight: 6000;
+  color: var(--brand-primary);
+}
