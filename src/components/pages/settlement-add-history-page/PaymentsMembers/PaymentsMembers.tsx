@@ -1,9 +1,10 @@
-import { IoIosAdd } from "react-icons/io";
 import PaymentMemberChips from "./PaymentsMemberChips";
 import styles from "./PaymentsMembers.module.css";
-import { useBottomSheet } from "@/components/common/BottomSheet";
 import AddMemberBottomSheet from "./AddMemberBottomSheet/AddMemberBottomSheet";
 import defaultProfile from "/src/assets/default-profile.webp";
+import { IoIosAdd } from "react-icons/io";
+import { useBottomSheet } from "@/components/common/BottomSheet";
+import { IoAlertCircleOutline } from "react-icons/io5";
 
 export interface Member {
   id: string;
@@ -52,9 +53,10 @@ export default function PaymentsMembers({
   return (
     <div className={styles.container}>
       <span className={styles.label}>함께한 멤버</span>
-      <p className={styles.helpText}>
-        정산에 참여하는 인원을 추가해주세요 (본인 포함)
-      </p>
+      <div className={styles.helpText}>
+        <IoAlertCircleOutline size={20} />
+        <p>정산에 참여하는 인원을 추가해주세요 (본인 포함)</p>
+      </div>
 
       <div className={styles.members}>
         {selectedMembers.map((member) => (
