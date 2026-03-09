@@ -39,7 +39,7 @@
 .helpText {
   display: flex;
   align-items: center;
-  gap: 6px;
-
+  font-size: 16px;
+  gap: 4px;
   color: var(--brand-primary);
 }
