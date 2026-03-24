@@ -23,7 +23,7 @@ export default function SettlementAddPage() {
   const { id: storedUserId } = useUser();
   const { addToast } = useToastStore();
 
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number | null>(null);
   const [title, setTitle] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [members, setMembers] = useState<Member[]>([]);
@@ -40,7 +40,8 @@ export default function SettlementAddPage() {
     if (storedUserId) setUser(storedUserId);
   }, [storedUserId]);
 
-  const amountPerPerson = members.length > 0 ? Math.floor(amount / members.length) : 0;
+  const amountPerPerson =
+    members.length > 0 && amount ? Math.floor(amount / members.length) : 0;
 
   useEffect(() => {
     if (!user) return;
@@ -69,8 +70,12 @@ export default function SettlementAddPage() {
       addToast("오류", "그룹 정보가 없습니다.", "error");
       return;
     }
-    if (amount <= 0) {
-      addToast("입력 확인", "정산 금액을 0원보다 크게 입력해주세요.", "warning");
+    if (!amount || amount <= 0) {
+      addToast(
+        "입력 확인",
+        "정산 금액을 0원보다 크게 입력해주세요.",
+        "warning",
+      );
       return;
     }
 
@@ -83,13 +88,17 @@ export default function SettlementAddPage() {
       return;
     }
 
-    if(date && date > new Date()) {
-      addToast("입력 확인", "오늘 날짜보다 미래로 설정할 수 없습니다.", "warning");
+    if (date && date > new Date()) {
+      addToast(
+        "입력 확인",
+        "오늘 날짜보다 미래로 설정할 수 없습니다.",
+        "warning",
+      );
       return;
     }
     if (!date) {
-    addToast("입력 확인", "지출 일자를 선택해주세요.", "warning");
-    return;
+      addToast("입력 확인", "지출 일자를 선택해주세요.", "warning");
+      return;
     }
 
     if (!category) {
@@ -101,17 +110,25 @@ export default function SettlementAddPage() {
       return;
     }
     if (members.length > 20) {
-      addToast("입력 확인", "참여 멤버는 최대 20명까지 선택할 수 있습니다.", "warning");
+      addToast(
+        "입력 확인",
+        "참여 멤버는 최대 20명까지 선택할 수 있습니다.",
+        "warning",
+      );
       return;
     } else if (members.length === 0) {
       addToast("입력 확인", "정산에 참여할 멤버를 선택해주세요.", "warning");
-      return; 
+      return;
     }
 
     const isPayerMe = user === storedUserId;
 
     // 1. 내가 결제자인데 계좌가 없는 경우 필수 입력 체크
-    if (isPayerMe && !hasAccount && (!bank.trim() || !account.trim() || !holder.trim())) {
+    if (
+      isPayerMe &&
+      !hasAccount &&
+      (!bank.trim() || !account.trim() || !holder.trim())
+    ) {
       addToast("계좌 필요", "나의 계좌 정보를 입력해주세요.", "warning");
       return;
     }
@@ -123,7 +140,7 @@ export default function SettlementAddPage() {
           .from("account_infos")
           .upsert({
             // user 대신 확실한 storedUserId를 사용하여 정책 위반 방지
-            user_id: storedUserId, 
+            user_id: storedUserId,
             group_id: group.id,
             bank_name: bank,
             account_number: account,
@@ -176,7 +193,11 @@ export default function SettlementAddPage() {
       navigate(-1);
     } catch (err) {
       console.error("Full Error:", err);
-      addToast("저장 실패", "데이터 저장 중 권한 오류가 발생했습니다.", "error");
+      addToast(
+        "저장 실패",
+        "데이터 저장 중 권한 오류가 발생했습니다.",
+        "error",
+      );
     }
   };
 
@@ -186,7 +207,11 @@ export default function SettlementAddPage() {
       <div className={styles.container}>
         <div className={styles.inputContainer}>
           <span className={styles.inputLabel}>정산금액</span>
-          <PaymentInput value={amount} onChange={setAmount} />
+          <PaymentInput
+            value={amount}
+            onChange={setAmount}
+            placeholder="금액 입력"
+          />
         </div>
 
         <div className={styles.inputField}>
@@ -205,7 +230,7 @@ export default function SettlementAddPage() {
         </div>
 
         <PayCategory value={category} onChange={setCategory} />
-        
+
         <PayUser value={user} onChange={setUser} />
 
         {!hasAccount && user === storedUserId && (
@@ -216,7 +241,7 @@ export default function SettlementAddPage() {
                 나의 계좌 정보가 없어요. 등록해 주세요!
               </span>
             </div>
-            
+
             <div className={styles.accountRow}>
               <Input
                 name="bank"
@@ -252,8 +277,8 @@ export default function SettlementAddPage() {
           <div className={styles.titleWrap}>
             <span className={styles.title}>인당 지출 금액</span>
             <span className={styles.subtitle}>
-              {user === storedUserId && !hasAccount 
-                ? "내 계좌를 등록하면 친구들이 송금하기 편해요!" 
+              {user === storedUserId && !hasAccount
+                ? "내 계좌를 등록하면 친구들이 송금하기 편해요!"
                 : accountInfo}
             </span>
           </div>

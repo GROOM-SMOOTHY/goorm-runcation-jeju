@@ -77,7 +77,7 @@ export default function CodeInput({
 
       <div
         className={style.OTPGroup}
-        style={{ "--length": length } as React.CSSProperties}
+        style={{ gridTemplateColumns: `repeat(${length}, 1fr)` }}
       >
         {[...Array(length)].map((_, i) => (
           <input
