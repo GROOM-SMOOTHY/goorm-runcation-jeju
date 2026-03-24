@@ -8,13 +8,16 @@ import Input from "@/components/common/Input/Input";
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { useUser } from "@/store";
+import { useGroup, useUser } from "@/store";
 import { useNavigate } from "react-router-dom";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 import { deleteUser } from "@/services/authService";
+import type { Tables } from "@/types/supabase";
+import { uploadImage } from "@/utils/supabase/storage";
 
 export default function MyPage() {
   const { id: userId } = useUser();
+  const { group } = useGroup();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -23,8 +26,6 @@ export default function MyPage() {
   const [account, setAccount] = useState("");
   const [depositor, setDepositor] = useState("");
 
-  const addToast = useToastStore((state) => state.addToast);
-
   const isValid =
     name.trim() &&
     tel.trim() &&
@@ -32,18 +33,16 @@ export default function MyPage() {
     account.trim() &&
     depositor.trim();
 
-  const [userInfo, setUserInfo] = useState<{
-    nickname: string;
-    email: string;
-  } | null>(null);
+  const [userInfo, setUserInfo] = useState<Tables<"users"> | null>(null);
 
+  const addToast = useToastStore((state) => state.addToast);
   useEffect(() => {
     if (!userId) return;
 
     const fetchUser = async () => {
       const { data, error } = await supabase
         .from("users")
-        .select("nickname, email, phone")
+        .select("*")
         .eq("id", userId)
         .single();
 
@@ -57,7 +56,23 @@ export default function MyPage() {
       setTel(data.phone ?? "");
     };
 
+    const fetchAccount = async () => {
+      const { data, error } = await supabase
+        .from("account_infos")
+        .select("*")
+        .eq("user_id", userId)
+        .eq("group_id", group?.id)
+        .maybeSingle();
+
+      if (error || !data) return;
+
+      setBank(data.bank_name ?? "");
+      setAccount(data.account_number ?? "");
+      setDepositor(data.account_holder ?? "");
+    };
+
     fetchUser();
+    fetchAccount();
   }, [userId]);
 
   const onClick = async () => {
@@ -133,8 +148,8 @@ export default function MyPage() {
 
         if (insertError) throw insertError;
       }
-      alert("저장되었습니다!");
-      navigate(-1);
+
+      addToast("저장되었습니다!", "", "success");
     } catch (err) {
       console.error(err);
       addToast("저장 중 오류가 발생했습니다.", "", "error");
@@ -170,12 +185,34 @@ export default function MyPage() {
     }
   };
 
+  const handleChangeProfile = async (file: File) => {
+    const imageUploadUrl = await uploadImage("images/profiles", file);
+    if (!imageUploadUrl) {
+      addToast("프로필 이미지 업로드 중 오류가 발생했습니다.", "", "error");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("users")
+      .update({
+        profile: imageUploadUrl,
+      })
+      .eq("id", userId);
+
+    if (error) throw error;
+    setUserInfo((prev) => (prev ? { ...prev, profile: imageUploadUrl } : null));
+    addToast("프로필 이미지가 변경되었습니다.", "", "success");
+  };
+
   return (
     <div className={styles.container}>
       <Header title="마이페이지" />
       <div className={styles.box}>
         <div className={styles.profile}>
-          <MyProfilePicture />
+          <MyProfilePicture
+            profile={userInfo?.profile ?? ""}
+            onChangeProfile={handleChangeProfile}
+          />
           <h3 className={styles.nick}>{userInfo?.nickname}</h3>
           <p className={styles.email}>{userInfo?.email}</p>
         </div>

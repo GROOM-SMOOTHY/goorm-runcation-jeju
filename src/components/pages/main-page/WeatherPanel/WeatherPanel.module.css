@@ -37,9 +37,15 @@
   font-weight: 700;
 }
 
-@media (min-width: 420px) {
+@media screen and (max-width: 480px) {
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+
   .container {
     padding: 12px;
+    align-items: center;
   }
 
   .description {

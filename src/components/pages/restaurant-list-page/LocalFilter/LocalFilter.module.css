@@ -1,5 +1,4 @@
-.FilterContainer {
-  display: flex;
+.FilterContainer {  display: flex;
   flex-wrap: nowrap;
   gap: 8px;
   width: 100%;
@@ -10,23 +9,25 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   flex-shrink: 0;
+  padding: 4px 0;
 }
 
 .FilterContainer::-webkit-scrollbar {
   display: none;
 }
 
+/* 기본 버튼 스타일 (비활성 상태) */
 .FilterButton {
   flex-shrink: 0;
   padding: 0 16px;
   border-radius: 20px;
   background-color: var(--bg-searchbar);
-  color: var(--text-secondary, #333);
-  border: 2px solid transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-main);
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   height: 44px;
   display: flex;
   align-items: center;
@@ -34,23 +35,35 @@
   gap: 6px;
 }
 
-.FilterButton:hover,
+/* 마우스 호버 효과 (비활성 버튼에만 적용) */
+.FilterButton:not(.Active):not(.FavoriteActive):hover {
+  background-color: var(--border-light);
+  color: var(--text-primary);
+}
+
+/* [전체 및 일반 지역 버튼] 활성화 상태 */
+.Active {
+  background-color: var(--brand-primary) !important; /* #ff8800 */
+  border-color: var(--brand-primary) !important;
+  color: var(--text-white) !important;
+  font-weight: bold;
+}
+
+/* [좋아요 버튼] 활성화 상태 - 오렌지 연한 배경 + 브랜드 컬러 텍스트 */
 .FavoriteActive {
-  background-color: var(--badge-bg-orange);
-  border-color: var(--brand-primary);
-  color: var(--brand-primary);
+  background-color: var(--badge-bg-orange) !important; /* #fff7ed */
+  border-color: var(--brand-primary) !important;
+  color: var(--brand-primary) !important;
   font-weight: bold;
 }
 
-.Active,
+/* 좋아요 버튼 전용 호버 (비활성 상태일 때) */
+.FavoriteButton:not(.FavoriteActive):hover {
+  background-color: var(--bg-brand-primary-transparent);
+  color: var(--brand-primary);
+}
+
+/* 전체 버튼은 기본 버튼 스타일을 따르되, 테두리만 살짝 명확히 (선택 사항) */
 .AllButton {
-  background-color: var(--brand-primary);
-  border-color: var(--brand-primary);
-  color: var(--bg-white);
-  font-weight: bold;
-}
-
-.AllButton:hover {
-  background-color: var(--badge-bg-orange);
-  color: var(--brand-primary);
+  border-color: var(--border-main);
 }

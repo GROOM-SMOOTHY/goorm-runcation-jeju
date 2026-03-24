@@ -18,6 +18,8 @@ export default function SignUp() {
     setPassword,
     isAgreed,
     setIsAgreed,
+    isLoading,
+    setIsLoading,
   } = useSignUp();
 
   const navigate = useNavigate();
@@ -51,14 +53,17 @@ export default function SignUp() {
       return;
     }
 
+    setIsLoading(true);
     const { error } = await supabase.auth.signInWithOtp({ email });
 
     if (error) {
       addToast(error.message, "", "error");
+      setIsLoading(false);
       return;
     }
 
     addToast("인증코드를 이메일로 전송했습니다", "", "success");
+    setIsLoading(false);
 
     navigate("/authentication", {
       state: { email, name, phone, password },
@@ -69,7 +74,7 @@ export default function SignUp() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.up}>
-          <img src="/src/assets/LoginLogo.webp" className={styles.logo} />
+          <img src="/images/LoginLogo.webp" className={styles.logo} />
           <p className={styles.logoName}>SMOOTHY</p>
         </div>
         <div className={styles.down}>
@@ -93,7 +98,11 @@ export default function SignUp() {
         </label>
       </div>
       <div className={styles.footer}>
-        <Button type="button" onClick={handleEmailVerification}>
+        <Button
+          type="button"
+          onClick={handleEmailVerification}
+          loading={isLoading}
+        >
           인증하고 회원가입
         </Button>
 

@@ -92,6 +92,7 @@ export default function CodeInput({
             onPaste={handlePaste}
             className={style.OTPInput}
             maxLength={1}
+            data-length={length}
           />
         ))}
       </div>
