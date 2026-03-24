@@ -16,6 +16,7 @@ export default function Authentication() {
 
   const { email, name, phone, password } = location.state;
 
+  const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState("");
 
   const addToast = useToastStore((state) => state.addToast);
@@ -26,6 +27,7 @@ export default function Authentication() {
       return;
     }
 
+    setIsLoading(true);
     const { error } = await supabase.auth.verifyOtp({
       email,
       token: code,
@@ -34,6 +36,7 @@ export default function Authentication() {
 
     if (error) {
       addToast("인증코드가 올바르지 않습니다", "", "error");
+      setIsLoading(false);
       return;
     }
 
@@ -43,6 +46,7 @@ export default function Authentication() {
 
     if (pwError) {
       addToast(`비밀번호 설정 실패: ${pwError.message}`, "", "error");
+      setIsLoading(false);
       return;
     }
 
@@ -53,6 +57,7 @@ export default function Authentication() {
 
     if (userError || !user) {
       addToast("사용자 정보를 가져올 수 없습니다", "", "error");
+      setIsLoading(false);
       return;
     }
 
@@ -64,7 +69,7 @@ export default function Authentication() {
     });
 
     addToast("회원가입 완료", "", "success");
-
+    setIsLoading(false);
     navigate("/login", { replace: true });
   };
 
@@ -86,7 +91,7 @@ export default function Authentication() {
 
         <CodeInput value={code} onChange={setCode} length={8} />
 
-        <Button type="button" onClick={handleVerify}>
+        <Button type="button" onClick={handleVerify} loading={isLoading}>
           인증 완료
         </Button>
       </div>

@@ -3,6 +3,8 @@
   gap: 12px;
   padding: 12px;
   min-width: 250px;
+  max-width: 380px;
+  max-height: 120px;
   border-radius: 16px;
   background-color: var(--bg-white);
   border: 1px solid var(--border-light);
@@ -59,6 +61,25 @@
   color: var(--badge-label-emerald);
 }
 
+.FRONTEND {
+  background-color: var(--badge-bg-emerald);
+  color: var(--badge-label-emerald);
+}
+
+.BACKEND {
+  background-color: var(--badge-bg-blue);
+  color: var(--badge-label-blue);
+}
+
+.DESIGN {
+  background-color: var(--badge-bg-purple);
+  color: var(--badge-label-purple);
+}
+
+.AI {
+  background-color: var(--badge-bg-orange);
+  color: var(--badge-label-orange);
+}
 .description {
   font-size: 14px;
   font-weight: 400;
@@ -66,4 +87,11 @@
   color: var(--text-secondary);
   margin: 0;
   white-space: pre-line;
+
+  overflow: auto;
+  height: 62px;
+}
+
+.description::-webkit-scrollbar {
+  display: none;
 }

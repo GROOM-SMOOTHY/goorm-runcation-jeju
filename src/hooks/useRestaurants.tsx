@@ -89,7 +89,7 @@ async function uploadImageToStorage(
   }
 }
 
-export function useRestaurants(selectedRegion: string, searchKeyword: string) {
+export function useRestaurants(selectedRegion: string) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -121,9 +121,6 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
         if (selectedRegion && selectedRegion !== "전체") {
           query = query.ilike("formatted_address", `%${selectedRegion}%`);
         }
-        if (searchKeyword) {
-          query = query.ilike("name", `%${searchKeyword}%`);
-        }
 
         const { data: dbRows, error: dbError } = await query;
         if (cancelled) return;
@@ -145,7 +142,7 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
             ? "제주도"
             : `제주도 ${selectedRegion}`;
 
-        const keywords = searchKeyword ? [searchKeyword] : SEARCH_KEYWORDS;
+        const keywords = SEARCH_KEYWORDS;
         const allPlaces: google.maps.places.Place[] = [];
 
         for (const keyword of keywords) {
@@ -227,7 +224,7 @@ export function useRestaurants(selectedRegion: string, searchKeyword: string) {
 
     run();
     return () => { cancelled = true; };
-  }, [isLoaded, selectedRegion, searchKeyword]);
+  }, [isLoaded, selectedRegion]);
 
   return { stores, setStores, isLoading };
 }

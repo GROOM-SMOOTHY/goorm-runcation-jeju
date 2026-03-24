@@ -12,6 +12,7 @@ import { supabase } from "@/lib/supabase";
 export default function PasswordPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const addToast = useToastStore((state) => state.addToast);
   const navigate = useNavigate();
@@ -32,15 +33,18 @@ export default function PasswordPage() {
       return;
     }
 
+    setIsLoading(true);
     const { error } = await supabase.auth.updateUser({
       password,
     });
 
     if (error) {
       addToast("비밀번호 변경 실패", "", "error");
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(false);
     addToast("비밀번호가 변경되었습니다", "", "success");
     navigate(-1);
   };
@@ -81,6 +85,7 @@ export default function PasswordPage() {
             type="button"
             variant="default"
             onClick={handleChangePassword}
+            loading={isLoading}
           >
             비밀번호 변경
           </Button>

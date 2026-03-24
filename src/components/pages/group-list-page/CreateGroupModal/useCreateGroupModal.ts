@@ -6,9 +6,10 @@ import {
 } from "@/services/groupService";
 import { useUser } from "@/store/useUser";
 import generateUniqueGroupCode from "@/utils/generateUniqueGroupCode";
-import type { Database } from "@/types/supabase";
+import type { Database, Tables } from "@/types/supabase";
 import { useToastStore } from "@/components/common/Toast/ToastStore";
 import { useNavigate } from "react-router-dom";
+import { useGroup } from "@/store";
 
 export type Steps = "group-info-form" | "success";
 
@@ -34,8 +35,12 @@ export default function useCreateGroupModal(
   const [createdGroupCode, setCreatedGroupCode] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [createdGroupId, setCreatedGroupId] = useState<string | null>(null);
+  const [createdGroup, setCratedGroup] = useState<Tables<"groups"> | null>(
+    null,
+  );
 
   const { id: userId } = useUser((s) => s);
+  const { setGroup } = useGroup((s) => s);
 
   const addToast = useToastStore((state) => state.addToast);
 
@@ -73,6 +78,7 @@ export default function useCreateGroupModal(
         code,
         creator_id: userId,
       });
+      setCratedGroup(group);
       setCreatedGroupId(group.id);
 
       try {
@@ -109,6 +115,7 @@ export default function useCreateGroupModal(
       onClose();
 
       if (createdGroupId) {
+        setGroup(createdGroup);
         navigate(`/main`);
       }
     }

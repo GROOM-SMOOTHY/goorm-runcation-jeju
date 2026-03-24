@@ -6,8 +6,14 @@ import { useToastStore } from "@/components/common/Toast/ToastStore";
 const DEFAULT_PROFILE_IMAGE =
   "https://upload.wikimedia.org/wikipedia/commons/0/03/Twitter_default_profile_400x400.png";
 
-export default function MyProfilePicture() {
-  const [upload, setUpload] = useState<string | null>(null);
+export default function MyProfilePicture({
+  profile,
+  onChangeProfile,
+}: {
+  profile?: string | null;
+  onChangeProfile: (file: File) => void;
+}) {
+  const [upload, setUpload] = useState<string | null>(profile ?? null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const addToast = useToastStore((state) => state.addToast);
@@ -28,6 +34,7 @@ export default function MyProfilePicture() {
 
     const previewUrl = URL.createObjectURL(file);
     setUpload(previewUrl);
+    onChangeProfile(file);
   };
 
   const onCircleClick = () => {
@@ -41,6 +48,16 @@ export default function MyProfilePicture() {
       }
     };
   }, [upload]);
+
+  useEffect(() => {
+    if (profile) {
+      const image = new Image();
+      image.src = profile;
+      image.onload = () => {
+        setUpload(image.src);
+      };
+    }
+  }, [profile]);
 
   return (
     <div className={styles.container}>
