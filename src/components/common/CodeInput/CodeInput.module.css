@@ -1,9 +1,6 @@
-/* 컨테이너 */
 .OTPcontener {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 12px;
   width: 100%;
 }
@@ -20,7 +17,6 @@
 .labelContener {
   display: flex;
   width: 100%;
-  justify-content: flex-start;
 }
 
 .label {
@@ -29,13 +25,13 @@
   color: var(--bg-dark);
 }
 
-.OTPRoot {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.OTPGroup {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
 }
 
-/* 입력창 */
 .OTPInput {
   all: unset;
   box-sizing: border-box;
@@ -46,14 +42,13 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   text-align: center;
 
   border-radius: 25%;
   background-color: var(--bg-white);
   border: 2px solid var(--bg-searchbar);
-
-  font-size: 24px;
+  font-size: clamp(16px, 3vw, 24px);
   font-weight: bold;
   color: var(--text-primary);
   transition: all 0.2s ease;
@@ -70,11 +65,12 @@
   outline: none;
 }
 
-@media (max-width: 448px) {
+@media (max-width: 480px) {
+  .OTPGroup {
+    gap: 6px;
+  }
+
   .OTPInput {
-    width: 42px;
-    height: 42px;
-    font-size: 16px;
     border-radius: 12px;
   }
 }

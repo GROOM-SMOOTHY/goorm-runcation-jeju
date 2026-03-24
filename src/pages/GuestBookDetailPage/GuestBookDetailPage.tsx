@@ -51,6 +51,7 @@ export default function GuestBookDetailPage() {
   const authorName = post.author?.nickname ?? "익명";
   const course = post.group?.course ?? "FRONTEND";
   const generation = post.group?.batch ?? 0;
+
   const createdAt = post.created_at
     ? format(new Date(post.created_at), "yyyy년 M월 d일", { locale: ko })
     : "";
@@ -59,7 +60,12 @@ export default function GuestBookDetailPage() {
     <div className={styles.page}>
       <Header title="방명록 상세" onBack={() => navigate(-1)} />
 
-      <main className={styles.container}>
+      <main
+        className={styles.container}
+        tabIndex={0}
+        role="region"
+        aria-label="방명록 상세 콘텐츠"
+      >
         <section
           className={styles.hero}
           style={{
@@ -67,10 +73,12 @@ export default function GuestBookDetailPage() {
           }}
         >
           <div className={styles.heroOverlay} />
+
           <div className={styles.heroMeta}>
             <span className={styles.badge}>
               {getCourseName(course)} {generation}기
             </span>
+
             {createdAt && <span className={styles.date}>{createdAt}</span>}
           </div>
         </section>
@@ -79,12 +87,14 @@ export default function GuestBookDetailPage() {
           <div className={styles.authorRow}>
             <h2 className={styles.authorName}>{authorName}님</h2>
           </div>
+
           <p className={styles.text}>{post.content}</p>
         </section>
 
         {post.photos.length > 1 && (
           <section className={styles.gallery}>
             <h3 className={styles.galleryTitle}>사진</h3>
+
             <div className={styles.galleryGrid}>
               {post.photos.map((photo) => (
                 <div key={photo.id} className={styles.galleryItem}>
