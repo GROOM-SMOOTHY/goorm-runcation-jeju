@@ -1,4 +1,9 @@
-<div align="center"><img src="./src/assets/readme/main.webp" alt="JEJU SMOOTHY 배너" width="100%"/><br/># 🍹 JEJU SMOOTHY**"복잡한 정산은 깔끔하게, 제주 탐방은 스마트하게"**
+<div align="center"><img src="./src/assets/readme/main.webp" alt="JEJU SMOOTHY 배너" width="100%"/><br/>
+
+# 🍹 JEJU SMOOTHY\*\*
+
+"복잡한 정산은 깔끔하게, 제주 탐방은 스마트하게"\*\*
+
 구름 런케이션 수강생들의 몰입을 방해하는 불편함을 기술로 해결하는 **올인원 라이프 케어 솔루션**
 
 <br/>
