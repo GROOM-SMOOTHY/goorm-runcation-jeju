@@ -1,8 +1,4 @@
-<div align="center"><img src="./src/assets/readme/main.webp" alt="JEJU SMOOTHY 배너" width="100%"/>
-
-<br/>
-
-# 🍹 JEJU SMOOTHY
+<div align="center"><img src="./src/assets/readme/main.webp" alt="JEJU SMOOTHY 배너" width="100%"/><br/># 🍹 JEJU SMOOTHY
 
 **"복잡한 정산은 깔끔하게, 제주 탐방은 스마트하게"**
 
@@ -11,10 +7,11 @@
 <br/>
 
 [![배포 링크](https://img.shields.io/badge/🌐_Live_Demo-goorm--runcation--jeju.vercel.app-4FC3F7?style=for-the-badge)](https://goorm-runcation-jeju.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-14.x-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Firebase](https://img.shields.io/badge/Firebase-10.x-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![Vite](https://img.shields.io/badge/Vite-7.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 </div>
 
