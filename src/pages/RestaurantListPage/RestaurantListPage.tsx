@@ -1,5 +1,4 @@
-import { useState, useRef, useCallback, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";import { useNavigate } from "react-router-dom";
 import { FaArrowUp } from "react-icons/fa";
 
 import Header from "@/components/layout/Header/Header";
@@ -33,7 +32,7 @@ export default function RestaurantListPage() {
   const navigate = useNavigate();
   const mainRef = useRef<HTMLElement>(null);
 
-  const [selectedRegion, setSelectedRegion] = useState("전체");
+  const [selectedRegion, setSelectedRegion] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
